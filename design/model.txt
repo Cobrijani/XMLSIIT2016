@@ -1,0 +1,213 @@
+@startuml
+
+title Classes - Class Diagram
+
+abstract class BaseEntity{
+    + override toString()
+}
+
+abstract class AuditingEntity{
+    - createdBy: User
+    - created: ZonedDateTime
+    - lastModifiedBy: User
+    - lastModified: ZonedDateTime
+    - isDeleted: boolean
+
+}
+
+BaseEntity <|-- AuditingEntity
+
+
+class User{
+  - id : Long
+  - username : String
+  - password : String
+  - isEnabled : boolean
+  - lastPasswordReset: ZonedDateTime
+}
+
+class Authority{
+    id:Long
+    name: string
+}
+
+User "*"<-->"*" Authority
+
+BaseEntity <|-- User
+
+abstract class Advertiser{
+    - id: long
+
+}
+
+class CompanyAdvertiser
+class PrivateAdvertiser
+
+Advertiser <|-- CompanyAdvertiser
+Advertiser <|-- PrivateAdvertiser
+
+abstract class Advert{
+    - id: Long
+    - title: String
+    - imgName: String
+    - description: String
+    + getImagePath(): String
+}
+
+AuditingEntity <|-- Advert
+
+class PersonalAdvert
+Advert <|-- PersonalAdvert
+PersonalAdvert "*" <--> "1" PrivateAdvertiser
+
+class CompanyAdvert
+Advert <|-- CompanyAdvert
+CompanyAdvert "*" <--> "1" CompanyAdvertiser
+CompanyAdvert "*" <--> "1" Company
+
+
+class Membership{
+    - id: long
+    - joined: ZonedDateTime
+    - acceptedBy: User
+    - roles: List<CompanyRoles>
+}
+
+CompanyAdvertiser "1" <--> "1" Membership
+Membership "*" <--> "1" Company
+
+enum CompanyRoles{
+    OWNER
+    AGENT
+    MEMBER
+}
+
+
+abstract class RealEstate{
+    - id: Long
+    - addressLongtitude: Long
+    - addressLatitude: Long
+    - addressNumber: String
+    - squareFeet: double
+    - imageNames: List<String>
+    - publicTransports: List<PublicTransport>
+    -
+}
+
+AuditingEntity <|-- RealEstate
+
+
+abstract class ResidentalBuilding{
+    - type: String
+    - rooms: int
+    - bathrooms: int
+}
+ResidentalBuilding --|> Facility
+
+enum HeatingType{
+
+}
+
+class House {
+    - yardSquareFeet: double
+    - floors: int
+}
+House --|> ResidentalBuilding
+
+class Apartment{
+    - floor: int
+    - floorsInTotal: int
+    - apartmentNumber: String
+}
+Apartment --|> ResidentalBuilding
+
+class Room{
+    - furniture: List<String>
+}
+Room --|> ResidentalBuilding
+
+abstract class Facility{
+    - yearBuilt: ZonedDate
+    - technicalEquipment: List<TechnicalEquipment>
+    - customTechnicalEquipment: List<String>
+    - heatingTypes :List<HeatingType>
+    - customHeatingTypes :List<String>
+}
+enum TechnicalEquipment{
+    INTERNET,
+    TELEPHONE
+}
+
+Facility --|> RealEstate
+
+class BusinessFacility{
+    - type: BusinessFacilityType
+}
+BusinessFacility --|> Facility
+enum BusinessFacilityType{
+    WAREHOUSE
+    GARAGE
+    SPORT_FACILITY
+    PREMISES
+    CATERING_FACILITY
+    MANUFACTURING_FACILITY
+}
+
+
+class Property{
+    - propertyType: PropertyType
+}
+Property --|> RealEstate
+enum PropertyType{
+    BUILDING_PROPERTY
+    AGRICULTURAL_PROPERTY
+}
+
+enum PublicTransport{
+    BUS
+    TROLLEY
+    TRAIN
+    FERRY
+    TRAM
+    LIGHTRAIL
+}
+
+Advert "1" <--> "1" RealEstate
+
+
+User "1"<-->"1" Advertiser
+
+
+
+class Company{
+ - long : id
+ - name : String
+ - addressLatitude : long
+ - addressLongitude : long
+ - logo : String
+ - phoneNumbers : List<String>
+}
+
+abstract class AdvertDetails{
+ - id: long
+ - advertType: String
+}
+
+Advert <--> AdvertDetails
+
+class SaleAdvertDetails{
+    - price: BigDecimal
+
+}
+
+class RentAdvertDetails{
+    - period: Period
+    - rent: BigDecimal
+}
+
+AdvertDetails <|-- SaleAdvertDetails
+AdvertDetails <|-- RentAdvertDetails
+
+
+
+@enduml

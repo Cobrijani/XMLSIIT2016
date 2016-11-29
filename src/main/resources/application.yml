@@ -1,0 +1,21 @@
+security:
+  basic:
+    enabled: false
+spring:
+  profiles:
+    active:
+  application:
+    name: XML SIIT
+server:
+  port: 8080
+
+# Application specific properties
+xmlsiit-app:
+  security:
+    token: "X-Auth-Token"
+    secret: "my-very-little-secret"
+
+
+
+
+
