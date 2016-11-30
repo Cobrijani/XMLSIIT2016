@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import rs.ac.uns.ftn.security.jwt.TokenProvider;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
+import java.util.logging.Logger;
 
 /**
  * Class response for authenticating users
@@ -27,7 +29,8 @@ import java.util.Collections;
  */
 @RestController
 @RequestMapping(path = "/api")
-public class UserController {
+@Slf4j
+public class UserJWTController {
 
   private final TokenProvider tokenProvider;
 
@@ -35,8 +38,9 @@ public class UserController {
 
   private final XMLSIITProperties XMLSIITProperties;
 
+
   @Autowired
-  public UserController(TokenProvider tokenProvider, AuthenticationManager authenticationManager, UserDetailsService userDetailsService, XMLSIITProperties XMLSIITProperties) {
+  public UserJWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager, UserDetailsService userDetailsService, XMLSIITProperties XMLSIITProperties, Logger logger) {
     this.tokenProvider = tokenProvider;
     this.authenticationManager = authenticationManager;
     this.XMLSIITProperties = XMLSIITProperties;
@@ -57,6 +61,7 @@ public class UserController {
       return ResponseEntity.ok(new JWTToken(jwtToken));
 
     } catch (AuthenticationException e) {
+      log.error(e.toString());
       return new ResponseEntity<>(Collections.singletonMap("Authentication exception", e.getLocalizedMessage()), HttpStatus.UNAUTHORIZED);
     }
   }

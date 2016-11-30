@@ -7,6 +7,7 @@ import rs.ac.uns.ftn.model.Authority;
 import java.util.Optional;
 
 /**
+ * Authorities that exists in system
  * Created by SBratic on 11/3/2016.
  */
 @Repository

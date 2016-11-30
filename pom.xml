@@ -32,9 +32,16 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
     <yeoman-maven-plugin.version>0.5</yeoman-maven-plugin.version>
+    <marklogic-java-client.version>3.0.6</marklogic-java-client.version>
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>com.marklogic</groupId>
+      <artifactId>java-client-api</artifactId>
+      <version>${marklogic-java-client.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>

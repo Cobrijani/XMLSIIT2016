@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import rs.ac.uns.ftn.model.Authority;
 import rs.ac.uns.ftn.model.User;
+import rs.ac.uns.ftn.properties.MarkLogicProperties;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.repositories.AuthorityRepository;
 import rs.ac.uns.ftn.repositories.UserRepository;
@@ -21,7 +22,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@EnableConfigurationProperties({XMLSIITProperties.class})
+@EnableConfigurationProperties({XMLSIITProperties.class, MarkLogicProperties.class})
 public class XMLSIITApplication {
 
   private static final Logger log = LoggerFactory.getLogger(XMLSIITApplication.class);
