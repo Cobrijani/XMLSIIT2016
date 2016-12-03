@@ -13,7 +13,7 @@ import javax.xml.bind.JAXBException;
  */
 @Slf4j
 @UtilityClass
-public class JaxbUtil {
+public class XMLUtil {
 
   /**
    * Creataes {@link JAXBHandle} for given class
@@ -29,5 +29,9 @@ public class JaxbUtil {
       log.error(ex.toString());
       throw new RuntimeException(ex.toString());
     }
+  }
+
+  public String getDocumentId(String format, String id) {
+    return String.format(format, id);
   }
 }
