@@ -25,7 +25,4 @@ public class Authority extends BaseEntity {
   @Column(name = "name", unique = true, nullable = false)
   private String name;
 
-  @ManyToMany(mappedBy = "authorities")
-  private List<User> users;
-
 }
