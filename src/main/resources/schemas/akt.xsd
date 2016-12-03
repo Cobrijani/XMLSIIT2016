@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://parlament.gov.rs/akt" xmlns="http://parlament.gov.rs/akt">
+
+    <xs:element name="clan">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="opis" type="xs:string"/>
+                <xs:element name="sadrzaj">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" ref="stav"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attributeGroup ref="prosireniUobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="akt">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="deo"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="uobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="2" ref="glava"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="prosireniUobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="glava">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="odeljak" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="prosireniUobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="odeljak">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element maxOccurs="unbounded" ref="pododeljak"/>
+                <xs:element maxOccurs="unbounded" ref="clan"/>
+            </xs:choice>
+            <xs:attributeGroup ref="prosireniUobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pododeljak">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="clan"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="prosireniUobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="stav">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="referenca"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tacka"/>
+            </xs:sequence>
+            <xs:attribute ref="id"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tacka">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="referenca"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="potacka"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="uobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="potacka">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="alineja"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="uobicajeniAtributi"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="referenca">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute ref="idRef"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="alineja">
+        <xs:complexType mixed="true">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="referenca"/>
+            </xs:sequence>
+            <xs:attribute ref="id"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="uobicajeniAtributi">
+        <xs:attribute name="naziv" type="xs:string"/>
+        <xs:attribute ref="id"/>
+    </xs:attributeGroup>
+    <xs:attributeGroup name="prosireniUobicajeniAtributi">
+        <xs:attributeGroup ref="uobicajeniAtributi"/>
+        <xs:attribute name="redniBroj" type="xs:string"/>
+    </xs:attributeGroup>
+    <xs:attribute name="idRef" type="xs:string"/>
+    <xs:attribute name="id" type="xs:string"/>
+</xs:schema>
