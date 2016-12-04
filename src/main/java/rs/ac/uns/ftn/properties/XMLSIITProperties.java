@@ -1,20 +1,25 @@
 package rs.ac.uns.ftn.properties;
 
 /**
+ * Application related properties
  * Created by SBratic on 10/27/2016.
  */
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+@Getter
+@Setter
 @ConfigurationProperties(value = "xmlsiit-app", ignoreUnknownFields = false)
 public class XMLSIITProperties {
 
   private final Security security = new Security();
 
-  public Security getSecurity() {
-    return security;
-  }
+  private final AktProperties aktProperties = new AktProperties();
 
+  @Getter
+  @Setter
   public static class Security {
 
     private String token = "X-Auth-Token";
@@ -24,37 +29,13 @@ public class XMLSIITProperties {
     private long tokenValidityInSeconds = 1800;
 
     private long tokenValidityInSecondsForRememberMe = 2592000;
+  }
 
-    public String getToken() {
-      return token;
-    }
+  @Getter
+  @Setter
+  public static class AktProperties{
 
-    public void setToken(String token) {
-      this.token = token;
-    }
+    private String actUri = "/api/v1/aktovi/{id}.xml";
 
-    public String getSecret() {
-      return secret;
-    }
-
-    public void setSecret(String secret) {
-      this.secret = secret;
-    }
-
-    public long getTokenValidityInSeconds() {
-      return tokenValidityInSeconds;
-    }
-
-    public void setTokenValidityInSeconds(long tokenValidityInSeconds) {
-      this.tokenValidityInSeconds = tokenValidityInSeconds;
-    }
-
-    public long getTokenValidityInSecondsForRememberMe() {
-      return tokenValidityInSecondsForRememberMe;
-    }
-
-    public void setTokenValidityInSecondsForRememberMe(long tokenValidityInSecondsForRememberMe) {
-      this.tokenValidityInSecondsForRememberMe = tokenValidityInSecondsForRememberMe;
-    }
   }
 }

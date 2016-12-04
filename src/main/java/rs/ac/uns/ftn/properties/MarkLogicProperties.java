@@ -16,6 +16,9 @@ public class MarkLogicProperties {
 
   private Connectivity connectivity = new Connectivity();
 
+  /**
+   * Properties related to connectivity to Marklogic database
+   */
   @Getter
   @Setter
   public static class Connectivity {

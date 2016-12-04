@@ -30,20 +30,20 @@ public class User extends BaseEntity {
   @Column(name = "username", unique = true, nullable = false)
   private String username;
 
-  @Column(name = "password", unique = false, nullable = false)
+  @Column(name = "password", nullable = false)
   private String password;
 
-  @Column(name = "email", unique = false, nullable = false)
+  @Column(name = "email", nullable = false)
   private String email;
 
-  @Column(name = "last_password_reset", unique = false, nullable = true)
+  @Column(name = "last_password_reset")
   private ZonedDateTime lastPasswordReset;
 
   @ManyToMany(cascade = {ALL}, fetch = LAZY)
   @JoinTable(name = "assigned_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
   private Set<Authority> authorities = new HashSet<>();
 
-  @Column(name = "is_enabled", unique = false, nullable = false)
+  @Column(name = "is_enabled", nullable = false)
   private boolean isEnabled;
 
 }
