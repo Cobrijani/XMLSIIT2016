@@ -42,4 +42,5 @@ public class MarklogicConfiguration {
   public QueryManager queryManager() {
     return databaseClient().newQueryManager();
   }
+
 }

@@ -21,7 +21,7 @@ public class XMLUtil {
    * @param clazz class to be entered
    * @return instance of new {@link JAXBHandle}
    */
-  public JAXBHandle getJaxbHandle(Class clazz) {
+  public static JAXBHandle getJaxbHandle(Class clazz) {
     try {
       JAXBContext context = JAXBContext.newInstance(clazz);
       return new JAXBHandle(context);
@@ -31,7 +31,7 @@ public class XMLUtil {
     }
   }
 
-  public String getDocumentId(String format, String id) {
+  public static String getDocumentId(String format, String id) {
     return String.format(format, id);
   }
 }

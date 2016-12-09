@@ -78,12 +78,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .apply(csrfConfigurer())
       .and()
       .csrf()
-      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+    .disable()
+      /*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
       .and()
       .authorizeRequests()
       .antMatchers("/").permitAll()
       .antMatchers("/api/authenticate").permitAll()
-      .anyRequest().authenticated();
+      .anyRequest().authenticated()*/;
 
 
   }

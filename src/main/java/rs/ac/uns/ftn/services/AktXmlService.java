@@ -1,11 +1,11 @@
 package rs.ac.uns.ftn.services;
 
-import com.marklogic.client.Page;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
 import com.marklogic.client.query.QueryManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.model.xml.Akt;
@@ -18,7 +18,8 @@ import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
  * Service for handling XML documents for {@link rs.ac.uns.ftn.model.xml.Akt}
  * Created by SBratic on 12/3/2016.
  */
-@Service("aktXmlService")
+@Service
+//@Component
 public class AktXmlService {
 
   private final XMLDocumentManager documentManager;
@@ -37,12 +38,22 @@ public class AktXmlService {
   }
 
 
-  public Akt findById(String id) {
-    throw new NotImplementedException();
+
+
+
+  public Akt findById(String id){
+    DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
+    documentMetadataHandle.getCollections().add(AKT_REF);
+
+    JAXBHandle<Akt> handle = getJaxbHandle(Akt.class);
+    documentManager.read(getDocumentId(AKT_FORMAT, id), documentMetadataHandle, handle);
+
+    Akt akt = handle.get();
+    return akt;
   }
 
   public void removeById(String id) {
-    throw new NotImplementedException();
+    documentManager.delete(getDocumentId(AKT_FORMAT, id));
   }
 
   public Page<Akt> findAll(Pageable pageable) {
@@ -52,6 +63,7 @@ public class AktXmlService {
   }
 
   public void add(Akt akt) {
+    akt.setId("a");
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
 
