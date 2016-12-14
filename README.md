@@ -1,5 +1,8 @@
 # XML SIIT
 
+## Schema for RDF results:
+https://www.w3.org/2007/SPARQL/
+
 ## Prerequisites
 
 1. Install [Node.js](http://nodejs.org)
