@@ -26,9 +26,9 @@ public class AktXmlService {
 
   private final QueryManager queryManager;
 
-  private final String AKT_REF = "/akt.xml";
+  private static final String AKT_REF = "/akt.xml";
 
-  private final String AKT_FORMAT = "/aktovi/%s.xml";
+  private static final String AKT_FORMAT = "/aktovi/%s.xml";
 
 
   @Autowired
@@ -45,8 +45,7 @@ public class AktXmlService {
     JAXBHandle<Akt> handle = getJaxbHandle(Akt.class);
     documentManager.read(getDocumentId(AKT_FORMAT, id), documentMetadataHandle, handle);
 
-    Akt akt = handle.get();
-    return akt;
+    return handle.get();
   }
 
   public void removeById(String id) {
@@ -64,7 +63,7 @@ public class AktXmlService {
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
 
-    JAXBHandle handle = getJaxbHandle(Akt.class);
+    JAXBHandle<Akt> handle = getJaxbHandle(Akt.class);
     handle.set(akt);
     documentManager.write(getDocumentId(AKT_FORMAT, akt.getId()), documentMetadataHandle, handle);
   }

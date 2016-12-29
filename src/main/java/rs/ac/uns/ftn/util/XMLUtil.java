@@ -16,15 +16,15 @@ import javax.xml.bind.JAXBException;
 public class XMLUtil {
 
   /**
-   * Creataes {@link JAXBHandle} for given class
+   * Creates {@link JAXBHandle} for given class
    *
    * @param clazz class to be entered
    * @return instance of new {@link JAXBHandle}
    */
-  public static JAXBHandle getJaxbHandle(Class clazz) {
+  public static <T> JAXBHandle<T> getJaxbHandle(Class<T> clazz) {
     try {
       JAXBContext context = JAXBContext.newInstance(clazz);
-      return new JAXBHandle(context);
+      return new JAXBHandle<>(context);
     } catch (JAXBException ex) {
       log.error(ex.toString());
       throw new RuntimeException(ex.toString());
