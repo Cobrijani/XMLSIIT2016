@@ -16,6 +16,7 @@ import java.util.Collection;
 public class SecurityUtils {
 
   private SecurityUtils() {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -46,12 +47,8 @@ public class SecurityUtils {
   public static boolean isAuthenticated() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
-    if (authorities != null) {
-      if (authorities.stream().anyMatch(x -> x.getAuthority().equals(AuthoritiesConstants.ANONYMOUS))) {
-        return false;
-      }
-    }
-    return true;
+
+    return !(authorities != null && authorities.stream().anyMatch(x -> x.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)));
   }
 
   /**
@@ -65,11 +62,9 @@ public class SecurityUtils {
   public static boolean isCurrentUserInRole(String authority) {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
-    if (authentication != null) {
-      if (authentication.getPrincipal() instanceof UserDetails) {
-        UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
-        return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority(authority));
-      }
+    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+      UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+      return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority(authority));
     }
     return false;
   }

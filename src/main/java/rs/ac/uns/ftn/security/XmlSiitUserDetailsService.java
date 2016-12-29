@@ -15,12 +15,12 @@ import java.util.Optional;
  * Created by SBratic on 10/27/2016.
  */
 @Service
-public class RealEstateUserDetailsService implements UserDetailsService {
+public class XmlSiitUserDetailsService implements UserDetailsService {
 
   private final UserRepository userRepository;
 
   @Autowired
-  public RealEstateUserDetailsService(UserRepository userRepository) {
+  public XmlSiitUserDetailsService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 

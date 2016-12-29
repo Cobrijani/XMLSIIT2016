@@ -13,10 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.security.Http401UnauthorizedEntryPoint;
-import rs.ac.uns.ftn.security.RealEstateUserDetailsService;
+import rs.ac.uns.ftn.security.XmlSiitUserDetailsService;
 import rs.ac.uns.ftn.security.csrf.CSRFConfigurer;
 import rs.ac.uns.ftn.security.jwt.JWTConfigurer;
 import rs.ac.uns.ftn.security.jwt.TokenProvider;
@@ -31,7 +30,7 @@ import rs.ac.uns.ftn.security.jwt.TokenProvider;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-  private final RealEstateUserDetailsService realEstateUserDetailsService;
+  private final XmlSiitUserDetailsService xmlSiitUserDetailsService;
 
   private final TokenProvider tokenProvider;
 
@@ -40,8 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private final XMLSIITProperties XMLSIITProperties;
 
   @Autowired
-  public SecurityConfiguration(RealEstateUserDetailsService realEstateUserDetailsService, TokenProvider tokenProvider, Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint, XMLSIITProperties XMLSIITProperties) {
-    this.realEstateUserDetailsService = realEstateUserDetailsService;
+  public SecurityConfiguration(XmlSiitUserDetailsService xmlSiitUserDetailsService, TokenProvider tokenProvider, Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint, XMLSIITProperties XMLSIITProperties) {
+    this.xmlSiitUserDetailsService = xmlSiitUserDetailsService;
     this.tokenProvider = tokenProvider;
     this.http401UnauthorizedEntryPoint = http401UnauthorizedEntryPoint;
     this.XMLSIITProperties = XMLSIITProperties;
@@ -51,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-      .userDetailsService(realEstateUserDetailsService)
+      .userDetailsService(xmlSiitUserDetailsService)
       .passwordEncoder(passwordEncoder());
   }
 
@@ -78,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .apply(csrfConfigurer())
       .and()
       .csrf()
-    .disable()
+      .disable()
       /*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
       .and()
       .authorizeRequests()
