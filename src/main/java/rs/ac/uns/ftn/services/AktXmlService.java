@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import rs.ac.uns.ftn.model.xml.Akt;
+import rs.ac.uns.ftn.model.akt.Akt;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static rs.ac.uns.ftn.util.XMLUtil.getDocumentId;
 import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
 
 /**
- * Service for handling XML documents for {@link rs.ac.uns.ftn.model.xml.Akt}
+ * Service for handling XML documents for {@link rs.ac.uns.ftn.model.akt.Akt}
  * Created by SBratic on 12/3/2016.
  */
 @Service
@@ -38,10 +38,7 @@ public class AktXmlService {
   }
 
 
-
-
-
-  public Akt findById(String id){
+  public Akt findById(String id) {
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
 

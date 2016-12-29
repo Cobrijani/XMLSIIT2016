@@ -10,12 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import rs.ac.uns.ftn.model.xml.Akt;
+import rs.ac.uns.ftn.model.akt.Akt;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktXmlService;
 
 /**
- * Controller that handles operations related to {@link rs.ac.uns.ftn.model.xml.Akt}
+ * Controller that handles operations related to {@link rs.ac.uns.ftn.model.akt.Akt}
  * Created by SBratic on 12/3/2016.
  */
 @Slf4j
@@ -34,13 +34,13 @@ public class AktController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<Akt>> findAll(Pageable pageable){
+  public ResponseEntity<Page<Akt>> findAll(Pageable pageable) {
     Page<Akt> akts = aktXmlService.findAll(pageable);
     return new ResponseEntity<>(akts, HttpStatus.OK);
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<Akt> getOne(@PathVariable String id){
+  public ResponseEntity<Akt> getOne(@PathVariable String id) {
     Akt akt = aktXmlService.findById(id);
     return new ResponseEntity<>(akt, HttpStatus.OK);
   }
@@ -58,7 +58,7 @@ public class AktController {
   }
 
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> deleteAkt(@PathVariable String id){
+  public ResponseEntity<Void> deleteAkt(@PathVariable String id) {
     aktXmlService.removeById(id);
     return new ResponseEntity<>(HttpStatus.OK);
   }
