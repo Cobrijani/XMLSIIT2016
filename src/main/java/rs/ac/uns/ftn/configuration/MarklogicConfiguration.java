@@ -4,6 +4,7 @@ import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.query.QueryManager;
+import com.marklogic.client.semantics.GraphManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,12 @@ public class MarklogicConfiguration {
   @Scope("prototype")
   public QueryManager queryManager() {
     return databaseClient().newQueryManager();
+  }
+
+  @Bean
+  @Scope("prototype")
+  public GraphManager graphManager() {
+    return databaseClient().newGraphManager();
   }
 
 }

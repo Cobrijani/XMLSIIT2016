@@ -1,0 +1,97 @@
+
+package rs.ac.uns.ftn.model.rdf;
+
+import javax.xml.bind.annotation.*;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * <p>
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;attribute name="datatype" type="{http://www.w3.org/2007/SPARQL/results#}URI-reference" />
+ *       &lt;attribute ref="{http://www.w3.org/XML/1998/namespace}lang"/>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+  "content"
+})
+@XmlRootElement(name = "literal", namespace = "http://www.w3.org/2007/SPARQL/results#")
+public class Literal {
+
+  @XmlValue
+  protected String content;
+  @XmlAttribute(name = "datatype")
+  protected String datatype;
+  @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
+  protected String lang;
+
+  /**
+   * Gets the value of the content property.
+   *
+   * @return possible object is
+   * {@link String }
+   */
+  public String getContent() {
+    return content;
+  }
+
+  /**
+   * Sets the value of the content property.
+   *
+   * @param value allowed object is
+   *              {@link String }
+   */
+  public void setContent(String value) {
+    this.content = value;
+  }
+
+  /**
+   * Gets the value of the datatype property.
+   *
+   * @return possible object is
+   * {@link String }
+   */
+  public String getDatatype() {
+    return datatype;
+  }
+
+  /**
+   * Sets the value of the datatype property.
+   *
+   * @param value allowed object is
+   *              {@link String }
+   */
+  public void setDatatype(String value) {
+    this.datatype = value;
+  }
+
+  /**
+   * Gets the value of the lang property.
+   *
+   * @return possible object is
+   * {@link String }
+   */
+  public String getLang() {
+    return lang;
+  }
+
+  /**
+   * Sets the value of the lang property.
+   *
+   * @param value allowed object is
+   *              {@link String }
+   */
+  public void setLang(String value) {
+    this.lang = value;
+  }
+
+}
