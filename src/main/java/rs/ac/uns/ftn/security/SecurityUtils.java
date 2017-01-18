@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import rs.ac.uns.ftn.security.model.KorisnikUserDetails;
 
 import java.util.Collection;
 
@@ -37,6 +38,21 @@ public class SecurityUtils {
       }
     }
     return userName;
+  }
+
+  public static String getCurrentUserId() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    Authentication authentication = securityContext.getAuthentication();
+    String id = null;
+    if (authentication != null) {
+      if (authentication.getPrincipal() instanceof KorisnikUserDetails) {
+        KorisnikUserDetails springSecurityUser = (KorisnikUserDetails) authentication.getPrincipal();
+        id = springSecurityUser.getKorisnik().getId();
+      } else if (authentication.getPrincipal() instanceof String) {
+        id = (String) authentication.getPrincipal();
+      }
+    }
+    return id;
   }
 
   /**

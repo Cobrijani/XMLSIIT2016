@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import rs.ac.uns.ftn.model.User;
-import rs.ac.uns.ftn.repositories.UserRepository;
-import rs.ac.uns.ftn.security.model.RealEstateUserDetails;
+import rs.ac.uns.ftn.model.korisnici.Korisnik;
+import rs.ac.uns.ftn.security.model.KorisnikUserDetails;
+import rs.ac.uns.ftn.services.KorisnikService;
 
 import java.util.Optional;
 
@@ -17,20 +17,20 @@ import java.util.Optional;
 @Service
 public class XmlSiitUserDetailsService implements UserDetailsService {
 
-  private final UserRepository userRepository;
+  private final KorisnikService korisnikService;
 
   @Autowired
-  public XmlSiitUserDetailsService(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public XmlSiitUserDetailsService(KorisnikService korisnikService) {
+    this.korisnikService = korisnikService;
   }
 
   @Override
   public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-    Optional<User> user = userRepository.findByUsername(s);
+    Optional<Korisnik> user = Optional.ofNullable(korisnikService.findByUsername(s));
 
     return user
-      .flatMap(x -> Optional.of(new RealEstateUserDetails(x)))
+      .map(KorisnikUserDetails::new)
       .orElseThrow(() ->
         new UsernameNotFoundException(String.format("User with username %s was not found", s)));
   }

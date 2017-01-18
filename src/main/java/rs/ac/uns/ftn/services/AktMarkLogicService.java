@@ -4,7 +4,6 @@ import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
 import com.marklogic.client.io.SearchHandle;
-import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
@@ -13,32 +12,33 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.model.akt.Akt;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static rs.ac.uns.ftn.util.XMLUtil.getDocumentId;
-import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
+import static rs.ac.uns.ftn.util.XMLUtil.*;
 
 /**
  * Service for handling XML documents for {@link rs.ac.uns.ftn.model.akt.Akt}
  * Created by SBratic on 12/3/2016.
  */
 @Service
-public class AktXmlService implements AktService {
-
-  private final XMLDocumentManager documentManager;
-
-  private final QueryManager queryManager;
+public class AktMarkLogicService implements AktService {
 
   private static final String AKT_REF = "/akt.xml";
 
   private static final String AKT_FORMAT = "/aktovi/%s.xml";
 
+  private final XMLDocumentManager documentManager;
+
+  private final QueryManager queryManager;
+
+  private final IdentifierGenerator identifierGenerator;
+
 
   @Autowired
-  public AktXmlService(XMLDocumentManager documentManager, QueryManager queryManager) {
+  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
+    this.identifierGenerator = identifierGenerator;
   }
 
 
@@ -66,26 +66,13 @@ public class AktXmlService implements AktService {
     SearchHandle searchHandle = new SearchHandle();
     queryManager.search(definition, searchHandle);
 
-    return convert(searchHandle);
+    return convertSearchHandle(searchHandle, documentManager, Akt.class);
   }
 
-
-  private List<Akt> convert(SearchHandle searchHandle) {
-    List<Akt> retVal = new ArrayList<>();
-
-    for (MatchDocumentSummary summary : searchHandle.getMatchResults()) {
-      JAXBHandle<Akt> contentHandle = getJaxbHandle(Akt.class);
-
-      documentManager.read(summary.getUri(), contentHandle);
-      retVal.add((Akt) contentHandle.get(Akt.class));
-    }
-
-    return retVal;
-  }
 
   @Override
   public void add(Akt akt) {
-    akt.setId("a");
+    akt.setId(identifierGenerator.generateIdentity());
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
 
@@ -93,6 +80,4 @@ public class AktXmlService implements AktService {
     handle.set(akt);
     documentManager.write(getDocumentId(AKT_FORMAT, akt.getId()), documentMetadataHandle, handle);
   }
-
-
 }

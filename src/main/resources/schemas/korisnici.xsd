@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://parlament.gov.rs/korisnici" xmlns="http://parlament.gov.rs/korisnici">
+    targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.korisnici"
+    xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.korisnici">
     <xs:element name="korisnik">
         <xs:complexType>
             <xs:sequence>

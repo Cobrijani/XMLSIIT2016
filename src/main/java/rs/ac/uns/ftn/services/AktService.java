@@ -9,6 +9,7 @@ import java.util.List;
  * Created by SBratic on 1/18/2017.
  */
 public interface AktService {
+
   Akt findById(String id);
 
   void removeById(String id);

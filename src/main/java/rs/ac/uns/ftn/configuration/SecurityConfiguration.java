@@ -10,12 +10,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.security.Http401UnauthorizedEntryPoint;
-import rs.ac.uns.ftn.security.XmlSiitUserDetailsService;
 import rs.ac.uns.ftn.security.csrf.CSRFConfigurer;
 import rs.ac.uns.ftn.security.jwt.JWTConfigurer;
 import rs.ac.uns.ftn.security.jwt.TokenProvider;
@@ -30,28 +29,35 @@ import rs.ac.uns.ftn.security.jwt.TokenProvider;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-  private final XmlSiitUserDetailsService xmlSiitUserDetailsService;
-
   private final TokenProvider tokenProvider;
 
   private final Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
 
   private final XMLSIITProperties XMLSIITProperties;
 
+  private final PasswordEncoder passwordEncoder;
+
+  private final UserDetailsService userDetailsService;
+
   @Autowired
-  public SecurityConfiguration(XmlSiitUserDetailsService xmlSiitUserDetailsService, TokenProvider tokenProvider, Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint, XMLSIITProperties XMLSIITProperties) {
-    this.xmlSiitUserDetailsService = xmlSiitUserDetailsService;
+  public SecurityConfiguration(
+    TokenProvider tokenProvider,
+    Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint,
+    XMLSIITProperties XMLSIITProperties,
+    PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
     this.tokenProvider = tokenProvider;
     this.http401UnauthorizedEntryPoint = http401UnauthorizedEntryPoint;
     this.XMLSIITProperties = XMLSIITProperties;
+    this.passwordEncoder = passwordEncoder;
+    this.userDetailsService = userDetailsService;
   }
 
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-      .userDetailsService(xmlSiitUserDetailsService)
-      .passwordEncoder(passwordEncoder());
+      .userDetailsService(userDetailsService)
+      .passwordEncoder(passwordEncoder);
   }
 
   @Override
@@ -88,11 +94,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
   private JWTConfigurer jwtConfigurer() {
     return new JWTConfigurer(tokenProvider, XMLSIITProperties);
   }
@@ -105,6 +106,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
     return new SecurityEvaluationContextExtension();
   }
-
 
 }
