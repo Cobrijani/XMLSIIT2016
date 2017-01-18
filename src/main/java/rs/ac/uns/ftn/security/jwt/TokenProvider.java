@@ -12,4 +12,6 @@ public interface TokenProvider {
   boolean validateToken(String token);
 
   Authentication getAuthentication(String token);
+
+  String createToken(Authentication authentication, Boolean rememberMe, String subject);
 }

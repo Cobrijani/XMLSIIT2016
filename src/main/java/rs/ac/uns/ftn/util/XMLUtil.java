@@ -1,11 +1,16 @@
 package rs.ac.uns.ftn.util;
 
+import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.JAXBHandle;
+import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.query.MatchDocumentSummary;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper methods for working with JAXB
@@ -33,5 +38,19 @@ public class XMLUtil {
 
   public static String getDocumentId(String format, String id) {
     return String.format(format, id);
+  }
+
+  public static <T> List<T> convertSearchHandle(SearchHandle searchHandle, XMLDocumentManager xmlDocumentManager, Class<T> clazz) {
+    List<T> retVal = new ArrayList<T>();
+
+    for (MatchDocumentSummary summary :
+      searchHandle.getMatchResults()) {
+
+      JAXBHandle<T> handle = getJaxbHandle(clazz);
+      xmlDocumentManager.read(summary.getUri(), handle);
+      retVal.add(handle.get());
+    }
+
+    return retVal;
   }
 }
