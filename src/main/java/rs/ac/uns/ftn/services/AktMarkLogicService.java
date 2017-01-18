@@ -21,7 +21,7 @@ import static rs.ac.uns.ftn.util.XMLUtil.*;
  * Created by SBratic on 12/3/2016.
  */
 @Service
-public class AktXmlService implements AktService {
+public class AktMarkLogicService implements AktService {
 
   private static final String AKT_REF = "/akt.xml";
 
@@ -35,7 +35,7 @@ public class AktXmlService implements AktService {
 
 
   @Autowired
-  public AktXmlService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator) {
+  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;

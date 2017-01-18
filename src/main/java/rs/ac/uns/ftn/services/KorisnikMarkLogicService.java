@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.model.korisnici.Korisnik;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ import static rs.ac.uns.ftn.util.XMLUtil.*;
  * Created by SBratic on 1/18/2017.
  */
 @Service
-public class KorisnikXmlService implements KorisnikService {
+public class KorisnikMarkLogicService implements KorisnikService {
 
   private final XMLDocumentManager documentManager;
 
@@ -37,10 +36,10 @@ public class KorisnikXmlService implements KorisnikService {
   private final IdentifierGenerator identifierGenerator;
 
   @Autowired
-  public KorisnikXmlService(XMLDocumentManager documentManager,
-                            QueryManager queryManager,
-                            PasswordEncoder passwordEncoder,
-                            IdentifierGenerator identifierGenerator) {
+  public KorisnikMarkLogicService(XMLDocumentManager documentManager,
+                                  QueryManager queryManager,
+                                  PasswordEncoder passwordEncoder,
+                                  IdentifierGenerator identifierGenerator) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.passwordEncoder = passwordEncoder;
@@ -81,7 +80,12 @@ public class KorisnikXmlService implements KorisnikService {
 
   @Override
   public Korisnik findByUsername(String username) {
-    throw new NotImplementedException();
+    List<Korisnik> korisnici = findAll();//TODO ovo za sad u zivotu ne treba tako
+
+    return korisnici
+      .stream()
+      .filter(x -> x.getKorisnickiDetalji().getUsername().equalsIgnoreCase(username))
+      .findFirst().orElseThrow(NullPointerException::new);
   }
 
   @Override

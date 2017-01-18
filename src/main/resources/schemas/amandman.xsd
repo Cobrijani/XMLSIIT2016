@@ -3,9 +3,10 @@
   xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
   vc:minVersion="1.0" vc:maxVersion="1.1"
   targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
-  xmlns:akt="http://parlament.gov.rs/akt"
+  xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
   xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
-  <xs:import namespace="http://parlament.gov.rs/akt" schemaLocation="akt.xsd" id="akt"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"
+    id="akt"/>
   <xs:element name="amandman">
     <xs:complexType>
       <xs:sequence>
