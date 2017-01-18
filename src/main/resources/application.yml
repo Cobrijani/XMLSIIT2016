@@ -16,7 +16,17 @@ xmlsiit-app:
     secret: "my-very-little-secret"
 
 
+
+
 # Marklogic properties
+
+marklogic:
+  connectivity:
+      user: "korisnik"
+      password: "korisnik"
+      host: "localhost"
+      port: 9999
+      databaseName: "xmlsiit"
 
 
 

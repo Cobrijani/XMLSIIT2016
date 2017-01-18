@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<akt xmlns="http://parlament.gov.rs/akt"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://parlament.gov.rs/akt file:/C:/Users/SBratic/Desktop/XMLSIIT2016/src/main/resources/schemas/akt.xsd" xmlns:akt="http://parlament.gov.rs/akt" naziv="MiZ" akt:id="PCj">
+    <deo naziv="nTkCY0m0PJh" akt:id="W" redniBroj="uHBDC3zVLFQo84SlrkavwC_jsq">
+        <glava naziv="hdEqJOsO_8V4hjLRZH29RcCWB_9" akt:id="sN24CFlVT_wG_mixR5" redniBroj="k.hq374hevdOTh2H24e8lN1J9y780">
+            <odeljak naziv="LYBld8" akt:id="BQb.5WddQ_.Afz" redniBroj="UWt.EzmLA9pnecscfO4kk5JU2ba">
+                <clan naziv="L_kjRyXV-7-iVHWTn5Zc85AUcUGOi0" akt:id="je7vBLb." redniBroj="CQOTXXVgjf9ZGvYQOOz8JY59udur5">
+                    <opis>QmQ</opis>
+                    <sadrzaj>
+                        <stav akt:id="Opf6ZYfsv2S">
+                        </stav>
+                        <stav akt:id="GVnFDJ3">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+                <clan naziv="VUJpMwFekB.Jwt0MWiq9KJbt2hJn" akt:id="FPE1lL5PMQTxB" redniBroj="Cb">
+                    <opis>YFs0V</opis>
+                    <sadrzaj>
+                        <stav akt:id="MY.-SA0ZesY.PTTsuZKm16-urcdjE">
+                        </stav>
+                        <stav akt:id="cRoFmuPZ6Od_G8">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+            </odeljak>
+            <odeljak naziv="Z" akt:id="y560K5elxnWAm." redniBroj="BvSjalryiOjeznow5SapDQq">
+                <clan naziv="HEDT3cpiGoiXWXzskeKN44hWWp" akt:id="T5LGNVdMHBSppfDtuamBT2cY" redniBroj="t_ejxU6Vf">
+                    <opis>s0O-0i-o6J</opis>
+                    <sadrzaj>
+                        <stav akt:id="zzVzcKXD.Q7-IHSKWvp2sVy-xAb">
+                        </stav>
+                        <stav akt:id="x">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+                <clan naziv="DZxl-6qnMyKPw_lKcoqZem" akt:id="Hk.lCpTfsXEyv0-kQo" redniBroj="qwu.0RchifiV1XvSLos5euWw9nWmqC">
+                    <opis>OVgwQc7ufr-6dA6</opis>
+                    <sadrzaj>
+                        <stav akt:id="a17nzZ">
+                        </stav>
+                        <stav akt:id="sP3RVcAB49mFGcGx.luK7Bo-M">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+            </odeljak>
+        </glava>
+        <glava naziv="Z9EeOf0MLZkQpooHVTZs-p0Wp" akt:id="SyklB" redniBroj="G-erBDrUGBAPVUQS-Dt">
+            <odeljak naziv="G5pCUZfl" akt:id="AeTJs2RF9Vej" redniBroj="nQXHvh8PYh">
+                <clan naziv="OKPuzF2jxMWWJddoLbH833bizguMi" akt:id="DT4MqVBgv5.OObhiD919.hcezkRWWQ" redniBroj="z-44n1IWgoGZSqu65YDaKxinll">
+                    <opis>WKh6zbSAK50Ou</opis>
+                    <sadrzaj>
+                        <stav akt:id="CddHQJg4VNYLHDZio1wtj5rP">
+                        </stav>
+                        <stav akt:id="uWne7KR.k">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+                <clan naziv="nieMcv.z5" akt:id="BVW" redniBroj="ZfV8XaOm.aENuZGgJFyQ">
+                    <opis>nDm45hsDZCQRirTSU0A2h1PlC</opis>
+                    <sadrzaj>
+                        <stav akt:id="LigjrMI4V3zQbd4IpizhaTWNV">
+                        </stav>
+                        <stav akt:id="wX5TvjBFlCNI">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+            </odeljak>
+            <odeljak naziv="KVcx0r" akt:id="bjl2CRKmNEo45INFnq6q" redniBroj="iG.XTDgx">
+                <clan naziv="XzyZg1CnKMn0Z0m" akt:id="w" redniBroj="mmFx1iVDUr7lRkSO">
+                    <opis>oE6UdrZLWGan</opis>
+                    <sadrzaj>
+                        <stav akt:id="R.nj.0D3C7NQWin6ApIJ">
+                        </stav>
+                        <stav akt:id="Dv0UP88dm8iC4hm0mjKFuAe">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+                <clan naziv="t8Yl_y-4" akt:id="SLYcSlaam37" redniBroj="Ki">
+                    <opis>ngFfApDHjKrjU5M4EI4lw</opis>
+                    <sadrzaj>
+                        <stav akt:id="cJz1GTHd">
+                        </stav>
+                        <stav akt:id="K0h_GnfApObmzu4qMEhZuLJ04">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+            </odeljak>
+        </glava>
+    </deo>
+    <deo naziv="JH0I07" akt:id="VzAp6khO" redniBroj="Vu1hEIA4cKtW8">
+        <glava naziv="_60n.2FDGUniLgo7yzNNJJMCdc5" akt:id="rV3se" redniBroj="apXSJLLXOF34fmsAIw6.S8">
+            <odeljak naziv="cS20bCJl12JJN5MMN6ycPTus-kSi" akt:id="kzLYMTTeBTbq-ps9" redniBroj="hVVTpeoV">
+                <pododeljak naziv="wa-Turf-OafWKe690KUr5lAXtp" akt:id="lBxDjhA7nd1Yu" redniBroj="JZBMQiNhXmlcsen">
+                    <clan naziv="OSr" akt:id="azUUqDX3RSVx9aLle" redniBroj="fPpmA8iKa57MUTQHSaUOM7dB76">
+                        <sadrzaj>
+                            <stav akt:id="bwBBZXpdS">
+                            </stav>
+                            <stav akt:id="pJ9">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="hTUNB5u" akt:id="Evv" redniBroj="l">
+                        <sadrzaj>
+                            <stav akt:id="sXLYHQ">
+                            </stav>
+                            <stav akt:id="m">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+                <pododeljak naziv="Z3uIsq8S4" akt:id="pW8QDoLY8nK4wiQBhfvh" redniBroj="uHVOOtUtS-cIiYBR0OTbELRoodWHCj">
+                    <clan naziv="YriS.3VnYuUnL" akt:id="iHN_7N.cQwVoU-C4b9M2ijhjnsi" redniBroj="A">
+                        <sadrzaj>
+                            <stav akt:id="NhNefYqmhTF6qYHbMJmO7E51lqQkO">
+                            </stav>
+                            <stav akt:id="c_SqOl7YU3pqGM16SVbV-OM.">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="Qfe2PaRB5D-I" akt:id="ML6pKNyVGVeo" redniBroj="Kh0r7KFJc7h">
+                        <sadrzaj>
+                            <stav akt:id="MA08s8g-whc">
+                            </stav>
+                            <stav akt:id="zq-FMGwV">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+            </odeljak>
+            <odeljak naziv="IAuS" akt:id="Og" redniBroj="QVvPOHwKtOdEI-lOHx">
+                <clan naziv="d6" akt:id="nNFft" redniBroj="SNgDXvu">
+                    <opis>SxOF__m5HLtnwIpwEVcgmhjwao</opis>
+                    <sadrzaj>
+                        <stav akt:id="vL2NKDqsMP_k8Fs4n_M">
+                        </stav>
+                        <stav akt:id="O.cZ4makCOV">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+                <clan naziv="QQGKcl6b3v4jIeTs0cTnHCFEa" akt:id="bl" redniBroj="Cnrz2ghfldnU.lTit14rtj5Um3">
+                    <opis>Q2M4E1TfI1DyQy5</opis>
+                    <sadrzaj>
+                        <stav akt:id="aLdkUP_3B">
+                        </stav>
+                        <stav akt:id="UKT">
+                        </stav>
+                    </sadrzaj>
+                </clan>
+            </odeljak>
+        </glava>
+        <glava naziv="WrmXW7" akt:id="i.PnHXhWFwFrkmqjqyDaMe1" redniBroj="ngR.UZFq">
+            <odeljak naziv="xTbGZiwCNznnVrc7PmlRzr" akt:id="exw12n5KprAdqe87FrGJZYwtQyundd" redniBroj="G">
+                <pododeljak naziv="J6r" akt:id="WqLQ0F7P" redniBroj="YO9s3GG6kUs">
+                    <clan naziv="Aei" akt:id="pEzYT.U" redniBroj="YOCait">
+                        <sadrzaj>
+                            <stav akt:id="RzGxGN1mmL8zUb8245GBZbdAdl">
+                            </stav>
+                            <stav akt:id="M0X8FDR6y">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="FohEShvFrNGb" akt:id="qQlCiYFVM" redniBroj="q8T7">
+                        <sadrzaj>
+                            <stav akt:id="YH1gTeLQfXNLxuXdbO0gztD">
+                            </stav>
+                            <stav akt:id="DTmjxEDppPifdyQ2jscSz3">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+                <pododeljak naziv="jXN2nHWvmBTXiasxrFkWxDS5zKLQH6" akt:id="eAEWTa" redniBroj="p0gbVb.g5">
+                    <clan naziv="lPn4z5LYg" akt:id="BfC7Dp7Hqaa1GH.kXLfsS67K4qmD1" redniBroj="_13K_Je5N_6w_aZrR7tdYrPXv4tZq">
+                        <sadrzaj>
+                            <stav akt:id="ehOWju">
+                            </stav>
+                            <stav akt:id="Qfqn1KMh6nQe1-tolQqfIT6_B8d">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="B-5oMzEXa8FsQdkHp0p." akt:id="oT0.HpqNSR_" redniBroj="ia7Jx8oGqci9S8cAH">
+                        <sadrzaj>
+                            <stav akt:id="x.1dQunOLy41y8Vm77">
+                            </stav>
+                            <stav akt:id="EHjygCdJ">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+            </odeljak>
+            <odeljak naziv="RS.9QyKo__JM0RYNplQVnhMKPcr93" akt:id="yIuXRrbHK9479U2YIv" redniBroj="FNJ6zxZLq">
+                <pododeljak naziv="eXUckngX3fdWFluq3bx" akt:id="fS0C" redniBroj="ypL4hGKAOcY">
+                    <clan naziv="aCuJP8VApITQbQYL9qxQ2gvY24zW" akt:id="PlcJ_vq3EyphEhcIxO" redniBroj="yVLcwVr-fw6M">
+                        <sadrzaj>
+                            <stav akt:id="DoOaOGzt9LSk3">
+                            </stav>
+                            <stav akt:id="dUSBFHuq49dofWbTEz22">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="v" akt:id="N7V2hMZT.o5ye1y_TCTEM7Cebou" redniBroj="LpVPYE">
+                        <sadrzaj>
+                            <stav akt:id="qy-j">
+                            </stav>
+                            <stav akt:id="uhDNiL7d71.wS5ZQ40P">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+                <pododeljak naziv="as2mtxec6sA0LL.ti" akt:id="cmNvgDmt4AE1uSPB" redniBroj="vbTK52C_">
+                    <clan naziv="PLy" akt:id="nVAjfuykd2WPWn7octqkbMVq" redniBroj="xL3xda5eXxx5ay_MZ_j-nSJ7o">
+                        <sadrzaj>
+                            <stav akt:id="sU3aZPzG30stOf7s3CM2">
+                            </stav>
+                            <stav akt:id="TRFYlVlCTtbse.">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                    <clan naziv="V.9rX24msrJTzrjMMHlNuvWb" akt:id="ry8J" redniBroj="t9ZowO">
+                        <sadrzaj>
+                            <stav akt:id="dqV5YmbLpsFODZJPs0ts">
+                            </stav>
+                            <stav akt:id="_gIyb7rYxOojKYD27">
+                            </stav>
+                        </sadrzaj>
+                    </clan>
+                </pododeljak>
+            </odeljak>
+        </glava>
+    </deo>
+</akt>

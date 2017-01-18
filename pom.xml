@@ -33,10 +33,15 @@
     <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
     <yeoman-maven-plugin.version>0.5</yeoman-maven-plugin.version>
     <marklogic-java-client.version>3.0.6</marklogic-java-client.version>
+
   </properties>
 
   <dependencies>
-
+    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.marklogic</groupId>
       <artifactId>java-client-api</artifactId>

@@ -3,13 +3,18 @@ package rs.ac.uns.ftn.services;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
+import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
+import com.marklogic.client.query.StructuredQueryBuilder;
+import com.marklogic.client.query.StructuredQueryDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.model.akt.Akt;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static rs.ac.uns.ftn.util.XMLUtil.getDocumentId;
 import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
@@ -19,8 +24,7 @@ import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
  * Created by SBratic on 12/3/2016.
  */
 @Service
-//@Component
-public class AktXmlService {
+public class AktXmlService implements AktService {
 
   private final XMLDocumentManager documentManager;
 
@@ -38,6 +42,7 @@ public class AktXmlService {
   }
 
 
+  @Override
   public Akt findById(String id) {
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
@@ -48,16 +53,37 @@ public class AktXmlService {
     return handle.get();
   }
 
+  @Override
   public void removeById(String id) {
     documentManager.delete(getDocumentId(AKT_FORMAT, id));
   }
 
-  public Page<Akt> findAll(Pageable pageable) {
-    queryManager.setPageLength(pageable.getPageSize());
+  @Override
+  public List<Akt> findAll(Pageable pageable) {
+    StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
+    StructuredQueryDefinition definition = sb.collection(AKT_REF);
 
-    throw new NotImplementedException();
+    SearchHandle searchHandle = new SearchHandle();
+    queryManager.search(definition, searchHandle);
+
+    return convert(searchHandle);
   }
 
+
+  private List<Akt> convert(SearchHandle searchHandle) {
+    List<Akt> retVal = new ArrayList<>();
+
+    for (MatchDocumentSummary summary : searchHandle.getMatchResults()) {
+      JAXBHandle<Akt> contentHandle = getJaxbHandle(Akt.class);
+
+      documentManager.read(summary.getUri(), contentHandle);
+      retVal.add((Akt) contentHandle.get(Akt.class));
+    }
+
+    return retVal;
+  }
+
+  @Override
   public void add(Akt akt) {
     akt.setId("a");
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
