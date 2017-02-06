@@ -22,10 +22,10 @@ xmlsiit-app:
 
 marklogic:
   connectivity:
-      user: "korisnik"
-      password: "korisnik"
+      user: "rest-writer"
+      password: "x"
       host: "localhost"
-      port: 9999
+      port: 8011
       databaseName: "xmlsiit"
 
 
