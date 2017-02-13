@@ -109,3 +109,4 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/windows,linux,osx
+/src/main/Docker/MarkLogic-RHEL7-8.0-6.1.x86_64.rpm
