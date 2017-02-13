@@ -10,14 +10,14 @@ import com.marklogic.client.query.StructuredQueryDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import rs.ac.uns.ftn.model.akt.Akt;
+import rs.ac.uns.ftn.model.generated.Akt;
 
 import java.util.List;
 
 import static rs.ac.uns.ftn.util.XMLUtil.*;
 
 /**
- * Service for handling XML documents for {@link rs.ac.uns.ftn.model.akt.Akt}
+ * Service for handling XML documents for {@link rs.ac.uns.ftn.model.generated.Akt}
  * Created by SBratic on 12/3/2016.
  */
 @Service

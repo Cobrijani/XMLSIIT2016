@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import rs.ac.uns.ftn.model.akt.Akt;
+import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktService;
 
 import java.util.List;
 
 /**
- * Controller that handles operations related to {@link rs.ac.uns.ftn.model.akt.Akt}
+ * Controller that handles operations related to {@link rs.ac.uns.ftn.model.generated.Akt}
  * Created by SBratic on 12/3/2016.
  */
 @Slf4j
