@@ -13,7 +13,7 @@ To generate all classes you should download latest version of jaxb-ri from:
 https://jaxb.java.net/2.2.11/
 
 To convert XML schema run: 
-xjc -d <output_directory> <xml_schema>
+xjc -d <i>output_directory</i> <i>xml_schema</i>
 
 
 
