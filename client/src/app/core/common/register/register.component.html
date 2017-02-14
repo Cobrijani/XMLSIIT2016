@@ -1,0 +1,74 @@
+<form name="registerForm" method="post" class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label">First name</label>
+    <input id="register-component:first-name" name="firstName" type="text" class="form-control"
+           ng-model="vm.registerData.firstName" required>
+    <div ng-messages="registerForm.firstName.$error" ng-show="registerForm.firstName.$dirty">
+      <div id="register-component:first-name-required-message" ng-message="required">First name is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label">Last name</label>
+    <input id="register-component:last-name" type="text" class="form-control" ng-model="vm.registerData.lastName"
+           name="lastName" required>
+    <div ng-messages="registerForm.lastName.$error" ng-show="registerForm.lastName.$dirty">
+      <div id="register-component:last-name-required-message" ng-message="required">Last name is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="register-component:username">Username:</label>
+    <input required type="text" name="username" class="form-control" placeholder="Enter username..."
+           ng-model="vm.registerData.username" ng-minlength='5' ng-maxlength='20' id='register-component:username'>
+    <div ng-show='registerForm.username.$dirty' ng-messages='registerForm.username.$error' style="color:red"
+         role='alert'>
+      <div ng-message='required' id='register-component:username-required-message'>Username is required</div>
+      <div ng-message='minlength' id='register-component:username-minlength-message'>Username is atleast 5 characters
+        long
+      </div>
+      <div ng-message='maxlength' id="register-component:username-maxlength-message">Username is at most 20 character
+        long
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="register-component:email">Email:</label>
+    <input required type="email" name="email" class="form-control" placeholder="Enter email..."
+           ng-model="vm.registerData.email" id="register-component:email">
+    <div ng-show='registerForm.email.$dirty' ng-messages='registerForm.email.$error' style="color:red" role='alert'>
+      <div ng-message='required' id="register-component:email-required-message">Email is required</div>
+      <div ng-message='email' id='register-component:email-invalid-message'>Email is invalid</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="register-component:password">Password:</label>
+    <input required type="password" name="password" class="form-control" placeholder="Enter password..."
+           ng-model="vm.registerData.password" ng-minlength='5' id="register-component:password">
+    <div ng-show='registerForm.password.$dirty' ng-messages='registerForm.password.$error' style="color:red"
+         role='alert'>
+      <div ng-message='required' id="register-component:password-required-message">Password is required</div>
+      <div ng-message='minlength' id="register-component:password-minlength-message">Password is atleast 5 characters
+        long
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="register-component:confirm-password">Confirm password:</label>
+    <input required type="password" name="confirmPassword" class="form-control" placeholder="Confirm password..."
+           ng-model="vm.registerData.confirmPassword" compare-to='vm.registerData.password'
+           id="register-component:confirm-password">
+    <div ng-show='registerForm.confirmPassword.$dirty' ng-messages='registerForm.confirmPassword.$error'
+         style="color:red" role='alert'>
+      <div ng-message='required' id="register-component:confirm-password-required-message">Confirm password is required
+      </div>
+      <div ng-message='compareTo' id="register-component:confirm-password-compare-to-message">Confirm password must be
+        same with password
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="btn btn-default" ng-click="registerForm.$invalid || vm.onRegister({registerData: vm.registerData})"
+         ng-disabled="registerForm.$invalid" id="register-component:register">
+      Register
+    </div>
+  </div>
+</form>

@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="{{vm.id}}" class='control-label'>{{vm.label}}</label>
+  <select ng-model='vm.selectedModel' class="form-control form-select-button" name="{{vm.name}}" id="{{vm.id}}">
+    <option ng-repeat='data in vm.allData' value='{{data.id}}'>
+      {{data.value}}
+    </option>
+  </select>
+</div>
