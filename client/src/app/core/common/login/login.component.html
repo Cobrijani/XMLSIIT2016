@@ -1,0 +1,28 @@
+<form name="loginForm" method="POST" class="form">
+  <div class="form-group">
+    <label for="login-component:email">Email address or username:</label>
+    <input name='email' type="text" class="form-control" id="login-component:email" ng-model='vm.credentials.email'
+           required>
+    <span style="color:red" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+          <span ng-show="loginForm.email.$error.required"
+                id="login-component:email-required-message">Email is required.</span>
+        </span>
+  </div>
+  <div class="form-group">
+    <label for="login-component:password">Password:</label>
+    <input required name='password' type="password" class="form-control" id="login-component:password"
+           ng-model='vm.credentials.password'>
+    <span style="color:red" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+          <span ng-show="loginForm.password.$error.required"
+                id="login-component:password-required-message">Password is required</span>
+        </span>
+  </div>
+  <div class="checkbox">
+    <label class="control-label">
+      <input class="check-box" type="checkbox" ng-model="vm.rememberMe" id="login-component:remember-me"> Remember
+      me</label>
+  </div>
+  <button class="btn btn-default" ng-click="loginForm.$invalid || vm.onLogin({credentials:vm.credentials})"
+          ng-disabled="loginForm.$invalid" name='login' id="login-component:login">Login
+  </button>
+</form>

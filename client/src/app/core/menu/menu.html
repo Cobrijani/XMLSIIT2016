@@ -1,0 +1,22 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">
+        <div class="fa fa-pied-piper-alt"></div>
+      </a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li ui-sref-active="menu-active" ng-repeat="menuItem in vm.leftNav | orderBy: 'order'" id="menu:{{menuItem.id}}"
+            bind-html-compile="menuItem.template">
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ui-sref-active="menu-active" ng-repeat="menuItem in vm.rightNav | orderBy: 'order'"
+            id="menu:{{menuItem.id}}" ng-class="menuItem.ngClass"
+            bind-html-compile="menuItem.template">
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

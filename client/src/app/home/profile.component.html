@@ -1,0 +1,42 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{vm.user.firstName}} {{vm.user.lastName}}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
+                                                          src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                                          class="img-circle img-responsive"></div>
+      <div class=" col-md-9 col-lg-9 ">
+        <table class="table table-user-information">
+          <tbody>
+          <tr>
+            <td>First name:</td>
+            <td>{{vm.user.firstName| limitTo:20}}</td>
+          </tr>
+          <tr>
+            <td>Last name:</td>
+            <td>{{vm.user.lastName| limitTo:20}}</td>
+          </tr>
+          <tr>
+            <td>Username:</td>
+            <td>{{vm.user.username}}</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td><a href="mailto:{{vm.user.email}}">{{vm.user.email}}</a></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer" style="height: 50px;">
+          <span class="pull-right">
+            <button type="button" class="btn btn-success"
+                    ng-click="vm.openNewApplicationModal()">Add new application</button>
+          </span>
+  </div>
+</div>
+
