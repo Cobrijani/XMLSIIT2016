@@ -8,6 +8,6 @@
   Users.$inject = ['Restangular'];
 
   function Users(Restangular) {
-    return Restangular.service('users');
+    return Restangular.service('korisnici');
   }
 })();

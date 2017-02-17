@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ac.uns.ftn.dto.LoginDTO;
+import rs.ac.uns.ftn.dto.objects.LoginDTO;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.security.jwt.JWTToken;
 import rs.ac.uns.ftn.security.jwt.TokenProvider;
