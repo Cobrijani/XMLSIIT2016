@@ -89,15 +89,16 @@ public class KorisnikMarkLogicService implements KorisnikService {
   }
 
   @Override
-  public void saveKorisnik(Korisnik korisnik) {
+  public Korisnik saveKorisnik(Korisnik korisnik) {
     korisnik.setId(identifierGenerator.generateIdentity());
-    korisnik.getKorisnickiDetalji().setPassword(passwordEncoder.encode(korisnik.getKorisnickiDetalji().getPassword()));
+    //korisnik.getKorisnickiDetalji().setPassword(passwordEncoder.encode(korisnik.getKorisnickiDetalji().getPassword()));
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(KORISNIK_REF);
 
     JAXBHandle<Korisnik> handle = getJaxbHandle(Korisnik.class);
     handle.set(korisnik);
     documentManager.write(getDocumentId(KORISNIK_FORMAT, korisnik.getId()), documentMetadataHandle, handle);
+    return korisnik;
   }
 
   @Override

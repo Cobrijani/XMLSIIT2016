@@ -19,7 +19,7 @@ public interface KorisnikService {
 
   Korisnik findByUsername(String username);
 
-  void saveKorisnik(Korisnik korisnik);
+  Korisnik saveKorisnik(Korisnik korisnik);
 
   void deleteKorisnikById(String id);
 }

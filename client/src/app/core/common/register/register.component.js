@@ -17,11 +17,11 @@
   function RegisterController() {
     var vm = this;
     vm.options = [
-      {id: 'ROLE_PRIVATE_ADVERTISER', value: 'Private Advertiser'},
-      {id: 'ROLE_COMPANY_ADVERTISER', value: 'Company Advertiser'},
-      {id: 'ROLE_VERIFIER', value: 'Verifier'}
+      {id: 'gradjanin', value: 'Gradjanin'},
+      {id: 'odbornik', value: 'Odbornik'},
+      {id: 'predsednik', value: 'Predsednik skupstine'}
     ];
 
-    vm.registerData = {role: vm.options[0].id};
+    vm.registerData = {uloga: vm.options[0].id};
   }
 })();
