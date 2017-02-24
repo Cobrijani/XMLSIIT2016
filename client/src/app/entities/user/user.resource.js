@@ -13,8 +13,7 @@
       getUser: getUser,
       getUsers: getUsers,
       putUser: putUser,
-      getUserAuthorities: getUserAuthorities,
-      getUserApplications: getUserApplications
+      getUserAuthorities: getUserAuthorities
     };
 
     ////////////////
@@ -28,16 +27,6 @@
       });
 
       return deferred.promise;
-    }
-
-    function getUserApplications(userId) {
-      return Restangular.one('users', userId)
-        .getList('observingApplications')
-        .then(function (data) {
-          return data;
-        }).catch(function (error) {
-          exception.catcher('Cannot retrieve applications')(error);
-        });
     }
 
     function getUser(userId) {

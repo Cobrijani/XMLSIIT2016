@@ -71,8 +71,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.
-      exceptionHandling()
+
+
+    http
+      .exceptionHandling()
       .authenticationEntryPoint(http401UnauthorizedEntryPoint)
       .and()
       .sessionManagement()
@@ -80,16 +82,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
       .apply(jwtConfigurer())
       .and()
-      .apply(csrfConfigurer())
-      .and()
       .csrf()
       .disable()
-      /*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-      .and()
       .authorizeRequests()
       .antMatchers("/").permitAll()
-      .antMatchers("/api/authenticate").permitAll()
-      .anyRequest().authenticated()*/;
+      .antMatchers("/api/v1/authenticate").permitAll()
+      .anyRequest().permitAll();
 
 
   }

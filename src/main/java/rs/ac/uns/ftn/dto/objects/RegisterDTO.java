@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
+import rs.ac.uns.ftn.model.korisnici.Uloga;
 
 import javax.validation.constraints.NotNull;
 
@@ -27,5 +28,9 @@ public class RegisterDTO {
   protected String email;
   @NotNull
   protected String uloga;
+
+  protected String firstName;
+
+  protected String lastName;
 
 }

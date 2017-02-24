@@ -22,4 +22,6 @@ public interface KorisnikService {
   Korisnik saveKorisnik(Korisnik korisnik);
 
   void deleteKorisnikById(String id);
+
+  void deleteAll();
 }

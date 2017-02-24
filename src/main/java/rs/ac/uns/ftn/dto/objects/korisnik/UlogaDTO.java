@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UlogaDTO {
+
   @NotNull
   private String value;
 }

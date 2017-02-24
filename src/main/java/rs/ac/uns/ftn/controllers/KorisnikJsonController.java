@@ -10,18 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.dto.converters.korisnik.RegisterKorisnikDtoConverter;
 import rs.ac.uns.ftn.dto.objects.RegisterDTO;
-import rs.ac.uns.ftn.model.User;
+import rs.ac.uns.ftn.dto.objects.korisnik.KorisnikDTO;
+import rs.ac.uns.ftn.exceptions.KorisnikNotFoundException;
 import rs.ac.uns.ftn.model.korisnici.Korisnik;
 import rs.ac.uns.ftn.services.KorisnikMarkLogicService;
-import rs.ac.uns.ftn.dto.objects.korisnik.KorisnikDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by SBratic on 1/18/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/korisnici", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/api/v1/korisnici", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class KorisnikJsonController {
 
 
@@ -33,8 +34,8 @@ public class KorisnikJsonController {
   public KorisnikJsonController(KorisnikMarkLogicService korisnikService,
                                 ModelMapper modelMapper,
                                 @Qualifier("RegisterKorisnikDtoConverter")
-                                    RegisterKorisnikDtoConverter registerKorisnikDtoConverter
-                                ) {
+                                  RegisterKorisnikDtoConverter registerKorisnikDtoConverter
+  ) {
     this.korisnikService = korisnikService;
     this.modelMapper = modelMapper;
     this.registerKorisnikDtoConverter = registerKorisnikDtoConverter;
@@ -47,11 +48,14 @@ public class KorisnikJsonController {
     return korisnikService.findAll(pageable);
   }
 
-  @GetMapping(value = "/{id}")
+  @GetMapping(value = "/{username}")
   @ResponseStatus(HttpStatus.OK)
-  public Korisnik getOne(@PathVariable(value = "id") String id) {
-    return korisnikService.findById(id);
+  public KorisnikDTO getOne(@PathVariable(value = "username") String username) {
+    return Optional.ofNullable(korisnikService.findByUsername(username))
+      .map(this::convertToDto)
+      .orElseThrow(KorisnikNotFoundException::new);
   }
+
 
   /**
    * Add new {@link User}

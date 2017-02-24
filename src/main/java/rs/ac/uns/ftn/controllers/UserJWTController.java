@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
  * Created by SBratic on 11/3/2016.
  */
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/v1")
 @Slf4j
 public class UserJWTController {
 
@@ -47,7 +48,7 @@ public class UserJWTController {
   }
 
 
-  @PostMapping(path = "/authenticate")
+  @PostMapping(path = "/authenticate", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<?> authenticate(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
       new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());

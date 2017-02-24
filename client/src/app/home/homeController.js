@@ -9,10 +9,10 @@
     .module('app')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['UserResource', 'exception', 'UserJwtResource', 'authManager'];
+  HomeController.$inject = ['GenericResource', 'exception', 'UserJwtResource', 'authManager'];
 
   /* @ngInject */
-  function HomeController(UserResource, exception, UserJwtResource, authManager) {
+  function HomeController(GenericResource, exception, UserJwtResource, authManager) {
     var vm = this;
     vm.title = 'HomeController';
     vm.user = null;
@@ -29,8 +29,9 @@
     }
 
     function getUser() {
-      UserResource.getUser(vm.userId)
+      GenericResource.getEntityByIdentifier('korisnici', vm.userId)
         .then(function (user) {
+          console.log(user);
           vm.user = user;
         })
         .catch(function (error) {

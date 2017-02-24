@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import rs.ac.uns.ftn.model.korisnici.Uloga;
 
 /**
  * Created by Arsa on 15-Feb-17.
@@ -18,6 +19,6 @@ public class KorisnikDTO {
 
   private KorisnickiDetaljiDTO korisnickiDetalji;
 
-  private UlogaDTO uloga;
+  private Uloga uloga;
 
 }

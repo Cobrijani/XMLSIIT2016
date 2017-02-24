@@ -5,38 +5,32 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
-                                                          src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                                          src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg"
                                                           class="img-circle img-responsive"></div>
       <div class=" col-md-9 col-lg-9 ">
         <table class="table table-user-information">
           <tbody>
           <tr>
             <td>First name:</td>
-            <td>{{vm.user.firstName| limitTo:20}}</td>
+            <td>{{vm.user.korisnickiDetalji.firstname| limitTo:20}}</td>
           </tr>
           <tr>
             <td>Last name:</td>
-            <td>{{vm.user.lastName| limitTo:20}}</td>
+            <td>{{vm.user.korisnickiDetalji.lastname| limitTo:20}}</td>
           </tr>
           <tr>
             <td>Username:</td>
-            <td>{{vm.user.username}}</td>
+            <td>{{vm.user.korisnickiDetalji.username}}</td>
           </tr>
           <tr>
             <td>Email:</td>
-            <td><a href="mailto:{{vm.user.email}}">{{vm.user.email}}</a></td>
+            <td><a href="mailto:{{vm.user.korisnickiDetalji.email}}">{{vm.user.korisnickiDetalji.email}}</a></td>
           </tr>
 
           </tbody>
         </table>
       </div>
     </div>
-  </div>
-  <div class="panel-footer" style="height: 50px;">
-          <span class="pull-right">
-            <button type="button" class="btn btn-success"
-                    ng-click="vm.openNewApplicationModal()">Add new application</button>
-          </span>
   </div>
 </div>
 

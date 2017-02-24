@@ -6,13 +6,9 @@ import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.dto.objects.RegisterDTO;
 import rs.ac.uns.ftn.exceptions.InvalidConfirmPasswordException;
 import rs.ac.uns.ftn.exceptions.InvalidUlogaException;
-import rs.ac.uns.ftn.model.Authority;
 import rs.ac.uns.ftn.model.korisnici.KorisnickiDetalji;
 import rs.ac.uns.ftn.model.korisnici.Korisnik;
 import rs.ac.uns.ftn.model.korisnici.Uloga;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Arsa on 15-Feb-17.
@@ -32,6 +28,8 @@ public class RegisterKorisnikDtoConverterImpl implements RegisterKorisnikDtoConv
     KorisnickiDetalji korisnickiDetalji = new KorisnickiDetalji();
     korisnickiDetalji.setUsername(dto.getUsername());
     korisnickiDetalji.setEmail(dto.getEmail());
+    korisnickiDetalji.setLastname(dto.getLastName());
+    korisnickiDetalji.setFirstname(dto.getFirstName());
     if (!dto.getPassword().equals(dto.getConfirmPassword())) {
       throw new InvalidConfirmPasswordException();
     }
@@ -40,7 +38,7 @@ public class RegisterKorisnikDtoConverterImpl implements RegisterKorisnikDtoConv
 
     try {
       entity.setUloga(Uloga.fromValue(dto.getUloga()));
-    }catch(IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       throw new InvalidUlogaException(dto.getUloga());
     }
 
