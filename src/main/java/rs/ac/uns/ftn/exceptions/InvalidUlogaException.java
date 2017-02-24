@@ -8,6 +8,6 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class InvalidUlogaException extends RuntimeException {
+public class InvalidUlogaException extends XmlSiitApplicationException {
   private String uloga;
 }

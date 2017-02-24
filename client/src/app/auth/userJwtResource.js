@@ -21,16 +21,18 @@
 
     function authenticate(credentials) {
       var deferred = $q.defer();
-      $http.post('/api/v1/auth/login', credentials).then(
+      $http.post('/api/v1/authenticate', credentials).then(
         function (success) {
-          if (TokenService.saveToken(authProperties.TOKEN_STORAGE_NAME, success.data.token_id)) {
-            deferred.resolve(jwtHelper.decodeToken(success.data.token_id));
+          $log.info(success);
+          if (TokenService.saveToken(authProperties.TOKEN_STORAGE_NAME, success.data.id_token)) {
+            deferred.resolve(jwtHelper.decodeToken(success.data.id_token));
           } else {
             logout();
             deferred.reject({msg: 'error on token save'});
           }
         },
         function (error) {
+          $log.info(error);
           logout();
           deferred.reject(error);
         });

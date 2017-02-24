@@ -1,5 +1,5 @@
 <form name="registerForm" method="post" class="form-horizontal">
-  <!--<div class="form-group">
+  <div class="form-group">
     <label class="control-label">First name</label>
     <input id="register-component:first-name" name="firstName" type="text" class="form-control"
            ng-model="vm.registerData.firstName" required>
@@ -14,7 +14,7 @@
     <div ng-messages="registerForm.lastName.$error" ng-show="registerForm.lastName.$dirty">
       <div id="register-component:last-name-required-message" ng-message="required">Last name is required</div>
     </div>
-  </div> -->
+  </div>
   <div class="form-group">
     <label class="control-label" for="register-component:username">Username:</label>
     <input required type="text" name="username" class="form-control" placeholder="Enter username..."
@@ -67,8 +67,7 @@
   </div>
   <div class="form-group">
     <label class="control-label" for="register-component:register-type">Register as:</label>
-    <select name="typeSelect" id="register-component:register-type" ng-model="vm.registerData.uloga" class="form-control"
-            ng-init="vm.registerData.type = vm.options[0].id">
+    <select name="typeSelect" id="register-component:register-type" ng-model="vm.registerData.uloga" class="form-control">
       <option ng-repeat="option in vm.options" value="{{option.id}}" id="register-component:option-{{option.id}}">
         {{option.value}}
       </option>

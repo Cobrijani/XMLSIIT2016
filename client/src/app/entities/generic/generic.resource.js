@@ -1,0 +1,31 @@
+/**
+ * Created by SBratic on 2/24/2017.
+ */
+
+
+(function () {
+  'use strict';
+
+  angular
+    .module('app.entities')
+    .factory('GenericResource', GenericResource);
+
+  GenericResource.$inject = ['Restangular'];
+
+  function GenericResource(Restangular) {
+
+    return {
+      getEntities: getEntities,
+      getEntityByIdentifier: getEntityByIdentifier
+    };
+
+
+    function getEntities(entityName, params) {
+      return Restangular.all(entityName).customGet('', params);
+    }
+
+    function getEntityByIdentifier(entityName, identifier) {
+      return Restangular.one(entityName, identifier).get();
+    }
+  }
+})();
