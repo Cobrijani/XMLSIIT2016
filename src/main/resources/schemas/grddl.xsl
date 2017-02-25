@@ -3,10 +3,10 @@
 <!-- RDFa To RDF/XML XSL Transformation -->
 <!-- Retrieved from: https://www.w3.org/TR/grddl-primer/RDFa2RDFXML.xsl -->
 <stylesheet
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
-  xmlns:h="http://www.w3.org/1999/xhtml"
-  xmlns="http://www.w3.org/1999/XSL/Transform"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:h="http://www.w3.org/1999/xhtml"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  version="1.0"
+  xmlns="http://www.w3.org/1999/XSL/Transform">
 
   <output indent="yes" method="xml" media-type="application/rs.ac.uns.ftn.model.rdf+xml" encoding="UTF-8"
           omit-xml-declaration="yes"/>

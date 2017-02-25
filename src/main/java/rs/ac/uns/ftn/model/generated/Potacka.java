@@ -38,18 +38,18 @@ import javax.xml.bind.annotation.XmlType;
     "content"
 })
 @XmlRootElement(name = "potacka")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Potacka {
 
     @XmlElementRef(name = "alineja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Alineja.class, required = false)
     @XmlMixed
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Object> content;
-    @XmlAttribute(name = "naziv")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String naziv;
-    @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -75,7 +75,7 @@ public class Potacka {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Object> getContent() {
         if (content == null) {
             content = new ArrayList<Object>();
@@ -91,7 +91,7 @@ public class Potacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getNaziv() {
         return naziv;
     }
@@ -104,7 +104,7 @@ public class Potacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(String value) {
         this.naziv = value;
     }
@@ -117,7 +117,7 @@ public class Potacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -130,7 +130,7 @@ public class Potacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-12T07:34:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-02-25T09:02:25+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }

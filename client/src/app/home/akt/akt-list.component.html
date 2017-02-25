@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Naziv akta</th>
+    <th>Datum kreiranja</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="akt in vm.aktovi">
+    <td>{{$index+1}}</td>
+    <td>{{akt.name}}</td>
+    <td>{{akt.dateCreated | date : 'dd. MMMM yyyy'}}</td>
+  </tr>
+  </tbody>
+</table>

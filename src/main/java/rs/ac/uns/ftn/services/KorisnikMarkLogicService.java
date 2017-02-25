@@ -28,14 +28,10 @@ import static rs.ac.uns.ftn.util.XMLUtil.*;
 @Slf4j
 public class KorisnikMarkLogicService implements KorisnikService {
 
-  private final XMLDocumentManager documentManager;
-
-  private final QueryManager queryManager;
-
   private static final String KORISNIK_REF = "/korisnik.xml";
-
   private static final String KORISNIK_FORMAT = "/korisnici/%s.xml";
-
+  private final XMLDocumentManager documentManager;
+  private final QueryManager queryManager;
   private final IdentifierGenerator identifierGenerator;
 
   @Autowired

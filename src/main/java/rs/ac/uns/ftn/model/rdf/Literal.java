@@ -1,4 +1,3 @@
-
 package rs.ac.uns.ftn.model.rdf;
 
 import javax.xml.bind.annotation.*;

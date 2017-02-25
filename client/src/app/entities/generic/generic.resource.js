@@ -21,7 +21,7 @@
 
 
     function getEntities(entityName, params) {
-      return Restangular.all(entityName).customGet('', params);
+      return Restangular.all(entityName).customGET('', params);
     }
 
     function getEntityByIdentifier(entityName, identifier) {
