@@ -67,7 +67,8 @@
   </div>
   <div class="form-group">
     <label class="control-label" for="register-component:register-type">Register as:</label>
-    <select name="typeSelect" id="register-component:register-type" ng-model="vm.registerData.uloga" class="form-control">
+    <select name="typeSelect" id="register-component:register-type" ng-model="vm.registerData.uloga"
+            class="form-control">
       <option ng-repeat="option in vm.options" value="{{option.id}}" id="register-component:option-{{option.id}}">
         {{option.value}}
       </option>

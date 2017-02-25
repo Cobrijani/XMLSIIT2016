@@ -8,8 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import rs.ac.uns.ftn.model.korisnici.KorisnickiDetalji;
+import rs.ac.uns.ftn.model.korisnici.Korisnik;
+import rs.ac.uns.ftn.model.korisnici.Uloga;
 import rs.ac.uns.ftn.properties.MarkLogicProperties;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
+import rs.ac.uns.ftn.services.IdentifierGenerator;
 import rs.ac.uns.ftn.services.KorisnikService;
 
 import java.net.InetAddress;
@@ -37,9 +42,47 @@ public class XMLSIITApplication {
   }
 
   @Bean
-  public CommandLineRunner flushData(KorisnikService korisnikService) {
+  public CommandLineRunner flushData(KorisnikService korisnikService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
+
+      final Korisnik korisnik = new Korisnik();
+      korisnik.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji = new KorisnickiDetalji();
+      korisnickiDetalji.setFirstname("gradjanin");
+      korisnickiDetalji.setLastname("gradjanin");
+      korisnickiDetalji.setPassword(passwordEncoder.encode("gradjanin"));
+      korisnickiDetalji.setEmail("gradjanin@gmail.com");
+      korisnickiDetalji.setUsername("gradjanin");
+      korisnik.setKorisnickiDetalji(korisnickiDetalji);
+      korisnik.setUloga(Uloga.GRADJANIN);
+      korisnikService.saveKorisnik(korisnik);
+
+
+      final Korisnik korisnik1 = new Korisnik();
+      korisnik1.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji1 = new KorisnickiDetalji();
+      korisnickiDetalji1.setFirstname("odbornik");
+      korisnickiDetalji1.setLastname("odbornik");
+      korisnickiDetalji1.setPassword(passwordEncoder.encode("odbornik"));
+      korisnickiDetalji1.setEmail("odbornik@gmail.com");
+      korisnickiDetalji1.setUsername("odbornik");
+      korisnik1.setKorisnickiDetalji(korisnickiDetalji1);
+      korisnik1.setUloga(Uloga.ODBORNIK);
+      korisnikService.saveKorisnik(korisnik1);
+
+      final Korisnik korisnik2 = new Korisnik();
+      korisnik2.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji2 = new KorisnickiDetalji();
+      korisnickiDetalji2.setFirstname("predsednik");
+      korisnickiDetalji2.setLastname("predsednik");
+      korisnickiDetalji2.setPassword(passwordEncoder.encode("predsednik"));
+      korisnickiDetalji2.setEmail("predsednik@gmail.com");
+      korisnickiDetalji2.setUsername("predsednik");
+      korisnik2.setKorisnickiDetalji(korisnickiDetalji2);
+      korisnik2.setUloga(Uloga.PREDSEDNIK);
+      korisnikService.saveKorisnik(korisnik2);
+
     });
   }
 }

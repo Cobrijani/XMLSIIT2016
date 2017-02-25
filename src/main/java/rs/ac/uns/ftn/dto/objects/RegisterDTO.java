@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
-import rs.ac.uns.ftn.model.korisnici.Uloga;
 
 import javax.validation.constraints.NotNull;
 

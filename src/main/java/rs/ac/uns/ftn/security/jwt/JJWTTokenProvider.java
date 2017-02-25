@@ -28,16 +28,11 @@ import java.util.stream.Collectors;
 @Component
 public class JJWTTokenProvider implements TokenProvider {
 
-  private final Logger log = LoggerFactory.getLogger(JJWTTokenProvider.class);
-
-  private String secretKey;
-
   private static final String AUTHORITIES_KEY = "auth";
-
   private static final String LOGIN_KEY = "login";
-
+  private final Logger log = LoggerFactory.getLogger(JJWTTokenProvider.class);
   private final XMLSIITProperties XMLSIITProperties;
-
+  private String secretKey;
   private long tokenValidityInSecondsForRememberMe;
 
   private long tokenValidityInSeconds;

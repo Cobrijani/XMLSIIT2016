@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+           xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata">
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="idRef" type="xs:string"/>
+  <xs:attribute name="naziv" type="xs:string"/>
+  <xs:attribute name="createdBy" type="xs:string"/>
+  <xs:attribute name="dateCreated" type="xs:date"/>
+  <xs:attribute name="dateModified" type="xs:date"/>
+</xs:schema>

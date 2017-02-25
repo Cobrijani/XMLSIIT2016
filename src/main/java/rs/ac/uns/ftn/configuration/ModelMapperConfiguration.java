@@ -6,8 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import rs.ac.uns.ftn.dto.objects.RegisterDTO;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.objects.korisnik.KorisnikDTO;
+import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.korisnici.Korisnik;
 import rs.ac.uns.ftn.model.korisnici.Uloga;
 
@@ -27,6 +28,7 @@ public class ModelMapperConfiguration {
   public ModelMapper modelMapper() {
     final ModelMapper modelMapper = new ModelMapper();
     modelMapper.addMappings(korisnikPropertyMap());
+    modelMapper.addMappings(aktAktDTOPropertyMap());
     return modelMapper;
   }
 
@@ -64,6 +66,18 @@ public class ModelMapperConfiguration {
       @Override
       protected String convert(Uloga source) {
         return source.value();
+      }
+    };
+  }
+
+  private PropertyMap<Akt, AktDTO> aktAktDTOPropertyMap() {
+    return new PropertyMap<Akt, AktDTO>() {
+      @Override
+      protected void configure() {
+        map().setId(source.getId());
+        map().setName(source.getNaziv());
+        map().setCreatedBy(source.getCreatedBy());
+        map().setDateCreated(source.getDateCreated().toString());
       }
     };
   }

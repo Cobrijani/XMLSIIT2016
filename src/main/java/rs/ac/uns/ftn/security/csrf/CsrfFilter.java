@@ -25,6 +25,5 @@ public class CsrfFilter extends OncePerRequestFilter {
     final Optional<Cookie> cookie = Optional.ofNullable(WebUtils.getCookie(request, CSRF_HEADER_NAME));
 
 
-
   }
 }
