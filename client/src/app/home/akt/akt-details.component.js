@@ -14,10 +14,26 @@
       bindings: {}
     });
 
-  AktDetailsController.$inject = ['$scope'];
+  AktDetailsController.$inject = ['$scope', '$stateParams', 'GenericResource'];
 
-  function AktDetailsController($scope) {
+  function AktDetailsController($scope, $stateParams, GenericResource) {
     var vm = this;
     //content
+    activate();
+    vm.params = $stateParams;
+
+    function activate() {
+      getAkt();
+    }
+
+    function getAkt() {
+      GenericResource.getEntityByIdentifier('akti', $stateParams.id, {'Accept': 'text/html'})
+        .then(function (success) {
+          vm.akt = success;
+        })
+        .catch(function (error) {
+          vm.akt = "";
+        });
+    }
   }
 })();

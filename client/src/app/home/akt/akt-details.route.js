@@ -3,20 +3,20 @@
 
   angular
     .module('app')
-    .run(AktCreateRouteRun);
+    .run(AktDetailsRouteRun);
 
-  AktCreateRouteRun.$inject = ['routerHelper'];
+  AktDetailsRouteRun.$inject = ['routerHelper'];
 
-  function AktCreateRouteRun(routerHelper) {
+  function AktDetailsRouteRun(routerHelper) {
     routerHelper.configureStates(getStates());
   }
 
   function getStates() {
     return [{
-      state: 'create-akt',
+      state: 'akt-details',
       config: {
-        url: '/create-akt',
-        template: '<akt-create-component></akt-create-component>',
+        url: '/akt/:id',
+        template: '<akt-details-component></akt-details-component>',
         data: {
           requiresLogin: true
         }

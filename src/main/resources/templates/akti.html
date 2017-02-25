@@ -2,18 +2,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
-  <title>Aktovi fragment</title>
+  <title>Akti fragment</title>
 </head>
 <body>
 
-<div th:fragment="aktoviFragment">
+<div th:fragment="aktiFragment">
   <table>
     <thead>
     <th>Akt id</th>
     <th>Akt name</th>
     </thead>
     <tbody>
-    <tr th:each="akt : ${aktovi}">
+    <tr th:each="akt : ${akti}">
       <td th:text="${akt.id}"></td>
       <td th:text="${akt.naziv}"></td>
     </tr>

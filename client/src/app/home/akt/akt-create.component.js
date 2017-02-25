@@ -21,14 +21,14 @@
     vm.createAkt = createAkt;
     //content
 
-    function createAkt(){
+    function createAkt() {
       GenericResource.postEntity('aktovi', vm.akt, {'Content-Type': 'application/xml'})
-      .then(function (success) {
-        console.log(success);
-      })
-      .catch(function (error) {
-        exception.catcher(error);
-      })
+        .then(function (success) {
+          console.log(success);
+        })
+        .catch(function (error) {
+          exception.catcher(error);
+        })
     }
   }
 })();

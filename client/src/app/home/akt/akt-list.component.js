@@ -23,7 +23,7 @@
 
 
     function activate() {
-      GenericResource.getEntities('aktovi')
+      GenericResource.getEntities('akti')
         .then(function (success) {
           vm.akti = success;
         })

@@ -14,7 +14,7 @@ import rs.ac.uns.ftn.services.AktService;
  * Created by SBratic on 1/18/2017.
  */
 @Controller
-@RequestMapping(value = "/api/v1/aktovi", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/api/v1/akti", produces = MediaType.TEXT_HTML_VALUE)
 public class AktHtmlController {
 
   private final AktService aktService;
@@ -26,8 +26,8 @@ public class AktHtmlController {
 
   @GetMapping()
   public String getAll(Pageable pageable, Model model) {
-    model.addAttribute("aktovi", aktService.findAll(pageable));
-    return "aktovi :: aktoviFragment";
+    model.addAttribute("akti", aktService.findAll(pageable));
+    return "akti :: aktiFragment";
   }
 
   @GetMapping(value = "/{id}")
