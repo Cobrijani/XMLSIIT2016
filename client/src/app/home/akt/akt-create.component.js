@@ -13,10 +13,22 @@
       bindings: {}
     });
 
-  AktCreateController.$inject = ['$scope'];
+  AktCreateController.$inject = ['$scope', 'GenericResource', 'exception'];
 
-  function AktCreateController($scope) {
+  function AktCreateController($scope, GenericResource, exception) {
     var vm = this;
+
+    vm.createAkt = createAkt;
     //content
+
+    function createAkt(){
+      GenericResource.postEntity('aktovi', vm.akt, {'Content-Type': 'application/xml'})
+      .then(function (success) {
+        console.log(success);
+      })
+      .catch(function (error) {
+        exception.catcher(error);
+      })
+    }
   }
 })();

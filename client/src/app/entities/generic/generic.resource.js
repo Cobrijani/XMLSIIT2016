@@ -16,7 +16,8 @@
 
     return {
       getEntities: getEntities,
-      getEntityByIdentifier: getEntityByIdentifier
+      getEntityByIdentifier: getEntityByIdentifier,
+      postEntity: postEntity
     };
 
 
@@ -26,6 +27,10 @@
 
     function getEntityByIdentifier(entityName, identifier) {
       return Restangular.one(entityName, identifier).get();
+    }
+
+    function postEntity(entityName, requestBody, headers) {
+      return Restangular.all(entityName).post(requestBody, '',headers);
     }
   }
 })();
