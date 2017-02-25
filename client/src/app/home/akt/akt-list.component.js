@@ -25,7 +25,7 @@
     function activate() {
       GenericResource.getEntities('aktovi')
         .then(function (success) {
-          vm.aktovi = success;
+          vm.akti = success;
         })
         .catch(function (error) {
           exception.catcher(error);

@@ -1,6 +1,6 @@
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3 class="panel-title">{{vm.user.firstName}} {{vm.user.lastName}}</h3>
+    <h3 class="panel-title">Podaci o korisniku</h3>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -11,19 +11,19 @@
         <table class="table table-user-information">
           <tbody>
           <tr>
-            <td>First name:</td>
+            <td>Ime:</td>
             <td>{{vm.user.korisnickiDetalji.firstname| limitTo:20}}</td>
           </tr>
           <tr>
-            <td>Last name:</td>
+            <td>Prezime:</td>
             <td>{{vm.user.korisnickiDetalji.lastname| limitTo:20}}</td>
           </tr>
           <tr>
-            <td>Username:</td>
+            <td>Korisničko ime:</td>
             <td>{{vm.user.korisnickiDetalji.username}}</td>
           </tr>
           <tr>
-            <td>Email:</td>
+            <td>E-mail:</td>
             <td><a href="mailto:{{vm.user.korisnickiDetalji.email}}">{{vm.user.korisnickiDetalji.email}}</a></td>
           </tr>
 

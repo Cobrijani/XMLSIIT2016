@@ -16,7 +16,7 @@
     return [{
       order: 1,
       id: 'register',
-      template: '<a ui-sref="register" ng-if="menuItem.isAuth()"><i class="fa fa-user"></i> Sign Up</a>',
+      template: '<a ui-sref="register" ng-if="menuItem.isAuth()"><i class="fa fa-user"></i> Registracija</a>',
       isAuth: function () {
         return !authManager.isAuthenticated();
       }
