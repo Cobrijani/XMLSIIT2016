@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
-           xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-           elementFormDefault="qualified"
-           targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+  xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata" elementFormDefault="qualified"
+  targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt">
 
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-             schemaLocation="metadata.xsd"/>
+    schemaLocation="metadata.xsd"/>
   <xs:element name="clan">
     <xs:complexType>
       <xs:sequence>
@@ -41,9 +41,14 @@
   </xs:element>
   <xs:element name="glava">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="akt:odeljak" maxOccurs="unbounded"/>
-      </xs:sequence>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="akt:odeljak" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" ref="akt:clan"/>
+        </xs:sequence>
+      </xs:choice>
       <xs:attributeGroup ref="akt:prosireniUobicajeniAtributi"/>
     </xs:complexType>
   </xs:element>
