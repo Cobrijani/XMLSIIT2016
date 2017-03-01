@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn;
 
+import com.marklogic.client.DatabaseClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -14,9 +15,11 @@ import rs.ac.uns.ftn.model.korisnici.Korisnik;
 import rs.ac.uns.ftn.model.korisnici.Uloga;
 import rs.ac.uns.ftn.properties.MarkLogicProperties;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
+import rs.ac.uns.ftn.services.AktService;
 import rs.ac.uns.ftn.services.IdentifierGenerator;
 import rs.ac.uns.ftn.services.KorisnikService;
 
+import javax.annotation.PreDestroy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -26,6 +29,11 @@ public class XMLSIITApplication {
 
   private static final Logger log = LoggerFactory.getLogger(XMLSIITApplication.class);
 
+  private final DatabaseClient databaseClient;
+
+  public XMLSIITApplication(DatabaseClient databaseClient) {
+    this.databaseClient = databaseClient;
+  }
 
   public static void main(String[] args) throws UnknownHostException {
     SpringApplication app = new SpringApplication(XMLSIITApplication.class);
@@ -41,10 +49,17 @@ public class XMLSIITApplication {
 
   }
 
+  @PreDestroy
+  public void release() {
+    databaseClient.release();
+  }
+
+
   @Bean
-  public CommandLineRunner flushData(KorisnikService korisnikService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
+  public CommandLineRunner recreateData(KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
+      //aktService.deleteAll();
 
       final Korisnik korisnik = new Korisnik();
       korisnik.setId(identifierGenerator.generateIdentity());

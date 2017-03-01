@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+           xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
            elementFormDefault="qualified" vc:minVersion="1.0"
            vc:maxVersion="1.1"
            targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"

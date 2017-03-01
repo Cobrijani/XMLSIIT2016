@@ -6,9 +6,25 @@ import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,4 +69,31 @@ public class XMLUtil {
 
     return retVal;
   }
+
+  public static void generateHtml(Document document, OutputStream outputStream, String resourceXslPath) throws TransformerException {
+    /* Inicijalizacija DOM fabrike */
+    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+    documentBuilderFactory.setNamespaceAware(true);
+    documentBuilderFactory.setIgnoringComments(true);
+    documentBuilderFactory.setIgnoringElementContentWhitespace(true);
+
+		/* Inicijalizacija Transformer fabrike */
+    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+    ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+    InputStream xsltFile = classLoader.getResourceAsStream(resourceXslPath);
+
+    StreamSource transformSource = new StreamSource(xsltFile);
+    Transformer transformer = transformerFactory.newTransformer(transformSource);
+    transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    // Generate XHTML
+    transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+
+    // Transform DOM to HTML
+    DOMSource source = new DOMSource(document);
+    StreamResult result = new StreamResult(outputStream);
+    transformer.transform(source, result);
+  }
+
 }

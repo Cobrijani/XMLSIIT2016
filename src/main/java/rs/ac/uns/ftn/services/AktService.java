@@ -12,9 +12,15 @@ public interface AktService {
 
   Akt findById(String id);
 
+  <T> T findById(String id, Class<T> readAs);
+
   void removeById(String id);
 
   List<Akt> findAll(Pageable pageable);
 
   void add(Akt akt);
+
+  void deleteAktById(String id);
+
+  void deleteAll();
 }

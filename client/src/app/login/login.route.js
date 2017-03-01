@@ -16,7 +16,7 @@
     return [{
       order: 2,
       id: 'login',
-      template: '<a ng-if="menuItem.isAuth()" ui-sref="login"><i class="fa fa-sign-in"></i> Sign In</a> ',
+      template: '<a ng-if="menuItem.isAuth()" ui-sref="login"><i class="fa fa-sign-in"></i> Uloguj se</a> ',
       isAuth: function () {
         return !authManager.isAuthenticated();
       }
@@ -26,7 +26,7 @@
       onClick: function () {
         UserJwtResource.logout();
       },
-      template: '<a ng-if="menuItem.isAuth()" href ng-click="menuItem.onClick()"><i class="fa fa-sign-out"></i> Sign Out</a>',
+      template: '<a ng-if="menuItem.isAuth()" href ng-click="menuItem.onClick()"><i class="fa fa-sign-out"></i> Izloguj se</a>',
       isAuth: function () {
         return authManager.isAuthenticated();
       }

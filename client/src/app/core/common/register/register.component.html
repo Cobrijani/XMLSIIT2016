@@ -1,72 +1,72 @@
 <form name="registerForm" method="post" class="form-horizontal">
   <div class="form-group">
-    <label class="control-label">First name</label>
+    <label class="control-label">Ime:</label>
     <input id="register-component:first-name" name="firstName" type="text" class="form-control"
-           ng-model="vm.registerData.firstName" required>
+           ng-model="vm.registerData.firstName" required placeholder="Enter firstname..">
     <div ng-messages="registerForm.firstName.$error" ng-show="registerForm.firstName.$dirty">
-      <div id="register-component:first-name-required-message" ng-message="required">First name is required</div>
+      <div id="register-component:first-name-required-message" ng-message="required">Ime je potrebno</div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label">Last name</label>
+    <label class="control-label">Prezime:</label>
     <input id="register-component:last-name" type="text" class="form-control" ng-model="vm.registerData.lastName"
-           name="lastName" required>
+           name="lastName" required placeholder="Enter lastname">
     <div ng-messages="registerForm.lastName.$error" ng-show="registerForm.lastName.$dirty">
-      <div id="register-component:last-name-required-message" ng-message="required">Last name is required</div>
+      <div id="register-component:last-name-required-message" ng-message="required">Prezime je potrebno</div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label" for="register-component:username">Username:</label>
+    <label class="control-label" for="register-component:username">Korisničko ime:</label>
     <input required type="text" name="username" class="form-control" placeholder="Enter username..."
            ng-model="vm.registerData.username" ng-minlength='5' ng-maxlength='20' id='register-component:username'>
     <div ng-show='registerForm.username.$dirty' ng-messages='registerForm.username.$error' style="color:red"
          role='alert'>
-      <div ng-message='required' id='register-component:username-required-message'>Username is required</div>
-      <div ng-message='minlength' id='register-component:username-minlength-message'>Username is atleast 5 characters
-        long
+      <div ng-message='required' id='register-component:username-required-message'>Korisničko ime je potrebno</div>
+      <div ng-message='minlength' id='register-component:username-minlength-message'>Korisničko ime mora imati minimum 5
+        karaktera
       </div>
-      <div ng-message='maxlength' id="register-component:username-maxlength-message">Username is at most 20 character
-        long
+      <div ng-message='maxlength' id="register-component:username-maxlength-message">Korisničko ime mora imati maksimum
+        20 karaktera
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label" for="register-component:email">Email:</label>
+    <label class="control-label" for="register-component:email">E-mail adresa:</label>
     <input required type="email" name="email" class="form-control" placeholder="Enter email..."
            ng-model="vm.registerData.email" id="register-component:email">
     <div ng-show='registerForm.email.$dirty' ng-messages='registerForm.email.$error' style="color:red" role='alert'>
-      <div ng-message='required' id="register-component:email-required-message">Email is required</div>
-      <div ng-message='email' id='register-component:email-invalid-message'>Email is invalid</div>
+      <div ng-message='required' id="register-component:email-required-message">E-mail adresa je potrebna</div>
+      <div ng-message='email' id='register-component:email-invalid-message'>E-mail adresa nije validna</div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label" for="register-component:password">Password:</label>
+    <label class="control-label" for="register-component:password">Šifra:</label>
     <input required type="password" name="password" class="form-control" placeholder="Enter password..."
            ng-model="vm.registerData.password" ng-minlength='5' id="register-component:password">
     <div ng-show='registerForm.password.$dirty' ng-messages='registerForm.password.$error' style="color:red"
          role='alert'>
-      <div ng-message='required' id="register-component:password-required-message">Password is required</div>
-      <div ng-message='minlength' id="register-component:password-minlength-message">Password is atleast 5 characters
-        long
+      <div ng-message='required' id="register-component:password-required-message">Šifra je potrebna</div>
+      <div ng-message='minlength' id="register-component:password-minlength-message">Šifra mora imati minimum 5
+        karaktera
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label" for="register-component:confirm-password">Confirm password:</label>
+    <label class="control-label" for="register-component:confirm-password">Potvrda šifre:</label>
     <input required type="password" name="confirmPassword" class="form-control" placeholder="Confirm password..."
            ng-model="vm.registerData.confirmPassword" compare-to='vm.registerData.password'
            id="register-component:confirm-password">
     <div ng-show='registerForm.confirmPassword.$dirty' ng-messages='registerForm.confirmPassword.$error'
          style="color:red" role='alert'>
-      <div ng-message='required' id="register-component:confirm-password-required-message">Confirm password is required
+      <div ng-message='required' id="register-component:confirm-password-required-message">Potvrda šifre je potrebna
       </div>
-      <div ng-message='compareTo' id="register-component:confirm-password-compare-to-message">Confirm password must be
-        same with password
+      <div ng-message='compareTo' id="register-component:confirm-password-compare-to-message">Potvrda šifre se razlikuje
+        od originalne šifre
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label" for="register-component:register-type">Register as:</label>
+    <label class="control-label" for="register-component:register-type">Registruj se kao:</label>
     <select name="typeSelect" id="register-component:register-type" ng-model="vm.registerData.uloga"
             class="form-control">
       <option ng-repeat="option in vm.options" value="{{option.id}}" id="register-component:option-{{option.id}}">
@@ -77,7 +77,7 @@
   <div class="form-group">
     <div class="btn btn-default" ng-click="registerForm.$invalid || vm.onRegister({registerData: vm.registerData})"
          ng-disabled="registerForm.$invalid" id="register-component:register">
-      Register
+      Potvrdi registraciju
     </div>
   </div>
 </form>

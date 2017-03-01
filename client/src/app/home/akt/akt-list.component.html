@@ -1,16 +1,24 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Naziv akta</th>
-    <th>Datum kreiranja</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="akt in vm.aktovi">
-    <td>{{$index+1}}</td>
-    <td>{{akt.name}}</td>
-    <td>{{akt.dateCreated | date : 'dd. MMMM yyyy'}}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="panel panel-info">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Akti</h4>
+    <div class="btn-group pull-right">
+      <a ui-sref="create-akt" class="btn btn-success">Novi akt</a>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Naziv akta</th>
+      <th>Datum kreiranja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="akt in vm.akti">
+      <td>{{$index+1}}</td>
+      <td><a href ng-click="vm.getDetails(akt.id)">{{akt.name}}</a></td>
+      <td>{{akt.dateCreated | date : 'dd-MM-yyyy'}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

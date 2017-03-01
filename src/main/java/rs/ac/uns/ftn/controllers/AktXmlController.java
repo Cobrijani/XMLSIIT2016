@@ -17,7 +17,7 @@ import rs.ac.uns.ftn.services.AktService;
  * Created by SBratic on 1/18/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/aktovi", produces = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "/api/v1/akti", produces = MediaType.APPLICATION_XML_VALUE)
 public class AktXmlController {
 
   private final AktService aktService;

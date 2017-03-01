@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/aktovi", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/api/v1/akti", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class AktJsonController {
 
 

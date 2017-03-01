@@ -17,9 +17,6 @@ xmlsiit-app:
     token: "Authorization"
     secret: "my-very-little-secret"
 
-
-
-
 # Marklogic properties
 
 marklogic:
@@ -29,7 +26,6 @@ marklogic:
       host: "localhost"
       port: 8011
       databaseName: "xmlsiit"
-debug: true
 
 
 
