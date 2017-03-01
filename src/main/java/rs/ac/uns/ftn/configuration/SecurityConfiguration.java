@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.security.Http401UnauthorizedEntryPoint;
 import rs.ac.uns.ftn.security.csrf.CSRFConfigurer;
@@ -95,14 +94,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private JWTConfigurer jwtConfigurer() {
     return new JWTConfigurer(tokenProvider, XMLSIITProperties);
   }
-
-  private CSRFConfigurer csrfConfigurer() {
-    return new CSRFConfigurer();
-  }
-
-  @Bean
-  public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-    return new SecurityEvaluationContextExtension();
-  }
-
 }

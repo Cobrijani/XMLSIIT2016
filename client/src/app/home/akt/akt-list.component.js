@@ -14,10 +14,11 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception'];
+  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory'];
 
-  function AktListController($scope, GenericResource, exception) {
+  function AktListController($scope, GenericResource, exception, FileFactory) {
     var vm = this;
+    vm.getDetails = getDetails;
 
     activate();
 
@@ -30,6 +31,10 @@
         .catch(function (error) {
           exception.catcher(error);
         });
+    }
+
+    function getDetails(id) {
+      FileFactory.getDocumentInFormat('akti', id, 'text/html');
     }
 
   }

@@ -16,7 +16,7 @@
     <tbody>
     <tr ng-repeat="akt in vm.akti">
       <td>{{$index+1}}</td>
-      <td><a ui-sref="akt-details({id: akt.id})">{{akt.name}}</a></td>
+      <td><a href ng-click="vm.getDetails(akt.id)">{{akt.name}}</a></td>
       <td>{{akt.dateCreated | date : 'dd-MM-yyyy'}}</td>
     </tr>
     </tbody>

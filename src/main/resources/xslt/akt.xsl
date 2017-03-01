@@ -5,6 +5,9 @@
         xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
         version="2.0">
         <xsl:output method="html"></xsl:output>
+        <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyzčćžđš'" />
+        <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZČĆŽĐŠ'" />
+        
         <xsl:template match="akt:akt">
             <html>
                 <head>
@@ -28,7 +31,7 @@
                 </head>
                 <body>
                     <h1 id="{@meta:id}">
-                          <xsl:value-of select="upper-case(@meta:naziv)"></xsl:value-of>
+                          <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
                     </h1>
                     <div class="container">
                         <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
@@ -37,12 +40,12 @@
             </html>
         </xsl:template> 
         <xsl:template match="akt:deo">
-            <h2><xsl:value-of select="upper-case(@meta:naziv)"></xsl:value-of> DEO </h2>
+            <h2><xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of> DEO </h2>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:glava">
-            <h2>GLAVA <xsl:value-of select="upper-case(@redniBroj)"></xsl:value-of></h2>
-            <h2><xsl:value-of select="upper-case(@meta:naziv)"></xsl:value-of></h2>
+            <h2>GLAVA <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
+            <h2><xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of></h2>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:odeljak">

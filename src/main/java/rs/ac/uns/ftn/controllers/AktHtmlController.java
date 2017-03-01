@@ -1,14 +1,17 @@
 package rs.ac.uns.ftn.controllers;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import rs.ac.uns.ftn.model.generated.Akt;
+import org.w3c.dom.Document;
 import rs.ac.uns.ftn.services.AktService;
+import rs.ac.uns.ftn.util.XMLUtil;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 /**
  * Created by SBratic on 1/18/2017.
@@ -24,19 +27,15 @@ public class AktHtmlController {
   }
 
 
-  @GetMapping()
-  public String getAll(Pageable pageable, Model model) {
-    model.addAttribute("akti", aktService.findAll(pageable));
-    return "akti :: aktiFragment";
-  }
-
   @GetMapping(value = "/{id}")
-  public String getOne(@PathVariable String id, Model model) {
-    Akt akt = aktService.findById(id);
-    model.addAttribute("akt", akt);
-
-    return "akt :: aktFragment";
+  public void getOne(@PathVariable String id, HttpServletResponse response) {
+    Document document = aktService.findById(id, Document.class);
+    try {
+      XMLUtil.generateHtml(document, response.getOutputStream(), "xslt/akt.xsl");
+      response.setContentType("text/html");
+      response.flushBuffer();
+    } catch (TransformerException | IOException e) {
+      e.printStackTrace();
+    }
   }
-
-
 }

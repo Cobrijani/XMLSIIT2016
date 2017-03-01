@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AktDetailsController.$inject = ['$scope', '$stateParams', 'GenericResource'];
+  AktDetailsController.$inject = ['$scope', '$stateParams', 'GenericResource', 'FileFactory'];
 
-  function AktDetailsController($scope, $stateParams, GenericResource) {
+  function AktDetailsController($scope, $stateParams, GenericResource, FileFactory) {
     var vm = this;
     //content
     activate();

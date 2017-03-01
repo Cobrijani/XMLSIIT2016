@@ -2,7 +2,7 @@
 <akt:akt xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
     xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt file:/D:/XMLSIIT2016/src/main/resources/schemas/akt.xsd" meta:naziv="Krivicni Zakonik" meta:id="akt" meta:createdBy="pera" meta:dateCreated="2017-11-08">
+    xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt file:/D:/XMLSIIT2016/src/main/resources/schemas/akt.xsd" meta:naziv="Krivicni Zakonik" meta:id="akt" meta:createdBy="pera" meta:dateCreated="2017-05-12" meta:dateModified="2018-01-10Z">
     <akt:deo meta:naziv="opsti" meta:id="deo1" redniBroj="1">
         <akt:glava redniBroj="prva" meta:id="glava1" meta:naziv="osnovne odredbe">
                 <akt:clan redniBroj="1" meta:naziv="Nema krivicnog dela niti kazne bez zakona" meta:id="clan1">

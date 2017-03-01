@@ -29,6 +29,7 @@
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
       <xs:attribute ref="meta:createdBy"/>
       <xs:attribute ref="meta:dateCreated"/>
+      <xs:attribute ref="meta:dateModified"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="deo">
