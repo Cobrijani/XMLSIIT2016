@@ -33,7 +33,7 @@ public class XMLSIITProperties {
 
   @Getter
   @Setter
-  public static class AktProperties{
+  public static class AktProperties {
 
     private String actUri = "/api/v1/aktovi/{id}.xml";
 

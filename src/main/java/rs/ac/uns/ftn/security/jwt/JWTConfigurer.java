@@ -17,7 +17,6 @@ public class JWTConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
   private final XMLSIITProperties XMLSIITProperties;
 
 
-
   public JWTConfigurer(TokenProvider tokenProvider, XMLSIITProperties XMLSIITProperties) {
     this.tokenProvider = tokenProvider;
     this.XMLSIITProperties = XMLSIITProperties;

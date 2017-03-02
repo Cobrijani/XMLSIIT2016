@@ -1,0 +1,36 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Podaci o korisniku</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
+                                                          src="http://eadb.org/wp-content/uploads/2015/08/profile-placeholder.jpg"
+                                                          class="img-circle img-responsive"></div>
+      <div class=" col-md-9 col-lg-9 ">
+        <table class="table table-user-information">
+          <tbody>
+          <tr>
+            <td>Ime:</td>
+            <td>{{vm.user.korisnickiDetalji.firstname| limitTo:20}}</td>
+          </tr>
+          <tr>
+            <td>Prezime:</td>
+            <td>{{vm.user.korisnickiDetalji.lastname| limitTo:20}}</td>
+          </tr>
+          <tr>
+            <td>Korisničko ime:</td>
+            <td>{{vm.user.korisnickiDetalji.username}}</td>
+          </tr>
+          <tr>
+            <td>E-mail:</td>
+            <td><a href="mailto:{{vm.user.korisnickiDetalji.email}}">{{vm.user.korisnickiDetalji.email}}</a></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

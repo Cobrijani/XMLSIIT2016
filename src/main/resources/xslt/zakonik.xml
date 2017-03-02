@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<akt:akt xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+    xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt file:/D:/XMLSIIT2016/src/main/resources/schemas/akt.xsd" meta:naziv="Krivicni Zakonik" meta:id="akt" meta:createdBy="pera" meta:dateCreated="2017-05-12" meta:dateModified="2018-01-10Z">
+    <akt:deo meta:naziv="opsti" meta:id="deo1" redniBroj="1">
+        <akt:glava redniBroj="prva" meta:id="glava1" meta:naziv="osnovne odredbe">
+                <akt:clan redniBroj="1" meta:naziv="Nema krivicnog dela niti kazne bez zakona" meta:id="clan1">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav1">
+                            Nikome ne moze biti izrecena kazna ili druga krivicna sankcija za delo koje pre nego sto je ucinjeno
+                            zakonom nije bilo doredjno kao krivicno delo niti mu se moze izreci kazna ili druga krivicna sankcija koja zakonom nije bila
+                            propisana pre nego sto je krivicno delo ucinjeno
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+                <akt:clan redniBroj="2" meta:naziv="Nema kazne bez krivice" meta:id="clan2">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav2">
+                            Kazna i mere upozorenja mogu se izreci samo ucioniocu koji je kriv za ucinjeno delo
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+                <akt:clan redniBroj="3" meta:naziv="Osnov i granice krivicnopravne prinude" meta:id="clan3">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav3">
+                            Zastita coveka i drugih osnovih drustvenih vrednosti predstavlja osnov i granice
+                            za odredjivanje krivicnih dela, propisivanje krivicnih sankcija i njihovu primenu, 
+                            u meri u kojoj je to nuzno za suzbijajanje tih dela
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+                <akt:clan redniBroj="4" meta:naziv="Krivicne sankcije i njihova opsta svrha" meta:id="clan4">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav4">
+                            (1) Krivicne sankcije su: kazne, mere upozorenja, mere bezbednosti i vaspitne mere.
+                        </akt:stav>
+                        <akt:stav meta:id="stav5">
+                            (2) Opsta svrha propisivanja i izricanja krivicnih sankcija je suzbijanje dela kojima
+                            se povredjuju ili ugrozavaju vrednosti zasticene krivicnim zakonodavstvom
+                        </akt:stav>
+                        <akt:stav meta:id="stav6">
+                            (3) Krivicne sankcije se ne mogu izreci licu koje u vreme kada ej delo ucinjeno nije navrsilo
+                            cetrnaest godna. Vaspitne mere i druge krivicne sankcije
+                            mogu se izreci maloletniku pod uslovima propisanim posebnim zakonom.
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+        </akt:glava>
+        <akt:glava meta:id="glava2" redniBroj="2" meta:naziv="Vazenje krivicnog zakonodavstva Republike Srbije">
+                <akt:clan meta:naziv="Vremeno vazenje krivicnog zakonodavstva" redniBroj="5" meta:id="clan5">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav7">
+                            (1) Na ucinioca krivicnog dela primenjuje se zakon koji je vazio u vreme izvrsenja 
+                            krivicnog dela.
+                        </akt:stav>
+                        <akt:stav meta:id="stav8">
+                            (2) Ako je posle izvrsenja krivicnog dela izmenjen zakon, jednom ili vise puta,
+                            primenice se zakon koji je najblazi za ucinioca
+                        </akt:stav>
+                        <akt:stav meta:id="stav9">
+                            (3) Na ucinioca krivicnog dela koje e previdjeno zakonom sa odredjenim vremenskim trajanjem primenjuje
+                            se taj zakon bez obzira na to kad mu se sudi, ako tim zaknom nije drukcije odredjeno.
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+                <akt:clan meta:id="clan6" redniBroj="6" meta:naziv="Vazenje krivicnog zakonodavstva na teritoriji Srbije">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav10">
+                            (1) Krivicno zakonodavstvo Republike Srbije vazi za svakog ko na njenoj teritoriji
+                            ucini krivicno delo
+                        </akt:stav>
+                        <akt:stav meta:id="stav11">
+                            (2) Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo na domacem
+                            brodu, bez obzira gde se brod nalazi u vreme izvrsenja dela.
+                        </akt:stav>
+                        <akt:stav meta:id="stav12">
+                            (3) Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo u domacem civilnom
+                            vazduhoplovu dok je u letu ili u domacem vojnom vazduhoplovu, bez obzira gde se vazduhoplov
+                            nalazio u vreme izvrsenja krivicnog dela.
+                        </akt:stav>
+                        <akt:stav meta:id="stav13">
+                            (4) Ako je u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
+                             do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana u stranoj drzavi
+                            pokrenut ili dorvrsen krivicni postupak, krivicno gonjenje u Srbiji preduzece se samo 
+                            po odobrenju republickog javnog tuzioca
+                        </akt:stav>
+                        <akt:stav meta:id="stav14">
+                            (5) Krivicno gonejnje stranca u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
+                            do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana moze se, pod uslovom
+                            uzajamnosti, ustpiti stanoj drzavi.
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+                <akt:clan meta:id="clan7" redniBroj="7" meta:naziv="Vazenje krivicnog zakonodavstva Srbije za ucinioce odredjenih krivicnih dela izvrsenih u inostranstvu">
+                    <akt:sadrzaj>
+                        <akt:stav meta:id="stav14">
+                            Krivicno zakonodavstvo Srbije vazi za svakog ko uinostranstvu ucini krivicno delo iz cl. 305
+                            do 316. i cl 318. do 321. ovog zakonika ili iz clana 223. ovog zakonika, ako se
+                            falsifikovanje odnosi na domaci novac.
+                        </akt:stav>
+                    </akt:sadrzaj>
+                </akt:clan>
+        </akt:glava>
+    </akt:deo>    
+</akt:akt>

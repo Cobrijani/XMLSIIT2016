@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
+import rs.ac.uns.ftn.security.model.KorisnikUserDetails;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -27,14 +28,11 @@ import java.util.stream.Collectors;
 @Component
 public class JJWTTokenProvider implements TokenProvider {
 
-  private final Logger log = LoggerFactory.getLogger(JJWTTokenProvider.class);
-
-  private String secretKey;
-
   private static final String AUTHORITIES_KEY = "auth";
-
+  private static final String LOGIN_KEY = "login";
+  private final Logger log = LoggerFactory.getLogger(JJWTTokenProvider.class);
   private final XMLSIITProperties XMLSIITProperties;
-
+  private String secretKey;
   private long tokenValidityInSecondsForRememberMe;
 
   private long tokenValidityInSeconds;
@@ -57,25 +55,33 @@ public class JJWTTokenProvider implements TokenProvider {
   }
 
 
+  private String extractAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
+  }
+
+  private Date provideValidityDate(Boolean rememberMe) {
+    long now = (new Date()).getTime();
+    return rememberMe ? new Date(now + this.tokenValidityInSecondsForRememberMe) : new Date(now + this.tokenValidityInSeconds);
+  }
+
+
   @Override
   public String createToken(Authentication authentication, Boolean rememberMe) {
-    String authorities =
-      authentication.getAuthorities().stream()
-        .map(GrantedAuthority::getAuthority)
-        .collect(Collectors.joining(","));
+    String authorities = extractAuthorities(authentication.getAuthorities());
+    Date validity = provideValidityDate(rememberMe);
 
-    long now = (new Date()).getTime();
+    String subject = null;
 
-    Date validity;
-
-    if (rememberMe) {
-      validity = new Date(now + this.tokenValidityInSecondsForRememberMe);
+    if (authentication instanceof KorisnikUserDetails) {
+      KorisnikUserDetails korisnikUserDetails = (KorisnikUserDetails) authentication;
+      subject = korisnikUserDetails.getKorisnik().getId();
     } else {
-      validity = new Date(now + this.tokenValidityInSeconds);
+      subject = authentication.getName();
     }
 
+
     return Jwts.builder()
-      .setSubject(authentication.getName())
+      .setSubject(subject)
       .claim(AUTHORITIES_KEY, authorities)
       .signWith(SignatureAlgorithm.HS256, secretKey)
       .setExpiration(validity)
@@ -111,5 +117,19 @@ public class JJWTTokenProvider implements TokenProvider {
     User principal = new User(claims.getSubject(), "", authorities);
 
     return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+  }
+
+  @Override
+  public String createToken(Authentication authentication, Boolean rememberMe, String subject) {
+    String authorities = extractAuthorities(authentication.getAuthorities());
+    Date validity = provideValidityDate(rememberMe);
+
+    return Jwts.builder()
+      .setSubject(subject)
+      .claim(AUTHORITIES_KEY, authorities)
+      .claim(LOGIN_KEY, authentication.getName())
+      .signWith(SignatureAlgorithm.HS256, secretKey)
+      .setExpiration(validity)
+      .compact();
   }
 }

@@ -1,0 +1,264 @@
+body {
+  background-color: white;
+  /*margin-bottom: 50px;*/
+  margin-top: 50px;
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+#footer {
+  position: fixed;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 0;
+}
+
+#menu {
+  position: fixed;
+  height: 50px;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  z-index: 999
+}
+
+/*menu*/
+
+/*menu*/
+
+.content {
+  /*margin-top: 20px;*/
+  margin-bottom: 20px;
+  min-height: 80vh;
+}
+
+.map-preview,
+.additional-information,
+.basic-information {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* carousel */
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  width: 100%;
+  align-content: center;
+}
+
+/* carousel */
+
+div[ng-messages] {
+  color: red;
+}
+
+.control-label,
+.form-control {
+  color: black;
+}
+
+/*buttons*/
+
+.btn-default {
+  border-color: black;
+}
+
+.btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.btn:hover {
+}
+
+.btn-default[disabled]:hover {
+  color: grey;
+}
+
+.btn-success {
+  color: white;
+  background: green;
+  border-color: green;
+}
+
+.btn-success:hover {
+  color: green;
+  background: white;
+}
+
+.btn-primary {
+  color: white;
+  background: blue;
+  border-color: blue;
+}
+
+.btn-primary:hover {
+  background: white;
+  color: blue;
+  border-color: blue;
+}
+
+.btn-warning {
+  color: white;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+.btn-warning:hover {
+  background: white;
+  color: #f0ad4e;
+}
+
+.btn-default:hover {
+  border-color: white;
+  color: white;
+  background: black;
+}
+
+/*buttons*/
+
+/*thumbnail*/
+
+.thumbnail,
+.form-control,
+.dropdown-toggle {
+  /*border-color: black;*/
+  border-radius: 0;
+}
+
+.thumbnail > img {
+  width: 120%;
+}
+
+.thumbnail:hover {
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.action-panel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*thumbnail*/
+
+footer {
+  font-weight: bold;
+  color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-align: center;
+  font-weight: bold;
+}
+
+/*menu*/
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-brand {
+  color: white;
+}
+
+.navbar-default .navbar-nav > .menu-active > a {
+  color: black;
+
+}
+
+.navbar-default .navbar-nav > .menu-active {
+  background: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: black;
+}
+
+.navbar-default .navbar-nav > li > a:active {
+  color: black;
+}
+
+.navbar-default .navbar-nav > li:hover {
+  background: white;
+}
+
+.navbar-default .navbar-nav > li:active {
+  background: white;
+}
+
+.navbar-active {
+  background: white;
+}
+
+/*menu*/
+
+i .fa {
+  background: white;
+}
+
+nav > .container-fluid {
+  background: black;
+}
+
+/*forms*/
+
+.form,
+.form-horizontal {
+  margin-top: 20px;
+}
+
+/*forms*/
+
+/*company page*/
+
+.company-page {
+  margin-top: 20px;
+}
+
+.pagination {
+  padding-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/*background*/
+.bg-warning {
+  color: white;
+  background-color: #f0ad4e;
+}
+
+.bg-primary {
+  color: white;
+  background: blue;
+}
+
+.bg-success {
+  color: white;
+  background: green;
+}
+
+.label-strong {
+  font-weight: bold;
+}
+
+.menu-container-margin {
+  margin-top: 20px;
+}
+
+/*standard measures*/
+
+/*
+browsersync notification to be shown at the bottom, because selenium is having problem with it
+*/
+
+#__bs_notify__ {
+  top: 95% !important;
+  right: 10px !important;
+  border-radius: 15px !important;
+  height: 60px !important;
+}

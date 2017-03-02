@@ -10,13 +10,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.security.Http401UnauthorizedEntryPoint;
-import rs.ac.uns.ftn.security.RealEstateUserDetailsService;
 import rs.ac.uns.ftn.security.csrf.CSRFConfigurer;
 import rs.ac.uns.ftn.security.jwt.JWTConfigurer;
 import rs.ac.uns.ftn.security.jwt.TokenProvider;
@@ -31,28 +28,35 @@ import rs.ac.uns.ftn.security.jwt.TokenProvider;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-  private final RealEstateUserDetailsService realEstateUserDetailsService;
-
   private final TokenProvider tokenProvider;
 
   private final Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
 
   private final XMLSIITProperties XMLSIITProperties;
 
+  private final PasswordEncoder passwordEncoder;
+
+  private final UserDetailsService userDetailsService;
+
   @Autowired
-  public SecurityConfiguration(RealEstateUserDetailsService realEstateUserDetailsService, TokenProvider tokenProvider, Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint, XMLSIITProperties XMLSIITProperties) {
-    this.realEstateUserDetailsService = realEstateUserDetailsService;
+  public SecurityConfiguration(
+    TokenProvider tokenProvider,
+    Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint,
+    XMLSIITProperties XMLSIITProperties,
+    PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
     this.tokenProvider = tokenProvider;
     this.http401UnauthorizedEntryPoint = http401UnauthorizedEntryPoint;
     this.XMLSIITProperties = XMLSIITProperties;
+    this.passwordEncoder = passwordEncoder;
+    this.userDetailsService = userDetailsService;
   }
 
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-      .userDetailsService(realEstateUserDetailsService)
-      .passwordEncoder(passwordEncoder());
+      .userDetailsService(userDetailsService)
+      .passwordEncoder(passwordEncoder);
   }
 
   @Override
@@ -66,8 +70,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.
-      exceptionHandling()
+
+
+    http
+      .exceptionHandling()
       .authenticationEntryPoint(http401UnauthorizedEntryPoint)
       .and()
       .sessionManagement()
@@ -75,37 +81,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
       .apply(jwtConfigurer())
       .and()
-      .apply(csrfConfigurer())
-      .and()
       .csrf()
-    .disable()
-      /*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-      .and()
+      .disable()
       .authorizeRequests()
       .antMatchers("/").permitAll()
-      .antMatchers("/api/authenticate").permitAll()
-      .anyRequest().authenticated()*/;
+      .antMatchers("/api/v1/authenticate").permitAll()
+      .anyRequest().permitAll();
 
 
-  }
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
   }
 
   private JWTConfigurer jwtConfigurer() {
     return new JWTConfigurer(tokenProvider, XMLSIITProperties);
   }
-
-  private CSRFConfigurer csrfConfigurer() {
-    return new CSRFConfigurer();
-  }
-
-  @Bean
-  public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-    return new SecurityEvaluationContextExtension();
-  }
-
-
 }

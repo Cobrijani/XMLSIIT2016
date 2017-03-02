@@ -6,17 +6,26 @@ spring:
     active:
   application:
     name: XML SIIT
+
 server:
   port: 8080
+
 
 # Application specific properties
 xmlsiit-app:
   security:
-    token: "X-Auth-Token"
+    token: "Authorization"
     secret: "my-very-little-secret"
 
-
 # Marklogic properties
+
+marklogic:
+  connectivity:
+      user: "rest-writer"
+      password: "x"
+      host: "localhost"
+      port: 8011
+      databaseName: "xmlsiit"
 
 
 

@@ -1,8 +1,8 @@
 package rs.ac.uns.ftn;
 
+import com.marklogic.client.DatabaseClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,14 +10,16 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import rs.ac.uns.ftn.model.Authority;
-import rs.ac.uns.ftn.model.User;
+import rs.ac.uns.ftn.model.korisnici.KorisnickiDetalji;
+import rs.ac.uns.ftn.model.korisnici.Korisnik;
+import rs.ac.uns.ftn.model.korisnici.Uloga;
 import rs.ac.uns.ftn.properties.MarkLogicProperties;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
-import rs.ac.uns.ftn.repositories.AuthorityRepository;
-import rs.ac.uns.ftn.repositories.UserRepository;
-import rs.ac.uns.ftn.security.AuthoritiesConstants;
+import rs.ac.uns.ftn.services.AktService;
+import rs.ac.uns.ftn.services.IdentifierGenerator;
+import rs.ac.uns.ftn.services.KorisnikService;
 
+import javax.annotation.PreDestroy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -27,13 +29,18 @@ public class XMLSIITApplication {
 
   private static final Logger log = LoggerFactory.getLogger(XMLSIITApplication.class);
 
+  private final DatabaseClient databaseClient;
+
+  public XMLSIITApplication(DatabaseClient databaseClient) {
+    this.databaseClient = databaseClient;
+  }
 
   public static void main(String[] args) throws UnknownHostException {
     SpringApplication app = new SpringApplication(XMLSIITApplication.class);
     Environment env = app.run(args).getEnvironment();
     log.info("\n----------------------------------------------------------\n\t" +
         "Application '{}' is running! Access URLs:\n\t" +
-        "Local: \t\thttp://127.0.0.1:{}\n\t" +
+        "Local: \t\thttp://localhost:{}\n\t" +
         "External: \thttp://{}:{}\n----------------------------------------------------------",
       env.getProperty("spring.application.name"),
       env.getProperty("server.port"),
@@ -42,52 +49,55 @@ public class XMLSIITApplication {
 
   }
 
-  @Autowired
-  UserRepository userRepository;
+  @PreDestroy
+  public void release() {
+    databaseClient.release();
+  }
 
-  @Autowired
-  AuthorityRepository authorityRepository;
-
-  @Autowired
-  PasswordEncoder passwordEncoder;
 
   @Bean
-  public CommandLineRunner seedCLR() {
-    return args -> {
-      Authority roleAdmin = new Authority();
-      Authority roleVerifier = new Authority();
-      Authority roleUser = new Authority();
+  public CommandLineRunner recreateData(KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
+    return (args -> {
+      korisnikService.deleteAll();
+      //aktService.deleteAll();
 
-      roleAdmin.setName(AuthoritiesConstants.ADMIN);
-      roleVerifier.setName(AuthoritiesConstants.VERIFIER);
-      roleUser.setName(AuthoritiesConstants.USER);
+      final Korisnik korisnik = new Korisnik();
+      korisnik.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji = new KorisnickiDetalji();
+      korisnickiDetalji.setFirstname("gradjanin");
+      korisnickiDetalji.setLastname("gradjanin");
+      korisnickiDetalji.setPassword(passwordEncoder.encode("gradjanin"));
+      korisnickiDetalji.setEmail("gradjanin@gmail.com");
+      korisnickiDetalji.setUsername("gradjanin");
+      korisnik.setKorisnickiDetalji(korisnickiDetalji);
+      korisnik.setUloga(Uloga.GRADJANIN);
+      korisnikService.saveKorisnik(korisnik);
 
-      User admin = new User();
-      User verifier = new User();
-      User user = new User();
 
-      admin.setUsername("admin");
-      admin.setPassword(passwordEncoder.encode("admin"));
-      admin.setEmail("adimin@gmail.com");
-      admin.getAuthorities().add(roleAdmin);
-      admin.setEnabled(true);
+      final Korisnik korisnik1 = new Korisnik();
+      korisnik1.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji1 = new KorisnickiDetalji();
+      korisnickiDetalji1.setFirstname("odbornik");
+      korisnickiDetalji1.setLastname("odbornik");
+      korisnickiDetalji1.setPassword(passwordEncoder.encode("odbornik"));
+      korisnickiDetalji1.setEmail("odbornik@gmail.com");
+      korisnickiDetalji1.setUsername("odbornik");
+      korisnik1.setKorisnickiDetalji(korisnickiDetalji1);
+      korisnik1.setUloga(Uloga.ODBORNIK);
+      korisnikService.saveKorisnik(korisnik1);
 
-      verifier.setUsername("verifier");
-      verifier.setPassword(passwordEncoder.encode("verifier"));
-      verifier.setEmail("verifier@gmail.com");
-      verifier.getAuthorities().add(roleVerifier);
-      verifier.setEnabled(true);
+      final Korisnik korisnik2 = new Korisnik();
+      korisnik2.setId(identifierGenerator.generateIdentity());
+      final KorisnickiDetalji korisnickiDetalji2 = new KorisnickiDetalji();
+      korisnickiDetalji2.setFirstname("predsednik");
+      korisnickiDetalji2.setLastname("predsednik");
+      korisnickiDetalji2.setPassword(passwordEncoder.encode("predsednik"));
+      korisnickiDetalji2.setEmail("predsednik@gmail.com");
+      korisnickiDetalji2.setUsername("predsednik");
+      korisnik2.setKorisnickiDetalji(korisnickiDetalji2);
+      korisnik2.setUloga(Uloga.PREDSEDNIK);
+      korisnikService.saveKorisnik(korisnik2);
 
-      user.setUsername("user");
-      user.setPassword(passwordEncoder.encode("user"));
-      user.setEmail("user@gmail.com");
-      user.getAuthorities().add(roleUser);
-      user.setEnabled(true);
-
-      userRepository.save(admin);
-      userRepository.save(verifier);
-      userRepository.save(user);
-
-    };
+    });
   }
 }

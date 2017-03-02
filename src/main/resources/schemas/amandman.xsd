@@ -1,89 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
-    vc:minVersion="1.0" vc:maxVersion="1.1" targetNamespace="http://parlament.gov.rs/amandman"
-    xmlns:akt="http://parlament.gov.rs/akt ./akt.xsd" xmlns="http://parlament.gov.rs/amandman">
-    <xs:element name="amandman">
-        <xs:complexType>
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+           xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+           elementFormDefault="qualified" vc:minVersion="1.0"
+           vc:maxVersion="1.1"
+           targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+           xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"
+             id="akt"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+             schemaLocation="metadata.xsd"/>
+  <xs:element name="amandman">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="izmene">
+          <xs:complexType>
             <xs:sequence>
-                <xs:element name="izmene">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:choice maxOccurs="unbounded">
-                                <xs:element maxOccurs="1" ref="izmena"/>
-                                <xs:element ref="mala_izmena"/>
-                            </xs:choice>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element minOccurs="1" ref="obrazlozenje"/>
+              <xs:choice maxOccurs="unbounded">
+                <xs:element maxOccurs="1" ref="izmena"/>
+                <xs:element ref="mala_izmena"/>
+              </xs:choice>
             </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="obrazlozenje">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="razlog_podnosenja" type="xs:string"/>
-                <xs:element name="objasnjenje_resenja" type="xs:string"/>
-                <xs:element name="cilj" type="xs:string"/>
-                <xs:element name="procena_uticaja" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="izmena">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="odredba"/>
-                <xs:element ref="tip_izmene"/>
-                <xs:element ref="resenje"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="mala_izmena">
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:element ref="referenca"/>
-                <xs:element name="stara_vrednost" type="xs:string"/>
-                <xs:element ref="tip_izmene"/>
-                <xs:element name="nova_vrednost" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="odredba">
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:element ref="referenca"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="tip_izmene">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:enumeration value="BRISANJE"/>
-                <xs:enumeration value="IZMENA"/>
-                <xs:enumeration value="DOPUNA"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="resenje">
-        <xs:complexType>
-            <xs:choice>
-                <xs:element name="akt:clan"/>
-                <xs:element name="akt:stav"/>
-                <xs:element name="akt:tacka"/>
-                <xs:element name="akt:podtacka"/>
-                <xs:element name="akt:alineja"/>
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="referenca">
-        <xs:complexType>
-            <xs:simpleContent>
-                <xs:extension base="xs:string">
-                    <xs:attribute ref="idRef"/>
-                </xs:extension>
-            </xs:simpleContent>
-        </xs:complexType>
-    </xs:element>
-    <xs:attribute name="idRef" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="1" ref="obrazlozenje"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="obrazlozenje">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="razlog_podnosenja" type="xs:string"/>
+        <xs:element name="objasnjenje_resenja" type="xs:string"/>
+        <xs:element name="cilj" type="xs:string"/>
+        <xs:element name="procena_uticaja" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="izmena">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="odredba"/>
+        <xs:element ref="tip_izmene"/>
+        <xs:element ref="resenje"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mala_izmena">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="akt:referenca"/>
+        <xs:element name="stara_vrednost" type="xs:string"/>
+        <xs:element ref="tip_izmene"/>
+        <xs:element name="nova_vrednost" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="odredba">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="akt:referenca"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tip_izmene">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="BRISANJE"/>
+        <xs:enumeration value="IZMENA"/>
+        <xs:enumeration value="DOPUNA"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="resenje">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="akt:potacka"/>
+        <xs:element ref="akt:alineja"/>
+        <xs:element ref="akt:clan"/>
+        <xs:element ref="akt:stav"/>
+        <xs:element ref="akt:tacka"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
