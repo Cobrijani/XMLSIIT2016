@@ -23,7 +23,7 @@ public class MarkLogicProperties {
   @Setter
   public static class Connectivity {
 
-    private String user = "student";
+    private String user = "student12";
     private String password = "ftn";
 
     private String host = "147.91.177.194";
@@ -35,7 +35,7 @@ public class MarkLogicProperties {
     private String proxyHost;
     private String proxyPort;
 
-    private String databaseName = "student";
+    private String databaseName = "student12";
 
   }
 
