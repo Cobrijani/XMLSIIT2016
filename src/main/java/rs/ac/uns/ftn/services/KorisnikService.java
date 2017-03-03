@@ -19,6 +19,8 @@ public interface KorisnikService {
 
   Korisnik findByUsername(String username);
 
+  Korisnik findByEmail(String username);
+
   Korisnik saveKorisnik(Korisnik korisnik);
 
   void deleteKorisnikById(String id);
