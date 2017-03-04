@@ -24,4 +24,6 @@ public class SednicaDTO {
 
   private String datum;
 
+  private String mesto;
+
 }
