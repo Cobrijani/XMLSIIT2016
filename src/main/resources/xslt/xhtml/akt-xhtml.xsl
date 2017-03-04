@@ -1,4 +1,5 @@
-    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<?xml version="1.0" encoding="UTF-8"?>   
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         exclude-result-prefixes="xs"
         xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
@@ -11,6 +12,7 @@
         <xsl:template match="akt:akt">
             <html>
                 <head>
+                    <meta charset="utf-8"></meta>
                     <style type="text/css">
                         h1,h2,h3,h4,h5,h6 {
                             text-align: center;
@@ -21,7 +23,7 @@
                         .container{
                             margin-left: 30%;
                             margin-right: 30%;
-                        }
+                        }w
                         p.stav{
                             text-indent: 5em;
                         }
@@ -31,6 +33,7 @@
                 </head>
                 <body>
                     <h1 id="{@meta:id}">
+                        
                           <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
                     </h1>
                     <div class="container">

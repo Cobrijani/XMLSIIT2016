@@ -4,6 +4,7 @@ package rs.ac.uns.ftn.model.generated;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}potacka"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}podtacka"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}alineja"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}stav"/>
@@ -33,51 +34,56 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "potacka",
+    "podtacka",
     "alineja",
     "clan",
     "stav",
     "tacka"
 })
 @XmlRootElement(name = "resenje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Resenje {
 
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Potacka potacka;
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected Podtacka podtacka;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Alineja alineja;
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Clan clan;
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Stav stav;
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Tacka tacka;
 
     /**
-     * Gets the value of the potacka property.
+     * Gets the value of the podtacka property.
      * 
      * @return
      *     possible object is
-     *     {@link Potacka }
+     *     {@link Podtacka }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Potacka getPotacka() {
-        return potacka;
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public Podtacka getPodtacka() {
+        return podtacka;
     }
 
     /**
-     * Sets the value of the potacka property.
+     * Sets the value of the podtacka property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Potacka }
+     *     {@link Podtacka }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setPotacka(Potacka value) {
-        this.potacka = value;
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setPodtacka(Podtacka value) {
+        this.podtacka = value;
     }
 
     /**
@@ -88,7 +94,7 @@ public class Resenje {
      *     {@link Alineja }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Alineja getAlineja() {
         return alineja;
     }
@@ -101,7 +107,7 @@ public class Resenje {
      *     {@link Alineja }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAlineja(Alineja value) {
         this.alineja = value;
     }
@@ -114,7 +120,7 @@ public class Resenje {
      *     {@link Clan }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Clan getClan() {
         return clan;
     }
@@ -127,7 +133,7 @@ public class Resenje {
      *     {@link Clan }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setClan(Clan value) {
         this.clan = value;
     }
@@ -140,7 +146,7 @@ public class Resenje {
      *     {@link Stav }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Stav getStav() {
         return stav;
     }
@@ -153,7 +159,7 @@ public class Resenje {
      *     {@link Stav }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setStav(Stav value) {
         this.stav = value;
     }
@@ -166,7 +172,7 @@ public class Resenje {
      *     {@link Tacka }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Tacka getTacka() {
         return tacka;
     }
@@ -179,7 +185,7 @@ public class Resenje {
      *     {@link Tacka }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setTacka(Tacka value) {
         this.tacka = value;
     }
