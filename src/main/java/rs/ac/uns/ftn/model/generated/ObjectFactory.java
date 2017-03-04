@@ -34,14 +34,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Clan }
-     * 
-     */
-    public Clan createClan() {
-        return new Clan();
-    }
-
-    /**
      * Create an instance of {@link Stav }
      * 
      */
@@ -98,11 +90,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Clan.Sadrzaj }
+     * Create an instance of {@link Clan }
      * 
      */
-    public Clan.Sadrzaj createClanSadrzaj() {
-        return new Clan.Sadrzaj();
+    public Clan createClan() {
+        return new Clan();
     }
 
     /**
