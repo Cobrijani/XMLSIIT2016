@@ -59,7 +59,7 @@ public class XMLSIITApplication {
   public CommandLineRunner recreateData(KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
-      //aktService.deleteAll();
+      aktService.deleteAll();
 
       final Korisnik korisnik = new Korisnik();
       korisnik.setId(identifierGenerator.generateIdentity());

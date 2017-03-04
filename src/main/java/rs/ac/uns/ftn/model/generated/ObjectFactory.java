@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _TipIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "tip_izmene");
+    private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
     private final static QName _MalaIzmenaNovaVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "nova_vrednost");
     private final static QName _MalaIzmenaStaraVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "stara_vrednost");
 
@@ -92,11 +93,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Potacka }
+     * Create an instance of {@link Podtacka }
      * 
      */
-    public Potacka createPotacka() {
-        return new Potacka();
+    public Podtacka createPodtacka() {
+        return new Podtacka();
     }
 
     /**
@@ -194,6 +195,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "tip_izmene")
     public JAXBElement<String> createTipIzmene(String value) {
         return new JAXBElement<String>(_TipIzmene_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", name = "preambula")
+    public JAXBElement<String> createPreambula(String value) {
+        return new JAXBElement<String>(_Preambula_QNAME, String.class, null, value);
     }
 
     /**

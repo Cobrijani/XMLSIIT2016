@@ -19,6 +19,7 @@
   function AktListController($scope, GenericResource, exception, FileFactory) {
     var vm = this;
     vm.getDetails = getDetails;
+    vm.getPdf = getPdf;
 
     activate();
 
@@ -35,6 +36,10 @@
 
     function getDetails(id) {
       FileFactory.getDocumentInFormat('akti', id, 'text/html');
+    }
+
+    function getPdf(id) {
+      FileFactory.getDocumentInFormat('akti', id, 'application/pdf');
     }
 
   }

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
-           xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
-           elementFormDefault="qualified" vc:minVersion="1.0"
-           vc:maxVersion="1.1"
-           targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
-           xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+  xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" elementFormDefault="qualified"
+  vc:minVersion="1.0" vc:maxVersion="1.1"
+  targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+  xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"
-             id="akt"/>
+    id="akt"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-             schemaLocation="metadata.xsd"/>
+    schemaLocation="metadata.xsd"/>
   <xs:element name="amandman">
     <xs:complexType>
       <xs:sequence>
@@ -75,7 +74,7 @@
   <xs:element name="resenje">
     <xs:complexType>
       <xs:choice>
-        <xs:element ref="akt:potacka"/>
+        <xs:element ref="akt:podtacka"/>
         <xs:element ref="akt:alineja"/>
         <xs:element ref="akt:clan"/>
         <xs:element ref="akt:stav"/>

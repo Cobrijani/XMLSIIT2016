@@ -24,7 +24,15 @@
   <xs:element name="akt">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="akt:deo"/>
+        <xs:element ref="akt:preambula"/>
+        <xs:choice>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="akt:deo"/>
+          </xs:sequence>
+          <xs:sequence>
+            <xs:element maxOccurs="20" minOccurs="2" ref="akt:clan"/>
+          </xs:sequence>
+        </xs:choice>
       </xs:sequence>
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
       <xs:attribute ref="meta:createdBy"/>
@@ -47,7 +55,7 @@
           <xs:element ref="akt:odeljak" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" ref="akt:clan"/>
+          <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:clan"/>
         </xs:sequence>
       </xs:choice>
       <xs:attributeGroup ref="akt:prosireniUobicajeniAtributi"/>
@@ -74,7 +82,7 @@
     <xs:complexType mixed="true">
       <xs:sequence>
         <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:referenca"/>
-        <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:tacka"/>
+        <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:tacka"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
     </xs:complexType>
@@ -83,15 +91,15 @@
     <xs:complexType mixed="true">
       <xs:sequence>
         <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:referenca"/>
-        <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:potacka"/>
+        <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:podtacka"/>
       </xs:sequence>
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="potacka">
+  <xs:element name="podtacka">
     <xs:complexType mixed="true">
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:alineja"/>
+        <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:alineja"/>
       </xs:sequence>
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     </xs:complexType>
@@ -121,4 +129,5 @@
     <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     <xs:attribute name="redniBroj" type="xs:string"/>
   </xs:attributeGroup>
+  <xs:element name="preambula" type="xs:string"/>
 </xs:schema>

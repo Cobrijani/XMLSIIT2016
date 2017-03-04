@@ -31,8 +31,8 @@ public class AktHtmlController {
   public void getOne(@PathVariable String id, HttpServletResponse response) {
     Document document = aktService.findById(id, Document.class);
     try {
-      XMLUtil.generateHtml(document, response.getOutputStream(), "xslt/akt.xsl");
-      response.setContentType("text/html");
+      XMLUtil.generateHtml(document, response.getOutputStream(), "xslt/xhtml/akt-xhtml.xsl");
+      response.setContentType(MediaType.TEXT_HTML_VALUE);
       response.flushBuffer();
     } catch (TransformerException | IOException e) {
       e.printStackTrace();

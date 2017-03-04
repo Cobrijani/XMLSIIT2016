@@ -1,2 +1,4 @@
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+/**
+ * Created by SBratic on 3/4/2017.
+ */
 package rs.ac.uns.ftn.model.generated;
