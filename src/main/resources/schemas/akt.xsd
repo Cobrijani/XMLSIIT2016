@@ -32,6 +32,9 @@
           <xs:sequence>
             <xs:element maxOccurs="20" minOccurs="2" ref="akt:clan"/>
           </xs:sequence>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="akt:glava"/>
+          </xs:sequence>
         </xs:choice>
       </xs:sequence>
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
@@ -53,9 +56,6 @@
       <xs:choice>
         <xs:sequence>
           <xs:element ref="akt:odeljak" maxOccurs="unbounded"/>
-        </xs:sequence>
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:clan"/>
         </xs:sequence>
       </xs:choice>
       <xs:attributeGroup ref="akt:prosireniUobicajeniAtributi"/>

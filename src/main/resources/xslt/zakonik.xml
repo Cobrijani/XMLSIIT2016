@@ -33,14 +33,14 @@
                 <akt:clan redniBroj="4" meta:naziv="Krivicne sankcije i njihova opsta svrha" meta:id="clan4">
                     <akt:sadrzaj>
                         <akt:stav meta:id="stav4">
-                            (1) Krivicne sankcije su: kazne, mere upozorenja, mere bezbednosti i vaspitne mere.
+                             Krivicne sankcije su: kazne, mere upozorenja, mere bezbednosti i vaspitne mere.
                         </akt:stav>
                         <akt:stav meta:id="stav5">
-                            (2) Opsta svrha propisivanja i izricanja krivicnih sankcija je suzbijanje dela kojima
+                             Opsta svrha propisivanja i izricanja krivicnih sankcija je suzbijanje dela kojima
                             se povredjuju ili ugrozavaju vrednosti zasticene krivicnim zakonodavstvom
                         </akt:stav>
                         <akt:stav meta:id="stav6">
-                            (3) Krivicne sankcije se ne mogu izreci licu koje u vreme kada ej delo ucinjeno nije navrsilo
+                            Krivicne sankcije se ne mogu izreci licu koje u vreme kada ej delo ucinjeno nije navrsilo
                             cetrnaest godna. Vaspitne mere i druge krivicne sankcije
                             mogu se izreci maloletniku pod uslovima propisanim posebnim zakonom.
                         </akt:stav>
@@ -67,26 +67,26 @@
                 <akt:clan meta:id="clan6" redniBroj="6" meta:naziv="Vazenje krivicnog zakonodavstva na teritoriji Srbije">
                     <akt:sadrzaj>
                         <akt:stav meta:id="stav10">
-                            (1) Krivicno zakonodavstvo Republike Srbije vazi za svakog ko na njenoj teritoriji
+                            Krivicno zakonodavstvo Republike Srbije vazi za svakog ko na njenoj teritoriji
                             ucini krivicno delo
                         </akt:stav>
                         <akt:stav meta:id="stav11">
-                            (2) Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo na domacem
+                            Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo na domacem
                             brodu, bez obzira gde se brod nalazi u vreme izvrsenja dela.
                         </akt:stav>
                         <akt:stav meta:id="stav12">
-                            (3) Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo u domacem civilnom
+                            Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo u domacem civilnom
                             vazduhoplovu dok je u letu ili u domacem vojnom vazduhoplovu, bez obzira gde se vazduhoplov
                             nalazio u vreme izvrsenja krivicnog dela.
                         </akt:stav>
                         <akt:stav meta:id="stav13">
-                            (4) Ako je u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
+                            Ako je u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
                              do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana u stranoj drzavi
                             pokrenut ili dorvrsen krivicni postupak, krivicno gonjenje u Srbiji preduzece se samo 
                             po odobrenju republickog javnog tuzioca
                         </akt:stav>
                         <akt:stav meta:id="stav14">
-                            (5) Krivicno gonejnje stranca u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
+                            Krivicno gonejnje stranca u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
                             do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana moze se, pod uslovom
                             uzajamnosti, ustpiti stanoj drzavi.
                         </akt:stav>

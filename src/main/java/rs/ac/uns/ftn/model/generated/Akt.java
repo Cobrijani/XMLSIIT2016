@@ -32,6 +32,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *           &lt;sequence>
  *             &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan" maxOccurs="20" minOccurs="2"/>
  *           &lt;/sequence>
+ *           &lt;sequence>
+ *             &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}glava" maxOccurs="unbounded"/>
+ *           &lt;/sequence>
  *         &lt;/choice>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}uobicajeniAtributi"/>
@@ -49,37 +52,41 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "", propOrder = {
     "preambula",
     "deo",
-    "clan"
+    "clan",
+    "glava"
 })
 @XmlRootElement(name = "akt", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Akt {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String preambula;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Deo> deo;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Clan> clan;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected List<Glava> glava;
     @XmlAttribute(name = "createdBy", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String createdBy;
     @XmlAttribute(name = "dateCreated", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @XmlSchemaType(name = "date")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected XMLGregorianCalendar dateCreated;
     @XmlAttribute(name = "dateModified", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @XmlSchemaType(name = "date")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected XMLGregorianCalendar dateModified;
     @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String naziv;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -90,7 +97,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getPreambula() {
         return preambula;
     }
@@ -103,7 +110,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setPreambula(String value) {
         this.preambula = value;
     }
@@ -130,7 +137,7 @@ public class Akt {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Deo> getDeo() {
         if (deo == null) {
             deo = new ArrayList<Deo>();
@@ -160,12 +167,42 @@ public class Akt {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Clan> getClan() {
         if (clan == null) {
             clan = new ArrayList<Clan>();
         }
         return this.clan;
+    }
+
+    /**
+     * Gets the value of the glava property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the glava property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getGlava().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Glava }
+     * 
+     * 
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public List<Glava> getGlava() {
+        if (glava == null) {
+            glava = new ArrayList<Glava>();
+        }
+        return this.glava;
     }
 
     /**
@@ -176,7 +213,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getCreatedBy() {
         return createdBy;
     }
@@ -189,7 +226,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setCreatedBy(String value) {
         this.createdBy = value;
     }
@@ -202,7 +239,7 @@ public class Akt {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public XMLGregorianCalendar getDateCreated() {
         return dateCreated;
     }
@@ -215,7 +252,7 @@ public class Akt {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateCreated(XMLGregorianCalendar value) {
         this.dateCreated = value;
     }
@@ -228,7 +265,7 @@ public class Akt {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public XMLGregorianCalendar getDateModified() {
         return dateModified;
     }
@@ -241,7 +278,7 @@ public class Akt {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateModified(XMLGregorianCalendar value) {
         this.dateModified = value;
     }
@@ -254,7 +291,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getNaziv() {
         return naziv;
     }
@@ -267,7 +304,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(String value) {
         this.naziv = value;
     }
@@ -280,7 +317,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -293,7 +330,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
