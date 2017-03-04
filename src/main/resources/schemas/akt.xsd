@@ -9,16 +9,9 @@
   <xs:element name="clan">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="opis" type="xs:string"/>
-        <xs:element name="sadrzaj">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" ref="akt:stav"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element maxOccurs="unbounded" ref="akt:stav"/>
       </xs:sequence>
-      <xs:attributeGroup ref="akt:prosireniUobicajeniAtributi"/>
+      <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="akt">
@@ -57,8 +50,11 @@
         <xs:sequence>
           <xs:element ref="akt:odeljak" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" ref="akt:clan"/>
+        </xs:sequence>
       </xs:choice>
-      <xs:attributeGroup ref="akt:prosireniUobicajeniAtributi"/>
+      <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="odeljak">

@@ -25,8 +25,11 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;sequence>
  *           &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}odeljak" maxOccurs="unbounded"/>
  *         &lt;/sequence>
+ *         &lt;sequence>
+ *           &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan" maxOccurs="unbounded"/>
+ *         &lt;/sequence>
  *       &lt;/choice>
- *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}prosireniUobicajeniAtributi"/>
+ *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}uobicajeniAtributi"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -36,23 +39,24 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "odeljak"
+    "odeljak",
+    "clan"
 })
 @XmlRootElement(name = "glava", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Glava {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Odeljak> odeljak;
-    @XmlAttribute(name = "redniBroj")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String redniBroj;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected List<Clan> clan;
     @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String naziv;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -77,7 +81,7 @@ public class Glava {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Odeljak> getOdeljak() {
         if (odeljak == null) {
             odeljak = new ArrayList<Odeljak>();
@@ -86,29 +90,33 @@ public class Glava {
     }
 
     /**
-     * Gets the value of the redniBroj property.
+     * Gets the value of the clan property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getRedniBroj() {
-        return redniBroj;
-    }
-
-    /**
-     * Sets the value of the redniBroj property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the clan property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getClan().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Clan }
+     * 
+     * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setRedniBroj(String value) {
-        this.redniBroj = value;
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public List<Clan> getClan() {
+        if (clan == null) {
+            clan = new ArrayList<Clan>();
+        }
+        return this.clan;
     }
 
     /**
@@ -119,7 +127,7 @@ public class Glava {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getNaziv() {
         return naziv;
     }
@@ -132,7 +140,7 @@ public class Glava {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(String value) {
         this.naziv = value;
     }
@@ -145,7 +153,7 @@ public class Glava {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -158,7 +166,7 @@ public class Glava {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T11:00:00+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
