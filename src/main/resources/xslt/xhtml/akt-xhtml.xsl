@@ -24,17 +24,74 @@
                             margin-left: 30%;
                             margin-right: 30%;
                         }w
-                        p.stav{
-                            text-indent: 5em;
+                        
+                        html {
+                            font-family:"Arial";
+                        }
+                        .akt{
+                            font-size: 18pt;
+                            text-align: center;
+                            font-weight: bold;
+                        }
+                        .deo{
+                            font-size: 16pt;
+                            text-align:center;
+                            font-family:"Arial";
+                            font-weight:bold;
+                            
+                        }
+                        .glava{
+                            font-size:16pt;
+                            text-align: center;
+                            font-family: "Arial";
+                            font-weight: bold;
+                        }
+                        .clan{
+                            font-size: 12pt;
+                            text-align: center;
+                            font-family: "Arial";
+                            font-weight: bold;
+                        }
+                        .stav{
+                            font-family: "Arial";
+                            font-size: 11pt;
+                            text-align: justify;
+                            text-indent: 1cm;
+                        }
+                        .odeljak{
+                            font-size: 12pt;
+                            font-family: "Arial";
+                            font-weight: bold;
+                            padding-left: 1cm;
+                        }
+                        .pododeljak{
+                            margin-top: 0.3cm;
+                            font-family: "Arial";
+                            font-size: 11pt;
+                            text-align: justify;
+                            padding-left: 1cm;
+                        }
+                        .tacka{
+                            font-size: 11pt;
+                            text-align: justify;
+                            padding-left: 1cm;
+                            margin-bottom: 0.3cm;
+                        }
+                        .podtacka{
+                            font-size: 11pt;
+                            text-align: justify;
+                            padding-left: 1.5cm;
+                        }
+                        .alineja{
+                            padding-left: 2cm;
                         }
                         
                     </style>
                     <title><xsl:value-of select="@meta:naziv"></xsl:value-of></title>
                 </head>
                 <body>
-                    <h1 id="{@meta:id}">
-                        
-                          <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
+                    <h1 id="{@meta:id}" class="akt">
+                         <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
                     </h1>
                     <div class="container">
                         <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
@@ -43,43 +100,53 @@
             </html>
         </xsl:template> 
         <xsl:template match="akt:deo">
-            <h2><xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of> DEO </h2>
-            <xsl:apply-templates></xsl:apply-templates>
+            <h2 class="deo"> DEO <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
+            <h2 class="deo"> <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of></h2>
+            <xsl:apply-templates select="akt:glava"></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:glava">
-            <h2>GLAVA <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
-            <h2><xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of></h2>
+            <h2 class="glava">
+                <xsl:choose>
+                    <xsl:when test="@meta:naziv != ''">
+                        <xsl:number format="I. " value="position()"></xsl:number>
+                        <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        GLAVA <xsl:number format="I" value="position()"></xsl:number>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </h2>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:odeljak">
-            <h2>Odeljak <xsl:value-of select="@redniBroj"></xsl:value-of></h2>
-            <h2><xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
+            <div class="odeljak">
+                <xsl:number format="1. " count="akt:odeljak"></xsl:number>
+                <xsl:value-of select="@meta:naziv"></xsl:value-of>
+            </div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:pododeljak">
-            <h2>Pododeljak <xsl:value-of select="@redniBroj"></xsl:value-of></h2>
-            <h2><xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
+            <div class="pododeljak">
+                <xsl:number format="a) " count="akt:pododeljak"></xsl:number>
+                <xsl:value-of select="@meta:naziv"></xsl:value-of>
+            </div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:clan">
-            <h2> <xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
-            <h2> <xsl:value-of select="akt:opis/text()"></xsl:value-of></h2>
-            <h2>Član <xsl:value-of select="@redniBroj"></xsl:value-of></h2>
+            <h2 class="clan"> <xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
+            <h2 class="clan">Član <xsl:number format="1." level="any" count="akt:clan"></xsl:number></h2>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:referenca">
             <a href="#{@meta:idRef}"><xsl:value-of select="text()"></xsl:value-of></a>
         </xsl:template>
         <xsl:template match="akt:alineja">
-            <p id="{@meta:id}">
-                <xsl:apply-templates />
+            <p id="{@meta:id}" class="alineja">
+                - <xsl:value-of select="current()"></xsl:value-of>
             </p>
         </xsl:template>
-        <xsl:template match="akt:opis">
-            <p><xsl:value-of select="/text()"></xsl:value-of></p>
-        </xsl:template>
         <xsl:template match="akt:tacka">
-            <div id="{@meta:id}">Tacka <xsl:value-of select="@meta:naziv"></xsl:value-of></div>
+            <div id="{@meta:id}" class="tacka"><xsl:number format="1) " count="akt:tacka"></xsl:number> <xsl:value-of select="@meta:naziv"/></div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:stav">
@@ -87,8 +154,9 @@
                 <xsl:apply-templates></xsl:apply-templates>
             </p>
         </xsl:template>
-        <xsl:template match="akt:potacka">
-            <div id="{@meta:id}">Potacka<xsl:value-of select="@meta:naziv"></xsl:value-of></div>
+        <xsl:template match="akt:podtacka">
+            <div id="{@meta:id}" class="podtacka"><xsl:number format="(1) " count="akt:podtacka"></xsl:number>
+                <xsl:value-of select="@meta:naziv"/></div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
     </xsl:stylesheet>
