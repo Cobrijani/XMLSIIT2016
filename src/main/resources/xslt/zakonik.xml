@@ -51,15 +51,15 @@
                 <akt:clan meta:naziv="Vremeno vazenje krivicnog zakonodavstva" redniBroj="5" meta:id="clan5">
                     <akt:sadrzaj>
                         <akt:stav meta:id="stav7">
-                            (1) Na ucinioca krivicnog dela primenjuje se zakon koji je vazio u vreme izvrsenja 
+                            Na ucinioca krivicnog dela primenjuje se zakon koji je vazio u vreme izvrsenja 
                             krivicnog dela.
                         </akt:stav>
                         <akt:stav meta:id="stav8">
-                            (2) Ako je posle izvrsenja krivicnog dela izmenjen zakon, jednom ili vise puta,
+                            Ako je posle izvrsenja krivicnog dela izmenjen zakon, jednom ili vise puta,
                             primenice se zakon koji je najblazi za ucinioca
                         </akt:stav>
                         <akt:stav meta:id="stav9">
-                            (3) Na ucinioca krivicnog dela koje e previdjeno zakonom sa odredjenim vremenskim trajanjem primenjuje
+                            Na ucinioca krivicnog dela koje e previdjeno zakonom sa odredjenim vremenskim trajanjem primenjuje
                             se taj zakon bez obzira na to kad mu se sudi, ako tim zaknom nije drukcije odredjeno.
                         </akt:stav>
                     </akt:sadrzaj>

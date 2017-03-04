@@ -24,7 +24,7 @@
   <xs:element name="akt">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="akt:preambula"/>
+        <xs:element ref="akt:preambula" minOccurs="0"/>
         <xs:choice>
           <xs:sequence>
             <xs:element maxOccurs="unbounded" ref="akt:deo"/>
@@ -82,7 +82,7 @@
     <xs:complexType mixed="true">
       <xs:sequence>
         <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:referenca"/>
-        <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:tacka"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:tacka"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
     </xs:complexType>
@@ -129,5 +129,5 @@
     <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
     <xs:attribute name="redniBroj" type="xs:string"/>
   </xs:attributeGroup>
-  <xs:element name="preambula" type="xs:string"/>
+  <xs:element name="preambula" type="xs:string" nillable="false"/>
 </xs:schema>

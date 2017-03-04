@@ -49,23 +49,23 @@ import javax.xml.bind.annotation.XmlType;
     "sadrzaj"
 })
 @XmlRootElement(name = "clan", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Clan {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String opis;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Clan.Sadrzaj sadrzaj;
     @XmlAttribute(name = "redniBroj")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String redniBroj;
     @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String naziv;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -76,7 +76,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getOpis() {
         return opis;
     }
@@ -89,7 +89,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setOpis(String value) {
         this.opis = value;
     }
@@ -102,7 +102,7 @@ public class Clan {
      *     {@link Clan.Sadrzaj }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Clan.Sadrzaj getSadrzaj() {
         return sadrzaj;
     }
@@ -115,7 +115,7 @@ public class Clan {
      *     {@link Clan.Sadrzaj }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setSadrzaj(Clan.Sadrzaj value) {
         this.sadrzaj = value;
     }
@@ -128,7 +128,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getRedniBroj() {
         return redniBroj;
     }
@@ -141,7 +141,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setRedniBroj(String value) {
         this.redniBroj = value;
     }
@@ -154,7 +154,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getNaziv() {
         return naziv;
     }
@@ -167,7 +167,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(String value) {
         this.naziv = value;
     }
@@ -180,7 +180,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -193,7 +193,7 @@ public class Clan {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
@@ -222,11 +222,11 @@ public class Clan {
     @XmlType(name = "", propOrder = {
         "stav"
     })
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class Sadrzaj {
 
         @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", required = true)
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         protected List<Stav> stav;
 
         /**
@@ -251,7 +251,7 @@ public class Clan {
          * 
          * 
          */
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:40:24+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         public List<Stav> getStav() {
             if (stav == null) {
                 stav = new ArrayList<Stav>();
