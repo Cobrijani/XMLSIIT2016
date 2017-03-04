@@ -1,0 +1,12 @@
+<div class="row menu-container-margin">
+  <div class="col-sm-12">
+    <form name="sednicaForm" method="POST" class="form">
+      <div class="form-group">
+        <label>Ispod unesi sadržaj sednice</label>
+        <textarea name="content" class="form-control" rows="20" id="sednica" ng-model="vm.sednica" required></textarea>
+      </div>
+      <div class="btn btn-success" ng-click="vm.createSednica() && sednicaForm.$valid" ng-disabled="sednicaForm.$invalid">Potvrdi
+      </div>
+    </form>
+  </div>
+</div>
