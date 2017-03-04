@@ -84,11 +84,30 @@ public class KorisnikMarkLogicService implements KorisnikService {
   }
 
   @Override
+  public Korisnik findByEmail(String email) {
+    StructuredQueryBuilder queryBuilder = queryManager.newStructuredQueryBuilder();
+    StructuredQueryDefinition structuredQueryDefinition =
+      queryBuilder.and(queryBuilder.term(email), queryBuilder.collection(KORISNIK_REF));
+
+    SearchHandle searchHandle = new SearchHandle();
+
+    queryManager.search(structuredQueryDefinition, searchHandle);
+
+    return convertSearchHandle(searchHandle, documentManager, Korisnik.class).stream().findFirst().orElseThrow(KorisnikNotFoundException::new);
+
+  }
+
+  @Override
   public Korisnik saveKorisnik(Korisnik korisnik) {
 
     try {
       this.findByUsername(korisnik.getKorisnickiDetalji().getUsername());
       throw new KorisnikAlreadyExistsException("Korisnik with username: " + korisnik.getKorisnickiDetalji().getUsername() + " already exists!");
+    } catch (KorisnikNotFoundException ignored) {
+    }
+    try {
+      this.findByEmail(korisnik.getKorisnickiDetalji().getEmail());
+      throw new KorisnikAlreadyExistsException("Korisnik with email: " + korisnik.getKorisnickiDetalji().getEmail() + " already exists!");
     } catch (KorisnikNotFoundException ignored) {
     }
 

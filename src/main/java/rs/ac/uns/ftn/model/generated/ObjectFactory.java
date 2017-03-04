@@ -24,95 +24,13 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _TipIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "tip_izmene");
-    private final static QName _MalaIzmenaNovaVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "nova_vrednost");
-    private final static QName _MalaIzmenaStaraVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "stara_vrednost");
+    private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: rs.ac.uns.ftn.model.generated
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link Amandman }
-     * 
-     */
-    public Amandman createAmandman() {
-        return new Amandman();
-    }
-
-    /**
-     * Create an instance of {@link Clan }
-     * 
-     */
-    public Clan createClan() {
-        return new Clan();
-    }
-
-    /**
-     * Create an instance of {@link Amandman.Izmene }
-     * 
-     */
-    public Amandman.Izmene createAmandmanIzmene() {
-        return new Amandman.Izmene();
-    }
-
-    /**
-     * Create an instance of {@link Obrazlozenje }
-     * 
-     */
-    public Obrazlozenje createObrazlozenje() {
-        return new Obrazlozenje();
-    }
-
-    /**
-     * Create an instance of {@link Odredba }
-     * 
-     */
-    public Odredba createOdredba() {
-        return new Odredba();
-    }
-
-    /**
-     * Create an instance of {@link Referenca }
-     * 
-     */
-    public Referenca createReferenca() {
-        return new Referenca();
-    }
-
-    /**
-     * Create an instance of {@link Resenje }
-     * 
-     */
-    public Resenje createResenje() {
-        return new Resenje();
-    }
-
-    /**
-     * Create an instance of {@link Potacka }
-     * 
-     */
-    public Potacka createPotacka() {
-        return new Potacka();
-    }
-
-    /**
-     * Create an instance of {@link Alineja }
-     * 
-     */
-    public Alineja createAlineja() {
-        return new Alineja();
-    }
-
-    /**
-     * Create an instance of {@link Clan.Sadrzaj }
-     * 
-     */
-    public Clan.Sadrzaj createClanSadrzaj() {
-        return new Clan.Sadrzaj();
     }
 
     /**
@@ -124,6 +42,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Referenca }
+     * 
+     */
+    public Referenca createReferenca() {
+        return new Referenca();
+    }
+
+    /**
      * Create an instance of {@link Tacka }
      * 
      */
@@ -132,19 +58,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MalaIzmena }
+     * Create an instance of {@link Podtacka }
      * 
      */
-    public MalaIzmena createMalaIzmena() {
-        return new MalaIzmena();
+    public Podtacka createPodtacka() {
+        return new Podtacka();
     }
 
     /**
-     * Create an instance of {@link Izmena }
+     * Create an instance of {@link Alineja }
      * 
      */
-    public Izmena createIzmena() {
-        return new Izmena();
+    public Alineja createAlineja() {
+        return new Alineja();
     }
 
     /**
@@ -161,6 +87,14 @@ public class ObjectFactory {
      */
     public Pododeljak createPododeljak() {
         return new Pododeljak();
+    }
+
+    /**
+     * Create an instance of {@link Clan }
+     * 
+     */
+    public Clan createClan() {
+        return new Clan();
     }
 
     /**
@@ -191,27 +125,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "tip_izmene")
-    public JAXBElement<String> createTipIzmene(String value) {
-        return new JAXBElement<String>(_TipIzmene_QNAME, String.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "nova_vrednost", scope = MalaIzmena.class)
-    public JAXBElement<String> createMalaIzmenaNovaVrednost(String value) {
-        return new JAXBElement<String>(_MalaIzmenaNovaVrednost_QNAME, String.class, MalaIzmena.class, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "stara_vrednost", scope = MalaIzmena.class)
-    public JAXBElement<String> createMalaIzmenaStaraVrednost(String value) {
-        return new JAXBElement<String>(_MalaIzmenaStaraVrednost_QNAME, String.class, MalaIzmena.class, value);
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", name = "preambula")
+    public JAXBElement<String> createPreambula(String value) {
+        return new JAXBElement<String>(_Preambula_QNAME, String.class, null, value);
     }
 
 }

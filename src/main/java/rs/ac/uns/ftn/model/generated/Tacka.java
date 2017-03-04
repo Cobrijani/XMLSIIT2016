@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}referenca" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}potacka" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}podtacka" maxOccurs="unbounded" minOccurs="2"/>
  *       &lt;/sequence>
  *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}uobicajeniAtributi"/>
  *     &lt;/restriction>
@@ -39,22 +39,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "content"
 })
-@XmlRootElement(name = "tacka")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "tacka", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Tacka {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class, required = false),
-        @XmlElementRef(name = "potacka", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Potacka.class, required = false)
+        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class),
+        @XmlElementRef(name = "podtacka", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Podtacka.class)
     })
     @XmlMixed
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Object> content;
     @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String naziv;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -75,13 +75,13 @@ public class Tacka {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Referenca }
-     * {@link Potacka }
      * {@link String }
+     * {@link Referenca }
+     * {@link Podtacka }
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Object> getContent() {
         if (content == null) {
             content = new ArrayList<Object>();
@@ -97,7 +97,7 @@ public class Tacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getNaziv() {
         return naziv;
     }
@@ -110,7 +110,7 @@ public class Tacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(String value) {
         this.naziv = value;
     }
@@ -123,7 +123,7 @@ public class Tacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -136,7 +136,7 @@ public class Tacka {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-01T04:39:54+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T05:03:22+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }

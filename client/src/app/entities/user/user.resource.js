@@ -23,7 +23,7 @@
         deferred.resolve(success);
       }).catch(function (error) {
         deferred.reject(error);
-        exception.catcher(error.data)(error);
+        exception.catcher(error.data.message)(error);
       });
 
       return deferred.promise;

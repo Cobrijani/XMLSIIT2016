@@ -36,9 +36,19 @@
     <model-mapper.version>0.7.5</model-mapper.version>
     <itextpdf.version>5.5.10</itextpdf.version>
     <fop.version>2.1</fop.version>
+    <xalan.version>2.7.1</xalan.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.xhtmlrenderer</groupId>
+      <artifactId>flying-saucer-pdf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>${xalan.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.xmlgraphics</groupId>
       <artifactId>fop</artifactId>
