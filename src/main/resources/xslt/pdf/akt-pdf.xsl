@@ -9,7 +9,14 @@
     
     <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyzčćžđš'" />
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZČĆŽĐŠ'" />
+    <xsl:template match="akt:preambula">
+        <fo:block id="preambula" font-size="16pt" text-align="justify" font-family="Arial" margin-bottom="0.3cm" text-indent="1cm">
+            <xsl:value-of select="/text()"></xsl:value-of>
+        </fo:block>
+    </xsl:template>
+    
     <xsl:template match="akt:akt">
+        <xsl:apply-templates select="akt:preambula"></xsl:apply-templates>
         <fo:block id="{@meta:id}" font-size="18pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.5cm">
             <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of>
         </fo:block>
