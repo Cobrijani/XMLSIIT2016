@@ -76,7 +76,6 @@ public class ModelMapperConfiguration {
       protected void configure() {
         map().setId(source.getId());
         map().setName(source.getNaziv());
-        map().setCreatedBy(source.getCreatedBy());
         map().setDateCreated(source.getDateCreated().toString());
       }
     };

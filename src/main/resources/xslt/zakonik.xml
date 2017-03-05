@@ -2,7 +2,8 @@
 <akt:akt xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
     xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt file:/D:/XMLSIIT2016/src/main/resources/schemas/akt.xsd" meta:naziv="Krivicni Zakonik" meta:id="akt" meta:createdBy="pera" meta:dateCreated="2017-05-12" meta:dateModified="2018-01-10Z">
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+    xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt file:/D:/XMLSIIT2016/src/main/resources/schemas/akt.xsd" meta:naziv="Krivicni Zakonik" meta:id="akt"  meta:dateCreated="2017-05-12" meta:dateModified="2018-01-10Z">
     <akt:preambula>
        preambula bla bla bal
     </akt:preambula>

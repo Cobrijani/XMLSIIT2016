@@ -1,11 +1,16 @@
 @javax.xml.bind.annotation.XmlSchema(
   xmlns = {
-    @javax.xml.bind.annotation.XmlNs(prefix = "akt", namespaceURI = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"),
-    @javax.xml.bind.annotation.XmlNs(prefix = "meta", namespaceURI = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"),
-    @javax.xml.bind.annotation.XmlNs(prefix = "am", namespaceURI = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+    @javax.xml.bind.annotation.XmlNs(prefix = AKT_PREF, namespaceURI = AKT),
+    @javax.xml.bind.annotation.XmlNs(prefix = META_PREF, namespaceURI = META),
+    @javax.xml.bind.annotation.XmlNs(prefix = AMADMAN_PREF, namespaceURI = AMADMAN),
+    @javax.xml.bind.annotation.XmlNs(prefix = PRED_PREF, namespaceURI = PRED),
+    @javax.xml.bind.annotation.XmlNs(prefix = KORISNIK_PREF, namespaceURI = KORISNIK),
+    @javax.xml.bind.annotation.XmlNs(prefix = RDFA_PREF, namespaceURI = RDFA)
   },
   elementFormDefault = XmlNsForm.QUALIFIED
 )
 package rs.ac.uns.ftn.model.generated;
 
 import javax.xml.bind.annotation.XmlNsForm;
+
+import static rs.ac.uns.ftn.constants.XmlNamespaces.*;

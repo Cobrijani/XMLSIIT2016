@@ -18,8 +18,6 @@ public class AktDTO {
 
   private String name;
 
-  private String createdBy;
-
   private String dateCreated;
 
 }

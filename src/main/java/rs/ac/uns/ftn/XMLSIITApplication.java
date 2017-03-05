@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn;
 
 import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.semantics.GraphManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -56,10 +57,11 @@ public class XMLSIITApplication {
 
 
   @Bean
-  public CommandLineRunner recreateData(KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
+  public CommandLineRunner recreateData(GraphManager graphManager, KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
       aktService.deleteAll();
+      graphManager.deleteGraphs();
 
       final Korisnik korisnik = new Korisnik();
       korisnik.setId(identifierGenerator.generateIdentity());

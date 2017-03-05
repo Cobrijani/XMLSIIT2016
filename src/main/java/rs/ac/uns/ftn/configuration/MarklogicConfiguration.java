@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import rs.ac.uns.ftn.properties.MarkLogicProperties;
 
+import javax.xml.transform.TransformerFactory;
+
 /**
  * Configuration related to marklogic db
  * Created by SBratic on 11/30/2016.
@@ -49,6 +51,11 @@ public class MarklogicConfiguration {
   @Scope("prototype")
   public GraphManager graphManager() {
     return databaseClient().newGraphManager();
+  }
+
+  @Bean
+  public TransformerFactory transformerFactory() {
+    return TransformerFactory.newInstance();
   }
 
 }
