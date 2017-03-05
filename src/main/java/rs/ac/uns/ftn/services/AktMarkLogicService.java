@@ -8,16 +8,23 @@ import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.security.SecurityUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.xml.namespace.QName;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
+import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.*;
 
 /**
@@ -38,12 +45,14 @@ public class AktMarkLogicService implements AktService {
 
   private final IdentifierGenerator identifierGenerator;
 
+  private final RdfService rdfService;
 
   @Autowired
-  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator) {
+  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
+    this.rdfService = rdfService;
   }
 
 
@@ -87,13 +96,26 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public void add(Akt akt) {
-    akt.setId(identifierGenerator.generateIdentity());
+    final String id = identifierGenerator.generateIdentity();
+    akt.setId(id);
+    akt.getOtherAttributes().put(new QName("about"), AKT + "/" + id);
+    akt.getOtherAttributes().put(new QName("vocab"), PRED);
+    akt.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
+    akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
+    akt.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+    akt.setDateCreated(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+    akt.setDateModified(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
 
     JAXBHandle<Akt> handle = getJaxbHandle(Akt.class);
     handle.set(akt);
     documentManager.write(getDocumentId(AKT_FORMAT, akt.getId()), documentMetadataHandle, handle);
+
+    Document document = findById(id, Document.class);
+
+    rdfService.extractAndWriteData(document, AKT_GRAPH_URI);
   }
 
   @Override

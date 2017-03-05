@@ -16,6 +16,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <repositories>
+    <repository>
+      <id>marklogic-repo</id>
+      <name>Client API Java</name>
+      <url>http://developer.marklogic.com/maven2/</url>
+    </repository>
+  </repositories>
+
   <name>XML-SIIT</name>
   <description>Student Application for XML and Web Services project</description>
 
@@ -32,7 +40,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
     <yeoman-maven-plugin.version>0.5</yeoman-maven-plugin.version>
-    <marklogic-java-client.version>3.0.6</marklogic-java-client.version>
+    <marklogic-java-client.version>4.0.0-EA3</marklogic-java-client.version>
     <model-mapper.version>0.7.5</model-mapper.version>
     <itextpdf.version>5.5.10</itextpdf.version>
     <fop.version>2.1</fop.version>
@@ -40,6 +48,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>io.javaslang</groupId>
+      <artifactId>javaslang</artifactId>
+      <version>2.0.0</version>
+    </dependency>
     <dependency>
       <groupId>org.xhtmlrenderer</groupId>
       <artifactId>flying-saucer-pdf</artifactId>

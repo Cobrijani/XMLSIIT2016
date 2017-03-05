@@ -14,7 +14,7 @@
       tokenGetter: ['TokenService', function (TokenService) {
         return TokenService.getToken(authProperties.TOKEN_STORAGE_NAME);
       }],
-      authPrefix: '',
+      authPrefix: 'Bearer ',
       authHeader: authProperties.TOKEN_HEADER_NAME,
       unauthenticatedRedirector: ['$state', 'UserJwtResource', function ($state, UserJwtResource) {
         UserJwtResource.logout();
