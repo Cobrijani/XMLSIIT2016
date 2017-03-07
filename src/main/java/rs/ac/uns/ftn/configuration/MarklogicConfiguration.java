@@ -5,6 +5,7 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.semantics.GraphManager;
+import com.marklogic.client.semantics.SPARQLQueryManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,4 +59,9 @@ public class MarklogicConfiguration {
     return TransformerFactory.newInstance();
   }
 
+  @Bean
+  @Scope("prototype")
+  public SPARQLQueryManager sparqlQueryManager() {
+    return databaseClient().newSPARQLQueryManager();
+  }
 }

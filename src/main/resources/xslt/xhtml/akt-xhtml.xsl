@@ -5,11 +5,9 @@
         xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
         xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
         version="2.0">
-        <xsl:output method="html"></xsl:output>
         <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyzčćžđš'" />
         <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZČĆŽĐŠ'" />
-        
-        <xsl:template match="akt:akt">
+        <xsl:template match="/">
             <html>
                 <head>
                     <meta charset="utf-8"></meta>
@@ -84,21 +82,25 @@
                         }
                         .alineja{
                             padding-left: 2cm;
+                            font-size: 11pt;
                         }
                         
                     </style>
-                    <title><xsl:value-of select="@meta:naziv"></xsl:value-of></title>
                 </head>
                 <body>
-                    <h1 id="{@meta:id}" class="akt">
-                         <xsl:value-of select="translate(@meta:naziv,$smallcase, $uppercase)"></xsl:value-of>
-                    </h1>
-                    <div class="container">
-                        <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
-                    </div>
+                   <xsl:apply-templates select="akt:akt"></xsl:apply-templates>
                 </body>
             </html>
         </xsl:template> 
+    
+        <xsl:template match="akt:akt">
+            <h1 id="{@meta:id}" class="akt">
+                <xsl:value-of select="translate(akt:zaglavlje/meta:naziv/text(), $smallcase, $uppercase)"></xsl:value-of>
+            </h1>
+            <div class="container">
+                <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
+            </div>
+        </xsl:template>
         <xsl:template match="akt:deo">
             <h2 class="deo"> DEO <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
             <h2 class="deo"> <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of></h2>

@@ -75,8 +75,8 @@ public class ModelMapperConfiguration {
       @Override
       protected void configure() {
         map().setId(source.getId());
-        map().setName(source.getNaziv());
-        map().setDateCreated(source.getDateCreated().toString());
+        map().setName(source.getZaglavlje().getNaziv().getValue());
+        map().setDateCreated(source.getZaglavlje().getDateCreated().getValue().toString());
       }
     };
   }

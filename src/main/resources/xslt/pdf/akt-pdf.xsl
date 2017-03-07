@@ -18,7 +18,7 @@
     <xsl:template match="akt:akt">
         <xsl:apply-templates select="akt:preambula"></xsl:apply-templates>
         <fo:block id="{@meta:id}" font-size="18pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.5cm">
-            <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of>
+            <xsl:value-of select="translate(akt:zaglavlje/meta:naziv/text(), $smallcase, $uppercase)"></xsl:value-of>
         </fo:block>
         <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
     </xsl:template>

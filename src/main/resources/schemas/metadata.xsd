@@ -8,4 +8,40 @@
          <xs:attribute name="createdBy" type="xs:string"/>
          <xs:attribute name="dateCreated" type="xs:date"/>
          <xs:attribute name="dateModified" type="xs:date"/>
+         <xs:element name="id">
+                  <xs:complexType>
+                           <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                             <xs:anyAttribute namespace="##any"/>
+                                    </xs:extension>
+                           </xs:simpleContent>
+                  </xs:complexType>
+         </xs:element>
+         <xs:element name="naziv">
+                  <xs:complexType>
+                           <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                             <xs:anyAttribute namespace="##any"/>
+                                    </xs:extension>
+                           </xs:simpleContent>
+                  </xs:complexType>
+         </xs:element>
+         <xs:element name="dateCreated">
+                  <xs:complexType>
+                           <xs:simpleContent>
+                                    <xs:extension base="xs:date">
+                                             <xs:anyAttribute namespace="##any"/>
+                                    </xs:extension>
+                           </xs:simpleContent>
+                  </xs:complexType>
+         </xs:element>
+         <xs:element name="dateModified">
+                  <xs:complexType>
+                           <xs:simpleContent>
+                                    <xs:extension base="xs:date">
+                                             <xs:anyAttribute namespace="##any"/>
+                                    </xs:extension>
+                           </xs:simpleContent>
+                  </xs:complexType>
+         </xs:element>
 </xs:schema>
