@@ -8,13 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.model.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Controller that handles operations related to {@link rs.ac.uns.ftn.model.generated.Akt}
@@ -40,10 +39,8 @@ public class AktJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<AktDTO>> findAll(Pageable pageable) {
-    List<AktDTO> akts =
-      aktService.findAll(pageable).stream().map(x -> modelMapper.map(x, AktDTO.class)).collect(Collectors.toList());
-    return ResponseEntity.ok(akts);
+  public ResponseEntity<List<AktMetadata>> findAll(Pageable pageable) {
+    return ResponseEntity.ok(aktService.getMetadata(pageable));
   }
 
   @GetMapping(value = "/{id}")

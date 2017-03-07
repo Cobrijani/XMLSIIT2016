@@ -3,24 +3,35 @@ package rs.ac.uns.ftn.services;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+import com.marklogic.client.semantics.SPARQLQueryDefinition;
+import com.marklogic.client.semantics.SPARQLQueryManager;
+import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.generated.DateCreated;
+import rs.ac.uns.ftn.model.generated.DateModified;
 import rs.ac.uns.ftn.security.SecurityUtils;
+import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.namespace.QName;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
@@ -47,12 +58,18 @@ public class AktMarkLogicService implements AktService {
 
   private final RdfService rdfService;
 
+  private final SPARQLQueryManager sparqlQueryManager;
+
+  @Value("classpath:sparql/akt.rq")
+  private Resource aktSparql;
+
   @Autowired
-  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService) {
+  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
+    this.sparqlQueryManager = sparqlQueryManager;
   }
 
 
@@ -103,8 +120,22 @@ public class AktMarkLogicService implements AktService {
     akt.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
     akt.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
-    akt.setDateCreated(new XMLGregorianCalendarImpl(new GregorianCalendar()));
-    akt.setDateModified(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+
+    final DateCreated dateCreated = new DateCreated();
+    dateCreated.setValue(XMLUtil.getToday());
+    dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
+    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    akt.getZaglavlje().setDateCreated(dateCreated);
+
+    final DateModified dateModified = new DateModified();
+    dateModified.setValue(XMLUtil.getToday());
+    dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
+    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    akt.getZaglavlje().setDateModified(dateModified);
+
+    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
+    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
+
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
@@ -132,5 +163,39 @@ public class AktMarkLogicService implements AktService {
 
     Arrays.stream(searchHandle.getMatchResults()).map(MatchDocumentSummary::getUri).forEach(documentManager::delete);
     log.info("Deleted all akts");
+  }
+
+  @Override
+  public List<AktMetadata> getMetadata(Pageable pageable) {
+
+    byte[] data = Try.of(() ->
+      Files.readAllBytes(aktSparql.getFile().toPath())
+    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+
+    SPARQLQueryDefinition sparqlQueryDefinition =
+      sparqlQueryManager.newQueryDefinition(new String(data))
+        .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+
+
+    List<AktMetadata> metadatas = new ArrayList<>();
+
+    jacksonHandle.get().path("results").path("bindings")
+      .forEach(x -> {
+        AktMetadata akt = new AktMetadata();
+        String[] idparts = x.get("documentId").path("value").asText().split("/");
+        akt.setId(idparts[idparts.length - 1]);
+        akt.setName(x.get("documentName").path("value").asText());
+        akt.setDateCreated(x.get("dateCreated").path("value").asText());
+        akt.setDateModified(x.get("dateModified").path("value").asText());
+        metadatas.add(akt);
+      });
+
+
+    return metadatas;
   }
 }

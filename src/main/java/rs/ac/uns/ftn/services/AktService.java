@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.model.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface AktService {
   void deleteAktById(String id);
 
   void deleteAll();
+
+  List<AktMetadata> getMetadata(Pageable pageable);
 }

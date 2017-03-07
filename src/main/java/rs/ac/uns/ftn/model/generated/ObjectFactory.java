@@ -100,14 +100,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Glava }
-     * 
-     */
-    public Glava createGlava() {
-        return new Glava();
-    }
-
-    /**
      * Create an instance of {@link Akt }
      * 
      */
@@ -116,11 +108,59 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Zaglavlje }
+     * 
+     */
+    public Zaglavlje createZaglavlje() {
+        return new Zaglavlje();
+    }
+
+    /**
+     * Create an instance of {@link Naziv }
+     * 
+     */
+    public Naziv createNaziv() {
+        return new Naziv();
+    }
+
+    /**
+     * Create an instance of {@link DateCreated }
+     * 
+     */
+    public DateCreated createDateCreated() {
+        return new DateCreated();
+    }
+
+    /**
+     * Create an instance of {@link DateModified }
+     * 
+     */
+    public DateModified createDateModified() {
+        return new DateModified();
+    }
+
+    /**
      * Create an instance of {@link Deo }
      * 
      */
     public Deo createDeo() {
         return new Deo();
+    }
+
+    /**
+     * Create an instance of {@link Glava }
+     * 
+     */
+    public Glava createGlava() {
+        return new Glava();
+    }
+
+    /**
+     * Create an instance of {@link Id }
+     * 
+     */
+    public Id createId() {
+        return new Id();
     }
 
     /**
