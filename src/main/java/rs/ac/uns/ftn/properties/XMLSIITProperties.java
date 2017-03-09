@@ -18,6 +18,8 @@ public class XMLSIITProperties {
 
   private final AktProperties aktProperties = new AktProperties();
 
+  private final AmandmanProperties amandmanProperties = new AmandmanProperties();
+
   @Getter
   @Setter
   public static class Security {
@@ -36,6 +38,14 @@ public class XMLSIITProperties {
   public static class AktProperties {
 
     private String actUri = "/api/v1/aktovi/{id}.xml";
+
+  }
+
+  @Getter
+  @Setter
+  public static class AmandmanProperties {
+
+    private String amandmanUri = "/api/v1/amandmani/{id}.xml";
 
   }
 }

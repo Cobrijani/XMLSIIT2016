@@ -1,0 +1,26 @@
+<div class="panel panel-info">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Amandmani</h4>
+    <div class="btn-group pull-right">
+      <a ui-sref="create-amandman" class="btn btn-success">Novi amandman</a>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Naziv amandmana</th>
+      <th>Datum kreiranja</th>
+      <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="amandman in vm.amandmani">
+      <td>{{$index+1}}</td>
+      <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.naziv}}</a></td>
+      <td>{{amandman.dateCreated | date : 'dd-MM-yyyy'}}</td>
+      <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
