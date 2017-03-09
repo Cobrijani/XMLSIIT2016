@@ -41,17 +41,17 @@ import javax.xml.bind.annotation.XmlType;
     "content"
 })
 @XmlRootElement(name = "mala_izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-09T01:54:40+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class MalaIzmena {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "nova_vrednost", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = JAXBElement.class),
-        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class),
+        @XmlElementRef(name = "stara_vrednost", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = JAXBElement.class),
         @XmlElementRef(name = "tip_izmene", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = JAXBElement.class),
-        @XmlElementRef(name = "stara_vrednost", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = JAXBElement.class)
+        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class),
+        @XmlElementRef(name = "nova_vrednost", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = JAXBElement.class)
     })
     @XmlMixed
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-09T01:54:40+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Object> content;
 
     /**
@@ -73,14 +73,14 @@ public class MalaIzmena {
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link JAXBElement }{@code <}{@link String }{@code >}
+     * {@link String }
+     * {@link JAXBElement }{@code <}{@link String }{@code >}
      * {@link JAXBElement }{@code <}{@link String }{@code >}
      * {@link Referenca }
-     * {@link JAXBElement }{@code <}{@link String }{@code >}
-     * {@link String }
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-04T01:29:33+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-09T01:54:40+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Object> getContent() {
         if (content == null) {
             content = new ArrayList<Object>();

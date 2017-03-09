@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
   xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" elementFormDefault="qualified"
-  vc:minVersion="1.0" vc:maxVersion="1.1"
   targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
-  xmlns="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
+  xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+  xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman">
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"
     id="akt"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
@@ -16,14 +15,18 @@
           <xs:complexType>
             <xs:sequence>
               <xs:choice maxOccurs="unbounded">
-                <xs:element maxOccurs="1" ref="izmena"/>
-                <xs:element ref="mala_izmena"/>
+                <xs:element maxOccurs="1" ref="am:izmena"/>
+                <xs:element ref="am:mala_izmena"/>
               </xs:choice>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element minOccurs="1" ref="obrazlozenje"/>
+        <xs:element minOccurs="1" ref="am:obrazlozenje"/>
       </xs:sequence>
+      <xs:attributeGroup ref="am:uobicajeniAtributi"/>
+      <xs:attribute ref="meta:dateCreated"/>
+      <xs:attribute ref="meta:dateModified"/>
+      <xs:attribute ref="meta:createdBy"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="obrazlozenje">
@@ -39,9 +42,9 @@
   <xs:element name="izmena">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="odredba"/>
-        <xs:element ref="tip_izmene"/>
-        <xs:element ref="resenje"/>
+        <xs:element ref="am:odredba"/>
+        <xs:element ref="am:tip_izmene"/>
+        <xs:element ref="am:resenje"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -50,7 +53,7 @@
       <xs:sequence>
         <xs:element ref="akt:referenca"/>
         <xs:element name="stara_vrednost" type="xs:string"/>
-        <xs:element ref="tip_izmene"/>
+        <xs:element ref="am:tip_izmene"/>
         <xs:element name="nova_vrednost" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
@@ -82,4 +85,8 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
+  <xs:attributeGroup name="uobicajeniAtributi">
+    <xs:attribute ref="meta:naziv"/>
+    <xs:attribute ref="meta:id"/>
+  </xs:attributeGroup>
 </xs:schema>
