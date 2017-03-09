@@ -11,20 +11,24 @@
     //content
 
     return {
-      getDocumentInFormat: getDocumentInFormat
+      getDocumentAsArrayBuffer: getDocumentAsArrayBuffer,
+      openFileInNewWindow: openFileInNewWindow,
+      getDocument: getDocument
     };
 
     //////////////////////////////
 
-    function getDocumentInFormat(entityName, id, format) {
-      $http.get('/api/v1/' + entityName + '/' + id, {responseType: 'arraybuffer', headers: {'Accept': format}})
-        .then(function (success) {
-          openFile(success.data, {type: format});
-        });
+    function getDocumentAsArrayBuffer(entityName, id, format) {
+      return $http.get('/api/v1/' + entityName + '/' + id, {responseType: 'arraybuffer', headers: {'Accept': format}});
     }
 
-    function openFile(data, type) {
-      $window.open(URL.createObjectURL(new Blob([data], type)));
+    function getDocument(entityName, id, format) {
+      return $http.get('/api/v1/' + entityName + '/' + id, {headers: {'Accept': format}});
+    }
+
+
+    function openFileInNewWindow(data, t) {
+      $window.open(URL.createObjectURL(new Blob([data], {type: t})));
     }
 
   }

@@ -1,12 +1,9 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -22,9 +19,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}stav" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}uobicajeniAtributi"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -34,88 +32,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "stav"
+    "naziv",
+    "dateCreated",
+    "dateModified"
 })
-@XmlRootElement(name = "clan", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+@XmlRootElement(name = "zaglavlje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Clan {
+public class Zaglavlje {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", required = true)
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected List<Stav> stav;
-    @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected Naziv naziv;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String id;
-    @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected DateCreated dateCreated;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String naziv;
-
-    /**
-     * Gets the value of the stav property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the stav property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getStav().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Stav }
-     * 
-     * 
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public List<Stav> getStav() {
-        if (stav == null) {
-            stav = new ArrayList<Stav>();
-        }
-        return this.stav;
-    }
-
-    /**
-     * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setId(String value) {
-        this.id = value;
-    }
+    protected DateModified dateModified;
 
     /**
      * Gets the value of the naziv property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Naziv }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getNaziv() {
+    public Naziv getNaziv() {
         return naziv;
     }
 
@@ -124,12 +68,64 @@ public class Clan {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Naziv }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setNaziv(String value) {
+    public void setNaziv(Naziv value) {
         this.naziv = value;
+    }
+
+    /**
+     * Gets the value of the dateCreated property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DateCreated }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public DateCreated getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * Sets the value of the dateCreated property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DateCreated }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setDateCreated(DateCreated value) {
+        this.dateCreated = value;
+    }
+
+    /**
+     * Gets the value of the dateModified property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DateModified }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public DateModified getDateModified() {
+        return dateModified;
+    }
+
+    /**
+     * Sets the value of the dateModified property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DateModified }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setDateModified(DateModified value) {
+        this.dateModified = value;
     }
 
 }

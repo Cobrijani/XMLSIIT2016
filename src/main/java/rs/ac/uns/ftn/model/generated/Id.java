@@ -1,13 +1,16 @@
 
 package rs.ac.uns.ftn.model.generated;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -19,7 +22,7 @@ import javax.xml.bind.annotation.XmlValue;
  * &lt;complexType>
  *   &lt;simpleContent>
  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}idRef"/>
+ *       &lt;anyAttribute/>
  *     &lt;/extension>
  *   &lt;/simpleContent>
  * &lt;/complexType>
@@ -31,16 +34,16 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+@XmlRootElement(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Referenca {
+public class Id {
 
     @XmlValue
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String value;
-    @XmlAttribute(name = "idRef", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @XmlAnyAttribute
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String idRef;
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the value property.
@@ -69,29 +72,22 @@ public class Referenca {
     }
 
     /**
-     * Gets the value of the idRef property.
+     * Gets a map that contains attributes that aren't bound to any typed property on this class.
+     * 
+     * <p>
+     * the map is keyed by the name of the attribute and 
+     * the value is the string value of the attribute.
+     * 
+     * the map returned by this method is live, and you can add new attribute
+     * by updating the map directly. Because of this design, there's no setter.
+     * 
      * 
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *     always non-null
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getIdRef() {
-        return idRef;
-    }
-
-    /**
-     * Sets the value of the idRef property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setIdRef(String value) {
-        this.idRef = value;
+    public Map<QName, String> getOtherAttributes() {
+        return otherAttributes;
     }
 
 }

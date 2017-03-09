@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory'];
+  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory) {
+  function AktListController($scope, GenericResource, exception, FileFactory, $sce) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -35,11 +35,18 @@
     }
 
     function getDetails(id) {
-      FileFactory.getDocumentInFormat('akti', id, 'text/html');
+      FileFactory.getDocumentAsArrayBuffer('akti', id, 'text/html')
+        .then(function (success) {
+          FileFactory.openFileInNewWindow(success.data, 'text/html')
+
+        });
     }
 
     function getPdf(id) {
-      FileFactory.getDocumentInFormat('akti', id, 'application/pdf');
+      FileFactory.getDocumentAsArrayBuffer('akti', id, 'application/pdf')
+        .then(function (success) {
+          FileFactory.openFileInNewWindow(success.data, 'application/pdf');
+        })
     }
 
   }
