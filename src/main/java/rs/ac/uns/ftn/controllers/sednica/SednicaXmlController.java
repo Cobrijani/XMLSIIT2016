@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class SednicaXmlController {
     this.properties = properties;
   }
 
+  @PreAuthorize("isAuthenticated()")
   @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
   public ResponseEntity<Void> createAkt(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
     sednicaService.add(sednica);

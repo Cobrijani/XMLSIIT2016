@@ -15,6 +15,7 @@
     </tr>
     </thead>
     <tbody>
+    {{vm.sednice}}
     <tr ng-repeat="sednica in vm.sednice">
       <td>{{$index+1}}</td>
       <td><a href ng-click="vm.getSednicaDetails(sednica.id)">{{sednica.naziv}}</a></td>

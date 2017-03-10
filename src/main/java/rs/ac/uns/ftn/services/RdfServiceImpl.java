@@ -113,7 +113,6 @@ public class RdfServiceImpl implements RdfService {
     TriplesWriteHandle handle = new InputStreamHandle(new ByteArrayInputStream(out.toByteArray())).
       withMimetype(RDFMimeTypes.RDFXML);
 
-
     graphManager.merge(graphName, handle);
 
     try {

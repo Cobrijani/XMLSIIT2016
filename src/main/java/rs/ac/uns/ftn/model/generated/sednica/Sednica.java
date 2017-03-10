@@ -1,13 +1,16 @@
 
 package rs.ac.uns.ftn.model.generated.sednica;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -19,12 +22,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}uobicajeniAtributi"/>
- *       &lt;attribute name="datum" type="{http://www.w3.org/2001/XMLSchema}date" />
- *       &lt;attribute name="mesto" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}createdBy"/>
- *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated"/>
- *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified"/>
+ *       &lt;sequence>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}zaglavlje"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}informacije"/>
+ *       &lt;/sequence>
+ *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
+ *       &lt;anyAttribute/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,170 +36,68 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "", propOrder = {
+    "zaglavlje",
+    "informacije"
+})
 @XmlRootElement(name = "sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
 public class Sednica {
 
-    @XmlAttribute(name = "datum")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datum;
-    @XmlAttribute(name = "mesto")
-    protected String mesto;
-    @XmlAttribute(name = "createdBy", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    protected String createdBy;
-    @XmlAttribute(name = "dateCreated", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateCreated;
-    @XmlAttribute(name = "dateModified", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateModified;
-    @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    protected String naziv;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    protected Zaglavlje zaglavlje;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    protected Informacije informacije;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     protected String id;
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Gets the value of the datum property.
+     * Gets the value of the zaglavlje property.
      *
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Zaglavlje }
      *
      */
-    public XMLGregorianCalendar getDatum() {
-        return datum;
+    public Zaglavlje getZaglavlje() {
+        return zaglavlje;
     }
 
     /**
-     * Sets the value of the datum property.
+     * Sets the value of the zaglavlje property.
      *
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Zaglavlje }
      *
      */
-    public void setDatum(XMLGregorianCalendar value) {
-        this.datum = value;
+    public void setZaglavlje(Zaglavlje value) {
+        this.zaglavlje = value;
     }
 
     /**
-     * Gets the value of the mesto property.
+     * Gets the value of the informacije property.
      *
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Informacije }
      *
      */
-    public String getMesto() {
-        return mesto;
+    public Informacije getInformacije() {
+        return informacije;
     }
 
     /**
-     * Sets the value of the mesto property.
+     * Sets the value of the informacije property.
      *
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Informacije }
      *
      */
-    public void setMesto(String value) {
-        this.mesto = value;
-    }
-
-    /**
-     * Gets the value of the createdBy property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * Sets the value of the createdBy property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCreatedBy(String value) {
-        this.createdBy = value;
-    }
-
-    /**
-     * Gets the value of the dateCreated property.
-     *
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *
-     */
-    public XMLGregorianCalendar getDateCreated() {
-        return dateCreated;
-    }
-
-    /**
-     * Sets the value of the dateCreated property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *
-     */
-    public void setDateCreated(XMLGregorianCalendar value) {
-        this.dateCreated = value;
-    }
-
-    /**
-     * Gets the value of the dateModified property.
-     *
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *
-     */
-    public XMLGregorianCalendar getDateModified() {
-        return dateModified;
-    }
-
-    /**
-     * Sets the value of the dateModified property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *
-     */
-    public void setDateModified(XMLGregorianCalendar value) {
-        this.dateModified = value;
-    }
-
-    /**
-     * Gets the value of the naziv property.
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getNaziv() {
-        return naziv;
-    }
-
-    /**
-     * Sets the value of the naziv property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setNaziv(String value) {
-        this.naziv = value;
+    public void setInformacije(Informacije value) {
+        this.informacije = value;
     }
 
     /**
@@ -221,6 +122,24 @@ public class Sednica {
      */
     public void setId(String value) {
         this.id = value;
+    }
+
+    /**
+     * Gets a map that contains attributes that aren't bound to any typed property on this class.
+     *
+     * <p>
+     * the map is keyed by the name of the attribute and
+     * the value is the string value of the attribute.
+     *
+     * the map returned by this method is live, and you can add new attribute
+     * by updating the map directly. Because of this design, there's no setter.
+     *
+     *
+     * @return
+     *     always non-null
+     */
+    public Map<QName, String> getOtherAttributes() {
+        return otherAttributes;
     }
 
 }

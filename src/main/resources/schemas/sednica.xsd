@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-           targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica"
-           xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-           xmlns:sednica="http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica">
+  targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica"
+  xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+  xmlns:sednica="http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica"
+  xmlns:pred="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#">
 
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-             schemaLocation="metadata.xsd"/>
+    schemaLocation="metadata.xsd"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" schemaLocation="pred.xsd"/>
   <xs:element name="sednica">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="sednica:zaglavlje"/>
+        <xs:element ref="sednica:informacije"/>
+      </xs:sequence>
+      <xs:attribute ref="meta:id"/>
+      <xs:anyAttribute namespace="##any"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="zaglavlje">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="meta:dateCreated"/>
+        <xs:element ref="meta:dateModified"/>
+        <xs:element ref="meta:naziv"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="informacije">
     <xs:complexType>
       <xs:attribute name="datum" type="xs:date"/>
       <xs:attribute name="mesto" type="xs:string"/>
-      <xs:attribute ref="meta:createdBy"/>
-      <xs:attribute ref="meta:dateCreated"/>
-      <xs:attribute ref="meta:dateModified"/>
-      <xs:attributeGroup ref="sednica:uobicajeniAtributi"/>
     </xs:complexType>
   </xs:element>
-  <xs:attributeGroup name="uobicajeniAtributi">
-    <xs:attribute ref="meta:naziv"/>
-    <xs:attribute ref="meta:id"/>
-  </xs:attributeGroup>
 </xs:schema>

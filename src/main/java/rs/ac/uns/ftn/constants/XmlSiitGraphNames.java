@@ -9,6 +9,8 @@ public class XmlSiitGraphNames {
 
   public static final String AMANDMAN_GRAPH_URI = "skupstina/dokument/amandman";
 
+  public static final String SEDNICA_GRAPH_URI = "skupstina/dokument/sednica";
+
   private XmlSiitGraphNames() {
     throw new UnsupportedOperationException();
   }

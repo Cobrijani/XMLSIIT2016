@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.sednica.Sednica;
+import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.SednicaService;
 
@@ -38,10 +39,8 @@ public class SednicaJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<SednicaDTO>> findAll(Pageable pageable) {
-    List<SednicaDTO> akts =
-      sednicaService.findAll(pageable).stream().map(x -> modelMapper.map(x, SednicaDTO.class)).collect(Collectors.toList());
-    return ResponseEntity.ok(akts);
+  public ResponseEntity<List<SednicaMetadata>> findAll(Pageable pageable) {
+    return ResponseEntity.ok(sednicaService.getMetadata(pageable));
   }
 
   @GetMapping(value = "/{id}")
