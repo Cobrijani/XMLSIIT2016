@@ -13,7 +13,7 @@ RUN yum -y install initscripts && yum clean all
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/MarkLogic/mlcmd/bin
 
 # Copy the MarkLogic installer to a temp directory in the Docker image being built <MODIFY HERE ACCORDING TO YOUR RMP FILE>
-COPY MarkLogic-RHEL7-8.0-6.1.x86_64.rpm /tmp/MarkLogic.rpm
+COPY MarkLogic-RHEL7-8.0-6.3.x86_64.rpm /tmp/MarkLogic.rpm
 
 # Install MarkLogic then delete the .RPM file if the install succeeded
 RUN yum -y install /tmp/MarkLogic.rpm && rm /tmp/MarkLogic.rpm
