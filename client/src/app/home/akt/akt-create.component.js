@@ -19,7 +19,21 @@
     var vm = this;
 
     vm.createAkt = createAkt;
+    vm.radioBtnChange = radioBtnChange;
+    vm.docMode = 'laic';
+    radioBtnChange(vm.docMode);
+    vm.spec = aktSpec;
+
     //content
+
+    function radioBtnChange(val) {
+      if ('raw' === val) {
+        vm.xonomyMode = false;
+        vm.akt = Xonomy.harvest();
+      } else {
+        vm.xonomyMode = true;
+      }
+    }
 
     function createAkt() {
       GenericResource.postEntity('akti', vm.akt, {'Content-Type': 'application/xml'})

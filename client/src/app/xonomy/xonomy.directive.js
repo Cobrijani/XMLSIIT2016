@@ -8,12 +8,12 @@
   function xonomyDirective() {
     return {
       scope: {
-        mode: '@',
-        startContent: '='
+        mode: '=',
+        startContent: '=',
+        spec: '='
       },
-      template: '<div></div>',
+      template: '<div id="xonomy-place" ng-show="xonomyMode"></div>',
       controller: controller,
-      controllerAs: 'vm',
       compile: compileFunction,
       link: linkFunction,
       restrict: 'E',
@@ -27,14 +27,26 @@
     function linkFunction(scope, element, attrs, controller) {
       var xml = "<akt:akt xmlns:akt='http://parlament.gov.rs/rs.ac.uns.ftn.model.akt'" +
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
-        " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata' ><akt:zaglavlje><meta:naziv property='pred:imeDokumenta' datatype='xs:string'></meta:naziv></akt:zaglavlje></akt:akt>";
+        " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata' >" +
+        "<akt:zaglavlje><meta:naziv property='pred:imeDokumenta' datatype='xs:string'></meta:naziv>" +
+        "</akt:zaglavlje></akt:akt>";
 
-      Xonomy.render(scope.startContent || xml, element[0], aktSpec)
+      Xonomy.render(scope.startContent || xml, element[0], scope.spec);
+      Xonomy.setMode(scope.mode || 'laic');
+      scope.$watch('mode', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          Xonomy.setMode(newValue);
+        }
+      });
+
+      scope.$watch('startContent', function (newValue, oldValue) {
+        Xonomy.render(newValue || xml, element[0], scope.spec)
+      })
     }
 
     function controller($scope) {
-      var vm = this;
-      Xonomy.setMode($scope.mode || 'laic');
+
+
     }
   }
 })();

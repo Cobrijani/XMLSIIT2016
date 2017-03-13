@@ -9,6 +9,13 @@ function aktAkt() {
     definition: {
       displayName: "Akt",
       menu: [{
+        caption: "Dodaj zaglavlje",
+        action: Xonomy.newElementChild,
+        actionParameter: aktZaglavlje().tag,
+        hideIf: function (elem) {
+          return elem.hasChildElement(aktZaglavlje().name);
+        }
+      }, {
         caption: "Dodaj preambulu",
         action: Xonomy.newElementChild,
         actionParameter: aktPreambula().tag,
@@ -46,9 +53,13 @@ function aktAkt() {
 function aktZaglavlje() {
   return {
     name: "akt:zaglavlje",
+    tag: "<akt:zaglavlje xmlns:akt='" + aktNamespace + "'></akt:zaglavlje>",
     definition: {
       displayName: "Zaglavlje",
       menu: [{
+        caption: "Obriši zaglavlje",
+        action: Xonomy.deleteElement
+      }, {
         caption: "Dodaj Naziv dokumenta",
         action: Xonomy.newElementChild,
         actionParameter: metaNaziv().tag,
@@ -68,7 +79,7 @@ function aktPreambula() {
       displayName: "Preambula",
       menu: [
         {
-          caption: "Obrisi preambulu",
+          caption: "Obriši preambulu",
           action: Xonomy.deleteElement
         }
       ],
