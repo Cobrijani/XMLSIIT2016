@@ -104,20 +104,13 @@ function aktDeo(attr) {
 function aktClan(attr) {
   return {
     name: "akt:clan",
-    tag: "<akt:clan xmlns:akt='" + aktNamespace + "'></akt:clan>",
+    tag: "<akt:clan xmlns:akt='" + aktNamespace + "'><akt:stav></akt:stav></akt:clan>",
     definition: {
       displayName: "Član",
       menu: [
         {
           caption: "Obriši član",
           action: Xonomy.deleteElement
-        }, {
-          caption: "Dodaj ime člana",
-          action: Xonomy.newAttribute,
-          actionParameter: metaNazivAttr().attr,
-          hideIf: function (elem) {
-            return elem.hasAttribute(metaNazivAttr().name)
-          }
         }, {
           caption: "Dodaj stav",
           action: Xonomy.newElementChild,
@@ -238,6 +231,11 @@ function aktTacka(attr) {
         {
           caption: "Obriši tačku",
           action: Xonomy.deleteElement
+        },
+        {
+          caption: "Dodaj podtačku",
+          action: Xonomy.newElementChild,
+          actionParameter: aktPodtacka().tag
         }
       ],
       hasText: true,
@@ -245,5 +243,50 @@ function aktTacka(attr) {
     }
   }
 
+}
+
+function aktPodtacka(attr) {
+  return {
+    name: "akt:podtacka",
+    tag: "<akt:podtacka xmlns:akt='" + aktNamespace + "'></akt:podtacka>",
+    definition: {
+      displayName: "Podtačka",
+      menu: [
+        {
+          caption: "Obriši podtačku",
+          action: Xonomy.deleteElement
+        }
+      ],
+      hasText: true,
+      attributes: attr || {}
+
+    }
+
+  }
+}
+
+function aktAlineja(attr) {
+  return {
+    name: "akt:alineja",
+    tag: "<akt:alineja xmlns:akt='" + aktNamespace + "'></akt:alineja>",
+    definition: {
+      displayName: "Alineja",
+      menu: [
+        {
+          caption: "Obriši alineju",
+          action: Xonomy.deleteElement
+        }
+      ],
+      hasText: true,
+      attributes: attr || {}
+    },
+    parentActions: [
+      {
+        caption: "Dodaj alineju",
+        action: Xonomy.newElementChild,
+        actionParameter: "<akt:alineja xmlns:akt='" + aktNamespace + "'></akt:alineja>"
+      }
+    ]
+  }
 }
 
