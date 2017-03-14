@@ -19,9 +19,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}odredba"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}tip_izmene"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}resenje"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,100 +32,100 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "odredba",
-    "tipIzmene",
-    "resenje"
+    "naziv",
+    "dateCreated",
+    "dateModified"
 })
-@XmlRootElement(name = "izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+@XmlRootElement(name = "zaglavlje_amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Izmena {
+public class ZaglavljeAmandman {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Odredba odredba;
-    @XmlElement(name = "tip_izmene", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    protected Naziv naziv;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String tipIzmene;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    protected DateCreated dateCreated;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Resenje resenje;
+    protected DateModified dateModified;
 
     /**
-     * Gets the value of the odredba property.
+     * Gets the value of the naziv property.
      * 
      * @return
      *     possible object is
-     *     {@link Odredba }
+     *     {@link Naziv }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Odredba getOdredba() {
-        return odredba;
+    public Naziv getNaziv() {
+        return naziv;
     }
 
     /**
-     * Sets the value of the odredba property.
+     * Sets the value of the naziv property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Odredba }
+     *     {@link Naziv }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setOdredba(Odredba value) {
-        this.odredba = value;
+    public void setNaziv(Naziv value) {
+        this.naziv = value;
     }
 
     /**
-     * Gets the value of the tipIzmene property.
+     * Gets the value of the dateCreated property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link DateCreated }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getTipIzmene() {
-        return tipIzmene;
+    public DateCreated getDateCreated() {
+        return dateCreated;
     }
 
     /**
-     * Sets the value of the tipIzmene property.
+     * Sets the value of the dateCreated property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link DateCreated }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setTipIzmene(String value) {
-        this.tipIzmene = value;
+    public void setDateCreated(DateCreated value) {
+        this.dateCreated = value;
     }
 
     /**
-     * Gets the value of the resenje property.
+     * Gets the value of the dateModified property.
      * 
      * @return
      *     possible object is
-     *     {@link Resenje }
+     *     {@link DateModified }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Resenje getResenje() {
-        return resenje;
+    public DateModified getDateModified() {
+        return dateModified;
     }
 
     /**
-     * Sets the value of the resenje property.
+     * Sets the value of the dateModified property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Resenje }
+     *     {@link DateModified }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setResenje(Resenje value) {
-        this.resenje = value;
+    public void setDateModified(DateModified value) {
+        this.dateModified = value;
     }
 
 }
