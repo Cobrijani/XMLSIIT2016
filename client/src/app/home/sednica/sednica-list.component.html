@@ -15,10 +15,9 @@
     </tr>
     </thead>
     <tbody>
-    {{vm.sednice}}
     <tr ng-repeat="sednica in vm.sednice">
       <td>{{$index+1}}</td>
-      <td><a href ng-click="vm.getSednicaDetails(sednica.id)">{{sednica.naziv}}</a></td>
+      <td><a href ng-click="vm.openSednica(sednica)">{{sednica.naziv}}</a></td>
       <td>{{sednica.datum | date : 'dd-MM-yyyy'}}</td>
       <td>{{sednica.mesto}}</td>
     </tr>

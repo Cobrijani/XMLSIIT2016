@@ -8,14 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.sednica.Sednica;
 import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.SednicaService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Micko on 03-Mar-17.

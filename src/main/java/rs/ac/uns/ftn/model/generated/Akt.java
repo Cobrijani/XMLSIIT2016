@@ -18,9 +18,9 @@ import javax.xml.namespace.QName;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -46,8 +46,8 @@ import javax.xml.namespace.QName;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -85,11 +85,11 @@ public class Akt {
 
     /**
      * Gets the value of the zaglavlje property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Zaglavlje }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Zaglavlje getZaglavlje() {
@@ -98,11 +98,11 @@ public class Akt {
 
     /**
      * Sets the value of the zaglavlje property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Zaglavlje }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavlje(Zaglavlje value) {
@@ -111,11 +111,11 @@ public class Akt {
 
     /**
      * Gets the value of the preambula property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getPreambula() {
@@ -124,11 +124,11 @@ public class Akt {
 
     /**
      * Sets the value of the preambula property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setPreambula(String value) {
@@ -137,25 +137,25 @@ public class Akt {
 
     /**
      * Gets the value of the deo property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the deo property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getDeo().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Deo }
-     * 
-     * 
+     *
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Deo> getDeo() {
@@ -167,25 +167,25 @@ public class Akt {
 
     /**
      * Gets the value of the clan property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the clan property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getClan().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Clan }
-     * 
-     * 
+     *
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Clan> getClan() {
@@ -197,25 +197,25 @@ public class Akt {
 
     /**
      * Gets the value of the glava property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the glava property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getGlava().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Glava }
-     * 
-     * 
+     *
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Glava> getGlava() {
@@ -227,11 +227,11 @@ public class Akt {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
@@ -240,11 +240,11 @@ public class Akt {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
@@ -253,15 +253,15 @@ public class Akt {
 
     /**
      * Gets a map that contains attributes that aren't bound to any typed property on this class.
-     * 
+     *
      * <p>
-     * the map is keyed by the name of the attribute and 
+     * the map is keyed by the name of the attribute and
      * the value is the string value of the attribute.
-     * 
+     *
      * the map returned by this method is live, and you can add new attribute
      * by updating the map directly. Because of this design, there's no setter.
-     * 
-     * 
+     *
+     *
      * @return
      *     always non-null
      */

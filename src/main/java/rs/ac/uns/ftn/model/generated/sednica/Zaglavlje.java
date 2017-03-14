@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,19 +31,43 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "naziv",
     "dateCreated",
-    "dateModified",
-    "naziv"
+    "dateModified"
 })
 @XmlRootElement(name = "zaglavlje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
 public class Zaglavlje {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    protected DateCreated dateCreated;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    protected DateModified dateModified;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
     protected Naziv naziv;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected DateCreated dateCreated;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected DateModified dateModified;
+
+    /**
+     * Gets the value of the naziv property.
+     *
+     * @return
+     *     possible object is
+     *     {@link Naziv }
+     *
+     */
+    public Naziv getNaziv() {
+        return naziv;
+    }
+
+    /**
+     * Sets the value of the naziv property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link Naziv }
+     *
+     */
+    public void setNaziv(Naziv value) {
+        this.naziv = value;
+    }
 
     /**
      * Gets the value of the dateCreated property.
@@ -91,30 +115,6 @@ public class Zaglavlje {
      */
     public void setDateModified(DateModified value) {
         this.dateModified = value;
-    }
-
-    /**
-     * Gets the value of the naziv property.
-     *
-     * @return
-     *     possible object is
-     *     {@link Naziv }
-     *
-     */
-    public Naziv getNaziv() {
-        return naziv;
-    }
-
-    /**
-     * Sets the value of the naziv property.
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Naziv }
-     *
-     */
-    public void setNaziv(Naziv value) {
-        this.naziv = value;
     }
 
 }

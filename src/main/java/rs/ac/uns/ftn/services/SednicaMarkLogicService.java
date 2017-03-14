@@ -175,8 +175,6 @@ public class SednicaMarkLogicService implements SednicaService{
       Files.readAllBytes(sednicaSparql.getFile().toPath())
     ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
-    String s = new String(data);
-
     SPARQLQueryDefinition sparqlQueryDefinition =
       sparqlQueryManager.newQueryDefinition(new String(data))
         .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());

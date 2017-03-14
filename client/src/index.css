@@ -250,6 +250,10 @@ nav > .container-fluid {
   margin-top: 20px;
 }
 
+.selected {
+  background-color: gainsboro;
+}
+
 /*standard measures*/
 
 /*

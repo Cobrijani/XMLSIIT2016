@@ -1,4 +1,7 @@
 /**
+ * Created by Micko on 14-Mar-17.
+ */
+/**
  * Created by Micko on 04-Mar-17.
  */
 (function () {
@@ -6,16 +9,16 @@
 
   angular
     .module('app')
-    .component('sednicaCreateComponent', {
-      controller: SednicaCreateController,
+    .component('sednicaPageComponent', {
+      controller: SednicaPageController,
       controllerAs: 'vm',
-      templateUrl: 'app/home/sednica/sednica-create.component.html',
+      templateUrl: 'app/home/sednica/sednica-page.component.html',
       bindings: {}
     });
 
-  SednicaCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory'];
+  SednicaPageController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory'];
 
-  function SednicaCreateController($scope, GenericResource, exception, $state, FileFactory) {
+  function SednicaPageController($scope, GenericResource, exception, $state, FileFactory) {
     var vm = this;
     vm.opened = false;
     vm.sednica = {akti:[], amandmani:[]};

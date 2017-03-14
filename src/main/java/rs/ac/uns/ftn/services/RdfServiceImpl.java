@@ -58,7 +58,6 @@ public class RdfServiceImpl implements RdfService {
           new InvalidServerConfigurationException()
         );
 
-
     // Initialize GRDDL transformer object
     Transformer grddlTransformer =
       Try.of(() -> transformerFactory.newTransformer(transformSource))
@@ -70,6 +69,8 @@ public class RdfServiceImpl implements RdfService {
 
     // Initialize transformation subject
     // Trigger the transformation
+
+    System.out.println(source.getSystemId());
 
     try {
       grddlTransformer.transform(source, result);

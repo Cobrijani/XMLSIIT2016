@@ -51,6 +51,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Naziv }
+     *
+     */
+    public Naziv createNaziv() {
+        return new Naziv();
+    }
+
+    /**
      * Create an instance of {@link DateCreated }
      *
      */
@@ -64,14 +72,6 @@ public class ObjectFactory {
      */
     public DateModified createDateModified() {
         return new DateModified();
-    }
-
-    /**
-     * Create an instance of {@link Naziv }
-     *
-     */
-    public Naziv createNaziv() {
-        return new Naziv();
     }
 
     /**

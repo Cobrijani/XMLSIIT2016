@@ -22,9 +22,9 @@
   <xs:element name="zaglavlje">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="meta:dateCreated"/>
-        <xs:element ref="meta:dateModified"/>
         <xs:element ref="meta:naziv"/>
+        <xs:element ref="meta:dateCreated" minOccurs="0"/>
+        <xs:element ref="meta:dateModified" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
