@@ -127,16 +127,16 @@ public class SednicaMarkLogicService implements SednicaService{
     dateCreated.setValue(XMLUtil.getToday());
     dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
     dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:date");
-    sednica.getZaglavlje().setDateCreated(dateCreated);
+    sednica.getZaglavljeSednica().setDateCreated(dateCreated);
 
     final DateModified dateModified = new DateModified();
     dateModified.setValue(XMLUtil.getToday());
     dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
     dateModified.getOtherAttributes().put(new QName("datatype"), "xs:date");
-    sednica.getZaglavlje().setDateModified(dateModified);
+    sednica.getZaglavljeSednica().setDateModified(dateModified);
 
-    sednica.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
-    sednica.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
+    sednica.getZaglavljeSednica().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
+    sednica.getZaglavljeSednica().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
 
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();

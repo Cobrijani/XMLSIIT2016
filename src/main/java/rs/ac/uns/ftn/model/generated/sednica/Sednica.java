@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}zaglavlje"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}zaglavlje_sednica"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}informacije"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
@@ -37,14 +37,14 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "zaglavlje",
+    "zaglavljeSednica",
     "informacije"
 })
 @XmlRootElement(name = "sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
 public class Sednica {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
-    protected Zaglavlje zaglavlje;
+    @XmlElement(name = "zaglavlje_sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    protected ZaglavljeSednica zaglavljeSednica;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
     protected Informacije informacije;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
@@ -53,27 +53,27 @@ public class Sednica {
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Gets the value of the zaglavlje property.
+     * Gets the value of the zaglavljeSednica property.
      *
      * @return
      *     possible object is
-     *     {@link Zaglavlje }
+     *     {@link ZaglavljeSednica }
      *
      */
-    public Zaglavlje getZaglavlje() {
-        return zaglavlje;
+    public ZaglavljeSednica getZaglavljeSednica() {
+        return zaglavljeSednica;
     }
 
     /**
-     * Sets the value of the zaglavlje property.
+     * Sets the value of the zaglavljeSednica property.
      *
      * @param value
      *     allowed object is
-     *     {@link Zaglavlje }
+     *     {@link ZaglavljeSednica }
      *
      */
-    public void setZaglavlje(Zaglavlje value) {
-        this.zaglavlje = value;
+    public void setZaglavljeSednica(ZaglavljeSednica value) {
+        this.zaglavljeSednica = value;
     }
 
     /**

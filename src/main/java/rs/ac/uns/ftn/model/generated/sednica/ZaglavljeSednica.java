@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlType;
     "dateCreated",
     "dateModified"
 })
-@XmlRootElement(name = "zaglavlje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-public class Zaglavlje {
+@XmlRootElement(name = "zaglavlje_sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
+public class ZaglavljeSednica {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
     protected Naziv naziv;

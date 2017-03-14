@@ -12,14 +12,14 @@
   <xs:element name="sednica">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="sednica:zaglavlje"/>
+        <xs:element ref="sednica:zaglavlje_sednica"/>
         <xs:element ref="sednica:informacije"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:anyAttribute namespace="##any"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="zaglavlje">
+  <xs:element name="zaglavlje_sednica">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="meta:naziv"/>

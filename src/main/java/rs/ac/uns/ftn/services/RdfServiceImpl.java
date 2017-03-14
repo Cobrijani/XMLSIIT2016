@@ -111,6 +111,8 @@ public class RdfServiceImpl implements RdfService {
 
     extractMetadata(source, new StreamResult(out));
 
+    System.out.println(out.toString());
+
     TriplesWriteHandle handle = new InputStreamHandle(new ByteArrayInputStream(out.toByteArray())).
       withMimetype(RDFMimeTypes.RDFXML);
 

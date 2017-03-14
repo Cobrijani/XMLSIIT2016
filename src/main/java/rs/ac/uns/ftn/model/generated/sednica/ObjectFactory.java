@@ -43,11 +43,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Zaglavlje }
+     * Create an instance of {@link ZaglavljeSednica }
      *
      */
-    public Zaglavlje createZaglavlje() {
-        return new Zaglavlje();
+    public ZaglavljeSednica createZaglavljeSednica() {
+        return new ZaglavljeSednica();
     }
 
     /**
