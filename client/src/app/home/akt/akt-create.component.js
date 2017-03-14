@@ -18,6 +18,8 @@
   function AktCreateController($scope, GenericResource, exception, $state, AktSpecification, ServerUtils) {
     var vm = this;
 
+
+    activate();
     vm.createAkt = createAkt;
     vm.radioBtnChange = radioBtnChange;
     vm.docMode = 'laic';
@@ -27,11 +29,9 @@
     vm.spec.validate = function (elem) {
       ServerUtils.validate(Xonomy.harvest(), 'akt')
         .then(function (success) {
-          console.log(success);
           vm.validation = success.data;
         })
         .catch(function (error) {
-          console.log(error);
           vm.validation = error.data;
         });
     };
@@ -43,9 +43,7 @@
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
         " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata'" +
         " xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'" +
-        " xmlns='http://www.w3.org/ns/rdfa#' >" +
-        "<akt:zaglavlje><meta:naziv property='pred:imeDokumenta' datatype='xs:string'></meta:naziv>" +
-        "</akt:zaglavlje></akt:akt>"
+        " xmlns='http://www.w3.org/ns/rdfa#' > </akt:akt>"
     }
 
     function radioBtnChange(val) {

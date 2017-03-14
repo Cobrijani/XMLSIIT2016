@@ -6,18 +6,16 @@
   'use strict';
 
   angular
-    .module('app.entities')
+    .module('app')
     .factory('AktSpecification', AktSpecification);
 
-  AktSpecification.$inject = ['$log'];
+  AktSpecification.$inject = ['$log', 'AktTagsFactory', 'MetaTagsFactory', 'RdfaTagsFactory'];
 
-  function AktSpecification($log) {
+  function AktSpecification($log, AktTagsFactory, MetaTagsFactory, RdfaTagsFactory) {
     var aktSpec = {
       onchange: function (obj) {
-        $log.info('onchange: ', obj);
       },
       validate: function (obj) {
-        $log.info('validate: ', obj);
       },
       elements: {}
 
@@ -42,35 +40,64 @@
       addChildActionsToParent(element, attribute);
     }
 
-    var deo = aktDeo();
-    registerAttribute(deo, metaNazivAttr("Dodaj naziv dela", "Naziv dela"));
-    var clan = aktClan();
-    registerAttribute(clan, metaNazivAttr("Dodaj naziv člana", "Naziv člana"));
-    var glava = aktGlava();
-    registerAttribute(glava, metaNazivAttr("Dodaj naziv glave", "Naziv Glave"));
-    var odeljak = aktOdeljak();
-    registerAttribute(odeljak, metaNazivAttr("Dodaj naziv odeljka", "Naziv odeljka"));
-    var mNaziv = metaNaziv();
-    registerAttribute(mNaziv, rdfDataTypeAttr());
-    registerAttribute(mNaziv, rdfPropertyAttr("pred:imeDokumenta"));
-    var tacka = aktTacka();
-    registerAttribute(tacka, metaNazivAttr("Dodaj naziv tačke", "Naziv Tačke"));
-    var podtacka = aktPodtacka();
-    registerAttribute(podtacka, metaNazivAttr("Dodaj naziv podtačke", "Naziv podtačke"));
-    addChildActionsToParent(podtacka, aktAlineja());
-    registerElement(aktSpec, aktAkt());
-    registerElement(aktSpec, aktZaglavlje());
-    registerElement(aktSpec, aktPreambula());
+    var deo = AktTagsFactory.aktDeo();
+    registerAttribute(deo, MetaTagsFactory.metaNazivAttr("Dodaj naziv dela", "Naziv dela"));
+    registerAttribute(deo, MetaTagsFactory.metaIdAttr());
+
+    var clan = AktTagsFactory.aktClan();
+    registerAttribute(clan, MetaTagsFactory.metaNazivAttr("Dodaj naziv člana", "Naziv člana"));
+    registerAttribute(clan, MetaTagsFactory.metaIdAttr());
+
+    var glava = AktTagsFactory.aktGlava();
+    registerAttribute(glava, MetaTagsFactory.metaNazivAttr("Dodaj naziv glave", "Naziv Glave"));
+    registerAttribute(glava, MetaTagsFactory.metaIdAttr());
+
+    var odeljak = AktTagsFactory.aktOdeljak();
+    registerAttribute(odeljak, MetaTagsFactory.metaNazivAttr("Dodaj naziv odeljka", "Naziv odeljka"));
+    registerAttribute(odeljak, MetaTagsFactory.metaIdAttr());
+
+    var mNaziv = MetaTagsFactory.metaNaziv();
+    registerAttribute(mNaziv, RdfaTagsFactory.rdfDataTypeAttr());
+    registerAttribute(mNaziv, RdfaTagsFactory.rdfPropertyAttr("pred:imeDokumenta"));
+
+    var tacka = AktTagsFactory.aktTacka();
+    registerAttribute(tacka, MetaTagsFactory.metaNazivAttr("Dodaj naziv tačke", "Naziv Tačke"));
+    registerAttribute(tacka, MetaTagsFactory.metaIdAttr());
+
+    var podtacka = AktTagsFactory.aktPodtacka();
+    registerAttribute(podtacka, MetaTagsFactory.metaNazivAttr("Dodaj naziv podtačke", "Naziv podtačke"));
+    registerAttribute(podtacka, MetaTagsFactory.metaIdAttr());
+
+    addChildActionsToParent(podtacka, AktTagsFactory.aktAlineja());
+
+    var stav = AktTagsFactory.aktStav();
+    registerAttribute(stav, MetaTagsFactory.metaIdAttr());
+
+    var pododeljak = AktTagsFactory.aktPododeljak();
+    registerAttribute(pododeljak, MetaTagsFactory.metaNazivAttr("Dodaj naziv pododeljka", "Naziv pododeljka"));
+    registerAttribute(pododeljak, MetaTagsFactory.metaIdAttr());
+
+    var alineja = AktTagsFactory.aktAlineja();
+    registerAttribute(alineja, MetaTagsFactory.metaIdAttr());
+
+    var zaglavlje = AktTagsFactory.aktZaglavlje();
+    zaglavlje.definition.mustBeBefore = [clan.name, glava.name, deo.name];
+
+    var preambula = AktTagsFactory.aktPreambula();
+
+    registerElement(aktSpec, AktTagsFactory.aktAkt());
+    registerElement(aktSpec, zaglavlje);
+    registerElement(aktSpec, preambula);
     registerElement(aktSpec, glava);
     registerElement(aktSpec, clan);
     registerElement(aktSpec, deo);
     registerElement(aktSpec, mNaziv);
     registerElement(aktSpec, odeljak);
-    registerElement(aktSpec, aktStav());
+    registerElement(aktSpec, stav);
     registerElement(aktSpec, tacka);
-    registerElement(aktSpec, aktPododeljak());
+    registerElement(aktSpec, pododeljak);
     registerElement(aktSpec, podtacka);
-    registerElement(aktSpec, aktAlineja());
+    registerElement(aktSpec, alineja);
 
     return {akt: aktSpec};
   }
