@@ -4,11 +4,15 @@
   xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
   xmlns:sednica="http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica"
   xmlns:pred="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#">
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+  xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt">
 
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
     schemaLocation="metadata.xsd"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" schemaLocation="pred.xsd"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+    schemaLocation="amandman.xsd"/>
   <xs:element name="sednica">
     <xs:complexType>
       <xs:sequence>

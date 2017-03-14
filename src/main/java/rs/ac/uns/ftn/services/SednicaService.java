@@ -1,7 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
-import rs.ac.uns.ftn.model.generated.sednica.Sednica;
+import rs.ac.uns.ftn.model.generated.Sednica;
 import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 
 import java.util.List;

@@ -36,18 +36,18 @@ import javax.xml.bind.annotation.XmlType;
     "dateCreated",
     "dateModified"
 })
-@XmlRootElement(name = "zaglavlje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "zaglavlje")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Zaglavlje {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Naziv naziv;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateCreated dateCreated;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateModified dateModified;
 
     /**
@@ -58,7 +58,7 @@ public class Zaglavlje {
      *     {@link Naziv }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Naziv getNaziv() {
         return naziv;
     }
@@ -71,7 +71,7 @@ public class Zaglavlje {
      *     {@link Naziv }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(Naziv value) {
         this.naziv = value;
     }
@@ -84,7 +84,7 @@ public class Zaglavlje {
      *     {@link DateCreated }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateCreated getDateCreated() {
         return dateCreated;
     }
@@ -97,7 +97,7 @@ public class Zaglavlje {
      *     {@link DateCreated }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateCreated(DateCreated value) {
         this.dateCreated = value;
     }
@@ -110,7 +110,7 @@ public class Zaglavlje {
      *     {@link DateModified }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateModified getDateModified() {
         return dateModified;
     }
@@ -123,7 +123,7 @@ public class Zaglavlje {
      *     {@link DateModified }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateModified(DateModified value) {
         this.dateModified = value;
     }
