@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import rs.ac.uns.ftn.exceptions.Error;
 import rs.ac.uns.ftn.exceptions.*;
+import rs.ac.uns.ftn.model.ValidationResult;
 
 /**
  * Created by Arsa on 15-Feb-17.
@@ -36,5 +37,10 @@ public class ExceptionControllerAdvice {
   public ResponseEntity<Error> badRequest(Exception e) {
     Error error = new Error(400, e.getMessage());
     return new ResponseEntity<Error>(error, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(ValidationException.class)
+  public ResponseEntity<ValidationResult> validationResultResponseEntity(ValidationException ex) {
+    return ResponseEntity.badRequest().body(new ValidationResult(false, ex.getMessage()));
   }
 }

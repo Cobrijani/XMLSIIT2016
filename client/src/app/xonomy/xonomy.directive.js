@@ -27,7 +27,9 @@
     function linkFunction(scope, element, attrs, controller) {
       var xml = "<akt:akt xmlns:akt='http://parlament.gov.rs/rs.ac.uns.ftn.model.akt'" +
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
-        " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata' >" +
+        " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata'" +
+        " xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'" +
+        " xmlns='http://www.w3.org/ns/rdfa#' >" +
         "<akt:zaglavlje><meta:naziv property='pred:imeDokumenta' datatype='xs:string'></meta:naziv>" +
         "</akt:zaglavlje></akt:akt>";
 

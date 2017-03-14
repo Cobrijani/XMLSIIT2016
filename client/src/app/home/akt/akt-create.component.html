@@ -27,6 +27,11 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-sm-12" ng-class="{'btn-danger': !vm.validation.valid, 'btn-success': vm.validation.valid}">
+    {{vm.validation.message}}
+  </div>
+</div>
 
 <div class="row menu-container-margin">
   <div class="col-sm-12">
