@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.model.AmandmanMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
@@ -43,16 +44,14 @@ public class AmandmanJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<AmandmanDTO>> findAll(Pageable pageable) {
-    List<AmandmanDTO> amandmani =
-      amandmanService.findAll(pageable).stream().map(x -> modelMapper.map(x, AmandmanDTO.class)).collect(Collectors.toList());
-    return ResponseEntity.ok(amandmani);
+  public ResponseEntity<List<AmandmanMetadata>> findAll(Pageable pageable) {
+    return ResponseEntity.ok(amandmanService.getMetadata(pageable));
   }
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<Amandman> getOne(@PathVariable String id) {
-    Amandman Amandman = amandmanService.findById(id);
-    return ResponseEntity.ok(Amandman);
+    Amandman amandman = amandmanService.findById(id);
+    return ResponseEntity.ok(amandman);
   }
 
 
