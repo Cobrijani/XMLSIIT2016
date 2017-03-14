@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.Amandman;
+import rs.ac.uns.ftn.model.generated.DateCreated;
+import rs.ac.uns.ftn.model.generated.DateModified;
 import rs.ac.uns.ftn.security.SecurityUtils;
+import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.namespace.QName;
@@ -99,13 +102,27 @@ public class AmandmanMarkLogicService implements AmandmanService{
   public void add(Amandman amandman) {
     final String id = identifierGenerator.generateIdentity();
     amandman.setId(id);
-    /*amandman.getOtherAttributes().put(new QName("about"), AMANDMAN + "/" + id);
+    amandman.getOtherAttributes().put(new QName("about"), AMANDMAN + "/" + id);
     amandman.getOtherAttributes().put(new QName("vocab"), PRED);
     amandman.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     amandman.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
-    amandman.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());*/
-    amandman.setDateCreated(new XMLGregorianCalendarImpl(new GregorianCalendar()));
-    amandman.setDateModified(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+    amandman.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    final DateCreated dateCreated = new DateCreated();
+    dateCreated.setValue(XMLUtil.getToday());
+    dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
+    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    amandman.getZaglavljeAmandman().setDateCreated(dateCreated);
+
+    final DateModified dateModified = new DateModified();
+    dateModified.setValue(XMLUtil.getToday());
+    dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
+    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    amandman.getZaglavljeAmandman().setDateModified(dateModified);
+
+    amandman.getZaglavljeAmandman().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
+    amandman.getZaglavljeAmandman().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
+
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AMANDMAN_REF);
