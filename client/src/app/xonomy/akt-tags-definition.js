@@ -31,13 +31,19 @@
 
     /////////////
 
+    function getChildElementsByHtmlID(htmlId, name) {
+      return getElementByHtmlId(htmlId).getChildElements(name);
+    }
+
+    function getElementByHtmlId(htmlId) {
+      return Xonomy.harvestElement(document.getElementById(htmlId));
+    }
+
 
     function addNewElementWithGeneratedId(htmlId, params) {
       Xonomy.newElementChild(htmlId, params.tag);
 
-      var div = document.getElementById(htmlId);
-      var jsElement = Xonomy.harvestElement(div);
-      var delovi = jsElement.getChildElements(params.name);
+      var delovi = getChildElementsByHtmlID(htmlId, params.name);
 
       delovi = delovi.filter(function (item) {
         return !item.hasAttribute(MetaTagsFactory.metaIdAttr().name);
@@ -46,7 +52,25 @@
       delovi.forEach(function (item) {
         Xonomy.newAttribute(item.htmlID, {name: "meta:id", value: item.htmlID})
       });
+    }
 
+    function addClan(htmlID, params) {
+      addNewElementWithGeneratedId(htmlID, params);
+
+      var clanovi = getChildElementsByHtmlID(htmlID, params.name);
+
+      clanovi.forEach(function (item) {
+        var stavovi = item.getChildElements("akt:stav");
+
+        stavovi = stavovi.filter(function (child) {
+          return !child.hasAttribute(MetaTagsFactory.metaIdAttr().name)
+        });
+
+        stavovi.forEach(function (stav) {
+          Xonomy.newAttribute(stav.htmlID, {name: "meta:id", value: stav.htmlID})
+        });
+
+      })
     }
 
     function aktAkt() {
@@ -78,7 +102,7 @@
               }
             }, {
               caption: "Dodaj član",
-              action: addNewElementWithGeneratedId,
+              action: addClan,
               actionParameter: aktClan(),
               hideIf: function (jsElement) {
                 return jsElement.hasChildElement(aktDeo().name) || jsElement.hasChildElement(aktGlava().name);
@@ -198,7 +222,7 @@
             }
           }, {
             caption: "Dodaj član",
-            action: addNewElementWithGeneratedId,
+            action: addClan,
             actionParameter: aktClan(),
             hideIf: function (jsElement) {
               return jsElement.hasChildElement(aktOdeljak().name);
@@ -229,7 +253,7 @@
               }
             }, {
               caption: "Dodaj član",
-              action: addNewElementWithGeneratedId,
+              action: addClan,
               actionParameter: aktClan(),
               hideIf: function (elem) {
                 return elem.hasChildElement(aktPododeljak().name)
@@ -253,7 +277,7 @@
             action: Xonomy.deleteElement
           }, {
             caption: "Dodaj član",
-            action: addNewElementWithGeneratedId,
+            action: addClan,
             actionParameter: aktClan()
           }],
           attributes: attr || {}

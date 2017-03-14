@@ -56,7 +56,7 @@
     }
 
     function createAkt() {
-      GenericResource.postEntity('akti', vm.akt, {'Content-Type': 'application/xml'})
+      GenericResource.postEntity('akti', Xonomy.harvest(), {'Content-Type': 'application/xml'})
         .then(function (success) {
           $state.go('main');
         })

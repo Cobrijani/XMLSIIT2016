@@ -124,17 +124,14 @@ public class AktMarkLogicService implements AktService {
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
     dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
-    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
     akt.getZaglavlje().setDateCreated(dateCreated);
 
     final DateModified dateModified = new DateModified();
     dateModified.setValue(XMLUtil.getToday());
     dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
-    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
     akt.getZaglavlje().setDateModified(dateModified);
-
-    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
-    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
 
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();

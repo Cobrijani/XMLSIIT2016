@@ -98,7 +98,7 @@
                 <xsl:value-of select="translate(akt:zaglavlje/meta:naziv/text(), $smallcase, $uppercase)"></xsl:value-of>
             </h1>
             <div class="container">
-                <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
+                <xsl:apply-templates></xsl:apply-templates>
             </div>
         </xsl:template>
         <xsl:template match="akt:deo">
@@ -106,6 +106,11 @@
             <h2 class="deo"> <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of></h2>
             <xsl:apply-templates select="akt:glava"></xsl:apply-templates>
         </xsl:template>
+    
+    <xsl:template match="akt:zaglavlje">
+        
+    </xsl:template>
+    
         <xsl:template match="akt:glava">
             <h2 class="glava">
                 <xsl:choose>
