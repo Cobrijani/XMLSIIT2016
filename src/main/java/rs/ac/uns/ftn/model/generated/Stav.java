@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
     "content"
 })
 @XmlRootElement(name = "stav", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Stav {
 
     @XmlElementRefs({
@@ -48,10 +48,10 @@ public class Stav {
         @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class, required = false)
     })
     @XmlMixed
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Object> content;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
 
     /**
@@ -72,13 +72,13 @@ public class Stav {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Tacka }
      * {@link String }
+     * {@link Tacka }
      * {@link Referenca }
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Object> getContent() {
         if (content == null) {
             content = new ArrayList<Object>();
@@ -94,7 +94,7 @@ public class Stav {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -107,7 +107,7 @@ public class Stav {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
