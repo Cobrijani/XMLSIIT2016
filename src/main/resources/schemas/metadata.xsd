@@ -6,13 +6,14 @@
          <xs:attribute name="idRef" type="xs:string"/>
          <xs:attribute name="naziv" type="xs:string"/>
          <xs:attribute name="createdBy" type="xs:string"/>
-         <xs:attribute name="dateCreated" type="xs:date"/>
-         <xs:attribute name="dateModified" type="xs:date"/>
+         <xs:attribute name="dateCreated" type="xs:dateTime"/>
+         <xs:attribute name="dateModified" type="xs:dateTime"/>
          <xs:element name="id">
                   <xs:complexType>
                            <xs:simpleContent>
                                     <xs:extension base="xs:string">
-                                             <xs:anyAttribute namespace="##any"/>
+                                             <xs:anyAttribute namespace="##any"
+                                                  processContents="lax"/>
                                     </xs:extension>
                            </xs:simpleContent>
                   </xs:complexType>
@@ -21,7 +22,8 @@
                   <xs:complexType>
                            <xs:simpleContent>
                                     <xs:extension base="xs:string">
-                                             <xs:anyAttribute namespace="##any"/>
+                                             <xs:anyAttribute namespace="##any"
+                                                  processContents="lax"/>
                                     </xs:extension>
                            </xs:simpleContent>
                   </xs:complexType>
@@ -29,8 +31,9 @@
          <xs:element name="dateCreated">
                   <xs:complexType>
                            <xs:simpleContent>
-                                    <xs:extension base="xs:date">
-                                             <xs:anyAttribute namespace="##any"/>
+                                    <xs:extension base="xs:dateTime">
+                                             <xs:anyAttribute namespace="##any"
+                                                  processContents="lax"/>
                                     </xs:extension>
                            </xs:simpleContent>
                   </xs:complexType>
@@ -38,8 +41,9 @@
          <xs:element name="dateModified">
                   <xs:complexType>
                            <xs:simpleContent>
-                                    <xs:extension base="xs:date">
-                                             <xs:anyAttribute namespace="##any"/>
+                                    <xs:extension base="xs:dateTime">
+                                             <xs:anyAttribute namespace="##any"
+                                                  processContents="lax"/>
                                     </xs:extension>
                            </xs:simpleContent>
                   </xs:complexType>

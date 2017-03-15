@@ -1,12 +1,42 @@
 <div class="row menu-container-margin">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="btn-group pull-left">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px; margin-bottom: 5px">Režimi rada nad dokumentom</h4>
+        <div class="radio">
+          <label><input type="radio" ng-change="vm.radioBtnChange(vm.docMode)" name="docTypeRadio" value="raw"
+                        ng-model="vm.docMode">Slobodan Xml tekst</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" ng-change="vm.radioBtnChange(vm.docMode)" name="docTypeRadio" value="nerd"
+                        ng-model="vm.docMode">"Nerd" interaktivni režim
+            rada</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" ng-change="vm.radioBtnChange(vm.docMode)" name="docTypeRadio" value="laic"
+                        ng-model="vm.docMode">"Laic" interaktivni režim
+            rada</label>
+        </div>
+      </div>
+      <div class="btn-group pull-right">
+        <div class="btn btn-primary btn-sm">Import-uj dokument</div>
+        <div class="btn btn-info btn-sm">Export-uj dokument</div>
+        <div class="btn btn-success btn-sm" ng-click="vm.createAkt()">Sačuvaj dokument</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12" ng-class="{'btn-danger': !vm.validation.valid, 'btn-success': vm.validation.valid}">
+    {{vm.validation.message}}
+  </div>
+</div>
+
+<div class="row menu-container-margin">
   <div class="col-sm-12">
-    <form name="aktForm" method="POST" class="form">
-      <div class="form-group">
-        <label>Ispod unesi sadržaj akta</label>
-        <textarea name="content" class="form-control" rows="20" id="akt" ng-model="vm.akt" required></textarea>
-      </div>
-      <div class="btn btn-success" ng-click="vm.createAkt() && aktForm.$valid" ng-disabled="aktForm.$invalid">Potvrdi
-      </div>
-    </form>
+    <xonomy ng-show="vm.xonomyMode" mode="vm.docMode" start-content="vm.akt" spec="vm.spec"></xonomy>
+    <textarea ng-show="!vm.xonomyMode" name="content" class="form-control" rows="20" id="akt" ng-model="vm.akt"
+              required></textarea>
   </div>
 </div>

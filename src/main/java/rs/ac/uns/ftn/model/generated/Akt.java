@@ -41,7 +41,7 @@ import javax.xml.namespace.QName;
  *         &lt;/choice>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
- *       &lt;anyAttribute/>
+ *       &lt;anyAttribute processContents='skip'/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -58,29 +58,29 @@ import javax.xml.namespace.QName;
     "glava"
 })
 @XmlRootElement(name = "akt", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Akt {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Zaglavlje zaglavlje;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String preambula;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Deo> deo;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Clan> clan;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Glava> glava;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
     @XmlAnyAttribute
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -91,7 +91,7 @@ public class Akt {
      *     {@link Zaglavlje }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Zaglavlje getZaglavlje() {
         return zaglavlje;
     }
@@ -104,7 +104,7 @@ public class Akt {
      *     {@link Zaglavlje }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavlje(Zaglavlje value) {
         this.zaglavlje = value;
     }
@@ -117,7 +117,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getPreambula() {
         return preambula;
     }
@@ -130,7 +130,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setPreambula(String value) {
         this.preambula = value;
     }
@@ -157,7 +157,7 @@ public class Akt {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Deo> getDeo() {
         if (deo == null) {
             deo = new ArrayList<Deo>();
@@ -187,7 +187,7 @@ public class Akt {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Clan> getClan() {
         if (clan == null) {
             clan = new ArrayList<Clan>();
@@ -217,7 +217,7 @@ public class Akt {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Glava> getGlava() {
         if (glava == null) {
             glava = new ArrayList<Glava>();
@@ -233,7 +233,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -246,7 +246,7 @@ public class Akt {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
@@ -265,7 +265,7 @@ public class Akt {
      * @return
      *     always non-null
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-05T11:43:49+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:15:44+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }

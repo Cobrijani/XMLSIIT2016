@@ -113,6 +113,11 @@ div[ng-messages] {
   color: #f0ad4e;
 }
 
+.btn-info:hover {
+  color: #5bc0de;
+  background: white;
+}
+
 .btn-default:hover {
   border-color: white;
   color: white;
