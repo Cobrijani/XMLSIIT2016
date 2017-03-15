@@ -1,0 +1,13 @@
+<div class="row menu-container-margin">
+  <div class="col-sm-12">
+    <form name="amandmanForm" method="POST" class="form">
+      <div class="form-group">
+        <label>Ispod unesi sadržaj amandmana</label>
+        <textarea name="content" class="form-control" rows="20" id="amandman" ng-model="vm.amandman" required></textarea>
+      </div>
+      <div class="btn btn-success" ng-click="vm.createAmandman() && amandmanForm.$valid" ng-disabled="amandmanForm.$invalid">Potvrdi
+      </div>
+    </form>
+  </div>
+</div>
+
