@@ -43,7 +43,9 @@
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
         " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata'" +
         " xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'" +
-        " xmlns='http://www.w3.org/ns/rdfa#' > </akt:akt>"
+        " xmlns='http://www.w3.org/ns/rdfa#' > <akt:zaglavlje>" +
+        "<meta:naziv datatype='xs:string' property='pred:imeDokumenta'></meta:naziv>" +
+        "</akt:zaglavlje><akt:preambula></akt:preambula></akt:akt>"
     }
 
     function radioBtnChange(val) {

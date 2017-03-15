@@ -67,7 +67,7 @@
     Назив главе треба да је кратак и да одговара њеној садржини.
     -->
     <xsl:template match="akt:glava" >
-                <fo:block  font-size="16pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.5cm">
+                <fo:block id="{@meta:id}"  font-size="16pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.5cm">
                     <xsl:choose>
                         <xsl:when test="@meta:naziv != ''">
                             <xsl:number format="I. " value="position()"></xsl:number>
@@ -110,7 +110,7 @@
     -->
     <xsl:template match="akt:clan">
             <fo:block keep-together.within-page="always">
-                <fo:block font-size="12pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.3cm">
+                <fo:block id="{@meta:id}" font-size="12pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.3cm">
                     <xsl:value-of select="@meta:naziv"></xsl:value-of>
                 </fo:block>
                 <fo:block font-size="12pt" text-align="center" font-family="Arial" font-weight="bold">
@@ -145,7 +145,7 @@
         садржини.
       -->
     <xsl:template match="akt:odeljak">
-        <fo:block font-size="12pt" font-family="Arial" font-weight="bold" start-indent="1cm" margin-bottom="0.5cm">
+        <fo:block id="{@meta:id}" font-size="12pt" font-family="Arial" font-weight="bold" start-indent="1cm" margin-bottom="0.5cm">
            <xsl:number format="1. " count="akt:odeljak"></xsl:number><xsl:value-of select="@meta:naziv"></xsl:value-of>
         </fo:block>
         <fo:block>
@@ -163,7 +163,7 @@
         садржини.
     -->
     <xsl:template match="akt:pododeljak">
-        <fo:block font-family="Arial" font-size="11pt" text-align="justify" start-indent="1cm" margin-bottom="0.5cm"> 
+        <fo:block id="{@meta:id}" font-family="Arial" font-size="11pt" text-align="justify" start-indent="1cm" margin-bottom="0.5cm"> 
             <xsl:number format="a) " count="akt:pododeljak"></xsl:number> <xsl:value-of select="@meta:naziv"></xsl:value-of>
         </fo:block>
         <fo:block>

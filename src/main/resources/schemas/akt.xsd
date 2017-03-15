@@ -35,7 +35,7 @@
         </xs:choice>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
-      <xs:anyAttribute namespace="##any"/>
+      <xs:anyAttribute namespace="##any" processContents="skip"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="deo">
@@ -97,6 +97,7 @@
   <xs:element name="podtacka">
     <xs:complexType mixed="true">
       <xs:sequence>
+        <xs:element minOccurs="0" ref="akt:referenca"/>
         <xs:element maxOccurs="unbounded" minOccurs="2" ref="akt:alineja"/>
       </xs:sequence>
       <xs:attributeGroup ref="akt:uobicajeniAtributi"/>
@@ -113,7 +114,7 @@
   </xs:element>
   <xs:element name="alineja">
     <xs:complexType mixed="true">
-      <xs:sequence>
+      <xs:sequence minOccurs="0">
         <xs:element maxOccurs="unbounded" minOccurs="0" ref="akt:referenca"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>

@@ -4,7 +4,10 @@ import javaslang.control.Try;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import rs.ac.uns.ftn.controllers.exceptions.Message;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.exceptions.ValidationException;
 import rs.ac.uns.ftn.model.ValidationResult;
@@ -20,7 +23,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by SBratic on 3/13/2017.
@@ -64,6 +69,14 @@ public class ValidationServiceImpl implements ValidationService {
 
   @Override
   public ValidationResult validate(String xmlFile, Resource[] xsdFile) throws ValidationException {
+    File[] files = Arrays.stream(xsdFile)
+      .map(x -> Try.of(x::getFile).getOrElseThrow(ex -> new InvalidServerConfigurationException()))
+      .toArray(File[]::new);
+    return validate(xmlFile, files);
+  }
+
+  @Override
+  public ValidationResult validate(Document xmlFile, Resource[] xsdFile) throws ValidationException {
     File[] files = Arrays.stream(xsdFile)
       .map(x -> Try.of(x::getFile).getOrElseThrow(ex -> new InvalidServerConfigurationException()))
       .toArray(File[]::new);

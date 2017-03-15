@@ -1,16 +1,15 @@
 package rs.ac.uns.ftn.controllers;
 
-import org.springframework.beans.factory.annotation.Value;
+import javaslang.control.Try;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.uns.ftn.exceptions.SchemaNotFoundException;
 import rs.ac.uns.ftn.model.ValidationResult;
+import rs.ac.uns.ftn.services.Registry;
 import rs.ac.uns.ftn.services.ValidationService;
 
-import javax.annotation.PostConstruct;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by SBratic on 3/13/2017.
@@ -22,29 +21,19 @@ public class UtilityController {
 
   private final ValidationService validationService;
 
-  private final Map<String, Resource> schemaRegistry;
+  private final Registry<String, Resource> registry;
 
-  @Value("classpath:schemas/akt.xsd")
-  private Resource aktXsd;
-  @Value("classpath:schemas/metadata.xsd")
-  private Resource metaXsd;
 
-  public UtilityController(ValidationService validationService) {
+  public UtilityController(ValidationService validationService, Registry<String, Resource> registry) {
     this.validationService = validationService;
-    schemaRegistry = new HashMap<>();
-  }
-
-  @PostConstruct
-  public void postConstruct() {
-    schemaRegistry.put("akt", aktXsd);
-    schemaRegistry.put("meta", metaXsd);
+    this.registry = registry;
   }
 
   @PostMapping(path = "/validate")
   public ResponseEntity<ValidationResult> validateContent(@RequestBody String xmlContent, @RequestParam(name = "xsd") String[] xsdName) {
-    Resource[] res = Arrays.stream(xsdName)
-      .map(schemaRegistry::get)
-      .toArray(Resource[]::new);
+    Resource[] res = Try.of(() -> Arrays.stream(xsdName)
+      .map(registry::getItemFromRegistry)
+      .toArray(Resource[]::new)).getOrElseThrow(x -> new SchemaNotFoundException());
     ValidationResult validationResult = validationService.validate(xmlContent, res);
     return ResponseEntity.ok(validationResult);
   }

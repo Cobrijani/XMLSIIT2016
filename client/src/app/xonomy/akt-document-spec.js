@@ -30,12 +30,31 @@
         return;
       }
 
+      if (!parent.definition.menu) {
+        parent.definition.menu = [];
+      }
+
       child.parentActions.forEach(function (item) {
         parent.definition.menu.push(item)
+      });
+
+      if (!child.parentInlineActions) {
+        return;
+      }
+
+      if (!parent.definition.inlineMenu) {
+        parent.definition.inlineMenu = [];
+      }
+
+      child.parentInlineActions.forEach(function (action) {
+        parent.definition.inlineMenu.push(action);
       })
     }
 
     function registerAttribute(element, attribute) {
+      if (!element.definition.attributes) {
+        element.definition.attributes = {};
+      }
       element.definition.attributes[attribute.name] = attribute.definition;
       addChildActionsToParent(element, attribute);
     }
@@ -85,6 +104,13 @@
 
     var preambula = AktTagsFactory.aktPreambula();
 
+    var referenca = AktTagsFactory.aktReferenca();
+    registerAttribute(referenca, MetaTagsFactory.metaIdRefAttr());
+    addChildActionsToParent(stav, referenca);
+    addChildActionsToParent(tacka, referenca);
+    addChildActionsToParent(podtacka, referenca);
+    addChildActionsToParent(alineja, referenca);
+
     registerElement(aktSpec, AktTagsFactory.aktAkt());
     registerElement(aktSpec, zaglavlje);
     registerElement(aktSpec, preambula);
@@ -98,6 +124,7 @@
     registerElement(aktSpec, pododeljak);
     registerElement(aktSpec, podtacka);
     registerElement(aktSpec, alineja);
+    registerElement(aktSpec, referenca);
 
     return {akt: aktSpec};
   }

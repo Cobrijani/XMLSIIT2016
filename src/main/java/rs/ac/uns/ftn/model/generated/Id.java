@@ -35,14 +35,14 @@ import javax.xml.namespace.QName;
     "value"
 })
 @XmlRootElement(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Id {
 
     @XmlValue
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String value;
     @XmlAnyAttribute
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -53,7 +53,7 @@ public class Id {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getValue() {
         return value;
     }
@@ -66,7 +66,7 @@ public class Id {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setValue(String value) {
         this.value = value;
     }
@@ -85,7 +85,7 @@ public class Id {
      * @return
      *     always non-null
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T09:28:09+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-15T10:09:12+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }

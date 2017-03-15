@@ -102,7 +102,7 @@
             </div>
         </xsl:template>
         <xsl:template match="akt:deo">
-            <h2 class="deo"> DEO <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
+            <h2 class="deo" id="{@meta:id}"> DEO <xsl:value-of select="translate(@redniBroj,$smallcase, $uppercase)"></xsl:value-of></h2>
             <h2 class="deo"> <xsl:value-of select="translate(@meta:naziv, $smallcase, $uppercase)"></xsl:value-of></h2>
             <xsl:apply-templates select="akt:glava"></xsl:apply-templates>
         </xsl:template>
@@ -112,7 +112,7 @@
     </xsl:template>
     
         <xsl:template match="akt:glava">
-            <h2 class="glava">
+            <h2 class="glava" id="{@meta:id}">
                 <xsl:choose>
                     <xsl:when test="@meta:naziv != ''">
                         <xsl:number format="I. " value="position()"></xsl:number>
@@ -126,21 +126,21 @@
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:odeljak">
-            <div class="odeljak">
+            <div class="odeljak" id="{@meta:id}">
                 <xsl:number format="1. " count="akt:odeljak"></xsl:number>
                 <xsl:value-of select="@meta:naziv"></xsl:value-of>
             </div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:pododeljak">
-            <div class="pododeljak">
+            <div class="pododeljak" id="{@meta:id}">
                 <xsl:number format="a) " count="akt:pododeljak"></xsl:number>
                 <xsl:value-of select="@meta:naziv"></xsl:value-of>
             </div>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>
         <xsl:template match="akt:clan">
-            <h2 class="clan"> <xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
+            <h2 class="clan" id="{@meta:id}"> <xsl:value-of select="@meta:naziv"></xsl:value-of></h2>
             <h2 class="clan">Član <xsl:number format="1." level="any" count="akt:clan"></xsl:number></h2>
             <xsl:apply-templates></xsl:apply-templates>
         </xsl:template>

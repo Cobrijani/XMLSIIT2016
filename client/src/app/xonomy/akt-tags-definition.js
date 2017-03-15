@@ -26,7 +26,8 @@
       aktStav: aktStav,
       aktTacka: aktTacka,
       aktPodtacka: aktPodtacka,
-      aktAlineja: aktAlineja
+      aktAlineja: aktAlineja,
+      aktReferenca: aktReferenca
     };
 
     /////////////
@@ -78,6 +79,7 @@
         name: "akt:akt",
         definition: {
           displayName: "Akt",
+          hasText: false,
           menu: [{
             caption: "Dodaj zaglavlje",
             action: Xonomy.newElementChild,
@@ -166,7 +168,7 @@
           displayName: "Deo",
           menu: [
             {
-              caption: "Obrisi deo",
+              caption: "Obriši deo",
               action: Xonomy.deleteElement
             },
             {
@@ -184,7 +186,7 @@
     function aktClan(attr) {
       return {
         name: "akt:clan",
-        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "'><akt:stav></akt:stav></akt:clan>",
+        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='"+namespaces.meta+"' meta:naziv='naziv'><akt:stav></akt:stav></akt:clan>",
         definition: {
           displayName: "Član",
           menu: [
@@ -242,7 +244,7 @@
           displayName: "Odeljak",
           menu: [
             {
-              caption: "Obrisi odeljak",
+              caption: "Obriši odeljak",
               action: Xonomy.deleteElement
             }, {
               caption: "Dodaj pododeljak",
@@ -293,10 +295,14 @@
         definition: {
           displayName: "Stav",
           menu: [{
+            caption: "Obriši stav",
+            action: Xonomy.deleteElement
+          }, {
             caption: "Dodaj tačku",
             action: addNewElementWithGeneratedId,
             actionParameter: aktTacka()
           }],
+          inlineMenu: [],
           hasText: true,
           attributes: attr || {}
         }
@@ -372,6 +378,32 @@
             }
           }
         ]
+      }
+    }
+
+    function aktReferenca() {
+      return {
+        name: "akt:referenca",
+        tag: "<akt:referenca xmlns:akt='" + namespaces.akt + "'></akt:referenca>",
+        definition: {
+          displayName: "Ref",
+          menu: [
+            {
+              caption: "Obriši referencu",
+              action: Xonomy.unwrap,
+
+            }
+          ]
+        },
+        parentActions: [],
+        parentInlineActions: [{
+          caption: "Napravi referencu",
+          action: Xonomy.wrap,
+          actionParameter: {
+            template: "<akt:referenca xmlns:akt='" + namespaces.akt + "' xmlns:meta='" + namespaces.meta + "' meta:idRef='Unesi naziv identifikator koji želiš da referenciraš'>$</akt:referenca>",
+            placeholder: "$"
+          }
+        }]
       }
     }
 

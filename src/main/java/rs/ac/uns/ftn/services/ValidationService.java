@@ -24,4 +24,6 @@ public interface ValidationService {
 
   ValidationResult validate(String xmlFile, Resource[] xsdFile) throws ValidationException;
 
+  ValidationResult validate(Document xmlFile, Resource[] xsdFile) throws ValidationException;
+
 }

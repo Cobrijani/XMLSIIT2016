@@ -1,7 +1,10 @@
 
 package rs.ac.uns.ftn.model.generated;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -21,6 +24,9 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
+    private final static QName _Napravio_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "napravio");
+    private final static QName _Korisnik_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "korisnik");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: rs.ac.uns.ftn.model.generated
@@ -30,11 +36,83 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DateCreated }
+     * Create an instance of {@link Stav }
      * 
      */
-    public DateCreated createDateCreated() {
-        return new DateCreated();
+    public Stav createStav() {
+        return new Stav();
+    }
+
+    /**
+     * Create an instance of {@link Referenca }
+     * 
+     */
+    public Referenca createReferenca() {
+        return new Referenca();
+    }
+
+    /**
+     * Create an instance of {@link Tacka }
+     * 
+     */
+    public Tacka createTacka() {
+        return new Tacka();
+    }
+
+    /**
+     * Create an instance of {@link Podtacka }
+     * 
+     */
+    public Podtacka createPodtacka() {
+        return new Podtacka();
+    }
+
+    /**
+     * Create an instance of {@link Alineja }
+     * 
+     */
+    public Alineja createAlineja() {
+        return new Alineja();
+    }
+
+    /**
+     * Create an instance of {@link Odeljak }
+     * 
+     */
+    public Odeljak createOdeljak() {
+        return new Odeljak();
+    }
+
+    /**
+     * Create an instance of {@link Pododeljak }
+     * 
+     */
+    public Pododeljak createPododeljak() {
+        return new Pododeljak();
+    }
+
+    /**
+     * Create an instance of {@link Clan }
+     * 
+     */
+    public Clan createClan() {
+        return new Clan();
+    }
+
+    /**
+     * Create an instance of {@link Akt }
+     * 
+     */
+    public Akt createAkt() {
+        return new Akt();
+    }
+
+    /**
+     * Create an instance of {@link Zaglavlje }
+     * 
+     */
+    public Zaglavlje createZaglavlje() {
+        return new Zaglavlje();
     }
 
     /**
@@ -46,6 +124,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DateCreated }
+     * 
+     */
+    public DateCreated createDateCreated() {
+        return new DateCreated();
+    }
+
+    /**
      * Create an instance of {@link DateModified }
      * 
      */
@@ -54,11 +140,54 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Deo }
+     * 
+     */
+    public Deo createDeo() {
+        return new Deo();
+    }
+
+    /**
+     * Create an instance of {@link Glava }
+     * 
+     */
+    public Glava createGlava() {
+        return new Glava();
+    }
+
+    /**
      * Create an instance of {@link Id }
      * 
      */
     public Id createId() {
         return new Id();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", name = "preambula")
+    public JAXBElement<String> createPreambula(String value) {
+        return new JAXBElement<String>(_Preambula_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "napravio")
+    public JAXBElement<Object> createNapravio(Object value) {
+        return new JAXBElement<Object>(_Napravio_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "korisnik")
+    public JAXBElement<Object> createKorisnik(Object value) {
+        return new JAXBElement<Object>(_Korisnik_QNAME, Object.class, null, value);
     }
 
 }

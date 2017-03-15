@@ -19,6 +19,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
@@ -118,6 +119,13 @@ public class XMLUtil {
 
     xslFoTransformer.transform(source, result);
 
+  }
+
+  public static <T> Document toDocument(T object) throws JAXBException {
+    DOMResult res = new DOMResult();
+    JAXBContext context = JAXBContext.newInstance(object.getClass());
+    context.createMarshaller().marshal(object, res);
+    return (Document) res.getNode();
   }
 
   public static XMLGregorianCalendar getToday() {

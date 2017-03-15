@@ -17,7 +17,8 @@
     return {
       metaNaziv: metaNaziv,
       metaIdAttr: metaIdAttr,
-      metaNazivAttr: metaNazivAttr
+      metaNazivAttr: metaNazivAttr,
+      metaIdRefAttr: metaIdRefAttr
     };
 
     function metaNaziv(attr, displayName) {
@@ -28,7 +29,7 @@
           displayName: displayName || "Naziv",
           menu: [
             {
-              caption: "Obrisi naziv",
+              caption: "Obriši naziv",
               action: Xonomy.deleteElement
             }
           ],
@@ -44,7 +45,9 @@
       return {
         name: "meta:id",
         attr: {name: "meta:id", value: "id"},
-        definition: {},
+        definition: {
+          displayName: "Identifikator"
+        },
         parentActions: []
       }
     }
@@ -58,7 +61,7 @@
           asker: Xonomy.askString,
           menu: [
             {
-              caption: "Obrisi naziv",
+              caption: "Obriši naziv",
               action: Xonomy.deleteAttribute
             }
           ]
@@ -74,6 +77,18 @@
       }
     }
 
+    function metaIdRefAttr(actionCaption, displayName) {
+      return {
+        name: "meta:idRef",
+        attr: {name: "meta:idRef", value: "Unesi identifikator za elemen koji zelis da referencira"},
+        definition: {
+          displayName: "Identifikator elementa",
+          asker: Xonomy.askString,
+        },
+        parentActions: []
+      }
+
+    }
   }
 })();
 
