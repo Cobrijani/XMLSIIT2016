@@ -19,6 +19,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
@@ -169,8 +170,7 @@ public class SednicaMarkLogicService implements SednicaService{
   }
 
   @Override
-  public List<SednicaMetadata> getMetadata(Pageable pageable) {
-
+  public List<SednicaDTO> getMetadata(Pageable pageable) {
     byte[] data = Try.of(() ->
       Files.readAllBytes(sednicaSparql.getFile().toPath())
     ).getOrElseThrow(x -> new InvalidServerConfigurationException());
@@ -184,19 +184,23 @@ public class SednicaMarkLogicService implements SednicaService{
     sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
 
 
-    List<SednicaMetadata> metadatas = new ArrayList<>();
+    List<SednicaDTO> sednice = new ArrayList<>();
 
     jacksonHandle.get().path("results").path("bindings")
       .forEach(x -> {
-        SednicaMetadata sednica = new SednicaMetadata();
+        System.out.println(x.toString());
+        SednicaDTO sednicaDTO = new SednicaDTO();
         String[] idparts = x.get("documentId").path("value").asText().split("/");
-        sednica.setId(idparts[idparts.length - 1]);
-        sednica.setName(x.get("documentName").path("value").asText());
-        sednica.setDatum(x.get("datum").path("value").asText());
-        sednica.setMesto(x.get("mesto").path("value").asText());
-        metadatas.add(sednica);
+        sednicaDTO.setId(idparts[idparts.length - 1]);
+        sednicaDTO.setNaziv(x.get("documentName").path("value").asText());
+//        sednica.setDatum(x.get("datum").path("value").asText());
+//        sednica.setMesto(x.get("mesto").path("value").asText());
+        Sednica sednica = findById(sednicaDTO.getId());
+        sednicaDTO.setDatum(sednica.getInformacije().getDatum().toString());
+        sednicaDTO.setMesto(sednica.getInformacije().getMesto());
+        sednice.add(sednicaDTO);
       });
 
-    return metadatas;
+    return sednice;
   }
 }

@@ -11,14 +11,16 @@
       <th>#</th>
       <th>Naziv sednice</th>
       <th>Datum odrzavanja</th>
+      <th>Vreme odrzavanja</th>
       <th>Mesto odrzavanja</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="sednica in vm.sednice">
       <td>{{$index+1}}</td>
-      <td><a href ng-click="vm.openSednica(sednica)">{{sednica.naziv}}</a></td>
-      <td>{{sednica.datum | date : 'dd-MM-yyyy'}}</td>
+      <td><a ui-sref="sednica-page({id: sednica.id})">{{sednica.naziv}}</a></td>
+      <td>{{sednica.datum.split('+')[0] | date : 'dd-MM-yyyy'}}</td>
+      <td>{{sednica.datum.split('+')[1] | date : 'HH:ss'}}</td>
       <td>{{sednica.mesto}}</td>
     </tr>
     </tbody>

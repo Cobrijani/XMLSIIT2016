@@ -18,8 +18,6 @@
   function SednicaListController($scope, GenericResource, exception, FileFactory, $state) {
     var vm = this;
 
-    vm.openSednica = openSednica;
-
     activate();
 
 
@@ -32,12 +30,6 @@
           exception.catcher(error);
         });
     }
-
-    function openSednica(sednica) {
-      $state.go(sednica.id);
-    }
-
-
   }
 })();
 

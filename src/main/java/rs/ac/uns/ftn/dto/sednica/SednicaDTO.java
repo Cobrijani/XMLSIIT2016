@@ -18,8 +18,6 @@ public class SednicaDTO {
 
   private String naziv;
 
-  private String dateCreated;
-
   private String datum;
 
   private String mesto;

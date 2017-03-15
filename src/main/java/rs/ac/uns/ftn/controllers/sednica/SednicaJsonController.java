@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.Sednica;
 import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
@@ -37,7 +38,7 @@ public class SednicaJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<SednicaMetadata>> findAll(Pageable pageable) {
+  public ResponseEntity<List<SednicaDTO>> findAll(Pageable pageable) {
     return ResponseEntity.ok(sednicaService.getMetadata(pageable));
   }
 

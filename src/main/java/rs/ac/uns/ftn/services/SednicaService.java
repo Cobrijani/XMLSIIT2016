@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.Sednica;
 import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 
@@ -25,5 +26,5 @@ public interface SednicaService {
 
     void deleteAll();
 
-    List<SednicaMetadata> getMetadata(Pageable pageable);
+    List<SednicaDTO> getMetadata(Pageable pageable);
   }

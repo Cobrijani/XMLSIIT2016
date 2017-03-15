@@ -33,7 +33,7 @@ public class SednicaXmlController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
-  public ResponseEntity<Void> createAkt(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
+  public ResponseEntity<Void> postAkt(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
     sednicaService.add(sednica);
 
     HttpHeaders headers = new HttpHeaders();

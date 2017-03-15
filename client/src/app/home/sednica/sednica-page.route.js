@@ -18,7 +18,7 @@
     return [{
       state: 'sednica-page',
       config: {
-        url: '/sednica-page/{id}',
+        url: '/sednica-page/:id',
         template: '<sednica-page-component></sednica-page-component>',
         data: {
           requiresLogin: true
