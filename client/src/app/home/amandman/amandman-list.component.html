@@ -17,7 +17,7 @@
     <tbody>
     <tr ng-repeat="amandman in vm.amandmani">
       <td>{{$index+1}}</td>
-      <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.naziv}}</a></td>
+      <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.name}}</a></td>
       <td>{{amandman.dateCreated | date : 'dd-MM-yyyy'}}</td>
       <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
     </tr>

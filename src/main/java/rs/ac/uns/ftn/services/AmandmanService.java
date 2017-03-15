@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.model.AktMetadata;
+import rs.ac.uns.ftn.model.AmandmanMetadata;
 import rs.ac.uns.ftn.model.generated.Amandman;
 
 import java.util.List;
@@ -22,4 +24,6 @@ public interface AmandmanService {
   void deleteAktById(String id);
 
   void deleteAll();
+
+  List<AmandmanMetadata> getMetadata(Pageable pageable);
 }

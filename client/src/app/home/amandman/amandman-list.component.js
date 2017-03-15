@@ -35,11 +35,18 @@
     }
 
     function getDetails(id) {
-      FileFactory.getDocumentInFormat('amandmani', id, 'text/html');
+      FileFactory.getDocumentAsArrayBuffer('amandmani', id, 'text/html')
+        .then(function (success) {
+          FileFactory.openFileInNewWindow(success.data, 'text/html')
+
+        });
     }
 
     function getPdf(id) {
-      FileFactory.getDocumentInFormat('amandmani', id, 'application/pdf');
+      FileFactory.getDocumentAsArrayBuffer('amandmani', id, 'application/pdf')
+        .then(function (success) {
+          FileFactory.openFileInNewWindow(success.data, 'application/pdf');
+        })
     }
 
   }
