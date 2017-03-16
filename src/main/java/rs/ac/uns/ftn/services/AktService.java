@@ -1,7 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
-import rs.ac.uns.ftn.model.AktMetadata;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
 
 import java.util.List;

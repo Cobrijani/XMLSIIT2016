@@ -25,7 +25,7 @@
 
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
-    vm.createSednica = createSednica;
+    // vm.createSednica = createSednica;
     vm.open = open;
     vm.createNewSednica = createNewSednica;
     vm.setSelectedAkt = setSelectedAkt;
@@ -44,21 +44,27 @@
         });
     }
 
-    function createSednica() {
-      GenericResource.postEntity('sednice', vm.sednica, {'Content-Type': 'application/xml'})
-        .then(function (success) {
-          $state.go('main');
-        })
-        .catch(function (error) {
-          exception.catcher(error);
-        })
-    }
+    // function createSednica() {
+    //   GenericResource.postEntity('sednice', vm.sednica, {'Content-Type': 'application/xml'})
+    //     .then(function (success) {
+    //       $state.go('main');
+    //     })
+    //     .catch(function (error) {
+    //       exception.catcher(error);
+    //     })
+    // }
 
     function open() {
       vm.opened = true;
     }
 
     function createNewSednica(sednica) {
+      sednica.datum = new Date(sednica.date.getFullYear(), sednica.date.getMonth(), sednica.date.getDate(),
+      sednica.time.getHours(), sednica.time.getMinutes());
+      delete sednica.time
+      delete sednica.date
+      console.log(sednica);
+      console.log(sednica);
       GenericResource.postEntity('sednice', sednica, {'Content-Type': 'application/json'})
         .then(function (success) {
           $state.go('main');
@@ -90,6 +96,7 @@
     function addAktToSednica(akt, index) {
       vm.akti.splice(index, 1);
       vm.addedAkts.push(akt);
+      vm.sednica.akti.push(akt.id);
     }
   }
 })();

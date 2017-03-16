@@ -18,6 +18,8 @@
       <xs:sequence>
         <xs:element ref="sednica:zaglavlje_sednica"/>
         <xs:element ref="sednica:informacije"/>
+        <xs:element ref="sednica:akti"/>
+        <xs:element ref="sednica:amandmani"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:anyAttribute namespace="##any"/>
@@ -30,12 +32,35 @@
         <xs:element ref="meta:dateCreated" minOccurs="0"/>
         <xs:element ref="meta:dateModified" minOccurs="0"/>
       </xs:sequence>
+      <xs:anyAttribute namespace="##any"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="informacije">
     <xs:complexType>
-      <xs:attribute name="datum" type="xs:date"/>
+      <xs:attribute name="datum" type="xs:dateTime"/>
       <xs:attribute name="mesto" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="akti">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="akt_ref">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##any"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="amandmani">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="amandman_ref">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##any"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

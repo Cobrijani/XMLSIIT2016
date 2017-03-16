@@ -5,4 +5,7 @@
 
     <xs:element name="napravio"/>
     <xs:element name="korisnik"/>
+    <xs:element name="pripada"/>
+    <xs:element name="akt"/>
+    <xs:element name="amandman"/>
 </xs:schema>

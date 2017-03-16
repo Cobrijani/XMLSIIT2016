@@ -25,9 +25,12 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _TipIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "tip_izmene");
+    private final static QName _Amandman_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "amandman");
     private final static QName _Napravio_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "napravio");
     private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
     private final static QName _Korisnik_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "korisnik");
+    private final static QName _Pripada_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "pripada");
+    private final static QName _Akt_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "akt");
     private final static QName _MalaIzmenaNovaVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "nova_vrednost");
     private final static QName _MalaIzmenaStaraVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "stara_vrednost");
 
@@ -36,6 +39,22 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link Akti }
+     * 
+     */
+    public Akti createAkti() {
+        return new Akti();
+    }
+
+    /**
+     * Create an instance of {@link Amandmani }
+     * 
+     */
+    public Amandmani createAmandmani() {
+        return new Amandmani();
     }
 
     /**
@@ -92,6 +111,22 @@ public class ObjectFactory {
      */
     public Informacije createInformacije() {
         return new Informacije();
+    }
+
+    /**
+     * Create an instance of {@link Akti.AktRef }
+     * 
+     */
+    public Akti.AktRef createAktiAktRef() {
+        return new Akti.AktRef();
+    }
+
+    /**
+     * Create an instance of {@link Amandmani.AmandmanRef }
+     * 
+     */
+    public Amandmani.AmandmanRef createAmandmaniAmandmanRef() {
+        return new Amandmani.AmandmanRef();
     }
 
     /**
@@ -199,6 +234,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ZaglavljeAmandman }
+     * 
+     */
+    public ZaglavljeAmandman createZaglavljeAmandman() {
+        return new ZaglavljeAmandman();
+    }
+
+    /**
      * Create an instance of {@link Amandman.Izmene }
      * 
      */
@@ -259,6 +302,15 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
      * 
      */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "amandman")
+    public JAXBElement<Object> createAmandman(Object value) {
+        return new JAXBElement<Object>(_Amandman_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "napravio")
     public JAXBElement<Object> createNapravio(Object value) {
         return new JAXBElement<Object>(_Napravio_QNAME, Object.class, null, value);
@@ -280,6 +332,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "korisnik")
     public JAXBElement<Object> createKorisnik(Object value) {
         return new JAXBElement<Object>(_Korisnik_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "pripada")
+    public JAXBElement<Object> createPripada(Object value) {
+        return new JAXBElement<Object>(_Pripada_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "akt")
+    public JAXBElement<Object> createAkt(Object value) {
+        return new JAXBElement<Object>(_Akt_QNAME, Object.class, null, value);
     }
 
     /**

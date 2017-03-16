@@ -37,15 +37,15 @@ import javax.xml.namespace.QName;
     "value"
 })
 @XmlRootElement(name = "dateModified", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class DateModified {
 
     @XmlValue
     @XmlSchemaType(name = "date")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected XMLGregorianCalendar value;
     @XmlAnyAttribute
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -56,7 +56,7 @@ public class DateModified {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public XMLGregorianCalendar getValue() {
         return value;
     }
@@ -69,7 +69,7 @@ public class DateModified {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setValue(XMLGregorianCalendar value) {
         this.value = value;
     }
@@ -88,7 +88,7 @@ public class DateModified {
      * @return
      *     always non-null
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }

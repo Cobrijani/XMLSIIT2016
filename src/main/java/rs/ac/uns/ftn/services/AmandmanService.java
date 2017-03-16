@@ -1,9 +1,8 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
-import rs.ac.uns.ftn.model.AktMetadata;
-import rs.ac.uns.ftn.model.AmandmanMetadata;
 import rs.ac.uns.ftn.model.generated.Amandman;
+import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 
 import java.util.List;
 

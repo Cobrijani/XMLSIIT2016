@@ -26,6 +26,8 @@ import javax.xml.namespace.QName;
  *       &lt;sequence>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}zaglavlje_sednica"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}informacije"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}akti"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}amandmani"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
  *       &lt;anyAttribute/>
@@ -39,23 +41,31 @@ import javax.xml.namespace.QName;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "zaglavljeSednica",
-    "informacije"
+    "informacije",
+    "akti",
+    "amandmani"
 })
 @XmlRootElement(name = "sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Sednica {
 
     @XmlElement(name = "zaglavlje_sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected ZaglavljeSednica zaglavljeSednica;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Informacije informacije;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected Akti akti;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected Amandmani amandmani;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
     @XmlAnyAttribute
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -66,7 +76,7 @@ public class Sednica {
      *     {@link ZaglavljeSednica }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public ZaglavljeSednica getZaglavljeSednica() {
         return zaglavljeSednica;
     }
@@ -79,7 +89,7 @@ public class Sednica {
      *     {@link ZaglavljeSednica }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavljeSednica(ZaglavljeSednica value) {
         this.zaglavljeSednica = value;
     }
@@ -92,7 +102,7 @@ public class Sednica {
      *     {@link Informacije }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Informacije getInformacije() {
         return informacije;
     }
@@ -105,9 +115,61 @@ public class Sednica {
      *     {@link Informacije }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setInformacije(Informacije value) {
         this.informacije = value;
+    }
+
+    /**
+     * Gets the value of the akti property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Akti }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public Akti getAkti() {
+        return akti;
+    }
+
+    /**
+     * Sets the value of the akti property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Akti }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setAkti(Akti value) {
+        this.akti = value;
+    }
+
+    /**
+     * Gets the value of the amandmani property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Amandmani }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public Amandmani getAmandmani() {
+        return amandmani;
+    }
+
+    /**
+     * Sets the value of the amandmani property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Amandmani }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setAmandmani(Amandmani value) {
+        this.amandmani = value;
     }
 
     /**
@@ -118,7 +180,7 @@ public class Sednica {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -131,7 +193,7 @@ public class Sednica {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
@@ -150,7 +212,7 @@ public class Sednica {
      * @return
      *     always non-null
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }

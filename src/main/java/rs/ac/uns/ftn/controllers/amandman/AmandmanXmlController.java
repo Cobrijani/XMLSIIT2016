@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
-import rs.ac.uns.ftn.services.AktService;
 import rs.ac.uns.ftn.services.AmandmanService;
 
 /**

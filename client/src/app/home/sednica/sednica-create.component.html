@@ -21,7 +21,7 @@
         <div class="form-group">
           <p class="input-group">
             <label for="place">Datum:</label>
-            <input type="text" class="form-control" uib-datepicker-popup  ng-model="vm.sednica.datum" is-open="vm.opened"
+            <input type="text" class="form-control" uib-datepicker-popup  ng-model="vm.sednica.date" is-open="vm.opened"
                    datepicker-options="dateOptions" ng-required="true" close-text="Close" />
             <span class="input-group-btn">
                 <button type="button" style="margin-top: 25px;" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -30,7 +30,7 @@
         </div>
         <div class="form-group">
           <label for="place">Vreme:</label>
-          <div uib-timepicker  ng-model="vm.sednica.vreme" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></div>
+          <div uib-timepicker  ng-model="vm.sednica.time" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></div>
         </div>
       </form>
     </div>

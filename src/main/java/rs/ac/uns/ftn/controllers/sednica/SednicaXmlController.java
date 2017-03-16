@@ -31,17 +31,17 @@ public class SednicaXmlController {
     this.properties = properties;
   }
 
-  @PreAuthorize("isAuthenticated()")
-  @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
-  public ResponseEntity<Void> postAkt(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
-    sednicaService.add(sednica);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setLocation(
-      builder.path(properties.getAktProperties().getActUri())
-        .buildAndExpand(sednica.getId()).toUri());
-
-    return new ResponseEntity<>(headers, HttpStatus.CREATED);
-  }
+//  @PreAuthorize("isAuthenticated()")
+//  @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
+//  public ResponseEntity<Void> postSednica(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
+//    sednicaService.add(sednica);
+//
+//    HttpHeaders headers = new HttpHeaders();
+//    headers.setLocation(
+//      builder.path(properties.getAktProperties().getActUri())
+//        .buildAndExpand(sednica.getId()).toUri());
+//
+//    return new ResponseEntity<>(headers, HttpStatus.CREATED);
+//  }
 }
 

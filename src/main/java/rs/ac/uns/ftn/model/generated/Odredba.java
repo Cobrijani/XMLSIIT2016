@@ -36,12 +36,12 @@ import javax.xml.bind.annotation.XmlType;
     "content"
 })
 @XmlRootElement(name = "odredba", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Odredba {
 
     @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class)
     @XmlMixed
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Object> content;
 
     /**
@@ -62,12 +62,12 @@ public class Odredba {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Referenca }
      * {@link String }
+     * {@link Referenca }
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T05:05:37+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Object> getContent() {
         if (content == null) {
             content = new ArrayList<Object>();

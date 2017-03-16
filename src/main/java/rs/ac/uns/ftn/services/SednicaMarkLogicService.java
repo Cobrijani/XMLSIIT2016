@@ -21,10 +21,10 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.generated.Akti;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
 import rs.ac.uns.ftn.model.generated.Sednica;
-import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -115,7 +115,7 @@ public class SednicaMarkLogicService implements SednicaService{
 
 
   @Override
-  public void add(Sednica sednica) {
+  public void add(Sednica sednica, String[] akti, String[][] amandmani) {
     final String id = identifierGenerator.generateIdentity();
     sednica.setId(id);
     sednica.getOtherAttributes().put(new QName("about"), SEDNICA + "/" + id);
@@ -138,6 +138,16 @@ public class SednicaMarkLogicService implements SednicaService{
 
     sednica.getZaglavljeSednica().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
     sednica.getZaglavljeSednica().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
+
+    sednica.setAkti(new Akti());
+
+    for(String aktId : akti){
+      Akti.AktRef ref = new Akti.AktRef();
+      ref.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":pripada");
+      ref.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":akt");
+      ref.getOtherAttributes().put(new QName("href"), AKT + "/" + aktId);
+      sednica.getAkti().getAktRef().add(ref);
+    }
 
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
@@ -188,13 +198,10 @@ public class SednicaMarkLogicService implements SednicaService{
 
     jacksonHandle.get().path("results").path("bindings")
       .forEach(x -> {
-        System.out.println(x.toString());
         SednicaDTO sednicaDTO = new SednicaDTO();
         String[] idparts = x.get("documentId").path("value").asText().split("/");
         sednicaDTO.setId(idparts[idparts.length - 1]);
         sednicaDTO.setNaziv(x.get("documentName").path("value").asText());
-//        sednica.setDatum(x.get("datum").path("value").asText());
-//        sednica.setMesto(x.get("mesto").path("value").asText());
         Sednica sednica = findById(sednicaDTO.getId());
         sednicaDTO.setDatum(sednica.getInformacije().getDatum().toString());
         sednicaDTO.setMesto(sednica.getInformacije().getMesto());
