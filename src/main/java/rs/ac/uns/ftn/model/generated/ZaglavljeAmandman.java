@@ -1,12 +1,16 @@
 
 package rs.ac.uns.ftn.model.generated;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -19,6 +23,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="akt_ref">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;anyAttribute/>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
@@ -32,23 +45,53 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "aktRef",
     "naziv",
     "dateCreated",
     "dateModified"
 })
 @XmlRootElement(name = "zaglavlje_amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class ZaglavljeAmandman {
 
+    @XmlElement(name = "akt_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected ZaglavljeAmandman.AktRef aktRef;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Naziv naziv;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateCreated dateCreated;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateModified dateModified;
+
+    /**
+     * Gets the value of the aktRef property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ZaglavljeAmandman.AktRef }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public ZaglavljeAmandman.AktRef getAktRef() {
+        return aktRef;
+    }
+
+    /**
+     * Sets the value of the aktRef property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ZaglavljeAmandman.AktRef }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setAktRef(ZaglavljeAmandman.AktRef value) {
+        this.aktRef = value;
+    }
 
     /**
      * Gets the value of the naziv property.
@@ -58,7 +101,7 @@ public class ZaglavljeAmandman {
      *     {@link Naziv }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Naziv getNaziv() {
         return naziv;
     }
@@ -71,7 +114,7 @@ public class ZaglavljeAmandman {
      *     {@link Naziv }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(Naziv value) {
         this.naziv = value;
     }
@@ -84,7 +127,7 @@ public class ZaglavljeAmandman {
      *     {@link DateCreated }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateCreated getDateCreated() {
         return dateCreated;
     }
@@ -97,7 +140,7 @@ public class ZaglavljeAmandman {
      *     {@link DateCreated }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateCreated(DateCreated value) {
         this.dateCreated = value;
     }
@@ -110,7 +153,7 @@ public class ZaglavljeAmandman {
      *     {@link DateModified }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateModified getDateModified() {
         return dateModified;
     }
@@ -123,9 +166,57 @@ public class ZaglavljeAmandman {
      *     {@link DateModified }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateModified(DateModified value) {
         this.dateModified = value;
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;anyAttribute/>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public static class AktRef {
+
+        @XmlAnyAttribute
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+
+        /**
+         * Gets a map that contains attributes that aren't bound to any typed property on this class.
+         * 
+         * <p>
+         * the map is keyed by the name of the attribute and 
+         * the value is the string value of the attribute.
+         * 
+         * the map returned by this method is live, and you can add new attribute
+         * by updating the map directly. Because of this design, there's no setter.
+         * 
+         * 
+         * @return
+         *     always non-null
+         */
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T06:00:42+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+        public Map<QName, String> getOtherAttributes() {
+            return otherAttributes;
+        }
+
     }
 
 }

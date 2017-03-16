@@ -27,6 +27,7 @@
         <xs:element minOccurs="1" ref="am:obrazlozenje"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
+      <xs:attribute name="akt_id" type="xs:string"/>
       <xs:anyAttribute namespace="##any"/>
     </xs:complexType>
   </xs:element>
@@ -93,6 +94,11 @@
   <xs:element name="zaglavlje_amandman">
     <xs:complexType>
       <xs:sequence>
+        <xs:element name="akt_ref">
+          <xs:complexType>
+            <xs:anyAttribute namespace="##any"/>
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="1" ref="meta:naziv"/>
         <xs:element minOccurs="0" ref="meta:dateCreated"/>
         <xs:element minOccurs="0" ref="meta:dateModified"/>
