@@ -25,7 +25,8 @@
     "ng-tags-input": "^3.1.1",
     "angular-filter": "^0.5.14",
     "angular-chart.js": "^1.1.1",
-    "angular-pdfjs-viewer": "^0.7.4"
+    "angular-pdfjs-viewer": "^0.7.4",
+    "xonomy": "https://github.com/Cobrijani/xonomy.git"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0"

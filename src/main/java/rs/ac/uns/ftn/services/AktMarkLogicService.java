@@ -60,16 +60,22 @@ public class AktMarkLogicService implements AktService {
 
   private final SPARQLQueryManager sparqlQueryManager;
 
+  private final ValidationService validationService;
+
+  private final Registry<String, Resource> schemaRegistry;
+
   @Value("classpath:sparql/akt.rq")
   private Resource aktSparql;
 
   @Autowired
-  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager) {
+  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, ValidationService validationService, Registry<String, Resource> schemaRegistry) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
     this.sparqlQueryManager = sparqlQueryManager;
+    this.validationService = validationService;
+    this.schemaRegistry = schemaRegistry;
   }
 
 
@@ -124,18 +130,20 @@ public class AktMarkLogicService implements AktService {
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
     dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
-    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
     akt.getZaglavlje().setDateCreated(dateCreated);
 
     final DateModified dateModified = new DateModified();
     dateModified.setValue(XMLUtil.getToday());
     dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
-    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:date");
+    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
     akt.getZaglavlje().setDateModified(dateModified);
 
-    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
-    akt.getZaglavlje().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
+    Document document = Try.of(() ->
+      XMLUtil.toDocument(akt)
+    ).getOrElseThrow(ex -> new InvalidServerConfigurationException());
 
+    validationService.validate(document, new Resource[]{schemaRegistry.getItemFromRegistry("akt")});
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
@@ -143,10 +151,7 @@ public class AktMarkLogicService implements AktService {
     JAXBHandle<Akt> handle = getJaxbHandle(Akt.class);
     handle.set(akt);
     documentManager.write(getDocumentId(AKT_FORMAT, akt.getId()), documentMetadataHandle, handle);
-
-    Document document = findById(id, Document.class);
-
-    rdfService.extractAndWriteData(document, AKT_GRAPH_URI);
+    rdfService.extractAndWriteData(findById(id, Document.class), AKT_GRAPH_URI);
   }
 
   @Override

@@ -114,11 +114,18 @@ public class AmandmanMarkLogicService implements AmandmanService{
   public void add(Amandman amandman) {
     final String id = identifierGenerator.generateIdentity();
     amandman.setId(id);
+
     amandman.getOtherAttributes().put(new QName("about"), AMANDMAN + "/" + id);
     amandman.getOtherAttributes().put(new QName("vocab"), PRED);
     amandman.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     amandman.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
     amandman.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("about"), AMANDMAN + "/" + id);
+    amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("vocab"), PRED);
+    amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":akt");
+    amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("rel"), PRED_PREF + ":menja");
+    amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("href"), AKT + "/" + amandman.getAktId());
 
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());

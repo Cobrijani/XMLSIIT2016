@@ -19,12 +19,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -119,8 +121,17 @@ public class XMLUtil {
 
   }
 
+  public static <T> Document toDocument(T object) throws JAXBException {
+    DOMResult res = new DOMResult();
+    JAXBContext context = JAXBContext.newInstance(object.getClass());
+    context.createMarshaller().marshal(object, res);
+    return (Document) res.getNode();
+  }
+
   public static XMLGregorianCalendar getToday() {
-    return new XMLGregorianCalendarImpl(new GregorianCalendar());
+    GregorianCalendar gregorianCalendar = new GregorianCalendar();
+    gregorianCalendar.setGregorianChange(new Date());
+    return new XMLGregorianCalendarImpl(gregorianCalendar);
   }
 
 
