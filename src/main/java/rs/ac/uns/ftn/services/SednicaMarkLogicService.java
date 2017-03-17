@@ -19,12 +19,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
-import rs.ac.uns.ftn.model.generated.Akti;
-import rs.ac.uns.ftn.model.generated.DateCreated;
-import rs.ac.uns.ftn.model.generated.DateModified;
-import rs.ac.uns.ftn.model.generated.Sednica;
+import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -115,7 +113,7 @@ public class SednicaMarkLogicService implements SednicaService{
 
 
   @Override
-  public void add(Sednica sednica, String[] akti, String[][] amandmani) {
+  public void add(Sednica sednica, String[] akti, String[] amandmani) {
     final String id = identifierGenerator.generateIdentity();
     sednica.setId(id);
     sednica.getOtherAttributes().put(new QName("about"), SEDNICA + "/" + id);
@@ -149,6 +147,16 @@ public class SednicaMarkLogicService implements SednicaService{
       sednica.getAkti().getAktRef().add(ref);
     }
 
+    sednica.setAmandmani(new Amandmani());
+
+    for(String amId : amandmani){
+      Amandmani.AmandmanRef ref = new Amandmani.AmandmanRef();
+      ref.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":pripada");
+      ref.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":amandman");
+      ref.getOtherAttributes().put(new QName("href"), AMANDMAN + "/" + amId);
+      sednica.getAmandmani().getAmandmanRef().add(ref);
+    }
+
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(SEDNICA_REF);
@@ -178,6 +186,7 @@ public class SednicaMarkLogicService implements SednicaService{
     Arrays.stream(searchHandle.getMatchResults()).map(MatchDocumentSummary::getUri).forEach(documentManager::delete);
     log.info("Deleted all sednicas");
   }
+
 
   @Override
   public List<SednicaDTO> getMetadata(Pageable pageable) {

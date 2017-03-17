@@ -66,13 +66,20 @@
           <th>#</th>
           <th>Naziv amandmana</th>
           <th>&nbsp;</th>
+          <th>Dodaj</th>
+          <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="amandman in vm.amandmani">
           <td>{{$index+1}}</td>
-          <td><a href ng-click="vm.getDetails('amandmani', amandman.id)">{{amandman.naziv}}</a></td>
+          <td><a href ng-click="vm.getDetails('amandmani', amandman.id)">{{amandman.name}}</a></td>
           <td><a href ng-click="vm.getPdf('amandmani', amandman.id)" class="fa fa-file-pdf-o"></a></td>
+          <td>
+            <button type="button" class="btn btn-info" ng-click="vm.addAmandmanToSednica(amandman, $index)">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -89,7 +96,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="akt in vm.addedAkts">
+      <tr ng-repeat="akt in vm.addedAkts"  ng-class="{selected : akt.id === vm.idSelectedAkt}">
         <td>{{$index+1}}</td>
         <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
         <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>

@@ -1,0 +1,7 @@
+SELECT * FROM <skupstina/dokument/amandman>
+WHERE {
+	?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/menja> ?aktId .
+  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .
+  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .
+  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .
+}

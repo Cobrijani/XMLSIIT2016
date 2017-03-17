@@ -13,15 +13,17 @@
       bindings: {}
     });
 
-  SednicaCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory'];
+  SednicaCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory', 'toastr'];
 
-  function SednicaCreateController($scope, GenericResource, exception, $state, FileFactory) {
+  function SednicaCreateController($scope, GenericResource, exception, $state, FileFactory, toastr) {
     var vm = this;
     vm.opened = false;
     vm.sednica = {akti:[], amandmani:[]};
     vm.idSelectedAkt = null;
     vm.addedAkts = [];
     vm.addedAmandmans = [];
+    vm.akti = [];
+    vm.amandmani = [];
 
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -30,6 +32,7 @@
     vm.createNewSednica = createNewSednica;
     vm.setSelectedAkt = setSelectedAkt;
     vm.addAktToSednica = addAktToSednica;
+    vm.addAmandmanToSednica = addAmandmanToSednica;
     //content
 
     activate();
@@ -64,7 +67,6 @@
       delete sednica.time
       delete sednica.date
       console.log(sednica);
-      console.log(sednica);
       GenericResource.postEntity('sednice', sednica, {'Content-Type': 'application/json'})
         .then(function (success) {
           $state.go('main');
@@ -90,13 +92,32 @@
 
     function setSelectedAkt(id) {
       vm.idSelectedAkt = id;
-      //ucitati amandmane od tog akta
+      GenericResource.getEntities('akti/'+id+'/amandmani')
+        .then(function (success) {
+          vm.amandmani = success;
+        })
+        .catch(function (error) {
+          exception.catcher(error);
+        });
     }
 
     function addAktToSednica(akt, index) {
       vm.akti.splice(index, 1);
       vm.addedAkts.push(akt);
       vm.sednica.akti.push(akt.id);
+    }
+
+    function addAmandmanToSednica(amandman, index) {
+      for(var i = 0; i < vm.akti.length; i++){
+        if(vm.akti[i].id === vm.idSelectedAkt){
+          toastr.error('Prvo dodajte zeljeni akt pa nakon toga amandmane za taj akt.', 'Prvo akt!')
+          return;
+        }
+      }
+      amandman.aktId = vm.idSelectedAkt;
+      vm.amandmani.splice(index, 1);
+      vm.addedAmandmans.push(amandman);
+      vm.sednica.amandmani.push(amandman.id);
     }
   }
 })();

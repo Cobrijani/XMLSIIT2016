@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.Sednica;
 
@@ -19,7 +20,7 @@ public interface SednicaService {
 
     List<Sednica> findAll(Pageable pageable);
 
-    void add(Sednica sednica, String[] Akti, String[][] Amandmani);
+    void add(Sednica sednica, String[] akti, String[] amandmani);
 
     void deleteById(String id);
 

@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.services;
 import org.springframework.data.domain.Pageable;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface AktService {
   void deleteAll();
 
   List<AktMetadata> getMetadata(Pageable pageable);
+
+  List<AmandmanMetadata> findAktAmandmandsById(String id);
 }

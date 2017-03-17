@@ -28,7 +28,7 @@ public class SednicaPostDTO{
 
   private String[] akti;
 
-  private String[][] amandmani;
+  private String[] amandmani;
 
   @Override
   public String toString() {
@@ -38,7 +38,7 @@ public class SednicaPostDTO{
       ", datum='" + datum + '\'' +
       ", mesto='" + mesto + '\'' +
       ", amandmani=" + Arrays.toString(amandmani) +
-      ", aktovi=" + Arrays.toString(akti) +
+      ", akti=" + Arrays.toString(akti) +
       '}';
   }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaPostDTO;
 import rs.ac.uns.ftn.model.generated.Informacije;
@@ -66,7 +67,6 @@ public class SednicaJsonController {
   @PreAuthorize("isAuthenticated()")
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> postAkt(@RequestBody SednicaPostDTO sednicaDTO, UriComponentsBuilder builder) {
-    System.out.println(sednicaDTO.toString());
     Sednica sednica = createSednicaFromDTO(sednicaDTO);
     sednicaService.add(sednica, sednicaDTO.getAkti(), sednicaDTO.getAmandmani());
 

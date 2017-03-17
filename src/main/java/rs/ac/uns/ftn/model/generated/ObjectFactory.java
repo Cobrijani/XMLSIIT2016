@@ -26,11 +26,12 @@ public class ObjectFactory {
 
     private final static QName _TipIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "tip_izmene");
     private final static QName _Amandman_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "amandman");
+    private final static QName _Menja_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "menja");
     private final static QName _Napravio_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "napravio");
     private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
     private final static QName _Korisnik_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "korisnik");
-    private final static QName _Pripada_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "pripada");
     private final static QName _Akt_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "akt");
+    private final static QName _Pripada_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "pripada");
     private final static QName _MalaIzmenaNovaVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "nova_vrednost");
     private final static QName _MalaIzmenaStaraVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "stara_vrednost");
 
@@ -55,6 +56,14 @@ public class ObjectFactory {
      */
     public Amandmani createAmandmani() {
         return new Amandmani();
+    }
+
+    /**
+     * Create an instance of {@link ZaglavljeAmandman }
+     * 
+     */
+    public ZaglavljeAmandman createZaglavljeAmandman() {
+        return new ZaglavljeAmandman();
     }
 
     /**
@@ -234,11 +243,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ZaglavljeAmandman }
+     * Create an instance of {@link ZaglavljeAmandman.AktRef }
      * 
      */
-    public ZaglavljeAmandman createZaglavljeAmandman() {
-        return new ZaglavljeAmandman();
+    public ZaglavljeAmandman.AktRef createZaglavljeAmandmanAktRef() {
+        return new ZaglavljeAmandman.AktRef();
     }
 
     /**
@@ -311,6 +320,15 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
      * 
      */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "menja")
+    public JAXBElement<Object> createMenja(Object value) {
+        return new JAXBElement<Object>(_Menja_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "napravio")
     public JAXBElement<Object> createNapravio(Object value) {
         return new JAXBElement<Object>(_Napravio_QNAME, Object.class, null, value);
@@ -338,18 +356,18 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "pripada")
-    public JAXBElement<Object> createPripada(Object value) {
-        return new JAXBElement<Object>(_Pripada_QNAME, Object.class, null, value);
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "akt")
+    public JAXBElement<Object> createAkt(Object value) {
+        return new JAXBElement<Object>(_Akt_QNAME, Object.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "akt")
-    public JAXBElement<Object> createAkt(Object value) {
-        return new JAXBElement<Object>(_Akt_QNAME, Object.class, null, value);
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "pripada")
+    public JAXBElement<Object> createPripada(Object value) {
+        return new JAXBElement<Object>(_Pripada_QNAME, Object.class, null, value);
     }
 
     /**

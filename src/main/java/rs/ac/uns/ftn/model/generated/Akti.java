@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -47,11 +46,9 @@ import javax.xml.namespace.QName;
     "aktRef"
 })
 @XmlRootElement(name = "akti", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Akti {
 
     @XmlElement(name = "akt_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Akti.AktRef> aktRef;
 
     /**
@@ -76,7 +73,6 @@ public class Akti {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Akti.AktRef> getAktRef() {
         if (aktRef == null) {
             aktRef = new ArrayList<Akti.AktRef>();
@@ -104,11 +100,9 @@ public class Akti {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class AktRef {
 
         @XmlAnyAttribute
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
         /**
@@ -125,7 +119,6 @@ public class Akti {
          * @return
          *     always non-null
          */
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-16T07:39:56+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
         }
