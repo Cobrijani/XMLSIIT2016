@@ -4,12 +4,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import rs.ac.uns.ftn.model.generated.sednica.Sednica;
+import rs.ac.uns.ftn.model.generated.Sednica;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.SednicaService;
 
@@ -30,16 +31,17 @@ public class SednicaXmlController {
     this.properties = properties;
   }
 
-  @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
-  public ResponseEntity<Void> createAkt(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
-    sednicaService.add(sednica);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setLocation(
-      builder.path(properties.getAktProperties().getActUri())
-        .buildAndExpand(sednica.getId()).toUri());
-
-    return new ResponseEntity<>(headers, HttpStatus.CREATED);
-  }
+//  @PreAuthorize("isAuthenticated()")
+//  @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
+//  public ResponseEntity<Void> postSednica(@RequestBody Sednica sednica, UriComponentsBuilder builder) {
+//    sednicaService.add(sednica);
+//
+//    HttpHeaders headers = new HttpHeaders();
+//    headers.setLocation(
+//      builder.path(properties.getAktProperties().getActUri())
+//        .buildAndExpand(sednica.getId()).toUri());
+//
+//    return new ResponseEntity<>(headers, HttpStatus.CREATED);
+//  }
 }
 

@@ -16,9 +16,7 @@ import rs.ac.uns.ftn.model.korisnici.Korisnik;
 import rs.ac.uns.ftn.model.korisnici.Uloga;
 import rs.ac.uns.ftn.properties.MarkLogicProperties;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
-import rs.ac.uns.ftn.services.AktService;
-import rs.ac.uns.ftn.services.IdentifierGenerator;
-import rs.ac.uns.ftn.services.KorisnikService;
+import rs.ac.uns.ftn.services.*;
 
 import javax.annotation.PreDestroy;
 import java.net.InetAddress;
@@ -57,10 +55,12 @@ public class XMLSIITApplication {
 
 
   @Bean
-  public CommandLineRunner recreateData(GraphManager graphManager, KorisnikService korisnikService, AktService aktService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
+  public CommandLineRunner recreateData(GraphManager graphManager, KorisnikService korisnikService, AktService aktService, SednicaService sednicaService, AmandmanService amandmanService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
       aktService.deleteAll();
+      sednicaService.deleteAll();
+      amandmanService.deleteAll();
       graphManager.deleteGraphs();
 
       final Korisnik korisnik = new Korisnik();

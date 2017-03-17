@@ -13,11 +13,10 @@
       bindings: {}
     });
 
-  SednicaListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory'];
+  SednicaListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$state'];
 
-  function SednicaListController($scope, GenericResource, exception, FileFactory) {
+  function SednicaListController($scope, GenericResource, exception, FileFactory, $state) {
     var vm = this;
-    vm.getSednicaDetails = getSednicaDetails;
 
     activate();
 
@@ -31,11 +30,6 @@
           exception.catcher(error);
         });
     }
-
-    function getSednicaDetails(id) {
-      FileFactory.getDocumentInFormat('sednice', id, 'text/html');
-    }
-
   }
 })();
 

@@ -1,7 +1,6 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,20 +38,15 @@ import javax.xml.bind.annotation.XmlType;
     "procenaUticaja"
 })
 @XmlRootElement(name = "obrazlozenje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Obrazlozenje {
 
     @XmlElement(name = "razlog_podnosenja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String razlogPodnosenja;
     @XmlElement(name = "objasnjenje_resenja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String objasnjenjeResenja;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String cilj;
     @XmlElement(name = "procena_uticaja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String procenaUticaja;
 
     /**
@@ -63,7 +57,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getRazlogPodnosenja() {
         return razlogPodnosenja;
     }
@@ -76,7 +69,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setRazlogPodnosenja(String value) {
         this.razlogPodnosenja = value;
     }
@@ -89,7 +81,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getObjasnjenjeResenja() {
         return objasnjenjeResenja;
     }
@@ -102,7 +93,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setObjasnjenjeResenja(String value) {
         this.objasnjenjeResenja = value;
     }
@@ -115,7 +105,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getCilj() {
         return cilj;
     }
@@ -128,7 +117,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setCilj(String value) {
         this.cilj = value;
     }
@@ -141,7 +129,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getProcenaUticaja() {
         return procenaUticaja;
     }
@@ -154,7 +141,6 @@ public class Obrazlozenje {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-14T02:47:34+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setProcenaUticaja(String value) {
         this.procenaUticaja = value;
     }

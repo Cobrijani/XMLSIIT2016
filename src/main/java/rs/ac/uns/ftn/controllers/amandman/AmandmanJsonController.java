@@ -8,17 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.dto.akt.AktDTO;
-import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
-import rs.ac.uns.ftn.model.AmandmanMetadata;
-import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.Amandman;
+import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
-import rs.ac.uns.ftn.services.AktService;
 import rs.ac.uns.ftn.services.AmandmanService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Controller that handles operations related to {@link rs.ac.uns.ftn.model.generated.Akt}

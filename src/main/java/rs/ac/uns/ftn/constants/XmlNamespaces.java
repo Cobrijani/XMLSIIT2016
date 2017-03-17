@@ -19,6 +19,8 @@ public class XmlNamespaces {
   public static final String AMANDMAN_PREF = "am";
   public static final String RDFA_PREF = "";
 
+  public static final String SEDNICA = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica";
+  public static final String SEDNICA_PREF = "sednica";
 
   private XmlNamespaces() {
     throw new UnsupportedOperationException();

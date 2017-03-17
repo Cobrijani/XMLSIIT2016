@@ -1,12 +1,136 @@
 <div class="row menu-container-margin">
-  <div class="col-sm-12">
-    <form name="sednicaForm" method="POST" class="form">
-      <div class="form-group">
-        <label>Ispod unesi sadržaj sednice</label>
-        <textarea name="content" class="form-control" rows="20" id="sednica" ng-model="vm.sednica" required></textarea>
-      </div>
-      <div class="btn btn-success" ng-click="vm.createSednica() && sednicaForm.$valid" ng-disabled="sednicaForm.$invalid">Potvrdi
-      </div>
-    </form>
+  <div class="row">
+    <div class="col-sm-4">
+      <!--<form name="sednicaForm" method="POST" class="form">-->
+        <!--<div class="form-group">-->
+          <!--<label>Ispod unesi sadržaj sednice</label>-->
+          <!--<textarea name="content" class="form-control" rows="20" id="sednica" ng-model="vm.sednica" required></textarea>-->
+        <!--</div>-->
+        <!--<div class="btn btn-success" ng-click="vm.createSednica() && sednicaForm.$valid" ng-disabled="sednicaForm.$invalid">Potvrdi-->
+        <!--</div>-->
+      <!--</form>-->
+      <form name="newSednicaForm" class="form">
+        <div class="form-group">
+          <label for="name">Naziv:</label>
+          <input type="text" class="form-control" id="name" ng-model="vm.sednica.naziv">
+        </div>
+        <div class="form-group">
+          <label for="place">Mesto:</label>
+          <input type="text" class="form-control" id="place" ng-model="vm.sednica.mesto">
+        </div>
+        <div class="form-group">
+          <p class="input-group">
+            <label for="place">Datum:</label>
+            <input type="text" class="form-control" uib-datepicker-popup  ng-model="vm.sednica.date" is-open="vm.opened"
+                   datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+                <button type="button" style="margin-top: 25px;" class="btn btn-default" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="place">Vreme:</label>
+          <div uib-timepicker  ng-model="vm.sednica.time" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Naziv akta</th>
+          <th>&nbsp;</th>
+          <th>Dodaj</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="akt in vm.akti" ng-click="vm.setSelectedAkt(akt.id)" ng-class="{selected : akt.id === vm.idSelectedAkt}">
+          <td>{{$index+1}}</td>
+          <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
+          <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
+          <td>
+            <button type="button" class="btn btn-info" ng-click="vm.addAktToSednica(akt, $index)">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Naziv amandmana</th>
+          <th>&nbsp;</th>
+          <th>Dodaj</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="amandman in vm.amandmani">
+          <td>{{$index+1}}</td>
+          <td><a href ng-click="vm.getDetails('amandmani', amandman.id)">{{amandman.name}}</a></td>
+          <td><a href ng-click="vm.getPdf('amandmani', amandman.id)" class="fa fa-file-pdf-o"></a></td>
+          <td>
+            <button type="button" class="btn btn-info" ng-click="vm.addAmandmanToSednica(amandman, $index)">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-sm-4 col-sm-offset-1">
+    <h3>Dodati akti</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Naziv akta</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="akt in vm.addedAkts"  ng-class="{selected : akt.id === vm.idSelectedAkt}">
+        <td>{{$index+1}}</td>
+        <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
+        <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-4">
+    <h3>Dodati amandmani</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Naziv akta</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="akt in vm.addedAmandmans" ng-click="vm.setSelectedAkt(akt.id)" ng-class="{selected : akt.id === vm.idSelectedAkt}">
+        <td>{{$index+1}}</td>
+        <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
+        <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
+        <td>
+          <button type="button" class="btn btn-info" ng-click="vm.addAktToSednica($index)">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-2 col-xs-offset-1">
+    <button class="btn btn-default" ng-click="newSednicaForm.$invalid || vm.createNewSednica(vm.sednica)"
+            ng-disabled="loginForm.$invalid" name='newSednica'>Potvrdi
+    </button>
   </div>
 </div>

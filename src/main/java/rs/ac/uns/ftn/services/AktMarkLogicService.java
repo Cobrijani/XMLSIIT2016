@@ -20,10 +20,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
-import rs.ac.uns.ftn.model.AktMetadata;
-import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
+import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -66,6 +67,9 @@ public class AktMarkLogicService implements AktService {
 
   @Value("classpath:sparql/akt.rq")
   private Resource aktSparql;
+
+  @Value("classpath:sparql/amandmansByAktId.rq")
+  private Resource amandmandsByAktSparql;
 
   @Autowired
   public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, ValidationService validationService, Registry<String, Resource> schemaRegistry) {
@@ -198,6 +202,40 @@ public class AktMarkLogicService implements AktService {
         akt.setDateCreated(x.get("dateCreated").path("value").asText());
         akt.setDateModified(x.get("dateModified").path("value").asText());
         metadatas.add(akt);
+      });
+
+
+    return metadatas;
+  }
+
+  @Override
+  public List<AmandmanMetadata> findAktAmandmandsById(String id) {
+
+    byte[] data = Try.of(() ->
+      Files.readAllBytes(amandmandsByAktSparql.getFile().toPath())
+    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+
+    SPARQLQueryDefinition sparqlQueryDefinition =
+      sparqlQueryManager.newQueryDefinition(new String(data))
+        .withBinding("aktId", AKT + "/" + id);
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+
+
+    List<AmandmanMetadata> metadatas = new ArrayList<>();
+
+    jacksonHandle.get().path("results").path("bindings")
+      .forEach(x -> {
+        AmandmanMetadata amandman = new AmandmanMetadata();
+        String[] idparts = x.get("documentId").path("value").asText().split("/");
+        amandman.setId(idparts[idparts.length - 1]);
+        amandman.setName(x.get("documentName").path("value").asText());
+        amandman.setDateCreated(x.get("dateCreated").path("value").asText());
+        amandman.setDateModified(x.get("dateModified").path("value").asText());
+        metadatas.add(amandman);
       });
 
 

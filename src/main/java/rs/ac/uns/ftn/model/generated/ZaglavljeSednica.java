@@ -22,19 +22,11 @@ import javax.xml.namespace.QName;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="akt_ref">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;anyAttribute/>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
  *       &lt;/sequence>
+ *       &lt;anyAttribute/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -44,46 +36,21 @@ import javax.xml.namespace.QName;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aktRef",
     "naziv",
     "dateCreated",
     "dateModified"
 })
-@XmlRootElement(name = "zaglavlje_amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-public class ZaglavljeAmandman {
+@XmlRootElement(name = "zaglavlje_sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
+public class ZaglavljeSednica {
 
-    @XmlElement(name = "akt_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    protected ZaglavljeAmandman.AktRef aktRef;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
     protected Naziv naziv;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     protected DateCreated dateCreated;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
     protected DateModified dateModified;
-
-    /**
-     * Gets the value of the aktRef property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ZaglavljeAmandman.AktRef }
-     *     
-     */
-    public ZaglavljeAmandman.AktRef getAktRef() {
-        return aktRef;
-    }
-
-    /**
-     * Sets the value of the aktRef property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ZaglavljeAmandman.AktRef }
-     *     
-     */
-    public void setAktRef(ZaglavljeAmandman.AktRef value) {
-        this.aktRef = value;
-    }
+    @XmlAnyAttribute
+    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
      * Gets the value of the naziv property.
@@ -157,49 +124,22 @@ public class ZaglavljeAmandman {
         this.dateModified = value;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
+     * Gets a map that contains attributes that aren't bound to any typed property on this class.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * the map is keyed by the name of the attribute and 
+     * the value is the string value of the attribute.
      * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;anyAttribute/>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
+     * the map returned by this method is live, and you can add new attribute
+     * by updating the map directly. Because of this design, there's no setter.
      * 
      * 
+     * @return
+     *     always non-null
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "")
-    public static class AktRef {
-
-        @XmlAnyAttribute
-        private Map<QName, String> otherAttributes = new HashMap<QName, String>();
-
-        /**
-         * Gets a map that contains attributes that aren't bound to any typed property on this class.
-         * 
-         * <p>
-         * the map is keyed by the name of the attribute and 
-         * the value is the string value of the attribute.
-         * 
-         * the map returned by this method is live, and you can add new attribute
-         * by updating the map directly. Because of this design, there's no setter.
-         * 
-         * 
-         * @return
-         *     always non-null
-         */
-        public Map<QName, String> getOtherAttributes() {
-            return otherAttributes;
-        }
-
+    public Map<QName, String> getOtherAttributes() {
+        return otherAttributes;
     }
 
 }
