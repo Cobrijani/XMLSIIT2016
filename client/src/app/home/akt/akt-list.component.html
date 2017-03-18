@@ -27,7 +27,7 @@
     </tr>
     </tbody>
   </table>
-  <div uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.akti.totalElements"
+  <div ng-show="vm.akti"uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.akti.totalElements"
        ng-model="vm.pageOptions.page" ng-change="vm.pageChanged()" next-text="Sledeća stranica"
        previous-text="Prošla stranica"></div>
 </div>
