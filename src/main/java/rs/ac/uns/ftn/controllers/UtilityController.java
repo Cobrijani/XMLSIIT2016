@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.controllers;
 
 import javaslang.control.Try;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,8 @@ public class UtilityController {
   private final Registry<String, Resource> registry;
 
 
-  public UtilityController(ValidationService validationService, Registry<String, Resource> registry) {
+  public UtilityController(ValidationService validationService,
+                           @Qualifier("XmlSchemaRegistry") Registry<String, Resource> registry) {
     this.validationService = validationService;
     this.registry = registry;
   }

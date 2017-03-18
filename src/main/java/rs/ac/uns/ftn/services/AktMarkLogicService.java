@@ -1,10 +1,7 @@
 package rs.ac.uns.ftn.services;
 
 import com.marklogic.client.document.XMLDocumentManager;
-import com.marklogic.client.io.DocumentMetadataHandle;
-import com.marklogic.client.io.JAXBHandle;
-import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.*;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
@@ -14,16 +11,19 @@ import com.marklogic.client.semantics.SPARQLQueryManager;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
-import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
@@ -34,6 +34,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
@@ -65,14 +66,21 @@ public class AktMarkLogicService implements AktService {
 
   private final Registry<String, Resource> schemaRegistry;
 
-  @Value("classpath:sparql/akt.rq")
-  private Resource aktSparql;
+  private final Registry<String, Resource> aktSparqlRegistry;
+
 
   @Value("classpath:sparql/amandmansByAktId.rq")
   private Resource amandmandsByAktSparql;
 
   @Autowired
-  public AktMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, ValidationService validationService, Registry<String, Resource> schemaRegistry) {
+  public AktMarkLogicService(XMLDocumentManager documentManager,
+                             QueryManager queryManager,
+                             IdentifierGenerator identifierGenerator,
+                             RdfService rdfService,
+                             SPARQLQueryManager sparqlQueryManager,
+                             ValidationService validationService,
+                             @Qualifier("XmlSchemaRegistry") Registry<String, Resource> schemaRegistry,
+                             @Qualifier("AktSparqlQueryRegistry") Registry<String, Resource> aktSparqlRegistry) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
@@ -80,6 +88,7 @@ public class AktMarkLogicService implements AktService {
     this.sparqlQueryManager = sparqlQueryManager;
     this.validationService = validationService;
     this.schemaRegistry = schemaRegistry;
+    this.aktSparqlRegistry = aktSparqlRegistry;
   }
 
 
@@ -123,9 +132,9 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public void add(Akt akt) {
-    final String id = identifierGenerator.generateIdentity();
+    final String id = AKT + "/" + identifierGenerator.generateIdentity();
     akt.setId(id);
-    akt.getOtherAttributes().put(new QName("about"), AKT + "/" + id);
+    akt.getOtherAttributes().put(new QName("about"), id);
     akt.getOtherAttributes().put(new QName("vocab"), PRED);
     akt.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
@@ -176,36 +185,66 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public List<AktMetadata> getMetadata(Pageable pageable) {
-
-    byte[] data = Try.of(() ->
-      Files.readAllBytes(aktSparql.getFile().toPath())
-    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
-
+    sparqlQueryManager.setPageLength(pageable.getPageSize());
 
     SPARQLQueryDefinition sparqlQueryDefinition =
-      sparqlQueryManager.newQueryDefinition(new String(data))
-        .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+      Try.of(() ->
+        sparqlQueryManager
+          .newQueryDefinition(new FileHandle(aktSparqlRegistry.getItemFromRegistry("akt.rq").getFile()))
+      ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+
+    sparqlQueryDefinition
+      .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
 
     JacksonHandle jacksonHandle = new JacksonHandle();
 
-    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle, pageable.getOffset() + 1);
 
 
     List<AktMetadata> metadatas = new ArrayList<>();
 
-    jacksonHandle.get().path("results").path("bindings")
-      .forEach(x -> {
-        AktMetadata akt = new AktMetadata();
-        String[] idparts = x.get("documentId").path("value").asText().split("/");
-        akt.setId(idparts[idparts.length - 1]);
-        akt.setName(x.get("documentName").path("value").asText());
-        akt.setDateCreated(x.get("dateCreated").path("value").asText());
-        akt.setDateModified(x.get("dateModified").path("value").asText());
-        metadatas.add(akt);
+    Optional.of(jacksonHandle)
+      .map(JacksonHandle::get)
+      .map(y -> y.path("results").path("bindings"))
+      .ifPresent(x -> {
+        x.forEach(node -> {
+          AktMetadata akt = new AktMetadata();
+          akt.setId(node.get("documentId").path("value").asText());
+          akt.setName(node.get("documentName").path("value").asText());
+          akt.setDateCreated(node.get("dateCreated").path("value").asText());
+          akt.setDateModified(node.get("dateModified").path("value").asText());
+          metadatas.add(akt);
+        });
       });
 
 
     return metadatas;
+  }
+
+  @Override
+  public Page<AktMetadata> getMetadataPage(Pageable pageable) {
+    List<AktMetadata> content = getMetadata(pageable);
+
+    SPARQLQueryDefinition countSparqlQueryDefinition =
+      Try.of(() ->
+        sparqlQueryManager
+          .newQueryDefinition(new FileHandle(aktSparqlRegistry.getItemFromRegistry("aktCount.rq").getFile()))
+      ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+    countSparqlQueryDefinition.withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+    sparqlQueryManager.executeSelect(countSparqlQueryDefinition, jacksonHandle);
+    int size = content.size();
+    size = Optional.of(jacksonHandle)
+      .map(JacksonHandle::get)
+      .map(y -> y.path("results").path("bindings"))
+      .map(x -> x.get(0).get("count").path("value").asInt())
+      .orElseThrow(InvalidServerConfigurationException::new);
+
+    return new PageImpl<AktMetadata>(content, pageable, size);
   }
 
   @Override

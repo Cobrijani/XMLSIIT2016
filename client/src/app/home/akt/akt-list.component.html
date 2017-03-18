@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="akt in vm.akti">
+    <tr ng-repeat="akt in vm.akti.content">
       <td>{{$index+1}}</td>
       <td><a href ng-click="vm.getDetails(akt.id)">{{akt.name}}</a></td>
       <td>{{akt.dateCreated | date : 'dd-MM-yyyy hh:mm'}}</td>
@@ -27,5 +27,7 @@
     </tr>
     </tbody>
   </table>
-
+  <div uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.akti.totalElements"
+       ng-model="vm.pageOptions.page" ng-change="vm.pageChanged()" next-text="Sledeća stranica"
+       previous-text="Prošla stranica"></div>
 </div>
