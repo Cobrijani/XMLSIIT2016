@@ -1,9 +1,6 @@
 package rs.ac.uns.ftn.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +93,9 @@ public class JJWTTokenProvider implements TokenProvider {
       return true;
     } catch (SignatureException ex) {
       log.info(String.format("Invalid JWT signature : %s", ex.getMessage()));
+      return false;
+    } catch (ExpiredJwtException ex) {
+      log.info(String.format("Expired JWT signature : %s", ex.getMessage()));
       return false;
     }
   }

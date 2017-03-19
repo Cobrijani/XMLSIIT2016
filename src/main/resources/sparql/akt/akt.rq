@@ -1,7 +1,12 @@
+PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+
 SELECT * FROM <skupstina/dokument/akt>
 WHERE {
 	?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .
 	?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .
   ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .
   ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .
+  FILTER( regex(?documentName, ?search ))
+  FILTER (?dateCreated <= ?dateTo^^xs:dateTime)
+  FILTER (?dateCreated >= ?dateFrom^^xs:dateTime)
 }

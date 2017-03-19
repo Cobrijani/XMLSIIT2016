@@ -11,6 +11,7 @@ public class XmlNamespaces {
   public static final String PRED = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/";
   public static final String AMANDMAN = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman";
   public static final String RDFA = "http://www.w3.org/ns/rdfa#";
+  public static final String XS = "http://www.w3.org/2001/XMLSchema#";
 
   public static final String AKT_PREF = "akt";
   public static final String KORISNIK_PREF = "kor";
@@ -18,6 +19,7 @@ public class XmlNamespaces {
   public static final String PRED_PREF = "pred";
   public static final String AMANDMAN_PREF = "am";
   public static final String RDFA_PREF = "";
+  public static final String XS_PREF = "xs";
 
   public static final String SEDNICA = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica";
   public static final String SEDNICA_PREF = "sednica";

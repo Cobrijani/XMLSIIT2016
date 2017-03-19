@@ -14,13 +14,19 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce'];
+  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory, $sce) {
+  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
     vm.pageChanged = pageChanged;
+    vm.openDateFrom = openDateFrom;
+    vm.openDateTo = openDateTo;
+    vm.search = search;
+    vm.reset = reset;
+
+    vm.canEdit = UserJwtResource.getUserPayload().auth !== roles.gradjanin;
 
     vm.pageOptions = {
       size: 5,
@@ -28,19 +34,61 @@
       sort: null
     };
 
+    vm.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    vm.dateFormat = "dd-MM-yyyy";
+    /////////////////////
+
+
+    function search() {
+      if (vm.dateFrom) {
+        var from = vm.dateFrom.getTime() / 1000;
+      }
+      if (vm.dateTo) {
+        var to = vm.dateTo.getTime() / 1000;
+      }
+      getEntities({
+        size: vm.pageOptions.size,
+        page: vm.pageOptions.page - 1,
+        q: vm.searchText,
+        from: from,
+        to: to,
+        self: vm.self
+      });
+    }
+
+    function reset() {
+      vm.dateFrom = '';
+      vm.dateTo = '';
+      vm.searchText = '';
+      vm.self = false;
+      search();
+    }
+
     activate();
 
+
+    function openDateFrom() {
+      vm.dateFromPopup = {opened: true}
+    }
+
+    function openDateTo() {
+      vm.dateToPopup = {opened: true}
+    }
 
     function pageChanged() {
       activate();
     }
 
     function activate() {
-      getEntities(vm.pageOptions.size, vm.pageOptions.page - 1);
+      getEntities({size: vm.pageOptions.size, page: vm.pageOptions.page - 1, self: vm.self});
     }
 
-    function getEntities(size, page) {
-      GenericResource.getEntities('akti', {size: size, page: page})
+    function getEntities(params) {
+      GenericResource.getEntities('akti', params)
         .then(function (success) {
           vm.akti = success;
           vm.pageOptions.page = vm.akti.number + 1; //counting starts from 1 on server from 0
@@ -68,4 +116,5 @@
     }
 
   }
-})();
+})
+();

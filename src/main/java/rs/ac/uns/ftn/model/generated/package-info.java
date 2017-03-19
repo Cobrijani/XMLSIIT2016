@@ -5,7 +5,8 @@
     @javax.xml.bind.annotation.XmlNs(prefix = AMANDMAN_PREF, namespaceURI = AMANDMAN),
     @javax.xml.bind.annotation.XmlNs(prefix = PRED_PREF, namespaceURI = PRED),
     @javax.xml.bind.annotation.XmlNs(prefix = KORISNIK_PREF, namespaceURI = KORISNIK),
-    @javax.xml.bind.annotation.XmlNs(prefix = RDFA_PREF, namespaceURI = RDFA)
+    @javax.xml.bind.annotation.XmlNs(prefix = RDFA_PREF, namespaceURI = RDFA),
+    @javax.xml.bind.annotation.XmlNs(prefix = XS_PREF, namespaceURI = XS)
   },
   elementFormDefault = XmlNsForm.QUALIFIED
 )

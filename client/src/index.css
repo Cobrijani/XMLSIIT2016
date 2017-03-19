@@ -118,6 +118,16 @@ div[ng-messages] {
   background: white;
 }
 
+.btn-danger:hover {
+  color: red;
+  background: white;
+}
+
+.btn-danger {
+  color: white;
+  background: red;
+}
+
 .btn-default:hover {
   border-color: white;
   color: white;

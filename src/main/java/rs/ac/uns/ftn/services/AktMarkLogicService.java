@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
@@ -125,16 +126,15 @@ public class AktMarkLogicService implements AktService {
     SearchHandle searchHandle = new SearchHandle();
     queryManager.search(definition, searchHandle);
 
-
     return convertSearchHandle(searchHandle, documentManager, Akt.class);
   }
 
 
   @Override
   public void add(Akt akt) {
-    final String id = AKT + "/" + identifierGenerator.generateIdentity();
+    final String id = identifierGenerator.generateIdentity();
     akt.setId(id);
-    akt.getOtherAttributes().put(new QName("about"), id);
+    akt.getOtherAttributes().put(new QName("about"), AKT + "/" + id);
     akt.getOtherAttributes().put(new QName("vocab"), PRED);
     akt.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
@@ -143,13 +143,13 @@ public class AktMarkLogicService implements AktService {
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
     dateCreated.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumKreiranja");
-    dateCreated.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
+    dateCreated.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":dateTime");
     akt.getZaglavlje().setDateCreated(dateCreated);
 
     final DateModified dateModified = new DateModified();
     dateModified.setValue(XMLUtil.getToday());
     dateModified.getOtherAttributes().put(new QName("property"), PRED_PREF + ":datumAzuriranja");
-    dateModified.getOtherAttributes().put(new QName("datatype"), "xs:datetime");
+    dateModified.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":dateTime");
     akt.getZaglavlje().setDateModified(dateModified);
 
     Document document = Try.of(() ->
@@ -185,17 +185,60 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public List<AktMetadata> getMetadata(Pageable pageable) {
+    return getMetadata(pageable, null);
+  }
+
+  @Override
+  public List<AktMetadata> getMetadata(Pageable pageable, AktMetadataPredicate aktMetadataPredicate) {
     sparqlQueryManager.setPageLength(pageable.getPageSize());
+
+
+    String query = "PREFIX xs: <http://www.w3.org/2001/XMLSchema#>\n" +
+      "\n" +
+      "SELECT * FROM <skupstina/dokument/akt>\n" +
+      "WHERE {\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n" +
+      "  FILTER( regex(?documentName, ?search ))\n";
+
+    StringBuilder queryBuilder = new StringBuilder(query);
+
+    Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::getDateCreatedFromTimestamp)
+      .map(XMLUtil::toXmlCalendar)
+      .ifPresent(x -> queryBuilder.append("FILTER(?dateCreated >= \"").append(x.toXMLFormat()).append("\"^^xs:dateTime)\n "));
+
+    Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::getDateCreatedToTimestamp)
+      .map(XMLUtil::toXmlCalendar).ifPresent(x ->
+      queryBuilder.append("FILTER(?dateCreated <= \"").append(x.toXMLFormat()).append("\"^^xs:dateTime) \n"));
+
+    queryBuilder.append("}");
 
     SPARQLQueryDefinition sparqlQueryDefinition =
       Try.of(() ->
         sparqlQueryManager
-          .newQueryDefinition(new FileHandle(aktSparqlRegistry.getItemFromRegistry("akt.rq").getFile()))
+          .newQueryDefinition(new StringHandle(queryBuilder.toString()))
       ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
+    Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::isOwned)
+      .ifPresent(self -> {
+        if (self) {
+          sparqlQueryDefinition
+            .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+        }
+      });
+
+
+    String search = Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::getSearchQuery)
+      .orElse("");
 
     sparqlQueryDefinition
-      .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+      .withBinding("search", search);
 
 
     JacksonHandle jacksonHandle = new JacksonHandle();
@@ -211,7 +254,8 @@ public class AktMarkLogicService implements AktService {
       .ifPresent(x -> {
         x.forEach(node -> {
           AktMetadata akt = new AktMetadata();
-          akt.setId(node.get("documentId").path("value").asText());
+          String[] idparts = node.get("documentId").path("value").asText().split("/");
+          akt.setId(idparts[idparts.length - 1]);
           akt.setName(node.get("documentName").path("value").asText());
           akt.setDateCreated(node.get("dateCreated").path("value").asText());
           akt.setDateModified(node.get("dateModified").path("value").asText());
@@ -225,7 +269,12 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public Page<AktMetadata> getMetadataPage(Pageable pageable) {
-    List<AktMetadata> content = getMetadata(pageable);
+    return getMetadataPage(pageable, null);
+  }
+
+  @Override
+  public Page<AktMetadata> getMetadataPage(Pageable pageable, AktMetadataPredicate aktMetadataPredicate) {
+    List<AktMetadata> content = getMetadata(pageable, aktMetadataPredicate);
 
     SPARQLQueryDefinition countSparqlQueryDefinition =
       Try.of(() ->

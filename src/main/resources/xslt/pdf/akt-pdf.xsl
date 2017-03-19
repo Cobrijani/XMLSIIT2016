@@ -11,7 +11,7 @@
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZČĆŽĐŠ'" />
     <xsl:template match="akt:preambula">
         <fo:block font-size="16pt" text-align="justify" font-family="Arial" margin-bottom="0.3cm" text-indent="1cm">
-            <xsl:value-of select="/text()"></xsl:value-of>
+            <xsl:value-of select="text()"></xsl:value-of>
         </fo:block>
     </xsl:template>
     
@@ -24,7 +24,9 @@
         <fo:block id="{@meta:id}" font-size="18pt" text-align="center" font-family="Arial" font-weight="bold" margin-bottom="0.5cm">
             <xsl:value-of select="translate(akt:zaglavlje/meta:naziv/text(), $smallcase, $uppercase)"></xsl:value-of>
         </fo:block>
-        <xsl:apply-templates></xsl:apply-templates>
+        <xsl:apply-templates select="akt:deo"></xsl:apply-templates>
+        <xsl:apply-templates select="akt:clan"></xsl:apply-templates>
+        <xsl:apply-templates select="akt:glava"></xsl:apply-templates>
     </xsl:template>
     <!-- 
         Део
