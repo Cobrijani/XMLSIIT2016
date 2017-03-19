@@ -31,7 +31,6 @@
     function getUser() {
       GenericResource.getEntityByIdentifier('korisnici', vm.userId)
         .then(function (user) {
-          console.log(user);
           vm.user = user;
         })
         .catch(function (error) {

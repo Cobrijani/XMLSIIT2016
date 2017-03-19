@@ -14,13 +14,17 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce'];
+  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory, $sce) {
+  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
     vm.pageChanged = pageChanged;
+    vm.openDateFrom = openDateFrom;
+    vm.openDateTo = openDateTo;
+    vm.search = search;
+    vm.reset = reset;
 
     vm.pageOptions = {
       size: 5,
@@ -28,8 +32,42 @@
       sort: null
     };
 
+    vm.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    vm.dateFormat = "dd-MM-yyyy";
+    /////////////////////
+
+
+    function search() {
+      if (vm.dateFrom) {
+        var from = vm.dateFrom.getTime() / 1000;
+      }
+      if (vm.dateTo) {
+        var to = vm.dateTo.getTime() / 1000;
+      }
+      getEntities(vm.pageOptions.size, vm.pageOptions.page - 1, vm.searchText, from, to);
+    }
+
+    function reset() {
+      vm.dateFrom = '';
+      vm.dateTo = '';
+      vm.searchText = '';
+      search();
+    }
+
     activate();
 
+
+    function openDateFrom() {
+      vm.dateFromPopup = {opened: true}
+    }
+
+    function openDateTo() {
+      vm.dateToPopup = {opened: true}
+    }
 
     function pageChanged() {
       activate();
@@ -39,8 +77,8 @@
       getEntities(vm.pageOptions.size, vm.pageOptions.page - 1);
     }
 
-    function getEntities(size, page) {
-      GenericResource.getEntities('akti', {size: size, page: page})
+    function getEntities(size, page, search, from, to) {
+      GenericResource.getEntities('akti', {size: size, page: page, q: search, from: from, to: to})
         .then(function (success) {
           vm.akti = success;
           vm.pageOptions.page = vm.akti.number + 1; //counting starts from 1 on server from 0

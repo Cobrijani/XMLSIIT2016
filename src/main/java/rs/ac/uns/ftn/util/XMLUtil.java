@@ -25,8 +25,11 @@ import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -130,8 +133,12 @@ public class XMLUtil {
 
   public static XMLGregorianCalendar getToday() {
     GregorianCalendar gregorianCalendar = new GregorianCalendar();
-    gregorianCalendar.setGregorianChange(new Date());
     return new XMLGregorianCalendarImpl(gregorianCalendar);
+  }
+
+  public static XMLGregorianCalendar toXmlCalendar(Long timeStamp) {
+    LocalDateTime time = LocalDateTime.ofInstant(Instant.ofEpochSecond(timeStamp), ZoneId.systemDefault());
+    return new XMLGregorianCalendarImpl(GregorianCalendar.from(ZonedDateTime.of(time, ZoneId.systemDefault())));
   }
 
 

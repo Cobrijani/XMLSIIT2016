@@ -42,7 +42,6 @@
 
     function logout() {
       TokenService.clearAll();
-      $state.go('login');
     }
 
     function getUserPayload() {
