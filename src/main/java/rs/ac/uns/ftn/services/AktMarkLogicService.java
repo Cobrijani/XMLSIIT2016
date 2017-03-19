@@ -126,7 +126,6 @@ public class AktMarkLogicService implements AktService {
     SearchHandle searchHandle = new SearchHandle();
     queryManager.search(definition, searchHandle);
 
-
     return convertSearchHandle(searchHandle, documentManager, Akt.class);
   }
 
@@ -224,9 +223,15 @@ public class AktMarkLogicService implements AktService {
           .newQueryDefinition(new StringHandle(queryBuilder.toString()))
       ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
+    Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::isOwned)
+      .ifPresent(self -> {
+        if (self) {
+          sparqlQueryDefinition
+            .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+        }
+      });
 
-    sparqlQueryDefinition
-      .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
 
     String search = Optional.ofNullable(aktMetadataPredicate)
       .map(AktMetadataPredicate::getSearchQuery)

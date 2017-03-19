@@ -33,7 +33,6 @@
         },
         function (error) {
           $log.info(error);
-          logout();
           deferred.reject(error);
         });
 
@@ -42,6 +41,7 @@
 
     function logout() {
       TokenService.clearAll();
+      $state.go('login');
     }
 
     function getUserPayload() {

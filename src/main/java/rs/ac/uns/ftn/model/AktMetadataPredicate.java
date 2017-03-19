@@ -13,11 +13,13 @@ import java.util.Optional;
 @Setter
 public class AktMetadataPredicate implements SearchPredicate {
 
-  public String searchQuery;
+  private String searchQuery;
 
-  public Long dateCreatedFromTimestamp;
+  private Long dateCreatedFromTimestamp;
 
-  public Long dateCreatedToTimestamp;
+  private Long dateCreatedToTimestamp;
+
+  private boolean owned = false;
 
   private AktMetadataPredicate() {
   }
@@ -38,5 +40,8 @@ public class AktMetadataPredicate implements SearchPredicate {
     Optional.ofNullable(webRequest.getParameter("to"))
       .map(Long::parseLong)
       .ifPresent(this::setDateCreatedToTimestamp);
+    Optional.ofNullable(webRequest.getParameter("self"))
+      .map(Boolean::parseBoolean)
+      .ifPresent(this::setOwned);
   }
 }

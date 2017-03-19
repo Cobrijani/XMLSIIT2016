@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log'];
+  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log) {
+  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -25,6 +25,8 @@
     vm.openDateTo = openDateTo;
     vm.search = search;
     vm.reset = reset;
+
+    vm.canEdit = UserJwtResource.getUserPayload().auth !== roles.gradjanin;
 
     vm.pageOptions = {
       size: 5,
@@ -48,13 +50,21 @@
       if (vm.dateTo) {
         var to = vm.dateTo.getTime() / 1000;
       }
-      getEntities(vm.pageOptions.size, vm.pageOptions.page - 1, vm.searchText, from, to);
+      getEntities({
+        size: vm.pageOptions.size,
+        page: vm.pageOptions.page - 1,
+        q: vm.searchText,
+        from: from,
+        to: to,
+        self: vm.self
+      });
     }
 
     function reset() {
       vm.dateFrom = '';
       vm.dateTo = '';
       vm.searchText = '';
+      vm.self = false;
       search();
     }
 
@@ -74,11 +84,11 @@
     }
 
     function activate() {
-      getEntities(vm.pageOptions.size, vm.pageOptions.page - 1);
+      getEntities({size: vm.pageOptions.size, page: vm.pageOptions.page - 1, self: vm.self});
     }
 
-    function getEntities(size, page, search, from, to) {
-      GenericResource.getEntities('akti', {size: size, page: page, q: search, from: from, to: to})
+    function getEntities(params) {
+      GenericResource.getEntities('akti', params)
         .then(function (success) {
           vm.akti = success;
           vm.pageOptions.page = vm.akti.number + 1; //counting starts from 1 on server from 0
@@ -106,4 +116,5 @@
     }
 
   }
-})();
+})
+();
