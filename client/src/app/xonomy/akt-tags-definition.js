@@ -10,9 +10,9 @@
     .module('app')
     .factory('AktTagsFactory', AktTagsFactory);
 
-  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces'];
+  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', '$document'];
 
-  function AktTagsFactory(MetaTagsFactory, namespaces) {
+  function AktTagsFactory(MetaTagsFactory, namespaces, $document) {
 
     return {
       aktAkt: aktAkt,
@@ -37,7 +37,7 @@
     }
 
     function getElementByHtmlId(htmlId) {
-      return Xonomy.harvestElement(document.getElementById(htmlId));
+      return Xonomy.harvestElement($document.getElementById(htmlId));
     }
 
 
@@ -51,7 +51,7 @@
       });
 
       delovi.forEach(function (item) {
-        Xonomy.newAttribute(item.htmlID, {name: "meta:id", value: item.htmlID})
+        Xonomy.newAttribute(item.htmlID, { name: "meta:id", value: item.htmlID })
       });
     }
 
@@ -68,10 +68,10 @@
         });
 
         stavovi.forEach(function (stav) {
-          Xonomy.newAttribute(stav.htmlID, {name: "meta:id", value: stav.htmlID})
+          Xonomy.newAttribute(stav.htmlID, { name: "meta:id", value: stav.htmlID })
         });
 
-      })
+      });
     }
 
     function aktAkt() {
@@ -95,28 +95,28 @@
               return jsElement.hasChildElement(aktPreambula().name)
             }
           },
-            {
-              caption: "Dodaj deo",
-              action: addNewElementWithGeneratedId,
-              actionParameter: aktDeo(),
-              hideIf: function (jsElement) {
-                return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava())
-              }
-            }, {
-              caption: "Dodaj član",
-              action: addClan,
-              actionParameter: aktClan(),
-              hideIf: function (jsElement) {
-                return jsElement.hasChildElement(aktDeo().name) || jsElement.hasChildElement(aktGlava().name);
-              }
-            }, {
-              caption: "Dodaj glavu",
-              action: addNewElementWithGeneratedId,
-              actionParameter: aktGlava(),
-              hideIf: function (jsElement) {
-                return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name)
-              }
-            }]
+          {
+            caption: "Dodaj deo",
+            action: addNewElementWithGeneratedId,
+            actionParameter: aktDeo(),
+            hideIf: function (jsElement) {
+              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava())
+            }
+          }, {
+            caption: "Dodaj član",
+            action: addClan,
+            actionParameter: aktClan(),
+            hideIf: function (jsElement) {
+              return jsElement.hasChildElement(aktDeo().name) || jsElement.hasChildElement(aktGlava().name);
+            }
+          }, {
+            caption: "Dodaj glavu",
+            action: addNewElementWithGeneratedId,
+            actionParameter: aktGlava(),
+            hideIf: function (jsElement) {
+              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name)
+            }
+          }]
         }
       }
     }
@@ -186,7 +186,7 @@
     function aktClan(attr) {
       return {
         name: "akt:clan",
-        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='"+namespaces.meta+"' meta:naziv='naziv'><akt:stav></akt:stav></akt:clan>",
+        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='" + namespaces.meta + "' meta:naziv='naziv'><akt:stav></akt:stav></akt:clan>",
         definition: {
           displayName: "Član",
           menu: [
