@@ -34,7 +34,7 @@
           </xs:sequence>
         </xs:choice>
       </xs:sequence>
-      <xs:attribute ref="meta:id"/>
+      <xs:attribute ref="meta:id" use="required"/>
       <xs:anyAttribute namespace="##any" processContents="skip"/>
     </xs:complexType>
   </xs:element>
@@ -121,8 +121,8 @@
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="uobicajeniAtributi">
-    <xs:attribute ref="meta:id"/>
-    <xs:attribute ref="meta:naziv"/>
+    <xs:attribute ref="meta:id" use="required"/>
+    <xs:attribute ref="meta:naziv" use="required"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="prosireniUobicajeniAtributi">
     <xs:attributeGroup ref="akt:uobicajeniAtributi"/>

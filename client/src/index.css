@@ -55,6 +55,13 @@ div[ng-messages] {
   color: red;
 }
 
+.red-label{
+  color:red;
+}
+.green-label{
+  color:green;
+}
+
 .control-label,
 .form-control {
   color: black;

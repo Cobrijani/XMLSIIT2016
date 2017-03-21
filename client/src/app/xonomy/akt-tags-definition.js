@@ -10,9 +10,9 @@
     .module('app')
     .factory('AktTagsFactory', AktTagsFactory);
 
-  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', '$document'];
+  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', 'XonomyUtil'];
 
-  function AktTagsFactory(MetaTagsFactory, namespaces, $document) {
+  function AktTagsFactory(MetaTagsFactory, namespaces, XonomyUtil) {
 
     return {
       aktAkt: aktAkt,
@@ -32,43 +32,35 @@
 
     /////////////
 
-    function getChildElementsByHtmlID(htmlId, name) {
-      return getElementByHtmlId(htmlId).getChildElements(name);
-    }
-
-    function getElementByHtmlId(htmlId) {
-      return Xonomy.harvestElement($document.getElementById(htmlId));
-    }
-
 
     function addNewElementWithGeneratedId(htmlId, params) {
       Xonomy.newElementChild(htmlId, params.tag);
 
-      var delovi = getChildElementsByHtmlID(htmlId, params.name);
+      var delovi = XonomyUtil.getChildElementsByHtmlID(htmlId, params.name);
 
       delovi = delovi.filter(function (item) {
         return !item.hasAttribute(MetaTagsFactory.metaIdAttr().name);
       });
 
       delovi.forEach(function (item) {
-        Xonomy.newAttribute(item.htmlID, { name: "meta:id", value: item.htmlID })
+        Xonomy.newAttribute(item.htmlID, { name: "meta:id", value: item.htmlID });
       });
     }
 
     function addClan(htmlID, params) {
       addNewElementWithGeneratedId(htmlID, params);
 
-      var clanovi = getChildElementsByHtmlID(htmlID, params.name);
+      var clanovi = XonomyUtil.getChildElementsByHtmlID(htmlID, params.name);
 
       clanovi.forEach(function (item) {
         var stavovi = item.getChildElements("akt:stav");
 
         stavovi = stavovi.filter(function (child) {
-          return !child.hasAttribute(MetaTagsFactory.metaIdAttr().name)
+          return !child.hasAttribute(MetaTagsFactory.metaIdAttr().name);
         });
 
         stavovi.forEach(function (stav) {
-          Xonomy.newAttribute(stav.htmlID, { name: "meta:id", value: stav.htmlID })
+          Xonomy.newAttribute(stav.htmlID, { name: "meta:id", value: stav.htmlID });
         });
 
       });
@@ -92,7 +84,7 @@
             action: Xonomy.newElementChild,
             actionParameter: aktPreambula().tag,
             hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktPreambula().name)
+              return jsElement.hasChildElement(aktPreambula().name);
             }
           },
           {
@@ -100,7 +92,7 @@
             action: addNewElementWithGeneratedId,
             actionParameter: aktDeo(),
             hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava())
+              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava());
             }
           }, {
             caption: "Dodaj član",
@@ -114,11 +106,42 @@
             action: addNewElementWithGeneratedId,
             actionParameter: aktGlava(),
             hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name)
+              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name);
             }
-          }]
+          }],
+          validate: function (jsElement) {
+            if (!jsElement.hasChildElement('akt:zaglavlje')) {
+              Xonomy.warnings.push({
+                htmlID: jsElement.htmlID,
+                text: "Akt mora imati zaglavlje"
+              });
+            }
+
+            if (!jsElement.hasChildElement("akt:clan") && !jsElement.hasChildElement("akt:glava") && !jsElement.hasChildElement("akt:deo")) {
+              Xonomy.warnings.push({
+                htmlID: jsElement.htmlID,
+                text: 'Akt se mora sastojati ili od članova ili glava ili delova'
+              });
+            }
+
+            //mora imati 2-20 clana ili 1-* deo ili 1-*glava
+            if (jsElement.hasChildElement("akt:clan")) {
+              if (jsElement.getChildElements("akt:clan").length < 2) {
+                Xonomy.warnings.push({
+                  htmlID: jsElement.htmlID,
+                  text: 'Akt mora imati najmanje 2 člana'
+                });
+              }
+              if (jsElement.getChildElements("akt:clan").length > 20) {
+                Xonomy.warnings.push({
+                  htmlID: jsElement.htmlID,
+                  text: 'Akt može imati najviše 20 članova'
+                });
+              }
+            }
+          }
         }
-      }
+      };
     }
 
     function aktZaglavlje() {
@@ -135,11 +158,19 @@
             action: Xonomy.newElementChild,
             actionParameter: MetaTagsFactory.metaNaziv().tag,
             hideIf: function (jsElement) {
-              return jsElement.hasChildElement(MetaTagsFactory.metaNaziv().name)
+              return jsElement.hasChildElement(MetaTagsFactory.metaNaziv().name);
             }
-          }]
+          }],
+          validate: function (jsElement) {
+            if (!jsElement.hasChildElement("meta:naziv")) {
+              Xonomy.warnings.push({
+                htmlID: jsElement.htmlID,
+                text: 'U zaglavlju mora da postoji naziv akta'
+              });
+            }
+          }
         }
-      }
+      };
     }
 
     function aktPreambula() {
@@ -155,9 +186,9 @@
             }
           ],
           hasText: true,
-          mustBeAfter: [aktZaglavlje().name],
+          mustBeAfter: [aktZaglavlje().name]
         }
-      }
+      };
     }
 
     function aktDeo(attr) {
@@ -178,9 +209,17 @@
             }
           ],
           mustBeAfter: [aktPreambula().name],
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Deo mora imati svoj naziv");
+            }
+            if (jsElement.getChildElements("akt:glava").length < 2) {
+              XonomyUtil.createWarning(jsElement, "Deo morati imati najmanje dve glave");
+            }
+          }
         }
-      }
+      };
     }
 
     function aktClan(attr) {
@@ -201,9 +240,17 @@
 
           ],
           mustBeAfter: [aktPreambula().name],
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Član mora imati naziv");
+            }
+            if (!jsElement.hasChildElement("akt:stav")) {
+              XonomyUtil.createWarning(jsElement, "Član mora imati najmanje jedan stav");
+            }
+          }
         }
-      }
+      };
     }
 
     function aktGlava(attr) {
@@ -231,9 +278,17 @@
             }
           }],
           mustBeAfter: [aktPreambula().name],
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Glava mora imati naziv");
+            }
+            if (!jsElement.hasChildElement("akt:odeljak") && !jsElement.hasChildElement("akt:clan")) {
+              XonomyUtil.createWarning(jsElement, "Glava se mora sastojati ili od članova ili odeljaka");
+            }
+          }
         }
-      }
+      };
     }
 
     function aktOdeljak(attr) {
@@ -251,21 +306,30 @@
               action: addNewElementWithGeneratedId,
               actionParameter: aktPododeljak(),
               hideIf: function (elem) {
-                return elem.hasChildElement(aktClan().name)
+                return elem.hasChildElement(aktClan().name);
               }
             }, {
               caption: "Dodaj član",
               action: addClan,
               actionParameter: aktClan(),
               hideIf: function (elem) {
-                return elem.hasChildElement(aktPododeljak().name)
+                return elem.hasChildElement(aktPododeljak().name);
               }
             }
           ],
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Odeljak mora imati naziv");
+            }
+
+            if (!jsElement.hasChildElement("akt:pododeljak") && !jsElement.hasChildElement("akt:clan")) {
+              XonomyUtil.createWarning(jsElement, "Odeljak se mora sastojati ili od podeljaka ili od članova");
+            }
+          }
         }
 
-      }
+      };
     }
 
     function aktPododeljak(attr) {
@@ -282,9 +346,18 @@
             action: addClan,
             actionParameter: aktClan()
           }],
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Pododeljak mora imati naziv");
+            }
+
+            if (!jsElement.hasChildElement("akt:clan")) {
+              XonomyUtil.createWarning(jsElement, "Pododeljak mora imat najmanje jedan član");
+            }
+          }
         }
-      }
+      };
 
     }
 
@@ -306,7 +379,7 @@
           hasText: true,
           attributes: attr || {}
         }
-      }
+      };
     }
 
     function aktTacka(attr) {
@@ -327,9 +400,18 @@
             }
           ],
           hasText: true,
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Tačka mora imati naziv");
+            }
+
+            if (jsElement.getChildElements("akt:podtacka").length < 2) {
+              XonomyUtil.createWarning(jsElement, "Tačka mora imati bar dve podtačke");
+            }
+          }
         }
-      }
+      };
 
     }
 
@@ -346,11 +428,20 @@
             }
           ],
           hasText: true,
-          attributes: attr || {}
+          attributes: attr || {},
+          validate: function (jsElement) {
+            if (!jsElement.hasAttribute("meta:naziv")) {
+              XonomyUtil.createWarning(jsElement, "Podačka mora imati naziv");
+            }
+
+            if (jsElement.getChildElements("akt:alineja").length < 2) {
+              XonomyUtil.createWarning(jsElement, "Podtačka mora imati bar dve alieneje");
+            }
+          }
 
         }
 
-      }
+      };
     }
 
     function aktAlineja(attr) {
@@ -378,7 +469,7 @@
             }
           }
         ]
-      }
+      };
     }
 
     function aktReferenca() {
@@ -404,7 +495,7 @@
             placeholder: "$"
           }
         }]
-      }
+      };
     }
 
   }
