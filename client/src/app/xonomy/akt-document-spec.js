@@ -14,6 +14,7 @@
   function AktSpecification($log, AktTagsFactory, MetaTagsFactory, RdfaTagsFactory, $rootScope) {
     var aktSpec = {
       onchange: function () {
+        $rootScope.$apply();
       },
       validate: function (jsElement) {
         var elementSpec = aktSpec.elements[jsElement.name];
