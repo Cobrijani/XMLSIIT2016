@@ -10,9 +10,9 @@
     .module('app')
     .factory('AktTagsFactory', AktTagsFactory);
 
-  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', 'XonomyUtil'];
+  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', 'XonomyUtil', 'AktIdsIncrementerService'];
 
-  function AktTagsFactory(MetaTagsFactory, namespaces, XonomyUtil) {
+  function AktTagsFactory(MetaTagsFactory, namespaces, XonomyUtil, AktIdsIncrementerService) {
 
     return {
       aktAkt: aktAkt,
@@ -32,6 +32,12 @@
 
     /////////////
 
+    function idCheck(jsElement, message) {
+      if (!jsElement.hasAttribute("meta:id")) {
+        XonomyUtil.createWarning(jsElement, message || "Identifikator mora postojati");
+      }
+    }
+
 
     function addNewElementWithGeneratedId(htmlId, params) {
       Xonomy.newElementChild(htmlId, params.tag);
@@ -43,7 +49,9 @@
       });
 
       delovi.forEach(function (item) {
-        Xonomy.newAttribute(item.htmlID, { name: "meta:id", value: item.htmlID });
+        Xonomy.newAttribute(item.htmlID, {
+          name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(item.name)
+        });
       });
     }
 
@@ -60,7 +68,9 @@
         });
 
         stavovi.forEach(function (stav) {
-          Xonomy.newAttribute(stav.htmlID, { name: "meta:id", value: stav.htmlID });
+          Xonomy.newAttribute(stav.htmlID, {
+            name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(stav.name)
+          });
         });
 
       });
@@ -211,6 +221,7 @@
           mustBeAfter: [aktPreambula().name],
           attributes: attr || {},
           validate: function (jsElement) {
+            idCheck(jsElement, "Deo mora imat identifikator");
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Deo mora imati svoj naziv");
             }
@@ -242,6 +253,7 @@
           mustBeAfter: [aktPreambula().name],
           attributes: attr || {},
           validate: function (jsElement) {
+            idCheck(jsElement, "Član mora imati identifikator");
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Član mora imati naziv");
             }
@@ -280,6 +292,9 @@
           mustBeAfter: [aktPreambula().name],
           attributes: attr || {},
           validate: function (jsElement) {
+
+            idCheck(jsElement, "Glava mora imati identifikator");
+
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Glava mora imati naziv");
             }
@@ -319,6 +334,8 @@
           ],
           attributes: attr || {},
           validate: function (jsElement) {
+
+            idCheck(jsElement, "Odeljak mora imati identifikator");
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Odeljak mora imati naziv");
             }
@@ -348,6 +365,9 @@
           }],
           attributes: attr || {},
           validate: function (jsElement) {
+
+            idCheck(jsElement, "Pododeljak mora imati identifikator");
+
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Pododeljak mora imati naziv");
             }
@@ -377,7 +397,10 @@
           }],
           inlineMenu: [],
           hasText: true,
-          attributes: attr || {}
+          attributes: attr || {},
+          validation: function (jsElement) {
+            idCheck(jsElement, "Stav mora imati identifikator");
+          }
         }
       };
     }
@@ -402,6 +425,9 @@
           hasText: true,
           attributes: attr || {},
           validate: function (jsElement) {
+
+            idCheck(jsElement, "Tačka mora imati identifikator");
+
             if (!jsElement.hasAttribute("meta:naziv")) {
               XonomyUtil.createWarning(jsElement, "Tačka mora imati naziv");
             }
@@ -430,8 +456,11 @@
           hasText: true,
           attributes: attr || {},
           validate: function (jsElement) {
+
+            idCheck(jsElement, "Podtačka mora imati identifikator");
+
             if (!jsElement.hasAttribute("meta:naziv")) {
-              XonomyUtil.createWarning(jsElement, "Podačka mora imati naziv");
+              XonomyUtil.createWarning(jsElement, "Podtačka mora imati naziv");
             }
 
             if (jsElement.getChildElements("akt:alineja").length < 2) {

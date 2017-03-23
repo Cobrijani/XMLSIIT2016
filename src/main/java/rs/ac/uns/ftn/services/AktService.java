@@ -37,4 +37,7 @@ public interface AktService {
   Page<AktMetadata> getMetadataPage(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
 
   List<AmandmanMetadata> findAktAmandmandsById(String id);
+
+  String getSparqlResult(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
+
 }

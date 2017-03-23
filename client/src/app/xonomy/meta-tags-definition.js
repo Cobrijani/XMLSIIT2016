@@ -47,21 +47,72 @@
 
     }
 
-    function metaIdAttr() {
+    function metaIdAttr(actionCaption) {
       return {
         name: "meta:id",
         attr: {
           name: "meta:id", value: "id"
         },
         definition: {
+          menu: [
+            {
+              caption: "Obriši identifikator",
+              action: Xonomy.deleteAttribute
+            }
+          ],
+          asker: Xonomy.askString,
           displayName: "Identifikator",
           validate: function (jsElement) {
             if (jsElement.value.replace(/\s+/, "") === '') {
               XonomyUtil.createWarning(jsElement, "Identifikator mora imati nepraznu vrednost");
             }
+
+
+            var workQueue = [];
+            var visited = [];
+            var count = 0;
+            workQueue.push(jsElement);
+
+            while (workQueue.length > 0 && count < 2) {
+              var next = workQueue.shift();
+
+
+              if (checkIfHasIdWithValue(next, jsElement.value, visited)) {
+                count++;
+              }
+              visited.push(next.htmlID);
+
+              //add parent to be checked
+              if (next.internalParent && visited.indexOf(next.internalParent.htmlID) < 0) {
+                workQueue.push(next.internalParent);
+              }
+
+              //add children to queue to be checked
+              if (next.children) {
+                var notVisited = next.children.filter(function (item) {
+                  return visited.indexOf(item.htmlID) < 0;
+                });
+                workQueue = workQueue.concat(notVisited);
+              }
+            }
+
+            workQueue = null;
+            visited = null;
+            if (count > 1) {
+              XonomyUtil.createWarning(jsElement, "Identifikator već postoji");
+            }
           }
         },
-        parentActions: []
+        parentActions: [{
+          caption: actionCaption || "Dodaj identifikator",
+          action: Xonomy.newAttribute,
+          actionParameter: {
+            name: "meta:id", value: "Unesi jedistven id"
+          },
+          hideIf: function (elem) {
+            return elem.hasAttribute("meta:id");
+          }
+        }]
       };
     }
 
@@ -99,6 +150,25 @@
       };
     }
 
+    function checkIfHasIdWithValue(jsElement, value, excluded) {
+
+      var exists = false;
+
+      if (jsElement.type === 'element') {
+        var notExcluded = jsElement.attributes.filter(function (item) {
+          return (excluded || []).indexOf(item.htmlID);
+        });
+        notExcluded.forEach(function (attr) {
+          exists = attr.name === "meta:id" && attr.value === value;
+        });
+      } else if (jsElement.type === 'attribute' && (excluded || []).indexOf(jsElement.htmlID)) {
+        exists = jsElement.name === "meta:id" && jsElement.value === value;
+      }
+
+      return exists;
+    }
+
+
     function metaIdRefAttr(actionCaption, displayName) {
       return {
         name: "meta:idRef",
@@ -109,10 +179,35 @@
           displayName: displayName || "Identifikator elementa",
           asker: Xonomy.askString,
           validate: function (jsElement) {
-            try {
-              XonomyUtil.getElementByHtmlId(jsElement.value);
-            } catch (error) {
-              XonomyUtil.createWarning(jsElement, "Referenca mora imati postojeći identifikator");
+            var workQueue = [];
+            var visited = [];
+            workQueue.push(jsElement);
+            var refExists = false;
+
+            while (workQueue.length > 0 && !refExists) {
+              var next = workQueue.shift();
+
+              refExists = checkIfHasIdWithValue(next, jsElement.value, visited);
+              visited.push(next.htmlID);
+
+              //add parent to be checked
+              if (next.internalParent && visited.indexOf(next.internalParent.htmlID) < 0) {
+                workQueue.push(next.internalParent);
+              }
+
+              //add children to queue to be checked
+              if (next.children) {
+                var notVisited = next.children.filter(function (item) {
+                  return visited.indexOf(item.htmlID) < 0;
+                });
+                workQueue = workQueue.concat(notVisited);
+              }
+            }
+
+            workQueue = null;
+            visited = null;
+            if (!refExists) {
+              XonomyUtil.createWarning(jsElement, "Identifikator ne postoji");
             }
           }
         },

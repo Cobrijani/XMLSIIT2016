@@ -2,10 +2,12 @@ package rs.ac.uns.ftn.services;
 
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.*;
+import com.marklogic.client.io.marker.SPARQLResultsReadHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
+import com.marklogic.client.semantics.SPARQLMimeTypes;
 import com.marklogic.client.semantics.SPARQLQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryManager;
 import javaslang.control.Try;
@@ -188,8 +190,7 @@ public class AktMarkLogicService implements AktService {
     return getMetadata(pageable, null);
   }
 
-  @Override
-  public List<AktMetadata> getMetadata(Pageable pageable, AktMetadataPredicate aktMetadataPredicate) {
+  private <T extends SPARQLResultsReadHandle> T getMetadata(Pageable pageable, AktMetadataPredicate aktMetadataPredicate, T handle) {
     sparqlQueryManager.setPageLength(pageable.getPageSize());
 
 
@@ -223,6 +224,7 @@ public class AktMarkLogicService implements AktService {
           .newQueryDefinition(new StringHandle(queryBuilder.toString()))
       ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
+
     Optional.ofNullable(aktMetadataPredicate)
       .map(AktMetadataPredicate::isOwned)
       .ifPresent(self -> {
@@ -241,27 +243,29 @@ public class AktMarkLogicService implements AktService {
       .withBinding("search", search);
 
 
-    JacksonHandle jacksonHandle = new JacksonHandle();
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, handle, pageable.getOffset() + 1);
 
-    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle, pageable.getOffset() + 1);
+    return handle;
+  }
 
+  @Override
+  public List<AktMetadata> getMetadata(Pageable pageable, AktMetadataPredicate aktMetadataPredicate) {
+    JacksonHandle jacksonHandle = getMetadata(pageable, aktMetadataPredicate, new JacksonHandle());
 
     List<AktMetadata> metadatas = new ArrayList<>();
 
     Optional.of(jacksonHandle)
       .map(JacksonHandle::get)
       .map(y -> y.path("results").path("bindings"))
-      .ifPresent(x -> {
-        x.forEach(node -> {
-          AktMetadata akt = new AktMetadata();
-          String[] idparts = node.get("documentId").path("value").asText().split("/");
-          akt.setId(idparts[idparts.length - 1]);
-          akt.setName(node.get("documentName").path("value").asText());
-          akt.setDateCreated(node.get("dateCreated").path("value").asText());
-          akt.setDateModified(node.get("dateModified").path("value").asText());
-          metadatas.add(akt);
-        });
-      });
+      .ifPresent(x -> x.forEach(node -> {
+        AktMetadata akt = new AktMetadata();
+        String[] idparts = node.get("documentId").path("value").asText().split("/");
+        akt.setId(idparts[idparts.length - 1]);
+        akt.setName(node.get("documentName").path("value").asText());
+        akt.setDateCreated(node.get("dateCreated").path("value").asText());
+        akt.setDateModified(node.get("dateModified").path("value").asText());
+        metadatas.add(akt);
+      }));
 
 
     return metadatas;
@@ -328,5 +332,15 @@ public class AktMarkLogicService implements AktService {
 
 
     return metadatas;
+  }
+
+  @Override
+  public String getSparqlResult(Pageable pageable, AktMetadataPredicate aktMetadataPredicate) {
+
+    StringHandle handle = new StringHandle();
+    handle.setMimetype(SPARQLMimeTypes.SPARQL_XML);
+    handle = getMetadata(pageable, aktMetadataPredicate, handle);
+
+    return handle.get();
   }
 }
