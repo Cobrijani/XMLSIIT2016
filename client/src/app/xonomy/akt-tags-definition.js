@@ -10,9 +10,9 @@
     .module('app')
     .factory('AktTagsFactory', AktTagsFactory);
 
-  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', 'XonomyUtil'];
+  AktTagsFactory.$inject = ['MetaTagsFactory', 'namespaces', 'XonomyUtil', 'AktIdsIncrementerService'];
 
-  function AktTagsFactory(MetaTagsFactory, namespaces, XonomyUtil) {
+  function AktTagsFactory(MetaTagsFactory, namespaces, XonomyUtil, AktIdsIncrementerService) {
 
     return {
       aktAkt: aktAkt,
@@ -43,7 +43,9 @@
       });
 
       delovi.forEach(function (item) {
-        Xonomy.newAttribute(item.htmlID, { name: "meta:id", value: item.htmlID });
+        Xonomy.newAttribute(item.htmlID, {
+          name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(item.name)
+        });
       });
     }
 
@@ -60,7 +62,9 @@
         });
 
         stavovi.forEach(function (stav) {
-          Xonomy.newAttribute(stav.htmlID, { name: "meta:id", value: stav.htmlID });
+          Xonomy.newAttribute(stav.htmlID, {
+            name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(stav.name)
+          });
         });
 
       });

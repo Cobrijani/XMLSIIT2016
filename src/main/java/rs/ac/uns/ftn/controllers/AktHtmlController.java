@@ -1,11 +1,16 @@
 package rs.ac.uns.ftn.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.model.AktMetadataPredicate;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.services.AktService;
 import rs.ac.uns.ftn.util.XMLUtil;
 
@@ -25,6 +30,7 @@ public class AktHtmlController {
   public AktHtmlController(AktService aktService) {
     this.aktService = aktService;
   }
+
 
 
   @GetMapping(value = "/{id}")

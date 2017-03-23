@@ -99,6 +99,22 @@
       };
     }
 
+    function checkIfHasIdWithValue(jsElement, value) {
+
+      var exists = false;
+
+      if (jsElement.type === 'element') {
+        jsElement.attributes.forEach(function (attr) {
+          exists = attr.name === "meta:id" && attr.value === value;
+        });
+      } else if (jsElement.type === 'attribute') {
+        exists = jsElement.name === "meta:id" && jsElement.value === value;
+      }
+
+      return exists;
+    }
+
+
     function metaIdRefAttr(actionCaption, displayName) {
       return {
         name: "meta:idRef",
@@ -109,10 +125,35 @@
           displayName: displayName || "Identifikator elementa",
           asker: Xonomy.askString,
           validate: function (jsElement) {
-            try {
-              XonomyUtil.getElementByHtmlId(jsElement.value);
-            } catch (error) {
-              XonomyUtil.createWarning(jsElement, "Referenca mora imati postojeći identifikator");
+            var workQueue = [];
+            var visited = [];
+            workQueue.push(jsElement);
+            var refExists = false;
+
+            while (workQueue.length > 0 && !refExists) {
+              var next = workQueue.shift();
+
+              refExists = checkIfHasIdWithValue(next, jsElement.value);
+              visited.push(next.htmlID);
+
+              //add parent to be checked
+              if (next.internalParent && visited.indexOf(next.internalParent.htmlID) < 0) {
+                workQueue.push(next.internalParent);
+              }
+
+              //add children to queue to be checked
+              if (next.children) {
+                var notVisited = next.children.filter(function (item) {
+                  return visited.indexOf(item.htmlID) < 0;
+                });
+                workQueue = workQueue.concat(notVisited);
+              }
+            }
+
+            workQueue = null;
+            visited = null;
+            if (!refExists) {
+              XonomyUtil.createWarning(jsElement, "Identifikator ne postoji");
             }
           }
         },

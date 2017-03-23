@@ -13,9 +13,9 @@
       bindings: {}
     });
 
-  AktCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'AktSpecification', 'aktValidation'];
+  AktCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'AktSpecification', 'aktValidation', 'AktIdsIncrementerService'];
 
-  function AktCreateController($scope, GenericResource, exception, $state, AktSpecification, aktValidation) {
+  function AktCreateController($scope, GenericResource, exception, $state, AktSpecification, aktValidation, AktIdsIncrementerService) {
     var vm = this;
 
     vm.validation = {
@@ -55,8 +55,11 @@
     }
 
     function createAkt() {
-      GenericResource.postEntity('akti', Xonomy.harvest(), { 'Content-Type': 'application/xml' })
+      GenericResource.postEntity('akti', Xonomy.harvest(), {
+        'Content-Type': 'application/xml'
+      })
         .then(function () {
+          AktIdsIncrementerService.resetAllCounters();
           $state.go('main');
         })
         .catch(function (error) {
