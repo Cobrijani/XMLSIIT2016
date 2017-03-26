@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<am:amandman xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+             xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+             xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/C:/Users/Arsa/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd" 
+             
+             meta:id="amandman"
+             akt_id="92965361-315b-4bbe-a5eb-f10b8c0c11d7">
+  <am:zaglavlje_amandman>
+    <am:akt_ref/>
+    <meta:naziv>pripis o izmenama i dopunama krivicnog zakonika</meta:naziv>
+    <meta:dateCreated>2006-05-04T18:13:51.0</meta:dateCreated>
+    <meta:dateModified>2006-05-04T18:13:51.0</meta:dateModified>
+  </am:zaglavlje_amandman>
+  <am:izmene>
+    <am:izmena_celog_clana>
+      <am:predmet_izmene ref_clanovi="clan2">Clan 2. menja se i glasi:</am:predmet_izmene>
+      <am:tip_izmene>izmena</am:tip_izmene>
+      <am:resenje>
+        <akt:clan  meta:naziv="Nema kazne bez krivice" meta:id="clan2">
+          <akt:stav meta:id="stav2">
+            Izmenjeni clan pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
+          </akt:stav>
+        </akt:clan>
+      </am:resenje>
+    </am:izmena_celog_clana>
+    <am:izmena_celog_clana>
+      <am:predmet_izmene ref_clanovi="clan3">Brise se clan 3</am:predmet_izmene>
+      <am:tip_izmene>brisanje</am:tip_izmene>
+    </am:izmena_celog_clana>
+    <am:izmena_celog_clana>
+      <am:predmet_izmene ref_clanovi="clan4">Nakon Clana 4. dodaje se Clan 4a koji glasi:</am:predmet_izmene>
+      <am:tip_izmene>dopuna</am:tip_izmene>
+      <am:resenje>
+        <akt:clan  meta:naziv="novi Clan4a" meta:id="clan4a">
+          <akt:stav meta:id="stav4a">
+            Dodati clan4a pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
+          </akt:stav>
+        </akt:clan>
+      </am:resenje>
+      <am:resenje>
+        <akt:clan  meta:naziv="novi clan 4b" meta:id="clan4b">
+          <akt:stav meta:id="stav4b">
+            Dodati clan4b pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
+          </akt:stav>
+        </akt:clan>
+      </am:resenje>
+    </am:izmena_celog_clana>
+    <am:mala_izmena_clana>
+      <am:predmet_izmene ceo_akt="true"></am:predmet_izmene>
+      <am:stara_vrednost>Lorem ipsum</am:stara_vrednost>
+      <am:tip_izmene>izmena</am:tip_izmene>
+      <am:nova_vrednost>izmenjene reci</am:nova_vrednost>
+    </am:mala_izmena_clana>
+  </am:izmene>
+  <am:obrazlozenje>
+    <am:razlog_podnosenja>razlog_podnosenja0</am:razlog_podnosenja>
+    <am:objasnjenje_resenja>objasnjenje_resenja0</am:objasnjenje_resenja>
+    <am:cilj>cilj0</am:cilj>
+    <am:procena_uticaja>procena_uticaja0</am:procena_uticaja>
+  </am:obrazlozenje>
+</am:amandman>

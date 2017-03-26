@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+@XmlRootElement(name = "referenca")
 public class Referenca {
 
     @XmlValue
