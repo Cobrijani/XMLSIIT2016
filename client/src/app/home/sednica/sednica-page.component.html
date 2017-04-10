@@ -32,7 +32,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="akt in vm.sednica.akti" ng-click="vm.setSelectedAkt(akt.id)" ng-class="{selected : akt.id === vm.idSelectedAkt}">
+        <tr ng-repeat="akt in vm.defaultAkts" ng-click="vm.setSelectedAkt(akt.id)" ng-class="{selected : akt.id === vm.idSelectedAkt}">
           <td>{{$index+1}}</td>
           <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
           <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
@@ -55,7 +55,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="amandman in vm.sednica.amandmani" ng-class="{selected : amandman.selected === true}">
+        <tr ng-repeat="amandman in vm.defaultAmandmans" ng-class="{selected : amandman.selected === true}">
           <td>{{$index+1}}</td>
           <td><a href ng-click="vm.getDetails('amandmani', amandman.id)">{{amandman.naziv}}</a></td>
           <td><a href ng-click="vm.getPdf('amandmani', amandman.id)" class="fa fa-file-pdf-o"></a></td>
@@ -142,27 +142,28 @@
             <th>Za</th>
             <th>Protiv</th>
             <th>Uzdrzano</th>
-            <th>Usvoji/odbaci</th>
+            <th>Status</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="document in vm.votedDocuments">
+          <tr ng-repeat="document in vm.votedDocuments" ng-click="vm.selectAktsAmandmands(document, vm.votedDocuments)"  ng-class="{selected : document.selected === true}">
             <td ng-if="document.type === 'akt'"><a href ng-click="vm.getDetails('akti', document.id)">{{document.name}}</a></td>
             <td ng-if="document.type === 'akt'"><a href ng-click="vm.getPdf('akti', document.id)" class="fa fa-file-pdf-o"></a></td>
             <td ng-if="document.type === 'am'"><a href ng-click="vm.getDetails('amandmani', document.id)">{{document.naziv}}</a></td>
             <td ng-if="document.type === 'am'"><a href ng-click="vm.getPdf('amandmani', document.id)" class="fa fa-file-pdf-o"></a></td>
             <td>{{document.type}}</td>
-            <td>{{document.for}}</td>
+            <td>{{document.forVote}}</td>
             <td>{{document.against}}</td>
             <td>{{document.notVote}}</td>
-            <td>
-              <button type="button" class="btn btn-success">
+            <td ng-if="document.result === 'default'">
+              <button type="button" class="btn btn-success" ng-click="vm.acceptDeclineDocument(document, 'accepted')">
                 <span class="glyphicon glyphicon-ok"></span>
               </button>
-              <button type="button" class="btn btn-danger">
+              <button type="button" class="btn btn-danger" ng-click="vm.acceptDeclineDocument(document, 'rejected')">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
             </td>
+            <td ng-if="document.result !== 'default'">{{document.result}}</td>
           </tr>
           </tbody>
         </table>

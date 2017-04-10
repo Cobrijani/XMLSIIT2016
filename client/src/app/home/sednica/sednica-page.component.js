@@ -13,9 +13,9 @@
       bindings: {}
     });
 
-  SednicaPageController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory', '$stateParams', 'Restangular'];
+  SednicaPageController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory', '$stateParams', 'Restangular', 'toastr'];
 
-  function SednicaPageController($scope, GenericResource, exception, $state, FileFactory, $stateParams, Restangular) {
+  function SednicaPageController($scope, GenericResource, exception, $state, FileFactory, $stateParams, Restangular, toastr) {
     var vm = this;
     vm.opened = false;
     vm.sednica = {akti : [], amandmani : []};
@@ -24,6 +24,8 @@
     vm.votingDocument = null;
     vm.votingResults = {for: 0, against : 0, notVote : 0};
     vm.votedDocuments = [];
+    vm.defaultAkts = [];
+    vm.defaultAmandmans = [];
 
 
     vm.getDetails = getDetails;
@@ -34,6 +36,8 @@
     vm.voteFor = voteFor;
     vm.voteAgainst = voteAgainst;
     vm.closeVoting = closeVoting;
+    vm.acceptDeclineDocument = acceptDeclineDocument;
+    vm.selectAktsAmandmands = selectAktsAmandmands;
 
     //content
 
@@ -62,11 +66,8 @@
               vm.votingDocument = akt;
             }else if(akt.state === 'voted'){
               vm.votedDocuments.push(akt);
-            }
-          }
-          for(var i = 0; i < vm.sednica.akti.length; i++){
-            if(vm.sednica.akti[i].state !== 'default'){
-              vm.sednica.akti.splice(i, 1);
+            }else{
+              vm.defaultAkts.push(akt);
             }
           }
         })
@@ -87,11 +88,8 @@
               vm.votingDocument = am;
             }else if(am.state === 'voted'){
               vm.votedDocuments.push(am);
-            }
-          }
-          for(var i = 0; i < vm.sednica.amandmani.length; i++){
-            if(vm.sednica.amandmani[i].state !== 'default'){
-              vm.sednica.amandmani.splice(i, 1);
+            }else{
+              vm.defaultAmandmans.push(am);
             }
           }
         })
@@ -116,11 +114,11 @@
 
     function setSelectedAkt(id) {
       vm.idSelectedAkt = id;
-      for(var i = 0; i < vm.sednica.amandmani.length; i++){
-        if(vm.sednica.amandmani[i].aktId === id){
-          vm.sednica.amandmani[i].selected = true;
+      for(var i = 0; i < vm.defaultAmandmans.length; i++){
+        if(vm.defaultAmandmans[i].aktId === id){
+          vm.defaultAmandmans[i].selected = true;
         }else{
-          vm.sednica.amandmani[i].selected = false;
+          vm.defaultAmandmans[i].selected = false;
         }
       }
     }
@@ -128,16 +126,17 @@
     function putInVotingRow(akt, $index) {
       console.log(akt);
       akt.state = 'inRow';
+      akt.selected = false;
       var akt_restang = Restangular.copy(akt);
       console.log(akt_restang)
       akt_restang.route = 'akti';
       akt_restang.put();
       akt.type = 'akt';
       vm.votingDocuments.push(akt);
-      vm.sednica.akti.splice($index, 1);
-      for(var i = 0; i < vm.sednica.amandmani.length; i++){
-        if(vm.sednica.amandmani[i].aktId === akt.id){
-          var am = vm.sednica.amandmani[i];
+      vm.defaultAkts.splice($index, 1);
+      for(var i = 0; i < vm.defaultAmandmans.length; i++){
+        if(vm.defaultAmandmans[i].aktId === akt.id){
+          var am = vm.defaultAmandmans[i];
           am.state = 'inRow';
           var am_restang = Restangular.copy(am);
           console.log(am_restang)
@@ -148,12 +147,12 @@
         }
       }
       var amandmani = [];
-      for(var i = 0; i < vm.sednica.amandmani.length; i++) {
-        if (vm.sednica.amandmani[i].aktId !== akt.id) {
-          amandmani.push(vm.sednica.amandmani[i]);
+      for(var i = 0; i < vm.defaultAmandmans.length; i++) {
+        if (vm.defaultAmandmans[i].aktId !== akt.id) {
+          amandmani.push(vm.defaultAmandmans[i]);
         }
       }
-      vm.sednica.amandmani = amandmani;
+      vm.defaultAmandmans = amandmani;
       }
 
     function putToVote(document, $index) {
@@ -187,7 +186,6 @@
       vm.votingDocument.state = 'voted';
       vm.votedDocuments.push(vm.votingDocument);
       var doc_restang = Restangular.copy(vm.votingDocument);
-      console.log(doc_restang)
       if(vm.votingDocument.type === 'akt'){
         doc_restang.route = 'akti';
       }else{
@@ -195,6 +193,36 @@
       }
       doc_restang.put();
       vm.votingDocument = null;
+    }
+
+    function acceptDeclineDocument(document, status) {
+      console.log(status);
+      if(document.type === 'akt'){
+        for (var i = 0; i < vm.votedDocuments.length; i++){
+          if(vm.votedDocuments[i].aktId == document.id && vm.votedDocuments[i].result === 'default'){
+            toastr.error('Prvo usvojite ili odbacite sve amandmane tog akta, a nakon toga mozete da obradite akt', 'Prvo amandmane sve!')
+            return;
+          }
+        }
+      }
+      document.result = status;
+      var doc_restang = Restangular.copy(document);
+      if(document.type === 'akt'){
+        doc_restang.route = 'akti';
+      }else{
+        doc_restang.route = 'amandmani';
+      }
+      doc_restang.put();
+    }
+
+    function selectAktsAmandmands(doc, data) {
+      for(var i = 0; i < data.length; i++){
+        if(data[i].id === doc.id || data[i].aktId === doc.id || data[i].id === doc.aktId){
+          data[i].selected = true;
+        }else{
+          data[i].selected = false;
+        }
+      }
     }
   }
 })();
