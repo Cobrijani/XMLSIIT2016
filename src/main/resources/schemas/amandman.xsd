@@ -4,12 +4,15 @@
   targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
   xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
   xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
-  xmlns:pred="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/">
+  xmlns:pred="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/"
+  xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document">
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt" schemaLocation="akt.xsd"
     id="akt"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
     schemaLocation="metadata.xsd"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" schemaLocation="pred.xsd"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
+    schemaLocation="document.xsd"/>
   <xs:element name="amandman">
     <xs:complexType>
       <xs:sequence>
@@ -25,6 +28,7 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="1" ref="am:obrazlozenje"/>
+        <xs:element ref="am:document_am_ref" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:attribute name="akt_id" type="xs:string"/>
@@ -102,6 +106,13 @@
         <xs:element minOccurs="1" ref="meta:naziv"/>
         <xs:element minOccurs="0" ref="meta:dateCreated"/>
         <xs:element minOccurs="0" ref="meta:dateModified"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="document_am_ref">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="document:document"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

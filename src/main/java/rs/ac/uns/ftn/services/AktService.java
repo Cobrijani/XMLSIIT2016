@@ -1,6 +1,8 @@
 package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
@@ -29,4 +31,6 @@ public interface AktService {
   List<AktMetadata> getMetadata(Pageable pageable);
 
   List<AmandmanMetadata> findAktAmandmandsById(String id);
+
+  PutAktDTO putAkt(String id, PutAktDTO aktDTO);
 }

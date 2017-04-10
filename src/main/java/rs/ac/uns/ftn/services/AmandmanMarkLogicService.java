@@ -1,16 +1,19 @@
 package rs.ac.uns.ftn.services;
 
+import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryManager;
+import com.marklogic.client.util.EditableNamespaceContext;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.generated.DateCreated;
@@ -203,5 +207,32 @@ public class AmandmanMarkLogicService implements AmandmanService{
 
 
     return metadatas;
+  }
+
+  @Override
+  public AmandmanForSednicaDTO putAmandman(String id, AmandmanForSednicaDTO amDTO) {
+    Amandman am = findById(id);
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("am", AMANDMAN);
+    namespaces.put("document", DOCUMENT);
+    DocumentPatchBuilder builder = documentManager.newPatchBuilder();
+    builder.setNamespaces(namespaces);
+
+    DocumentPatchHandle xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:state", amDTO.getState()).build();
+    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+
+    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:result", amDTO.getResult()).build();
+    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+
+    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@for", amDTO.getForVote()).build();
+    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+
+    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@against", amDTO.getAgainst()).build();
+    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+
+    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@notVote", amDTO.getNotVote()).build();
+    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+
+    return amDTO;
   }
 }

@@ -1,10 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-aaaaaaaaaaaaaa
-</body>
-</html>
+<div class="content">
+  <h2>Vodjenje sednice</h2>
+  <div class="row">
+    <div class="col-sm-3">
+      <table class="table" style="margin-top: 40px;">
+        <tr>
+          <td>Naziv: </td>
+          <td>{{vm.sednica.naziv}}</td>
+        </tr>
+        <tr>
+          <td>Mesto: </td>
+          <td>{{vm.sednica.mesto}}</td>
+        </tr>
+        <tr>
+          <td>Datum: </td>
+          <td>{{vm.sednica.datum | date : 'dd-MM-yyyy'}}</td>
+        </tr>
+        <tr>
+          <td>Vreme: </td>
+          <td>{{vm.sednica.datum | date : 'HH:mm'}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-5">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Naziv akta</th>
+          <th>&nbsp;</th>
+          <th>Stavi u red</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="akt in vm.sednica.akti" ng-click="vm.setSelectedAkt(akt.id)" ng-class="{selected : akt.id === vm.idSelectedAkt}">
+          <td>{{$index+1}}</td>
+          <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
+          <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
+          <td>
+            <button type="button" class="btn btn-info" ng-click="vm.putInVotingRow(akt, $index)" ng-disabled="vm.votingDocuments.length > 0">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Naziv amandmana</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="amandman in vm.sednica.amandmani" ng-class="{selected : amandman.selected === true}">
+          <td>{{$index+1}}</td>
+          <td><a href ng-click="vm.getDetails('amandmani', amandman.id)">{{amandman.naziv}}</a></td>
+          <td><a href ng-click="vm.getPdf('amandmani', amandman.id)" class="fa fa-file-pdf-o"></a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" ng-if="vm.votingDocuments.length > 0 || vm.votingDocument !== null">
+    <div class="col-sm-5">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Naziv</th>
+          <th>&nbsp;</th>
+          <th>Tip</th>
+          <th>Glasanje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dokument in vm.votingDocuments">
+          <td>{{$index+1}}</td>
+          <td ng-if="dokument.type === 'akt'"><a href ng-click="vm.getDetails('akti', dokument.id)">{{dokument.name}}</a></td>
+          <td ng-if="dokument.type === 'akt'"><a href ng-click="vm.getPdf('akti', dokument.id)" class="fa fa-file-pdf-o"></a></td>
+          <td ng-if="dokument.type === 'am'"><a href ng-click="vm.getDetails('amandmani', dokument.id)">{{dokument.naziv}}</a></td>
+          <td ng-if="dokument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', dokument.id)" class="fa fa-file-pdf-o"></a></td>
+          <td>{{dokument.type}}</td>
+          <td>
+            <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)"  ng-disabled="vm.votingDocuments.length > 1 && dokument.type === 'akt' || vm.votingDocument !== null">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-7">
+      <div class="row">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Naziv</th>
+            <th>&nbsp;</th>
+            <th>Tip</th>
+            <th>Za</th>
+            <th>Protiv</th>
+            <th>Uzdrzano</th>
+          </tr>
+          </thead>
+          <tbody ng-if="vm.votingDocument !== null">
+          <tr>
+            <td ng-if="vm.votingDocument.type === 'akt'"><a href ng-click="vm.getDetails('akti', vm.votingDocument.id)">{{vm.votingDocument.name}}</a></td>
+            <td ng-if="vm.votingDocument.type === 'akt'"><a href ng-click="vm.getPdf('akti', vm.votingDocument.id)" class="fa fa-file-pdf-o"></a></td>
+            <td ng-if="vm.votingDocument.type === 'am'"><a href ng-click="vm.getDetails('amandmani', vm.votingDocument.id)">{{vm.votingDocument.naziv}}</a></td>
+            <td ng-if="vm.votingDocument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', vm.votingDocument.id)" class="fa fa-file-pdf-o"></a></td>
+            <td>{{vm.votingDocument.type}}</td>
+            <td>{{vm.votingResults.for}}</td>
+            <td>{{vm.votingResults.against}}</td>
+            <td>{{vm.votingResults.notVote}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row"  ng-if="vm.votingDocument !== null">
+        <button type="button" class="btn btn-primary" ng-click="vm.closeVoting()">Zavrsi glasanje</button>
+      </div>
+      <div class="row"  ng-if="vm.votingDocument !== null">
+        <button type="button" class="btn btn-success" ng-click="vm.voteFor()">Glasaj za</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.voteAgainst()">Glasaj protiv</button>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-if="vm.votedDocuments.length > 0">
+    <div class="col-sm-7 col-sm-offset-2">
+      <div class="row">
+        <h2>Rezultati glasanja</h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Naziv</th>
+            <th>&nbsp;</th>
+            <th>Tip</th>
+            <th>Za</th>
+            <th>Protiv</th>
+            <th>Uzdrzano</th>
+            <th>Usvoji/odbaci</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="document in vm.votedDocuments">
+            <td ng-if="document.type === 'akt'"><a href ng-click="vm.getDetails('akti', document.id)">{{document.name}}</a></td>
+            <td ng-if="document.type === 'akt'"><a href ng-click="vm.getPdf('akti', document.id)" class="fa fa-file-pdf-o"></a></td>
+            <td ng-if="document.type === 'am'"><a href ng-click="vm.getDetails('amandmani', document.id)">{{document.naziv}}</a></td>
+            <td ng-if="document.type === 'am'"><a href ng-click="vm.getPdf('amandmani', document.id)" class="fa fa-file-pdf-o"></a></td>
+            <td>{{document.type}}</td>
+            <td>{{document.for}}</td>
+            <td>{{document.against}}</td>
+            <td>{{document.notVote}}</td>
+            <td>
+              <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>
+              </button>
+              <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

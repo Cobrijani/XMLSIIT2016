@@ -5,8 +5,8 @@
 
     <xs:element name="napravio"/>
     <xs:element name="korisnik"/>
-    <xs:element name="akt"/>
     <xs:element name="menja"/>
     <xs:element name="pripada"/>
     <xs:element name="amandman"/>
+    <xs:element name="akt"/>
 </xs:schema>

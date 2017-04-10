@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.model.generated;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -50,15 +51,20 @@ import javax.xml.namespace.QName;
     "dateModified"
 })
 @XmlRootElement(name = "zaglavlje_amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class ZaglavljeAmandman {
 
     @XmlElement(name = "akt_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected ZaglavljeAmandman.AktRef aktRef;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Naziv naziv;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateCreated dateCreated;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected DateModified dateModified;
 
     /**
@@ -69,6 +75,7 @@ public class ZaglavljeAmandman {
      *     {@link ZaglavljeAmandman.AktRef }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public ZaglavljeAmandman.AktRef getAktRef() {
         return aktRef;
     }
@@ -81,6 +88,7 @@ public class ZaglavljeAmandman {
      *     {@link ZaglavljeAmandman.AktRef }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAktRef(ZaglavljeAmandman.AktRef value) {
         this.aktRef = value;
     }
@@ -93,6 +101,7 @@ public class ZaglavljeAmandman {
      *     {@link Naziv }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Naziv getNaziv() {
         return naziv;
     }
@@ -105,6 +114,7 @@ public class ZaglavljeAmandman {
      *     {@link Naziv }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNaziv(Naziv value) {
         this.naziv = value;
     }
@@ -117,6 +127,7 @@ public class ZaglavljeAmandman {
      *     {@link DateCreated }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateCreated getDateCreated() {
         return dateCreated;
     }
@@ -129,6 +140,7 @@ public class ZaglavljeAmandman {
      *     {@link DateCreated }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateCreated(DateCreated value) {
         this.dateCreated = value;
     }
@@ -141,6 +153,7 @@ public class ZaglavljeAmandman {
      *     {@link DateModified }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DateModified getDateModified() {
         return dateModified;
     }
@@ -153,6 +166,7 @@ public class ZaglavljeAmandman {
      *     {@link DateModified }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDateModified(DateModified value) {
         this.dateModified = value;
     }
@@ -177,9 +191,11 @@ public class ZaglavljeAmandman {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class AktRef {
 
         @XmlAnyAttribute
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
         /**
@@ -196,6 +212,7 @@ public class ZaglavljeAmandman {
          * @return
          *     always non-null
          */
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
         }

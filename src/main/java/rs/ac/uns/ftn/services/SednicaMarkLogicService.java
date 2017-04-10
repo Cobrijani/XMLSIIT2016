@@ -20,6 +20,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.generated.*;
@@ -60,17 +63,29 @@ public class SednicaMarkLogicService implements SednicaService{
 
   private final SPARQLQueryManager sparqlQueryManager;
 
+  private final AktService aktService;
+
+  private final AmandmanService amandmanService;
+
   @Value("classpath:sparql/sednica.rq")
   private Resource sednicaSparql;
 
+  @Value("classpath:sparql/aktsBySednicaId.rq")
+  private Resource aktsBySednicaIdSparql;
+
+  @Value("classpath:sparql/amandmandsBySednicaId.rq")
+  private Resource amandmandsBySednicaIdSparql;
+
 
   @Autowired
-  public SednicaMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager) {
+  public SednicaMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, AktService aktService, AmandmanService amandmanService) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
     this.sparqlQueryManager = sparqlQueryManager;
+    this.aktService = aktService;
+    this.amandmanService = amandmanService;
   }
 
 
@@ -212,11 +227,84 @@ public class SednicaMarkLogicService implements SednicaService{
         sednicaDTO.setId(idparts[idparts.length - 1]);
         sednicaDTO.setNaziv(x.get("documentName").path("value").asText());
         Sednica sednica = findById(sednicaDTO.getId());
-        sednicaDTO.setDatum(sednica.getInformacije().getDatum().toString());
+        sednicaDTO.setDatum(sednica.getInformacije().getDatum());
         sednicaDTO.setMesto(sednica.getInformacije().getMesto());
         sednice.add(sednicaDTO);
       });
 
     return sednice;
+  }
+
+  @Override
+  public List<PutAktDTO> findSednicaAktsById(String id) {
+    byte[] data = Try.of(() ->
+      Files.readAllBytes(aktsBySednicaIdSparql.getFile().toPath())
+    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+    SPARQLQueryDefinition sparqlQueryDefinition =
+      sparqlQueryManager.newQueryDefinition(new String(data))
+        .withBinding("documentId", SEDNICA + "/" + id);
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+
+    List<PutAktDTO> akti = new ArrayList<>();
+
+    jacksonHandle.get().path("results").path("bindings")
+      .forEach(x -> {
+        System.out.println(x.toString());
+        PutAktDTO aktDTO = new PutAktDTO();
+        String[] idparts = x.get("aktId").path("value").asText().split("/");
+        String aktId = idparts[idparts.length - 1];
+        Akt akt = aktService.findById(aktId);
+        aktDTO.setId(akt.getId());
+        aktDTO.setName(akt.getZaglavlje().getNaziv().getValue());
+        aktDTO.setState(akt.getDocumentAktRef().getDocument().getState());
+        aktDTO.setAgainst(akt.getDocumentAktRef().getDocument().getResults().getAgainst());
+        aktDTO.setForVote(akt.getDocumentAktRef().getDocument().getResults().getFor());
+        aktDTO.setNotVote(akt.getDocumentAktRef().getDocument().getResults().getNotVote());
+        aktDTO.setResult(akt.getDocumentAktRef().getDocument().getResult());
+        akti.add(aktDTO);
+      });
+
+    return akti;
+  }
+
+  @Override
+  public List<AmandmanForSednicaDTO> findSednicaAmandmandsById(String id) {
+    byte[] data = Try.of(() ->
+      Files.readAllBytes(amandmandsBySednicaIdSparql.getFile().toPath())
+    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+    SPARQLQueryDefinition sparqlQueryDefinition =
+      sparqlQueryManager.newQueryDefinition(new String(data))
+        .withBinding("documentId", SEDNICA + "/" + id);
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+
+    List<AmandmanForSednicaDTO> amandmands = new ArrayList<>();
+
+    jacksonHandle.get().path("results").path("bindings")
+      .forEach(x -> {
+        System.out.println(x.toString());
+        AmandmanForSednicaDTO amandmanDTO = new AmandmanForSednicaDTO();
+        String[] idparts = x.get("amandmanId").path("value").asText().split("/");
+        String amandmanId = idparts[idparts.length - 1];
+        Amandman amandman = amandmanService.findById(amandmanId);
+        amandmanDTO.setId(amandman.getId());
+        amandmanDTO.setNaziv(amandman.getZaglavljeAmandman().getNaziv().getValue());
+        amandmanDTO.setAktId(amandman.getAktId());
+        amandmanDTO.setState(amandman.getDocumentAmRef().getDocument().getState());
+        amandmanDTO.setAgainst(amandman.getDocumentAmRef().getDocument().getResults().getAgainst());
+        amandmanDTO.setForVote(amandman.getDocumentAmRef().getDocument().getResults().getFor());
+        amandmanDTO.setNotVote(amandman.getDocumentAmRef().getDocument().getResults().getNotVote());
+        amandmanDTO.setResult(amandman.getDocumentAmRef().getDocument().getResult());
+        amandmands.add(amandmanDTO);
+      });
+
+    return amandmands;
   }
 }

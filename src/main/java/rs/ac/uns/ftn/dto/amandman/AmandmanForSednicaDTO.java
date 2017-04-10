@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.dto.akt;
+package rs.ac.uns.ftn.dto.amandman;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,20 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Created by SBratic on 2/25/2017.
+ * Created by Micko on 17-Mar-17.
  */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AktDTO {
+public class AmandmanForSednicaDTO {
 
   private String id;
 
-  private String name;
+  private String naziv;
 
   private String dateCreated;
 
+  private String aktId;
+
   private String state;
 
+  private String result;
+
+  private int forVote;
+
+  private int against;
+
+  private int notVote;
 }

@@ -2,6 +2,9 @@ package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Pageable;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.model.generated.Sednica;
 
@@ -27,4 +30,8 @@ public interface SednicaService {
     void deleteAll();
 
     List<SednicaDTO> getMetadata(Pageable pageable);
-  }
+
+    List<PutAktDTO> findSednicaAktsById(String id);
+
+    List<AmandmanForSednicaDTO> findSednicaAmandmandsById(String id);
+}

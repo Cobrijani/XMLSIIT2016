@@ -1,6 +1,7 @@
 
 package rs.ac.uns.ftn.model.generated;
 
+import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -31,12 +32,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "informacije", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Informacije {
 
     @XmlAttribute(name = "datum")
     @XmlSchemaType(name = "dateTime")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected XMLGregorianCalendar datum;
     @XmlAttribute(name = "mesto")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String mesto;
 
     /**
@@ -47,6 +51,7 @@ public class Informacije {
      *     {@link XMLGregorianCalendar }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public XMLGregorianCalendar getDatum() {
         return datum;
     }
@@ -59,6 +64,7 @@ public class Informacije {
      *     {@link XMLGregorianCalendar }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDatum(XMLGregorianCalendar value) {
         this.datum = value;
     }
@@ -71,6 +77,7 @@ public class Informacije {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getMesto() {
         return mesto;
     }
@@ -83,6 +90,7 @@ public class Informacije {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setMesto(String value) {
         this.mesto = value;
     }

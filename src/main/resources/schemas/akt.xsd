@@ -4,11 +4,14 @@
   xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata" elementFormDefault="qualified"
   targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
   xmlns:pred="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#">
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+  xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document">
 
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
     schemaLocation="metadata.xsd"/>
   <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" schemaLocation="pred.xsd"/>
+  <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
+    schemaLocation="document.xsd"/>
   <xs:element name="clan">
     <xs:complexType>
       <xs:sequence>
@@ -22,6 +25,7 @@
       <xs:sequence>
         <xs:element ref="akt:zaglavlje"/>
         <xs:element ref="akt:preambula" minOccurs="0"/>
+        <xs:element minOccurs="0" ref="akt:document_akt_ref"/>
         <xs:choice>
           <xs:sequence>
             <xs:element maxOccurs="unbounded" ref="akt:deo"/>
@@ -135,6 +139,13 @@
         <xs:element minOccurs="1" ref="meta:naziv"/>
         <xs:element minOccurs="0" ref="meta:dateCreated"/>
         <xs:element minOccurs="0" ref="meta:dateModified"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="document_akt_ref">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="document:document"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
