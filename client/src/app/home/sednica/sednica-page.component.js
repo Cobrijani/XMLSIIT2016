@@ -26,6 +26,7 @@
     vm.votedDocuments = [];
     vm.defaultAkts = [];
     vm.defaultAmandmans = [];
+    vm.userVote = false;
 
 
     vm.getDetails = getDetails;
@@ -33,8 +34,7 @@
     vm.setSelectedAkt = setSelectedAkt;
     vm.putInVotingRow = putInVotingRow;
     vm.putToVote = putToVote;
-    vm.voteFor = voteFor;
-    vm.voteAgainst = voteAgainst;
+    vm.vote = vote;
     vm.closeVoting = closeVoting;
     vm.acceptDeclineDocument = acceptDeclineDocument;
     vm.selectAktsAmandmands = selectAktsAmandmands;
@@ -130,6 +130,8 @@
       var akt_restang = Restangular.copy(akt);
       console.log(akt_restang)
       akt_restang.route = 'akti';
+      akt_restang.forVote = null;
+      akt_restang.against = null;
       akt_restang.put();
       akt.type = 'akt';
       vm.votingDocuments.push(akt);
@@ -140,6 +142,8 @@
           am.state = 'inRow';
           var am_restang = Restangular.copy(am);
           console.log(am_restang)
+          am_restang.forVote = null;
+          am_restang.against = null;
           am_restang.route = 'amandmani';
           am_restang.put();
           am.type = 'am';
@@ -156,8 +160,11 @@
       }
 
     function putToVote(document, $index) {
+      vm.userVote = false;
       document.state = 'vote';
       var doc_restang = Restangular.copy(document);
+      doc_restang.forVote = null;
+      doc_restang.against = null;
       console.log(doc_restang)
       if(document.type === 'akt'){
         doc_restang.route = 'akti';
@@ -170,22 +177,35 @@
       vm.votingDocument = document;
     }
 
-    function voteFor(dokument) {
-      console.log('voteFor');
+    function vote(document, forBool) {
+      console.log('vote');
+      console.log(document);
+      vm.userVote = true;
+      var doc_restang = Restangular.copy(document);
+      if(forBool){
+        doc_restang.against = null;
+        document.forVote++;
+      }else{
+        doc_restang.forVote = null;
+        document.against++;
+      }
+      console.log(doc_restang);
+      if(vm.votingDocument.type === 'akt'){
+        doc_restang.route = 'akti';
+      }else{
+        doc_restang.route = 'amandmani';
+      }
+      doc_restang.put();
     }
 
-    function voteAgainst() {
-      console.log('voteAgainst');
-    }
 
     function closeVoting() {
       console.log('close voting');
-      vm.votingDocument.for = vm.votingResults.for;
-      vm.votingDocument.against = vm.votingResults.against;
-      vm.votingDocument.notVote = vm.votingResults.notVote;
       vm.votingDocument.state = 'voted';
       vm.votedDocuments.push(vm.votingDocument);
       var doc_restang = Restangular.copy(vm.votingDocument);
+      doc_restang.forVote = null;
+      doc_restang.against = null;
       if(vm.votingDocument.type === 'akt'){
         doc_restang.route = 'akti';
       }else{
@@ -212,6 +232,8 @@
       }else{
         doc_restang.route = 'amandmani';
       }
+      doc_restang.forVote = null;
+      doc_restang.against = null;
       doc_restang.put();
     }
 

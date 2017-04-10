@@ -24,10 +24,10 @@ public class PutAktDTO {
 
   private String result;
 
-  private int forVote;
+  private Integer forVote;
 
-  private int against;
+  private Integer against;
 
-  private int notVote;
+  private Integer notVote;
 
 }

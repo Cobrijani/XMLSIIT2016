@@ -65,7 +65,7 @@
     </div>
   </div>
   <div class="row" ng-if="vm.votingDocuments.length > 0 || vm.votingDocument !== null">
-    <div class="col-sm-5">
+    <div class="col-sm-7">
       <table class="table">
         <thead>
         <tr>
@@ -93,7 +93,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-sm-7">
+    <div class="col-sm-5">
       <div class="row">
         <table class="table">
           <thead>
@@ -101,9 +101,6 @@
             <th>Naziv</th>
             <th>&nbsp;</th>
             <th>Tip</th>
-            <th>Za</th>
-            <th>Protiv</th>
-            <th>Uzdrzano</th>
           </tr>
           </thead>
           <tbody ng-if="vm.votingDocument !== null">
@@ -113,9 +110,6 @@
             <td ng-if="vm.votingDocument.type === 'am'"><a href ng-click="vm.getDetails('amandmani', vm.votingDocument.id)">{{vm.votingDocument.naziv}}</a></td>
             <td ng-if="vm.votingDocument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', vm.votingDocument.id)" class="fa fa-file-pdf-o"></a></td>
             <td>{{vm.votingDocument.type}}</td>
-            <td>{{vm.votingResults.for}}</td>
-            <td>{{vm.votingResults.against}}</td>
-            <td>{{vm.votingResults.notVote}}</td>
           </tr>
           </tbody>
         </table>
@@ -123,9 +117,9 @@
       <div class="row"  ng-if="vm.votingDocument !== null">
         <button type="button" class="btn btn-primary" ng-click="vm.closeVoting()">Zavrsi glasanje</button>
       </div>
-      <div class="row"  ng-if="vm.votingDocument !== null">
-        <button type="button" class="btn btn-success" ng-click="vm.voteFor()">Glasaj za</button>
-        <button type="button" class="btn btn-danger" ng-click="vm.voteAgainst()">Glasaj protiv</button>
+      <div class="row"  ng-if="vm.votingDocument !== null && !vm.userVote">
+        <button type="button" class="btn btn-success" ng-click="vm.vote(vm.votingDocument, true)">Glasaj za</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.vote(vm.votingDocument, false)">Glasaj protiv</button>
       </div>
     </div>
   </div>

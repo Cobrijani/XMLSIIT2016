@@ -260,11 +260,15 @@ public class AktMarkLogicService implements AktService {
     xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:result", aktDTO.getResult()).build();
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
 
-    xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@for", aktDTO.getForVote()).build();
-    documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    Akt aktDb = findById(akt.getId());
 
-    xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@against", aktDTO.getAgainst()).build();
-    documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    if(aktDTO.getForVote() != null) {
+      xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@for", aktDb.getDocumentAktRef().getDocument().getResults().getFor() + 1).build();
+      documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    }else if(aktDTO.getAgainst() != null){
+      xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@against", aktDb.getDocumentAktRef().getDocument().getResults().getAgainst() + 1).build();
+      documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    }
 
     xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@notVote", aktDTO.getNotVote()).build();
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);

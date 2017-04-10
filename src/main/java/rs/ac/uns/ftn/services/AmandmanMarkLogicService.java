@@ -224,11 +224,16 @@ public class AmandmanMarkLogicService implements AmandmanService{
     xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:result", amDTO.getResult()).build();
     documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
 
-    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@for", amDTO.getForVote()).build();
-    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+    Amandman amandman = findById(id);
 
-    xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@against", amDTO.getAgainst()).build();
-    documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+    if(amDTO.getForVote() != null) {
+      xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@for", amandman.getDocumentAmRef().getDocument().getResults().getFor() + 1).build();
+      documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+    }else if(amDTO.getAgainst() != null){
+      xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@against", amandman.getDocumentAmRef().getDocument().getResults().getAgainst() + 1).build();
+      documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
+    }
+
 
     xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@notVote", amDTO.getNotVote()).build();
     documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);

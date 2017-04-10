@@ -9,4 +9,5 @@
     <xs:element name="pripada"/>
     <xs:element name="amandman"/>
     <xs:element name="akt"/>
+    <xs:element name="glasao"/>
 </xs:schema>
