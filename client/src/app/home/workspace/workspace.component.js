@@ -10,9 +10,9 @@
       bindings: {}
     });
 
-  workspaceController.$inject = ['$scope'];
+  workspaceController.$inject = [];
 
-  function workspaceController($scope) {
+  function workspaceController() {
     var vm = this;
     //content
   }

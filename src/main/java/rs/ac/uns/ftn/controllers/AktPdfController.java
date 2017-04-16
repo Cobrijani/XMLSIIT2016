@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.controllers;
 
-import com.itextpdf.text.DocumentException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,12 @@ public class AktPdfController {
 
   private final AktService aktService;
 
+  @Value("classpath:xslt/pdf/akt-pdf.xsl")
+  private Resource pdfXsl;
+
+  @Value("classpath:conf/fop.xconf")
+  private Resource fopXConf;
+
   public AktPdfController(AktService aktService) {
     this.aktService = aktService;
   }
@@ -33,15 +40,13 @@ public class AktPdfController {
   public void getOne(@PathVariable String id, HttpServletResponse response) {
     Document document = aktService.findById(id, Document.class);
     try {
-      XMLUtil.toPdf(document, response.getOutputStream(), "src/main/resources/xslt/pdf/akt-pdf.xsl");
+      XMLUtil.toPdf(document, response.getOutputStream(), pdfXsl, fopXConf);
       response.setContentType(MediaType.APPLICATION_PDF_VALUE);
       response.flushBuffer();
     } catch (TransformerException | IOException | SAXException e) {
       e.printStackTrace();
     }
   }
-
-
 
 
 }

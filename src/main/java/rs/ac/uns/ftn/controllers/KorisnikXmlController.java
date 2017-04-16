@@ -33,7 +33,7 @@ public class KorisnikXmlController {
 
 
   @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
-  public ResponseEntity<Void> createAkt(@RequestBody Korisnik korisnik, UriComponentsBuilder builder) {
+  public ResponseEntity<Void> createKorisnik(@RequestBody Korisnik korisnik, UriComponentsBuilder builder) {
     korisnikService.saveKorisnik(korisnik);
 
     HttpHeaders headers = new HttpHeaders();

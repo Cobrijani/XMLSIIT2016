@@ -9,13 +9,44 @@
     .module('app')
     .factory('AktSpecification', AktSpecification);
 
-  AktSpecification.$inject = ['$log', 'AktTagsFactory', 'MetaTagsFactory', 'RdfaTagsFactory'];
+  AktSpecification.$inject = ['$log', 'AktTagsFactory', 'MetaTagsFactory', 'RdfaTagsFactory', '$rootScope'];
 
-  function AktSpecification($log, AktTagsFactory, MetaTagsFactory, RdfaTagsFactory) {
+  function AktSpecification($log, AktTagsFactory, MetaTagsFactory, RdfaTagsFactory, $rootScope) {
     var aktSpec = {
-      onchange: function (obj) {
+      onchange: function () {
+        $rootScope.$apply();
       },
-      validate: function (obj) {
+      validate: function (jsElement) {
+        var elementSpec = aktSpec.elements[jsElement.name];
+        //Validate the element:
+        if (elementSpec.validate) {
+          elementSpec.validate(jsElement);
+        }
+        //Cycle through the element's attributes:
+        jsElement.attributes.forEach(function (attribute) {
+          var attrSpec = elementSpec.attributes[attribute.name];
+
+          if (attrSpec.validate) {
+            attrSpec.validate(attribute);
+          }
+        });
+        //Cycle through the element's children:
+        jsElement.children.forEach(function (child) {
+          if (child.type === "element") {
+            aktSpec.validate(child);
+          }
+        });
+
+        if (Xonomy.warnings.length === 0) {
+          $rootScope.$broadcast('validation:akt', {
+            valid: true, message: "Dokument je validan"
+          });
+        } else {
+          $rootScope.$broadcast('validation:akt', {
+            valid: false, message: "Dokument nije validan"
+          });
+        }
+
       },
       elements: {}
 
@@ -35,7 +66,7 @@
       }
 
       child.parentActions.forEach(function (item) {
-        parent.definition.menu.push(item)
+        parent.definition.menu.push(item);
       });
 
       if (!child.parentInlineActions) {
@@ -126,7 +157,7 @@
     registerElement(aktSpec, alineja);
     registerElement(aktSpec, referenca);
 
-    return {akt: aktSpec};
+    return { akt: aktSpec };
   }
 })();
 

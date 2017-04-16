@@ -28,9 +28,9 @@ public class XMLSIITProperties {
 
     private String secret;
 
-    private long tokenValidityInSeconds = 1800;
+    private long tokenValidityInSeconds = 1800000;
 
-    private long tokenValidityInSecondsForRememberMe = 2592000;
+    private long tokenValidityInSecondsForRememberMe = 259200000;
   }
 
   @Getter

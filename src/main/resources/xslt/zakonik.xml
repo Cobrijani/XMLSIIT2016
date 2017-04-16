@@ -1,127 +1,123 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<akt:akt xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
-    xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#" meta:id="akt">
+<akt:akt meta:id='akt' xmlns:akt='http://parlament.gov.rs/rs.ac.uns.ftn.model.akt' xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:rdfa='http://www.w3.org/ns/rdfa#'>
     <akt:zaglavlje>
-        <meta:naziv property="pred:imeDokumenta" datatype='xs:string'>Krivicni zakonik</meta:naziv>
+        <meta:naziv datatype='xs:string' property='pred:imeDokumenta'>Krivicni zakonik</meta:naziv>
     </akt:zaglavlje>
     <akt:preambula>
-       preambula bla bla bal
+        preambula bla bla bal
     </akt:preambula>
-    <akt:deo meta:id="deo1" redniBroj="prvi">
-        <akt:glava meta:naziv="osnovne odredbe" meta:id="glava1">
-                <akt:clan meta:naziv="Nema krivicnog dela niti kazne bez zakona" meta:id="clan1">
-                        <akt:stav meta:id="stav1">
-                            Nikome ne moze biti izrecena kazna ili druga krivicna sankcija za delo koje pre nego sto je ucinjeno
-                            zakonom nije bilo doredjno kao krivicno delo niti mu se moze izreci kazna ili druga krivicna sankcija koja zakonom nije bila
-                            propisana pre nego sto je krivicno delo ucinjeno
-                        </akt:stav>
-                </akt:clan>
-                <akt:clan  meta:naziv="Nema kazne bez krivice" meta:id="clan2">
-                        <akt:stav meta:id="stav2">
-                            Kazna i mere upozorenja mogu se izreci samo ucioniocu koji je kriv za ucinjeno delo
-                        </akt:stav>
-                </akt:clan>
-                <akt:clan meta:naziv="Osnov i granice krivicnopravne prinude" meta:id="clan3">
-                        <akt:stav meta:id="stav3">
-                            Zastita coveka i drugih osnovih drustvenih vrednosti predstavlja osnov i granice
-                            za odredjivanje krivicnih dela, propisivanje krivicnih sankcija i njihovu primenu,
-                            u meri u kojoj je to nuzno za suzbijajanje tih dela
-                        </akt:stav>
-                </akt:clan>
-                <akt:clan  meta:naziv="Krivicne sankcije i njihova opsta svrha" meta:id="clan4">
-                        <akt:stav meta:id="stav4">
-                            Krivicne sankcije su: kazne, mere upozorenja, mere bezbednosti i vaspitne mere.
-                        </akt:stav>
-                        <akt:stav meta:id="stav5">
-                            Opsta svrha propisivanja i izricanja krivicnih sankcija je suzbijanje dela kojima
-                            se povredjuju ili ugrozavaju vrednosti zasticene krivicnim zakonodavstvom
-                        </akt:stav>
-                        <akt:stav meta:id="stav6">
-                            Krivicne sankcije se ne mogu izreci licu koje u vreme kada ej delo ucinjeno nije navrsilo
-                            cetrnaest godna. Vaspitne mere i druge krivicne sankcije
-                            mogu se izreci maloletniku pod uslovima propisanim posebnim zakonom.
-                        </akt:stav>
-                </akt:clan>
+    <akt:deo meta:naziv='naziv' meta:id='deo1' redniBroj='prvi'>
+        <akt:glava meta:naziv='osnovne odredbe' meta:id='glava1'>
+            <akt:clan meta:naziv='Nema krivicnog dela niti kazne bez zakona' meta:id='clan1'>
+                <akt:stav meta:id='stav1'>
+                    Nikome ne moze biti izrecena kazna ili druga krivicna sankcija za delo koje pre nego sto je ucinjeno
+                    zakonom nije bilo doredjno kao krivicno delo niti mu se moze izreci kazna ili druga krivicna sankcija koja zakonom nije bila
+                    propisana pre nego sto je krivicno delo ucinjeno
+                </akt:stav>
+            </akt:clan>
+            <akt:clan meta:naziv='Nema kazne bez krivice' meta:id='clan2'>
+                <akt:stav meta:id='stav2'>
+                    Kazna i mere upozorenja mogu se izreci samo ucioniocu koji je kriv za ucinjeno delo
+                </akt:stav>
+            </akt:clan>
+            <akt:clan meta:naziv='Osnov i granice krivicnopravne prinude' meta:id='clan3'>
+                <akt:stav meta:id='stav3'>
+                    Zastita coveka i drugih osnovih drustvenih vrednosti predstavlja osnov i granice
+                    za odredjivanje krivicnih dela, propisivanje krivicnih sankcija i njihovu primenu, 
+                    u meri u kojoj je to nuzno za suzbijajanje tih dela
+                </akt:stav>
+            </akt:clan>
+            <akt:clan meta:naziv='Krivicne sankcije i njihova opsta svrha' meta:id='clan4'>
+                <akt:stav meta:id='stav4'>
+                    Krivicne sankcije su: kazne, mere upozorenja, mere bezbednosti i vaspitne mere.
+                </akt:stav>
+                <akt:stav meta:id='stav5'>
+                    Opsta svrha propisivanja i izricanja krivicnih sankcija je suzbijanje dela kojima
+                    se povredjuju ili ugrozavaju vrednosti zasticene krivicnim zakonodavstvom
+                </akt:stav>
+                <akt:stav meta:id='stav6'>
+                    Krivicne sankcije se ne mogu izreci licu koje u vreme kada ej delo ucinjeno nije navrsilo
+                    cetrnaest godna. Vaspitne mere i druge krivicne sankcije
+                    mogu se izreci maloletniku pod uslovima propisanim posebnim zakonom.
+                </akt:stav>
+            </akt:clan>
         </akt:glava>
-        <akt:glava meta:id="glava2" meta:naziv="Vazenje krivicnog zakonodavstva Republike Srbije">
-                <akt:clan meta:naziv="Vremeno vazenje krivicnog zakonodavstva"  meta:id="clan5">
-                        <akt:stav meta:id="stav7">
-                            Na ucinioca krivicnog dela primenjuje se zakon koji je vazio u vreme izvrsenja
-                            krivicnog dela.
-                        </akt:stav>
-                        <akt:stav meta:id="stav8">
-                            Ako je posle izvrsenja krivicnog dela izmenjen zakon, jednom ili vise puta,
-                            primenice se zakon koji je najblazi za ucinioca
-                        </akt:stav>
-                        <akt:stav meta:id="stav9">
-                            Na ucinioca krivicnog dela koje e previdjeno zakonom sa odredjenim vremenskim trajanjem primenjuje
-                            se taj zakon bez obzira na to kad mu se sudi, ako tim zaknom nije drukcije odredjeno.
-                        </akt:stav>
+        <akt:glava meta:naziv='Vazenje krivicnog zakonodavstva Republike Srbije' meta:id='glava2'>
+            <akt:clan meta:naziv='Vremeno vazenje krivicnog zakonodavstva' meta:id='clan5'>
+                <akt:stav meta:id='stav7'>
+                    Na ucinioca krivicnog dela primenjuje se zakon koji je vazio u vreme izvrsenja 
+                    krivicnog dela.
+                </akt:stav>
+                <akt:stav meta:id='stav8'>
+                    Ako je posle izvrsenja krivicnog dela izmenjen zakon, jednom ili vise puta,
+                    primenice se zakon koji je najblazi za ucinioca
+                </akt:stav>
+                <akt:stav meta:id='stav9'>
+                    Na ucinioca krivicnog dela koje e previdjeno zakonom sa odredjenim vremenskim trajanjem primenjuje
+                    se taj zakon bez obzira na to kad mu se sudi, ako tim zaknom nije drukcije odredjeno.
+                </akt:stav>
+            </akt:clan>
+            <akt:clan meta:naziv='Vazenje krivicnog zakonodavstva na teritoriji Srbije' meta:id='clan6'>
+                <akt:stav meta:id='stav10'>
+                    Krivicno zakonodavstvo Republike Srbije vazi za svakog ko na njenoj teritoriji
+                    ucini krivicno delo
+                </akt:stav>
+                <akt:stav meta:id='stav11'>
+                    Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo na domacem
+                    brodu, bez obzira gde se brod nalazi u vreme izvrsenja dela.
+                </akt:stav>
+                <akt:stav meta:id='stav12'>
+                    Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo u domacem civilnom
+                    vazduhoplovu dok je u letu ili u domacem vojnom vazduhoplovu, bez obzira gde se vazduhoplov
+                    nalazio u vreme izvrsenja krivicnog dela.
+                </akt:stav>
+                <akt:stav meta:id='stav13'>
+                    Ako je u slucajevima iz st. <akt:referenca meta:idRef='stav10'>1.</akt:referenca>
+                    do <akt:referenca meta:idRef='stav12'>3.</akt:referenca> ovog clana u stranoj drzavi
+                    pokrenut ili dorvrsen krivicni postupak, krivicno gonjenje u Srbiji preduzece se samo 
+                    po odobrenju republickog javnog tuzioca
+                </akt:stav>
+                <akt:stav meta:id='stav14'>
+                    Krivicno gonejnje stranca u slucajevima iz st. <akt:referenca meta:idRef='stav10'>1.</akt:referenca>
+                    do <akt:referenca meta:idRef='stav12'>3.</akt:referenca> ovog clana moze se, pod uslovom
+                    uzajamnosti, ustpiti stanoj drzavi.
+                </akt:stav>
+            </akt:clan>
+            <akt:clan meta:naziv='Vazenje krivicnog zakonodavstva Srbije za ucinioce odredjenih krivicnih dela izvrsenih u inostranstvu' meta:id='clan7'>
+                <akt:stav meta:id='stav15'>
+                    Krivicno zakonodavstvo Srbije vazi za svakog ko uinostranstvu ucini krivicno delo iz cl. 305
+                    do 316. i cl 318. do 321. ovog zakonika ili iz clana 223. ovog zakonika, ako se
+                    falsifikovanje odnosi na domaci novac.
+                </akt:stav>
+            </akt:clan>
+        </akt:glava>
+        <akt:glava meta:naziv='Zavrsne odredbe' meta:id='glava3'>
+            <akt:odeljak meta:naziv='Testiram da li radi' meta:id='odeljak1'>
+                <akt:clan meta:naziv='naziv' meta:id='aUnesi jedistven id'>
+                    <akt:stav>
+                        Nesto sam rekao da li je to taacno nemam pojma
+                    </akt:stav>
                 </akt:clan>
-                <akt:clan meta:id="clan6" meta:naziv="Vazenje krivicnog zakonodavstva na teritoriji Srbije">
-                        <akt:stav meta:id="stav10">
-                            Krivicno zakonodavstvo Republike Srbije vazi za svakog ko na njenoj teritoriji
-                            ucini krivicno delo
-                        </akt:stav>
-                        <akt:stav meta:id="stav11">
-                            Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo na domacem
-                            brodu, bez obzira gde se brod nalazi u vreme izvrsenja dela.
-                        </akt:stav>
-                        <akt:stav meta:id="stav12">
-                            Krivicno zakonodavstvo Srbije vazi i za svakog ko ucini krivicno delo u domacem civilnom
-                            vazduhoplovu dok je u letu ili u domacem vojnom vazduhoplovu, bez obzira gde se vazduhoplov
-                            nalazio u vreme izvrsenja krivicnog dela.
-                        </akt:stav>
-                        <akt:stav meta:id="stav13">
-                            Ako je u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
-                            do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana u stranoj drzavi
-                            pokrenut ili dorvrsen krivicni postupak, krivicno gonjenje u Srbiji preduzece se samo
-                            po odobrenju republickog javnog tuzioca
-                        </akt:stav>
-                        <akt:stav meta:id="stav14">
-                            Krivicno gonejnje stranca u slucajevima iz st. <akt:referenca meta:idRef="stav10">1.</akt:referenca>
-                            do <akt:referenca meta:idRef="stav12">3.</akt:referenca> ovog clana moze se, pod uslovom
-                            uzajamnosti, ustpiti stanoj drzavi.
-                        </akt:stav>
-                </akt:clan>
-                <akt:clan meta:id="clan7" meta:naziv="Vazenje krivicnog zakonodavstva Srbije za ucinioce odredjenih krivicnih dela izvrsenih u inostranstvu">
-                        <akt:stav meta:id="stav15">
-                            Krivicno zakonodavstvo Srbije vazi za svakog ko uinostranstvu ucini krivicno delo iz cl. 305
-                            do 316. i cl 318. do 321. ovog zakonika ili iz clana 223. ovog zakonika, ako se
-                            falsifikovanje odnosi na domaci novac.
-                        </akt:stav>
-                </akt:clan>
-            </akt:glava>
-            <akt:glava meta:naziv="Zavrsne odredbe" meta:id="glava3">
-                <akt:odeljak meta:naziv="Testiram da li radi" meta:id="odeljak1">
-                    <akt:clan>
+            </akt:odeljak>
+            <akt:odeljak meta:naziv='Testiranje' meta:id='testiranjeStvarno'>
+                <akt:pododeljak meta:naziv='Tesitram kako ovo radi' meta:id='pododeljak'>
+                    <akt:clan meta:naziv='naziv' meta:id='Unesi jedistven id'>
                         <akt:stav>
-                            Nesto sam rekao da li je to taacno nemam pojma
+                            Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum
+                            Lorem ipsumLorem ipsumLorem ipsumLorem ipsum
+                            <akt:tacka meta:naziv='naziv tacke' meta:id='tacka1'>
+                                <akt:podtacka meta:naziv='naziv podtacke' meta:id='podtacka1'>
+                                    <akt:alineja meta:id='alineja1'> nesto</akt:alineja>
+                                    <akt:alineja meta:id='alineja2'> nesto 2</akt:alineja>
+                                </akt:podtacka>
+                                <akt:podtacka meta:naziv='naziv podtacke 2' meta:id='podtacka2'>
+                                    <akt:alineja meta:id='alineja3'>nesto 3</akt:alineja>
+                                    <akt:alineja meta:id='alineja4'>nesto 4</akt:alineja>
+                                </akt:podtacka>
+                            </akt:tacka>
                         </akt:stav>
                     </akt:clan>
-                </akt:odeljak>
-                <akt:odeljak meta:naziv="Testiranje" meta:id="testiranjeStvarno">
-                    <akt:pododeljak meta:id="pododeljak" meta:naziv="Tesitram kako ovo radi">
-                        <akt:clan>
-                            <akt:stav>
-                                Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum
-                                Lorem ipsumLorem ipsumLorem ipsumLorem ipsum
-                                <akt:tacka meta:id="tacka1" meta:naziv="naziv tacke" >
-                                    <akt:podtacka meta:naziv="naziv podtacke" meta:id="podtacka1">
-                                        <akt:alineja meta:id="alineja1"> nesto</akt:alineja>
-                                        <akt:alineja meta:id="alineja2"> nesto 2</akt:alineja>
-                                    </akt:podtacka>
-                                    <akt:podtacka meta:id="podtacka2" meta:naziv="naziv podtacke 2">
-                                        <akt:alineja meta:id="alineja3">nesto 3</akt:alineja>
-                                        <akt:alineja meta:id="alineja4">nesto 4</akt:alineja>
-                                    </akt:podtacka>
-                                </akt:tacka>
-                            </akt:stav>
-                        </akt:clan>
-                    </akt:pododeljak>
-                </akt:odeljak>
-            </akt:glava>
-    </akt:deo>
+                </akt:pododeljak>
+            </akt:odeljak>
+        </akt:glava>
+    </akt:deo>    
 </akt:akt>

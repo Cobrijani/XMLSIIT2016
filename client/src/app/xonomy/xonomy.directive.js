@@ -16,15 +16,15 @@
       controller: controller,
       compile: compileFunction,
       link: linkFunction,
-      restrict: 'E',
+      restrict: 'E'
     };
 
 
-    function compileFunction(element, attrs) {
+    function compileFunction() {
       return linkFunction;
     }
 
-    function linkFunction(scope, element, attrs, controller) {
+    function linkFunction(scope, element) {
       var xml = "<akt:akt xmlns:akt='http://parlament.gov.rs/rs.ac.uns.ftn.model.akt'" +
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
         " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata'" +
@@ -41,14 +41,12 @@
         }
       });
 
-      scope.$watch('startContent', function (newValue, oldValue) {
-        Xonomy.render(newValue || xml, element[0], scope.spec)
-      })
+      scope.$watch('startContent', function (newValue) {
+        Xonomy.render(newValue || xml, element[0], scope.spec);
+      });
     }
 
-    function controller($scope) {
-
-
+    function controller() {
     }
   }
 })();
