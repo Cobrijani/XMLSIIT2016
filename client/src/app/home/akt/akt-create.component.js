@@ -13,9 +13,9 @@
       bindings: {}
     });
 
-  AktCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'AktSpecification', 'aktValidation', 'AktIdsIncrementerService'];
+  AktCreateController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'AktSpecification', 'AktIdsIncrementerService'];
 
-  function AktCreateController($scope, GenericResource, exception, $state, AktSpecification, aktValidation, AktIdsIncrementerService) {
+  function AktCreateController($scope, GenericResource, exception, $state, AktSpecification, AktIdsIncrementerService) {
     var vm = this;
 
     vm.validation = {
@@ -27,7 +27,6 @@
     vm.docMode = 'laic';
     radioBtnChange(vm.docMode);
     vm.spec = AktSpecification.akt;
-    $scope.aktValidation = aktValidation;
 
     //content
 
