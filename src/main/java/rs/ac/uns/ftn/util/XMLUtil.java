@@ -11,6 +11,8 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -25,8 +27,11 @@ import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -37,6 +42,8 @@ import java.util.List;
 @Slf4j
 @UtilityClass
 public class XMLUtil {
+
+
 
   /**
    * Creates {@link JAXBHandle} for given class
@@ -107,7 +114,29 @@ public class XMLUtil {
     InputStream xsltFile = new FileInputStream(xslFile);
 
     final DOMSource source = new DOMSource(document);
-    final StreamSource xslSource = new StreamSource(xslFile);
+    final StreamSource xslSource = new StreamSource(xsltFile);
+
+    final FOUserAgent userAgent = fopFactory.newFOUserAgent();
+
+
+    final Transformer xslFoTransformer = transformerFactory.newTransformer(xslSource);
+    final Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, outputStream);
+    final Result result = new SAXResult(fop.getDefaultHandler());
+
+
+    xslFoTransformer.transform(source, result);
+
+  }
+
+  public void toPdf(Document document, OutputStream outputStream, Resource xslFile, Resource fopXConf) throws IOException, SAXException, TransformerException {
+    final FopFactory fopFactory = FopFactory.newInstance(fopXConf.getFile());
+
+    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+    InputStream xsltFile = xslFile.getInputStream();
+
+    final DOMSource source = new DOMSource(document);
+    final StreamSource xslSource = new StreamSource(xsltFile);
 
     final FOUserAgent userAgent = fopFactory.newFOUserAgent();
 
@@ -130,8 +159,12 @@ public class XMLUtil {
 
   public static XMLGregorianCalendar getToday() {
     GregorianCalendar gregorianCalendar = new GregorianCalendar();
-    gregorianCalendar.setGregorianChange(new Date());
     return new XMLGregorianCalendarImpl(gregorianCalendar);
+  }
+
+  public static XMLGregorianCalendar toXmlCalendar(Long timeStamp) {
+    LocalDateTime time = LocalDateTime.ofInstant(Instant.ofEpochSecond(timeStamp), ZoneId.systemDefault());
+    return new XMLGregorianCalendarImpl(GregorianCalendar.from(ZonedDateTime.of(time, ZoneId.systemDefault())));
   }
 
 

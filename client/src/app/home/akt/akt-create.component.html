@@ -19,16 +19,16 @@
         </div>
       </div>
       <div class="btn-group pull-right">
-        <div class="btn btn-primary btn-sm">Import-uj dokument</div>
-        <div class="btn btn-info btn-sm">Export-uj dokument</div>
-        <div class="btn btn-success btn-sm" ng-click="vm.createAkt()">Sačuvaj dokument</div>
+        <!--<div class="btn btn-primary btn-sm">Import-uj dokument</div>
+        <div class="btn btn-info btn-sm">Export-uj dokument</div>-->
+        <div class="btn btn-success btn-sm" ng-disabled="!vm.validation.valid" ng-click="vm.validation.valid && vm.createAkt()">Sačuvaj dokument</div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-sm-12" ng-class="{'btn-danger': !vm.validation.valid, 'btn-success': vm.validation.valid}">
+  <div class="col-sm-12" ng-class="{'red-label': !vm.validation.valid, 'green-label': vm.validation.valid}">
     {{vm.validation.message}}
   </div>
 </div>
@@ -36,7 +36,6 @@
 <div class="row menu-container-margin">
   <div class="col-sm-12">
     <xonomy ng-show="vm.xonomyMode" mode="vm.docMode" start-content="vm.akt" spec="vm.spec"></xonomy>
-    <textarea ng-show="!vm.xonomyMode" name="content" class="form-control" rows="20" id="akt" ng-model="vm.akt"
-              required></textarea>
+    <textarea ng-show="!vm.xonomyMode" name="content" class="form-control" rows="20" id="akt" ng-model="vm.akt" required></textarea>
   </div>
 </div>

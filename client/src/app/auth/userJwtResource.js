@@ -33,7 +33,6 @@
         },
         function (error) {
           $log.info(error);
-          logout();
           deferred.reject(error);
         });
 

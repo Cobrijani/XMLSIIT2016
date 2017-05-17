@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by SBratic on 3/15/2017.
  */
 
-@Service
+@Service(value = "XmlSchemaRegistry")
 public class XmlSchemaRegistry implements Registry<String, Resource> {
 
   private final Map<String, Resource> schemaRegistry;

@@ -70,8 +70,6 @@ public class RdfServiceImpl implements RdfService {
     // Initialize transformation subject
     // Trigger the transformation
 
-    System.out.println(source.getSystemId());
-
     try {
       grddlTransformer.transform(source, result);
     } catch (TransformerException e) {

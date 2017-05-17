@@ -55,6 +55,13 @@ div[ng-messages] {
   color: red;
 }
 
+.red-label{
+  color:red;
+}
+.green-label{
+  color:green;
+}
+
 .control-label,
 .form-control {
   color: black;
@@ -116,6 +123,16 @@ div[ng-messages] {
 .btn-info:hover {
   color: #5bc0de;
   background: white;
+}
+
+.btn-danger:hover {
+  color: red;
+  background: white;
+}
+
+.btn-danger {
+  color: white;
+  background: red;
 }
 
 .btn-default:hover {

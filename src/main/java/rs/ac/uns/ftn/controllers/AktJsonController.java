@@ -3,14 +3,15 @@ package rs.ac.uns.ftn.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
-import rs.ac.uns.ftn.model.metadata.AktMetadata;
+import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktService;
@@ -41,8 +42,8 @@ public class AktJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<AktMetadata>> findAll(Pageable pageable) {
-    return ResponseEntity.ok(aktService.getMetadata(pageable));
+  public ResponseEntity<Page<AktMetadata>> findAll(Pageable pageable, AktMetadataPredicate predicate) {
+    return ResponseEntity.ok(aktService.getMetadataPage(pageable, predicate));
   }
 
   @GetMapping(value = "/{id}")
