@@ -20,15 +20,12 @@
         <xs:element name="izmene">
           <xs:complexType>
             <xs:sequence>
-              <xs:choice maxOccurs="unbounded">
-                <xs:element maxOccurs="1" ref="am:izmena"/>
-                <xs:element ref="am:mala_izmena"/>
-              </xs:choice>
+              <xs:element maxOccurs="unbounded" ref="am:izmena"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="1" ref="am:obrazlozenje"/>
-        <xs:element ref="am:document_am_ref" minOccurs="0"/>
+        <xs:element ref="am:document_am_ref" minOccurs="1"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:attribute name="akt_id" type="xs:string"/>
@@ -48,46 +45,38 @@
   <xs:element name="izmena">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="am:odredba"/>
+        <xs:element ref="am:predmet_izmene"/>
         <xs:element ref="am:tip_izmene"/>
-        <xs:element ref="am:resenje"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="mala_izmena">
-    <xs:complexType mixed="true">
-      <xs:sequence>
-        <xs:element ref="akt:referenca"/>
-        <xs:element name="stara_vrednost" type="xs:string"/>
-        <xs:element ref="am:tip_izmene"/>
-        <xs:element name="nova_vrednost" type="xs:string"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="odredba">
-    <xs:complexType mixed="true">
-      <xs:sequence>
-        <xs:element ref="akt:referenca"/>
+        <xs:element name="resenja">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="am:resenje" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="tip_izmene">
     <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="BRISANJE"/>
-        <xs:enumeration value="IZMENA"/>
-        <xs:enumeration value="DOPUNA"/>
-      </xs:restriction>
+      <xs:restriction base="am:TTipIzmene"> </xs:restriction>
     </xs:simpleType>
   </xs:element>
+  <xs:simpleType name="TTipIzmene">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="izmena"/>
+      <xs:enumeration value="dopuna"/>
+      <xs:enumeration value="brisanje"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:element name="resenje">
     <xs:complexType>
       <xs:choice>
-        <xs:element ref="akt:podtacka"/>
-        <xs:element ref="akt:alineja"/>
-        <xs:element ref="akt:clan"/>
-        <xs:element ref="akt:stav"/>
-        <xs:element ref="akt:tacka"/>
+        <xs:element ref="akt:podtacka" minOccurs="0"/>
+        <xs:element ref="akt:alineja" minOccurs="0"/>
+        <xs:element ref="akt:clan" minOccurs="0"/>
+        <xs:element ref="akt:stav" minOccurs="0"/>
+        <xs:element ref="akt:tacka" minOccurs="0"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
@@ -116,4 +105,34 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <!-- Izgled atributa reference. Moze biti sledeceg oblika
+            Kao obican id (niz karaktera, brojeva i _): clan15
+            Kao vise id-eva u obliku: clan4,clan5,clan6
+           -->
+  <xs:simpleType name="TNiz_referenci">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\w+,?)+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--  Atribut referenca na clan, clanove, stav, stavove, tacku ili tacke nekog akta.
+            Ovi atributi nalaze se u elementu <referenca></referenca>.
+            Validni oblici:
+        <referenca ref_clanovi="clan5,clan6"></referenca>
+    -->
+  <xs:attributeGroup name="AGReferenca">
+    <xs:attribute name="ceo_akt" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="ref_clanovi" type="am:TNiz_referenci" use="optional"/>
+    <xs:attribute name="ref_stavovi" type="am:TNiz_referenci" use="optional"/>
+    <xs:attribute name="ref_tacke" type="am:TNiz_referenci" use="optional"/>
+  </xs:attributeGroup>
+
+  <!-- Tip reference. Prakticno element koji je string sa atributima iz grupe referenca -->
+  <xs:complexType name="TReferenca">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attributeGroup ref="am:AGReferenca"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="predmet_izmene" type="am:TReferenca"/>
 </xs:schema>

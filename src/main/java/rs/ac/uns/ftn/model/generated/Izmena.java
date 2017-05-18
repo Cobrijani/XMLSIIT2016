@@ -1,7 +1,8 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -11,121 +12,181 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}odredba"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}predmet_izmene"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}tip_izmene"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}resenje"/>
+ *         &lt;element name="resenja">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}resenje" maxOccurs="unbounded" minOccurs="0"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "odredba",
-    "tipIzmene",
-    "resenje"
+  "predmetIzmene",
+  "tipIzmene",
+  "resenja"
 })
 @XmlRootElement(name = "izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Izmena {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Odredba odredba;
-    @XmlElement(name = "tip_izmene", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String tipIzmene;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Resenje resenje;
+  @XmlElement(name = "predmet_izmene", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+  protected TReferenca predmetIzmene;
+  @XmlElement(name = "tip_izmene", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+  protected TTipIzmene tipIzmene;
+  @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+  protected Izmena.Resenja resenja;
 
-    /**
-     * Gets the value of the odredba property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Odredba }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Odredba getOdredba() {
-        return odredba;
-    }
+  /**
+   * Gets the value of the predmetIzmene property.
+   *
+   * @return
+   *     possible object is
+   *     {@link TReferenca }
+   *
+   */
+  public TReferenca getPredmetIzmene() {
+    return predmetIzmene;
+  }
 
-    /**
-     * Sets the value of the odredba property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Odredba }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setOdredba(Odredba value) {
-        this.odredba = value;
-    }
+  /**
+   * Sets the value of the predmetIzmene property.
+   *
+   * @param value
+   *     allowed object is
+   *     {@link TReferenca }
+   *
+   */
+  public void setPredmetIzmene(TReferenca value) {
+    this.predmetIzmene = value;
+  }
 
-    /**
-     * Gets the value of the tipIzmene property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getTipIzmene() {
-        return tipIzmene;
-    }
+  /**
+   * Gets the value of the tipIzmene property.
+   *
+   * @return
+   *     possible object is
+   *     {@link TTipIzmene }
+   *
+   */
+  public TTipIzmene getTipIzmene() {
+    return tipIzmene;
+  }
 
-    /**
-     * Sets the value of the tipIzmene property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setTipIzmene(String value) {
-        this.tipIzmene = value;
-    }
+  /**
+   * Sets the value of the tipIzmene property.
+   *
+   * @param value
+   *     allowed object is
+   *     {@link TTipIzmene }
+   *
+   */
+  public void setTipIzmene(TTipIzmene value) {
+    this.tipIzmene = value;
+  }
+
+  /**
+   * Gets the value of the resenja property.
+   *
+   * @return
+   *     possible object is
+   *     {@link Izmena.Resenja }
+   *
+   */
+  public Izmena.Resenja getResenja() {
+    return resenja;
+  }
+
+  /**
+   * Sets the value of the resenja property.
+   *
+   * @param value
+   *     allowed object is
+   *     {@link Izmena.Resenja }
+   *
+   */
+  public void setResenja(Izmena.Resenja value) {
+    this.resenja = value;
+  }
+
+
+  /**
+   * <p>Java class for anonymous complex type.
+   *
+   * <p>The following schema fragment specifies the expected content contained within this class.
+   *
+   * <pre>
+   * &lt;complexType>
+   *   &lt;complexContent>
+   *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+   *       &lt;sequence>
+   *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}resenje" maxOccurs="unbounded" minOccurs="0"/>
+   *       &lt;/sequence>
+   *     &lt;/restriction>
+   *   &lt;/complexContent>
+   * &lt;/complexType>
+   * </pre>
+   *
+   *
+   */
+  @XmlAccessorType(XmlAccessType.FIELD)
+  @XmlType(name = "", propOrder = {
+    "resenje"
+  })
+  public static class Resenja {
+
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+    protected List<Resenje> resenje;
 
     /**
      * Gets the value of the resenje property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Resenje }
-     *     
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the resenje property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getResenje().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Resenje }
+     *
+     *
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Resenje getResenje() {
-        return resenje;
+    public List<Resenje> getResenje() {
+      if (resenje == null) {
+        resenje = new ArrayList<Resenje>();
+      }
+      return this.resenje;
     }
 
-    /**
-     * Sets the value of the resenje property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Resenje }
-     *     
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setResenje(Resenje value) {
-        this.resenje = value;
-    }
+  }
 
 }

@@ -19,11 +19,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;choice>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}podtacka"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}alineja"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}stav"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}tacka"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}podtacka" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}alineja" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}stav" minOccurs="0"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}tacka" minOccurs="0"/>
  *       &lt;/choice>
  *     &lt;/restriction>
  *   &lt;/complexContent>
