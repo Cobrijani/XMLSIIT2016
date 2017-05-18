@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
@@ -54,5 +55,11 @@ public class AmandmanJsonController {
   public ResponseEntity<Void> deleteAkt(@PathVariable String id) {
     amandmanService.removeById(id);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<AmandmanForSednicaDTO> putAmandman(@RequestBody AmandmanForSednicaDTO amDTO, @PathVariable String id){
+    AmandmanForSednicaDTO amandman = amandmanService.putAmandman(id, amDTO);
+    return ResponseEntity.ok(amandman);
   }
 }

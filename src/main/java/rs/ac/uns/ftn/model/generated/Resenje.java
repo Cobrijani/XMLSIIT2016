@@ -1,6 +1,7 @@
 
 package rs.ac.uns.ftn.model.generated;
 
+import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -40,17 +41,23 @@ import javax.xml.bind.annotation.XmlType;
     "tacka"
 })
 @XmlRootElement(name = "resenje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Resenje {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Podtacka podtacka;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Alineja alineja;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Clan clan;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Stav stav;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Tacka tacka;
 
     /**
@@ -61,6 +68,7 @@ public class Resenje {
      *     {@link Podtacka }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Podtacka getPodtacka() {
         return podtacka;
     }
@@ -73,6 +81,7 @@ public class Resenje {
      *     {@link Podtacka }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setPodtacka(Podtacka value) {
         this.podtacka = value;
     }
@@ -85,6 +94,7 @@ public class Resenje {
      *     {@link Alineja }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Alineja getAlineja() {
         return alineja;
     }
@@ -97,6 +107,7 @@ public class Resenje {
      *     {@link Alineja }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAlineja(Alineja value) {
         this.alineja = value;
     }
@@ -109,6 +120,7 @@ public class Resenje {
      *     {@link Clan }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Clan getClan() {
         return clan;
     }
@@ -121,6 +133,7 @@ public class Resenje {
      *     {@link Clan }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setClan(Clan value) {
         this.clan = value;
     }
@@ -133,6 +146,7 @@ public class Resenje {
      *     {@link Stav }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Stav getStav() {
         return stav;
     }
@@ -145,6 +159,7 @@ public class Resenje {
      *     {@link Stav }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setStav(Stav value) {
         this.stav = value;
     }
@@ -157,6 +172,7 @@ public class Resenje {
      *     {@link Tacka }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Tacka getTacka() {
         return tacka;
     }
@@ -169,6 +185,7 @@ public class Resenje {
      *     {@link Tacka }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setTacka(Tacka value) {
         this.tacka = value;
     }

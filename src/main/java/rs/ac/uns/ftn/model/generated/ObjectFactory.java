@@ -24,37 +24,25 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _PredmetIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "predmet_izmene");
+    private final static QName _Result_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.document", "result");
     private final static QName _TipIzmene_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "tip_izmene");
     private final static QName _Amandman_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "amandman");
     private final static QName _Menja_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "menja");
-    private final static QName _Napravio_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "napravio");
+    private final static QName _Document_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.document", "document");
     private final static QName _Preambula_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", "preambula");
+    private final static QName _Napravio_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "napravio");
     private final static QName _Korisnik_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "korisnik");
-    private final static QName _Akt_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "akt");
+    private final static QName _State_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.document", "state");
     private final static QName _Pripada_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "pripada");
+    private final static QName _Akt_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", "akt");
+    private final static QName _MalaIzmenaNovaVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "nova_vrednost");
+    private final static QName _MalaIzmenaStaraVrednost_QNAME = new QName("http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", "stara_vrednost");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: rs.ac.uns.ftn.model.generated
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link Akti }
-     * 
-     */
-    public Akti createAkti() {
-        return new Akti();
-    }
-
-    /**
-     * Create an instance of {@link Amandmani }
-     * 
-     */
-    public Amandmani createAmandmani() {
-        return new Amandmani();
     }
 
     /**
@@ -74,27 +62,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Izmena }
+     * Create an instance of {@link ZaglavljeAmandman.AktRef }
      * 
      */
-    public Izmena createIzmena() {
-        return new Izmena();
-    }
-
-    /**
-     * Create an instance of {@link Sednica }
-     * 
-     */
-    public Sednica createSednica() {
-        return new Sednica();
-    }
-
-    /**
-     * Create an instance of {@link ZaglavljeSednica }
-     * 
-     */
-    public ZaglavljeSednica createZaglavljeSednica() {
-        return new ZaglavljeSednica();
+    public ZaglavljeAmandman.AktRef createZaglavljeAmandmanAktRef() {
+        return new ZaglavljeAmandman.AktRef();
     }
 
     /**
@@ -122,43 +94,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Informacije }
+     * Create an instance of {@link Amandman.Izmene }
      * 
      */
-    public Informacije createInformacije() {
-        return new Informacije();
+    public Amandman.Izmene createAmandmanIzmene() {
+        return new Amandman.Izmene();
     }
 
     /**
-     * Create an instance of {@link Akti.AktRef }
+     * Create an instance of {@link Obrazlozenje }
      * 
      */
-    public Akti.AktRef createAktiAktRef() {
-        return new Akti.AktRef();
+    public Obrazlozenje createObrazlozenje() {
+        return new Obrazlozenje();
     }
 
     /**
-     * Create an instance of {@link Amandmani.AmandmanRef }
+     * Create an instance of {@link DocumentAmRef }
      * 
      */
-    public Amandmani.AmandmanRef createAmandmaniAmandmanRef() {
-        return new Amandmani.AmandmanRef();
+    public DocumentAmRef createDocumentAmRef() {
+        return new DocumentAmRef();
     }
 
     /**
-     * Create an instance of {@link Id }
+     * Create an instance of {@link Document }
      * 
      */
-    public Id createId() {
-        return new Id();
+    public Document createDocument() {
+        return new Document();
     }
 
     /**
-     * Create an instance of {@link Stav }
+     * Create an instance of {@link Odredba }
      * 
      */
-    public Stav createStav() {
-        return new Stav();
+    public Odredba createOdredba() {
+        return new Odredba();
     }
 
     /**
@@ -170,11 +142,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Tacka }
+     * Create an instance of {@link Resenje }
      * 
      */
-    public Tacka createTacka() {
-        return new Tacka();
+    public Resenje createResenje() {
+        return new Resenje();
     }
 
     /**
@@ -194,6 +166,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Clan }
+     * 
+     */
+    public Clan createClan() {
+        return new Clan();
+    }
+
+    /**
+     * Create an instance of {@link Stav }
+     * 
+     */
+    public Stav createStav() {
+        return new Stav();
+    }
+
+    /**
+     * Create an instance of {@link Tacka }
+     * 
+     */
+    public Tacka createTacka() {
+        return new Tacka();
+    }
+
+    /**
+     * Create an instance of {@link MalaIzmena }
+     * 
+     */
+    public MalaIzmena createMalaIzmena() {
+        return new MalaIzmena();
+    }
+
+    /**
+     * Create an instance of {@link Izmena }
+     * 
+     */
+    public Izmena createIzmena() {
+        return new Izmena();
+    }
+
+    /**
      * Create an instance of {@link Odeljak }
      * 
      */
@@ -207,14 +219,6 @@ public class ObjectFactory {
      */
     public Pododeljak createPododeljak() {
         return new Pododeljak();
-    }
-
-    /**
-     * Create an instance of {@link Clan }
-     * 
-     */
-    public Clan createClan() {
-        return new Clan();
     }
 
     /**
@@ -234,6 +238,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DocumentAktRef }
+     * 
+     */
+    public DocumentAktRef createDocumentAktRef() {
+        return new DocumentAktRef();
+    }
+
+    /**
      * Create an instance of {@link Deo }
      * 
      */
@@ -250,69 +262,37 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ZaglavljeAmandman.AktRef }
+     * Create an instance of {@link Id }
      * 
      */
-    public ZaglavljeAmandman.AktRef createZaglavljeAmandmanAktRef() {
-        return new ZaglavljeAmandman.AktRef();
+    public Id createId() {
+        return new Id();
     }
 
     /**
-     * Create an instance of {@link Amandman.Izmene }
+     * Create an instance of {@link Results }
      * 
      */
-    public Amandman.Izmene createAmandmanIzmene() {
-        return new Amandman.Izmene();
+    public Results createResults() {
+        return new Results();
     }
 
     /**
-     * Create an instance of {@link Obrazlozenje }
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    public Obrazlozenje createObrazlozenje() {
-        return new Obrazlozenje();
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", name = "result", defaultValue = "default")
+    public JAXBElement<String> createResult(String value) {
+        return new JAXBElement<String>(_Result_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link TReferenca }
-     * 
-     */
-    public TReferenca createTReferenca() {
-        return new TReferenca();
-    }
-
-    /**
-     * Create an instance of {@link Resenje }
-     * 
-     */
-    public Resenje createResenje() {
-        return new Resenje();
-    }
-
-    /**
-     * Create an instance of {@link Izmena.Resenja }
-     * 
-     */
-    public Izmena.Resenja createIzmenaResenja() {
-        return new Izmena.Resenja();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TReferenca }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "predmet_izmene")
-    public JAXBElement<TReferenca> createPredmetIzmene(TReferenca value) {
-        return new JAXBElement<TReferenca>(_PredmetIzmene_QNAME, TReferenca.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TTipIzmene }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "tip_izmene")
-    public JAXBElement<TTipIzmene> createTipIzmene(TTipIzmene value) {
-        return new JAXBElement<TTipIzmene>(_TipIzmene_QNAME, TTipIzmene.class, null, value);
+    public JAXBElement<String> createTipIzmene(String value) {
+        return new JAXBElement<String>(_TipIzmene_QNAME, String.class, null, value);
     }
 
     /**
@@ -334,12 +314,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Document }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "napravio")
-    public JAXBElement<Object> createNapravio(Object value) {
-        return new JAXBElement<Object>(_Napravio_QNAME, Object.class, null, value);
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", name = "document")
+    public JAXBElement<Document> createDocument(Document value) {
+        return new JAXBElement<Document>(_Document_QNAME, Document.class, null, value);
     }
 
     /**
@@ -355,9 +335,36 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
      * 
      */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "napravio")
+    public JAXBElement<Object> createNapravio(Object value) {
+        return new JAXBElement<Object>(_Napravio_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
     @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "korisnik")
     public JAXBElement<Object> createKorisnik(Object value) {
         return new JAXBElement<Object>(_Korisnik_QNAME, Object.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", name = "state", defaultValue = "default")
+    public JAXBElement<String> createState(String value) {
+        return new JAXBElement<String>(_State_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "pripada")
+    public JAXBElement<Object> createPripada(Object value) {
+        return new JAXBElement<Object>(_Pripada_QNAME, Object.class, null, value);
     }
 
     /**
@@ -370,12 +377,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/", name = "pripada")
-    public JAXBElement<Object> createPripada(Object value) {
-        return new JAXBElement<Object>(_Pripada_QNAME, Object.class, null, value);
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "nova_vrednost", scope = MalaIzmena.class)
+    public JAXBElement<String> createMalaIzmenaNovaVrednost(String value) {
+        return new JAXBElement<String>(_MalaIzmenaNovaVrednost_QNAME, String.class, MalaIzmena.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", name = "stara_vrednost", scope = MalaIzmena.class)
+    public JAXBElement<String> createMalaIzmenaStaraVrednost(String value) {
+        return new JAXBElement<String>(_MalaIzmenaStaraVrednost_QNAME, String.class, MalaIzmena.class, value);
     }
 
 }

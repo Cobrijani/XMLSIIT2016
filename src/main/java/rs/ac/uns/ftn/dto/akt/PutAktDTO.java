@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Created by SBratic on 2/25/2017.
+ * Created by Micko on 25-Mar-17.
  */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AktDTO {
+public class PutAktDTO {
 
   private String id;
 
@@ -21,5 +21,13 @@ public class AktDTO {
   private String dateCreated;
 
   private String state;
+
+  private String result;
+
+  private Integer forVote;
+
+  private Integer against;
+
+  private Integer notVote;
 
 }

@@ -1,14 +1,10 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -22,9 +18,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}clan" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}state"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}result"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}results"/>
  *       &lt;/sequence>
- *       &lt;attGroup ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.akt}prosireniUobicajeniAtributi"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -34,57 +31,25 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "clan"
+    "state",
+    "result",
+    "results"
 })
-@XmlRootElement(name = "pododeljak", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Pododeljak {
+public class Document {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", required = true)
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true, defaultValue = "default")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected List<Clan> clan;
-    @XmlAttribute(name = "redniBroj")
+    protected String state;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true, defaultValue = "default")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String redniBroj;
-    @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected String result;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String id;
-    @XmlAttribute(name = "naziv", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected String naziv;
+    protected Results results;
 
     /**
-     * Gets the value of the clan property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the clan property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getClan().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Clan }
-     * 
-     * 
-     */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public List<Clan> getClan() {
-        if (clan == null) {
-            clan = new ArrayList<Clan>();
-        }
-        return this.clan;
-    }
-
-    /**
-     * Gets the value of the redniBroj property.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
@@ -92,12 +57,12 @@ public class Pododeljak {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getRedniBroj() {
-        return redniBroj;
+    public String getState() {
+        return state;
     }
 
     /**
-     * Sets the value of the redniBroj property.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is
@@ -105,12 +70,12 @@ public class Pododeljak {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setRedniBroj(String value) {
-        this.redniBroj = value;
+    public void setState(String value) {
+        this.state = value;
     }
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the result property.
      * 
      * @return
      *     possible object is
@@ -118,12 +83,12 @@ public class Pododeljak {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getId() {
-        return id;
+    public String getResult() {
+        return result;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the result property.
      * 
      * @param value
      *     allowed object is
@@ -131,34 +96,34 @@ public class Pododeljak {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setId(String value) {
-        this.id = value;
+    public void setResult(String value) {
+        this.result = value;
     }
 
     /**
-     * Gets the value of the naziv property.
+     * Gets the value of the results property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Results }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public String getNaziv() {
-        return naziv;
+    public Results getResults() {
+        return results;
     }
 
     /**
-     * Sets the value of the naziv property.
+     * Sets the value of the results property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Results }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setNaziv(String value) {
-        this.naziv = value;
+    public void setResults(Results value) {
+        this.results = value;
     }
 
 }

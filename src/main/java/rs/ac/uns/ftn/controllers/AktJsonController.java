@@ -9,6 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
@@ -63,5 +67,11 @@ public class AktJsonController {
   public ResponseEntity<List<AmandmanMetadata>> getAktsAmandmands(@PathVariable String id) {
     List<AmandmanMetadata> amandmands = aktService.findAktAmandmandsById(id);
     return ResponseEntity.ok(amandmands);
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<PutAktDTO> putAkt(@RequestBody PutAktDTO aktDTO, @PathVariable String id){
+    PutAktDTO akt = aktService.putAkt(id, aktDTO);
+    return ResponseEntity.ok(akt);
   }
 }

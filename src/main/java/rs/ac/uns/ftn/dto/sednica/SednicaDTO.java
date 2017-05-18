@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 /**
  * Created by Micko on 04-Mar-17.
  */
@@ -18,7 +20,7 @@ public class SednicaDTO {
 
   private String naziv;
 
-  private String datum;
+  private XMLGregorianCalendar datum;
 
   private String mesto;
 
