@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
@@ -32,10 +31,7 @@ import javax.xml.namespace.QName;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;choice maxOccurs="unbounded">
- *                     &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}izmena_celog_clana"/>
- *                     &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}mala_izmena_clana"/>
- *                   &lt;/choice>
+ *                   &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}izmena" maxOccurs="unbounded"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -224,10 +220,7 @@ public class Amandman {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;choice maxOccurs="unbounded">
-     *           &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}izmena_celog_clana"/>
-     *           &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}mala_izmena_clana"/>
-     *         &lt;/choice>
+     *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}izmena" maxOccurs="unbounded"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -238,44 +231,40 @@ public class Amandman {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "izmenaCelogClanaOrMalaIzmenaClana"
+        "izmena"
     })
     public static class Izmene {
 
-        @XmlElements({
-            @XmlElement(name = "izmena_celog_clana", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = IzmenaCelogClana.class),
-            @XmlElement(name = "mala_izmena_clana", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = MalaIzmenaClana.class)
-        })
-        protected List<Object> izmenaCelogClanaOrMalaIzmenaClana;
+        @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+        protected List<Izmena> izmena;
 
         /**
-         * Gets the value of the izmenaCelogClanaOrMalaIzmenaClana property.
+         * Gets the value of the izmena property.
          * 
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the izmenaCelogClanaOrMalaIzmenaClana property.
+         * This is why there is not a <CODE>set</CODE> method for the izmena property.
          * 
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
-         *    getIzmenaCelogClanaOrMalaIzmenaClana().add(newItem);
+         *    getIzmena().add(newItem);
          * </pre>
          * 
          * 
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link IzmenaCelogClana }
-         * {@link MalaIzmenaClana }
+         * {@link Izmena }
          * 
          * 
          */
-        public List<Object> getIzmenaCelogClanaOrMalaIzmenaClana() {
-            if (izmenaCelogClanaOrMalaIzmenaClana == null) {
-                izmenaCelogClanaOrMalaIzmenaClana = new ArrayList<Object>();
+        public List<Izmena> getIzmena() {
+            if (izmena == null) {
+                izmena = new ArrayList<Izmena>();
             }
-            return this.izmenaCelogClanaOrMalaIzmenaClana;
+            return this.izmena;
         }
 
     }

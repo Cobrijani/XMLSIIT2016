@@ -5,61 +5,60 @@
              xmlns:rdfa="http://www.w3.org/ns/rdfa#"
              xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/C:/Users/Arsa/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd" 
+             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/E:/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd" 
              
              meta:id="amandman"
-             akt_id="92965361-315b-4bbe-a5eb-f10b8c0c11d7">
+             akt_id="c89b4cda-c292-4392-aad9-d9afae29dd66">
   <am:zaglavlje_amandman>
     <am:akt_ref/>
-    <meta:naziv>pripis o izmenama i dopunama krivicnog zakonika</meta:naziv>
+    <meta:naziv>Propis o izmenama i dopunama krivičnog zakonika</meta:naziv>
     <meta:dateCreated>2006-05-04T18:13:51.0</meta:dateCreated>
     <meta:dateModified>2006-05-04T18:13:51.0</meta:dateModified>
   </am:zaglavlje_amandman>
   <am:izmene>
-    <am:izmena_celog_clana>
-      <am:predmet_izmene ref_clanovi="clan2">Clan 2. menja se i glasi:</am:predmet_izmene>
+    <am:izmena>
+      <am:predmet_izmene ref_clanovi="clan2">Član 2. menja se i glasi:</am:predmet_izmene>
       <am:tip_izmene>izmena</am:tip_izmene>
-      <am:resenje>
-        <akt:clan  meta:naziv="Nema kazne bez krivice" meta:id="clan2">
-          <akt:stav meta:id="stav2">
-            Izmenjeni clan pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
-          </akt:stav>
-        </akt:clan>
-      </am:resenje>
-    </am:izmena_celog_clana>
-    <am:izmena_celog_clana>
-      <am:predmet_izmene ref_clanovi="clan3">Brise se clan 3</am:predmet_izmene>
+      <am:resenja>
+        <am:resenje>
+          <akt:clan  meta:naziv="Nema kazne bez krivice" meta:id="clan2">
+            <akt:stav meta:id="stav2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non condimentum metus. Phasellus tempus venenatis nunc sed molestie. Fusce sed consectetur eros. Vivamus diam velit, mollis at nisi ut, dignissim pellentesque ligula. Ut sollicitudin quis lectus id varius. Phasellus vulputate magna at lobortis commodo. Morbi pharetra condimentum pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse venenatis lorem et mauris elementum semper. Nulla facilisi. Aenean aliquam sollicitudin eros, vel rhoncus enim fringilla sit amet. Donec vitae vestibulum elit. Fusce eget lectus vel dui imperdiet efficitur.
+            </akt:stav>
+          </akt:clan>
+        </am:resenje>
+      </am:resenja>
+    </am:izmena>
+    <am:izmena>
+      <am:predmet_izmene ref_clanovi="clan3">Briše se član 3.</am:predmet_izmene>
       <am:tip_izmene>brisanje</am:tip_izmene>
-    </am:izmena_celog_clana>
-    <am:izmena_celog_clana>
-      <am:predmet_izmene ref_clanovi="clan4">Nakon Clana 4. dodaje se Clan 4a koji glasi:</am:predmet_izmene>
+      <am:resenja></am:resenja>
+    </am:izmena>
+    <am:izmena>
+      <am:predmet_izmene ref_clanovi="clan4">Nakon člana 4. dodaju se članovi koji glase:</am:predmet_izmene>
       <am:tip_izmene>dopuna</am:tip_izmene>
-      <am:resenje>
-        <akt:clan  meta:naziv="novi Clan4a" meta:id="clan4a">
-          <akt:stav meta:id="stav4a">
-            Dodati clan4a pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
-          </akt:stav>
-        </akt:clan>
-      </am:resenje>
-      <am:resenje>
-        <akt:clan  meta:naziv="novi clan 4b" meta:id="clan4b">
-          <akt:stav meta:id="stav4b">
-            Dodati clan4b pomocu amandmana: "pripis o izmenama i dopunama krivicnog zakonika"
-          </akt:stav>
-        </akt:clan>
-      </am:resenje>
-    </am:izmena_celog_clana>
-    <am:mala_izmena_clana>
-      <am:predmet_izmene ceo_akt="true"></am:predmet_izmene>
-      <am:stara_vrednost>Lorem ipsum</am:stara_vrednost>
-      <am:tip_izmene>izmena</am:tip_izmene>
-      <am:nova_vrednost>izmenjene reci</am:nova_vrednost>
-    </am:mala_izmena_clana>
+      <am:resenja>
+        <am:resenje>
+          <akt:clan  meta:naziv="novi Clan4a" meta:id="clan4a">
+            <akt:stav meta:id="stav4a">
+              Integer ac dignissim ipsum. Cras ac orci mollis, consequat ligula eget, rutrum est. Nam et nulla a mauris laoreet congue eget sed quam. Vivamus cursus risus a mi vestibulum, at sodales dolor aliquet. Sed faucibus pulvinar malesuada. Aliquam eget turpis at libero ultrices commodo. Curabitur at tristique urna. In id vehicula sem, laoreet interdum leo. Nunc eget tellus tempor, dictum sem id, sodales urna. Morbi nec lectus lorem. Sed dapibus dolor vitae ante congue efficitur. Maecenas eget odio aliquet, tempor felis vitae, tempus elit. Mauris ullamcorper cursus magna, et hendrerit dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque luctus eleifend nibh vitae laoreet. Nulla gravida dui id neque facilisis ullamcorper sed sit amet augue.
+            </akt:stav>
+          </akt:clan>
+        </am:resenje>
+        <am:resenje>
+          <akt:clan  meta:naziv="novi clan 4b" meta:id="clan4b">
+            <akt:stav meta:id="stav4b">
+              Quisque id euismod elit. Vestibulum pulvinar nisl a enim egestas, non commodo metus bibendum. In et varius est, a cursus augue. Duis et velit vitae tellus aliquet accumsan. Donec condimentum efficitur nibh eget fermentum. Vestibulum vitae dapibus massa. Sed porttitor quam quis ex cursus laoreet. Sed mattis condimentum ipsum pellentesque convallis. Ut vitae velit lacinia, condimentum sapien et, pharetra massa. Nulla elementum augue nec malesuada efficitur. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam viverra felis in nulla aliquet, fermentum facilisis diam cursus.
+            </akt:stav>
+          </akt:clan>
+        </am:resenje>
+      </am:resenja>
+    </am:izmena>
   </am:izmene>
   <am:obrazlozenje>
-    <am:razlog_podnosenja>razlog_podnosenja0</am:razlog_podnosenja>
-    <am:objasnjenje_resenja>objasnjenje_resenja0</am:objasnjenje_resenja>
-    <am:cilj>cilj0</am:cilj>
-    <am:procena_uticaja>procena_uticaja0</am:procena_uticaja>
+    <am:razlog_podnosenja>Razlog podnosenja Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:razlog_podnosenja>
+    <am:objasnjenje_resenja>Objasnjenje Resenja Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:objasnjenje_resenja>
+    <am:cilj>Cilj Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:cilj>
+    <am:procena_uticaja>Procena_uticaja Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:procena_uticaja>
   </am:obrazlozenje>
 </am:amandman>

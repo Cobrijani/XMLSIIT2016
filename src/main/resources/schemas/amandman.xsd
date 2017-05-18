@@ -17,10 +17,7 @@
         <xs:element name="izmene">
           <xs:complexType>
             <xs:sequence>
-              <xs:choice maxOccurs="unbounded">
-                <xs:element maxOccurs="1" ref="am:izmena_celog_clana"/>
-                <xs:element ref="am:mala_izmena_clana"/>
-              </xs:choice>
+              <xs:element maxOccurs="unbounded" ref="am:izmena"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -41,26 +38,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="izmena_celog_clana">
+  <xs:element name="izmena">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="am:predmet_izmene"/>
         <xs:element ref="am:tip_izmene"/>
-        <xs:element ref="am:resenje" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="resenja">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="am:resenje" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="mala_izmena_clana">
-    <xs:complexType mixed="true">
-      <xs:sequence>
-        <xs:element ref="am:predmet_izmene"/>
-        <xs:element name="stara_vrednost" type="xs:string"/>
-        <xs:element ref="am:tip_izmene"/>
-        <xs:element name="nova_vrednost" type="xs:string" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="izmena_u_vise_clanova"/>
   <xs:element name="tip_izmene">
     <xs:simpleType>
       <xs:restriction base="am:TTipIzmene"> </xs:restriction>

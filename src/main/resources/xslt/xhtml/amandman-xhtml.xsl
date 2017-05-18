@@ -85,59 +85,106 @@
           padding-left: 2cm;
           font-size: 11pt;
           }
+          .izmena{
+          }
           .predmetizmene{
           font-size: 12pt;
           font-family: "Arial";
-          font-weight: bold;
+          }
+          .resenje{
+          font-size: 12pt;
+          font-family: "Arial";
           padding-left: 1cm;
           font-style: italic;
           }
         </style>
       </head>
       <body>
-        <xsl:apply-templates select="am:amandman"></xsl:apply-templates>
+        <xsl:apply-templates select="am:amandman"/>
       </body>
     </html>
   </xsl:template>
 
   <xsl:template match="am:amandman">
     <h1 id="{@meta:id}" class="amandman">
-      <xsl:value-of select="translate(am:zaglavlje_amandman/meta:naziv/text(), $smallcase, $uppercase)"></xsl:value-of>
+      <xsl:value-of select="translate(am:zaglavlje_amandman/meta:naziv/text(), $smallcase, $uppercase)"/>
     </h1>
     <div class="container">
-      <xsl:apply-templates select="am:izmene"></xsl:apply-templates>
-      <xsl:apply-templates select="am:obrazlozenje"></xsl:apply-templates>
+      <xsl:apply-templates select="am:izmene"/>
+      <xsl:apply-templates select="am:obrazlozenje"/>
     </div>
   </xsl:template>
 
   <xsl:template match="am:izmene">
     <div class="izmene">
-      <xsl:apply-templates select="am:izmena_celog_clana"></xsl:apply-templates>
+      <xsl:apply-templates select="am:izmena"/>
     </div>
   </xsl:template>
 
-  <xsl:template match="am:izmena_celog_clana">
-    <div class="izmena_celog_clana">
-      <xsl:apply-templates select="am:predment_izmene"></xsl:apply-templates>
-      <xsl:apply-templates select="am:resenje"></xsl:apply-templates>
+  <xsl:template match="am:izmena">
+    <div class="izmena">
+      <h3>Član <xsl:number format="1." level="any" count="am:izmena"></xsl:number></h3>
+      <xsl:apply-templates select="am:predmet_izmene"/>
+      <xsl:apply-templates select="am:resenja"/>
     </div>
+    <br/>
   </xsl:template>
 
   <xsl:template match="am:predmet_izmene">
     <div class="predmetizmene">
-      <xsl:apply-templates select="am:TReferenca"/>
+      <p><xsl:value-of select="text()"/></p>
     </div>
   </xsl:template>
-  
-  <xsl:template match="am:TReferenca">
-    <xsl:value-of select="text()"></xsl:value-of>
+
+  <xsl:template match="am:resenja">
+    <div class="resenja">
+      <xsl:apply-templates select="am:resenje"/>
+    </div>
   </xsl:template>
 
   <xsl:template match="am:resenje">
     <div class="resenje">
-    "
+      "
       <xsl:apply-templates/>
-    "
+      "
+    </div>
+  </xsl:template>
+
+  <xsl:template match="am:obrazlozenje">
+    <div class="obrazlozenje">
+      <h2>Obrazlozenje</h2>
+      <h3>I Razlog podnosenja</h3>
+      <xsl:apply-templates select="am:razlog_podnosenja"/>
+      <h3>II Objasnjenje resenja</h3>
+      <xsl:apply-templates select="am:objasnjenje_resenja"/>
+      <h3>III Cilj</h3>
+      <xsl:apply-templates select="am:cilj"/>
+      <h3>IV Procena uticaja</h3>
+      <xsl:apply-templates select="am:procena_uticaja"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="am:razlog_podnosenja">
+    <div class="razlog_podnosenja">
+      <p><xsl:value-of select="text()"/></p>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="am:objasnjenje_resenja">
+    <div class="objasnjenje_resenja">
+      <p><xsl:value-of select="text()"/></p>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="am:cilj">
+    <div class="cilj">
+      <p><xsl:value-of select="text()"/></p>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="am:procena_uticaja">
+    <div class="procena_uticaja">
+      <p><xsl:value-of select="text()"/></p>
     </div>
   </xsl:template>
 

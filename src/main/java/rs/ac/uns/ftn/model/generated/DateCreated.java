@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.model.generated;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -37,15 +36,12 @@ import javax.xml.namespace.QName;
     "value"
 })
 @XmlRootElement(name = "dateCreated", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class DateCreated {
 
     @XmlValue
     @XmlSchemaType(name = "dateTime")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected XMLGregorianCalendar value;
     @XmlAnyAttribute
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -56,7 +52,6 @@ public class DateCreated {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public XMLGregorianCalendar getValue() {
         return value;
     }
@@ -69,7 +64,6 @@ public class DateCreated {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setValue(XMLGregorianCalendar value) {
         this.value = value;
     }
@@ -88,7 +82,6 @@ public class DateCreated {
      * @return
      *     always non-null
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-21T01:59:52+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }
