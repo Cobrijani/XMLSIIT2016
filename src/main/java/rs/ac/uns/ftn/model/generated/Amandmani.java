@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -47,11 +46,9 @@ import javax.xml.namespace.QName;
     "amandmanRef"
 })
 @XmlRootElement(name = "amandmani", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Amandmani {
 
     @XmlElement(name = "amandman_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Amandmani.AmandmanRef> amandmanRef;
 
     /**
@@ -76,7 +73,6 @@ public class Amandmani {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Amandmani.AmandmanRef> getAmandmanRef() {
         if (amandmanRef == null) {
             amandmanRef = new ArrayList<Amandmani.AmandmanRef>();
@@ -104,11 +100,9 @@ public class Amandmani {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class AmandmanRef {
 
         @XmlAnyAttribute
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
         /**
@@ -125,7 +119,6 @@ public class Amandmani {
          * @return
          *     always non-null
          */
-        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
         }

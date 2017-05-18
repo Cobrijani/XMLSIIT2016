@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
@@ -19,9 +18,9 @@ import javax.xml.namespace.QName;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -52,8 +51,8 @@ import javax.xml.namespace.QName;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -90,11 +89,11 @@ public class Amandman {
 
     /**
      * Gets the value of the zaglavljeAmandman property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link ZaglavljeAmandman }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public ZaglavljeAmandman getZaglavljeAmandman() {
@@ -103,11 +102,11 @@ public class Amandman {
 
     /**
      * Sets the value of the zaglavljeAmandman property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link ZaglavljeAmandman }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavljeAmandman(ZaglavljeAmandman value) {
@@ -116,11 +115,11 @@ public class Amandman {
 
     /**
      * Gets the value of the izmene property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Amandman.Izmene }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Amandman.Izmene getIzmene() {
@@ -129,11 +128,11 @@ public class Amandman {
 
     /**
      * Sets the value of the izmene property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Amandman.Izmene }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setIzmene(Amandman.Izmene value) {
@@ -142,11 +141,11 @@ public class Amandman {
 
     /**
      * Gets the value of the obrazlozenje property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Obrazlozenje }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Obrazlozenje getObrazlozenje() {
@@ -155,11 +154,11 @@ public class Amandman {
 
     /**
      * Sets the value of the obrazlozenje property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Obrazlozenje }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setObrazlozenje(Obrazlozenje value) {
@@ -168,11 +167,11 @@ public class Amandman {
 
     /**
      * Gets the value of the documentAmRef property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DocumentAmRef }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public DocumentAmRef getDocumentAmRef() {
@@ -181,11 +180,11 @@ public class Amandman {
 
     /**
      * Sets the value of the documentAmRef property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DocumentAmRef }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDocumentAmRef(DocumentAmRef value) {
@@ -194,11 +193,11 @@ public class Amandman {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
@@ -207,11 +206,11 @@ public class Amandman {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
@@ -220,11 +219,11 @@ public class Amandman {
 
     /**
      * Gets the value of the aktId property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getAktId() {
@@ -233,11 +232,11 @@ public class Amandman {
 
     /**
      * Sets the value of the aktId property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAktId(String value) {
@@ -246,15 +245,15 @@ public class Amandman {
 
     /**
      * Gets a map that contains attributes that aren't bound to any typed property on this class.
-     * 
+     *
      * <p>
-     * the map is keyed by the name of the attribute and 
+     * the map is keyed by the name of the attribute and
      * the value is the string value of the attribute.
-     * 
+     *
      * the map returned by this method is live, and you can add new attribute
      * by updating the map directly. Because of this design, there's no setter.
-     * 
-     * 
+     *
+     *
      * @return
      *     always non-null
      */
@@ -266,9 +265,9 @@ public class Amandman {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -283,52 +282,48 @@ public class Amandman {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "izmenaOrMalaIzmena"
+      "izmena"
     })
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class Izmene {
 
-        @XmlElements({
-            @XmlElement(name = "izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = Izmena.class),
-            @XmlElement(name = "mala_izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = MalaIzmena.class)
-        })
+        @XmlElement(name = "izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = Izmena.class)
         @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-        protected List<Object> izmenaOrMalaIzmena;
+        protected List<Izmena> izmena;
 
         /**
-         * Gets the value of the izmenaOrMalaIzmena property.
-         * 
+         * Gets the value of the izmena property.
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the izmenaOrMalaIzmena property.
-         * 
+         * This is why there is not a <CODE>set</CODE> method for the izmena property.
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
-         *    getIzmenaOrMalaIzmena().add(newItem);
+         *    getIzmena().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Izmena }
-         * {@link MalaIzmena }
-         * 
-         * 
+         *
+         *
          */
         @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-        public List<Object> getIzmenaOrMalaIzmena() {
-            if (izmenaOrMalaIzmena == null) {
-                izmenaOrMalaIzmena = new ArrayList<Object>();
+        public List<Izmena> getIzmena() {
+            if (izmena == null) {
+                izmena = new ArrayList<Izmena>();
             }
-            return this.izmenaOrMalaIzmena;
+            return this.izmena;
         }
 
     }

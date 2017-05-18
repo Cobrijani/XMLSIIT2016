@@ -25,7 +25,7 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="1" ref="am:obrazlozenje"/>
-        <xs:element ref="am:document_am_ref" minOccurs="0"/>
+        <xs:element ref="am:document_am_ref" minOccurs="1"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:attribute name="akt_id" type="xs:string"/>

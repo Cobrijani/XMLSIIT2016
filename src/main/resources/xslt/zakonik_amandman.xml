@@ -4,14 +4,15 @@
              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
              xmlns:rdfa="http://www.w3.org/ns/rdfa#"
              xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+             xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/E:/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd" 
-             
+             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/E:/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd"
+
              meta:id="amandman"
              akt_id="c89b4cda-c292-4392-aad9-d9afae29dd66">
   <am:zaglavlje_amandman>
     <am:akt_ref/>
-    <meta:naziv>Propis o izmenama i dopunama krivičnog zakonika</meta:naziv>
+    <meta:naziv>Odluka o izmenama i dopunama krivičnog zakonika</meta:naziv>
     <meta:dateCreated>2006-05-04T18:13:51.0</meta:dateCreated>
     <meta:dateModified>2006-05-04T18:13:51.0</meta:dateModified>
   </am:zaglavlje_amandman>
@@ -61,4 +62,11 @@
     <am:cilj>Cilj Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:cilj>
     <am:procena_uticaja>Procena_uticaja Proin ac gravida risus, non fermentum tellus. In vitae ornare massa, bibendum aliquet elit. Nulla porta vulputate leo eu vehicula. Sed risus lectus, ultricies quis lorem vel, elementum vestibulum est. Aliquam sed orci porta, egestas elit eget, dictum est. Proin velit arcu, pretium a accumsan quis, luctus a tortor. Sed sed varius nulla.</am:procena_uticaja>
   </am:obrazlozenje>
+  <am:document_am_ref>
+    <document:document>
+      <document:state>default</document:state>
+      <document:result>default</document:result>
+      <document:results for="0" against="0" notVote="0"/>
+    </document:document>
+  </am:document_am_ref>
 </am:amandman>
