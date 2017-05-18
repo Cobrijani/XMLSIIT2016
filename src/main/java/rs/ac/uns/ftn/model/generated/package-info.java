@@ -5,8 +5,8 @@
     @javax.xml.bind.annotation.XmlNs(prefix = AMANDMAN_PREF, namespaceURI = AMANDMAN),
     @javax.xml.bind.annotation.XmlNs(prefix = PRED_PREF, namespaceURI = PRED),
     @javax.xml.bind.annotation.XmlNs(prefix = KORISNIK_PREF, namespaceURI = KORISNIK),
-    @javax.xml.bind.annotation.XmlNs(prefix = RDFA_PREF, namespaceURI = RDFA),
-    @javax.xml.bind.annotation.XmlNs(prefix = XS_PREF, namespaceURI = XS)
+    @javax.xml.bind.annotation.XmlNs(prefix = DOCUMENT_PREF, namespaceURI = DOCUMENT),
+    @javax.xml.bind.annotation.XmlNs(prefix = RDFA_PREF, namespaceURI = RDFA)
   },
   elementFormDefault = XmlNsForm.QUALIFIED
 )
@@ -15,3 +15,4 @@ package rs.ac.uns.ftn.model.generated;
 import javax.xml.bind.annotation.XmlNsForm;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
+

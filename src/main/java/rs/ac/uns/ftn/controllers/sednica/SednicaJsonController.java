@@ -12,12 +12,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaPostDTO;
 import rs.ac.uns.ftn.model.generated.Informacije;
 import rs.ac.uns.ftn.model.generated.Naziv;
 import rs.ac.uns.ftn.model.generated.Sednica;
 import rs.ac.uns.ftn.model.generated.ZaglavljeSednica;
+import rs.ac.uns.ftn.model.metadata.SednicaMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.SednicaService;
 import rs.ac.uns.ftn.util.XMLUtil;
@@ -52,9 +56,10 @@ public class SednicaJsonController {
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<Sednica> getOne(@PathVariable String id) {
+  public ResponseEntity<SednicaDTO> getOne(@PathVariable String id) {
     Sednica sednica = sednicaService.findById(id);
-    return ResponseEntity.ok(sednica);
+    SednicaDTO sednicaDTO = createDTOFromSednica(sednica);
+    return ResponseEntity.ok(sednicaDTO);
   }
 
 
@@ -76,6 +81,27 @@ public class SednicaJsonController {
         .buildAndExpand(sednicaDTO.getId()).toUri());
 
     return new ResponseEntity<>(headers, HttpStatus.CREATED);
+  }
+
+  @GetMapping(value = "/{id}/akti")
+  public ResponseEntity<List<PutAktDTO>> getSednicaAkts(@PathVariable String id) {
+    List<PutAktDTO> akts = sednicaService.findSednicaAktsById(id);
+    return ResponseEntity.ok(akts);
+  }
+
+  @GetMapping(value = "/{id}/amandmani")
+  public ResponseEntity<List<AmandmanForSednicaDTO>> getSednicaAmandmands(@PathVariable String id) {
+    List<AmandmanForSednicaDTO> amandmans = sednicaService.findSednicaAmandmandsById(id);
+    return ResponseEntity.ok(amandmans);
+  }
+
+  private SednicaDTO createDTOFromSednica(Sednica sednica) {
+    SednicaDTO sednicaDTO = new SednicaDTO();
+    sednicaDTO.setId(sednica.getId());
+    sednicaDTO.setNaziv(sednica.getZaglavljeSednica().getNaziv().getValue());
+    sednicaDTO.setMesto(sednica.getInformacije().getMesto());
+    sednicaDTO.setDatum(sednica.getInformacije().getDatum());
+    return sednicaDTO;
   }
 
   private Sednica createSednicaFromDTO(SednicaPostDTO sednicaDTO) {

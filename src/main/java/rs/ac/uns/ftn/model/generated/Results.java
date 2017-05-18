@@ -4,7 +4,7 @@ package rs.ac.uns.ftn.model.generated;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,11 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}naziv"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateCreated" minOccurs="0"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}dateModified" minOccurs="0"/>
- *       &lt;/sequence>
+ *       &lt;attribute name="for" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
+ *       &lt;attribute name="against" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
+ *       &lt;attribute name="notVote" type="{http://www.w3.org/2001/XMLSchema}int" default="0" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -31,101 +29,109 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "naziv",
-    "dateCreated",
-    "dateModified"
-})
-@XmlRootElement(name = "zaglavlje", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt")
+@XmlType(name = "")
+@XmlRootElement(name = "results", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Zaglavlje {
+public class Results {
 
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
+    @XmlAttribute(name = "for")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected Naziv naziv;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected Integer _for;
+    @XmlAttribute(name = "against")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected DateCreated dateCreated;
-    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    protected Integer against;
+    @XmlAttribute(name = "notVote")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    protected DateModified dateModified;
+    protected Integer notVote;
 
     /**
-     * Gets the value of the naziv property.
+     * Gets the value of the for property.
      * 
      * @return
      *     possible object is
-     *     {@link Naziv }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public Naziv getNaziv() {
-        return naziv;
+    public int getFor() {
+        if (_for == null) {
+            return  0;
+        } else {
+            return _for;
+        }
     }
 
     /**
-     * Sets the value of the naziv property.
+     * Sets the value of the for property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Naziv }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setNaziv(Naziv value) {
-        this.naziv = value;
+    public void setFor(Integer value) {
+        this._for = value;
     }
 
     /**
-     * Gets the value of the dateCreated property.
+     * Gets the value of the against property.
      * 
      * @return
      *     possible object is
-     *     {@link DateCreated }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public DateCreated getDateCreated() {
-        return dateCreated;
+    public int getAgainst() {
+        if (against == null) {
+            return  0;
+        } else {
+            return against;
+        }
     }
 
     /**
-     * Sets the value of the dateCreated property.
+     * Sets the value of the against property.
      * 
      * @param value
      *     allowed object is
-     *     {@link DateCreated }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setDateCreated(DateCreated value) {
-        this.dateCreated = value;
+    public void setAgainst(Integer value) {
+        this.against = value;
     }
 
     /**
-     * Gets the value of the dateModified property.
+     * Gets the value of the notVote property.
      * 
      * @return
      *     possible object is
-     *     {@link DateModified }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public DateModified getDateModified() {
-        return dateModified;
+    public int getNotVote() {
+        if (notVote == null) {
+            return  0;
+        } else {
+            return notVote;
+        }
     }
 
     /**
-     * Sets the value of the dateModified property.
+     * Sets the value of the notVote property.
      * 
      * @param value
      *     allowed object is
-     *     {@link DateModified }
+     *     {@link Integer }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
-    public void setDateModified(DateModified value) {
-        this.dateModified = value;
+    public void setNotVote(Integer value) {
+        this.notVote = value;
     }
 
 }

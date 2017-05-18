@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.model.generated;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -45,19 +46,26 @@ import javax.xml.namespace.QName;
     "amandmani"
 })
 @XmlRootElement(name = "sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Sednica {
 
     @XmlElement(name = "zaglavlje_sednica", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected ZaglavljeSednica zaglavljeSednica;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Informacije informacije;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Akti akti;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Amandmani amandmani;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
     @XmlAnyAttribute
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -68,6 +76,7 @@ public class Sednica {
      *     {@link ZaglavljeSednica }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public ZaglavljeSednica getZaglavljeSednica() {
         return zaglavljeSednica;
     }
@@ -80,6 +89,7 @@ public class Sednica {
      *     {@link ZaglavljeSednica }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavljeSednica(ZaglavljeSednica value) {
         this.zaglavljeSednica = value;
     }
@@ -92,6 +102,7 @@ public class Sednica {
      *     {@link Informacije }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Informacije getInformacije() {
         return informacije;
     }
@@ -104,6 +115,7 @@ public class Sednica {
      *     {@link Informacije }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setInformacije(Informacije value) {
         this.informacije = value;
     }
@@ -116,6 +128,7 @@ public class Sednica {
      *     {@link Akti }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Akti getAkti() {
         return akti;
     }
@@ -128,6 +141,7 @@ public class Sednica {
      *     {@link Akti }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAkti(Akti value) {
         this.akti = value;
     }
@@ -140,6 +154,7 @@ public class Sednica {
      *     {@link Amandmani }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Amandmani getAmandmani() {
         return amandmani;
     }
@@ -152,6 +167,7 @@ public class Sednica {
      *     {@link Amandmani }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAmandmani(Amandmani value) {
         this.amandmani = value;
     }
@@ -164,6 +180,7 @@ public class Sednica {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -176,6 +193,7 @@ public class Sednica {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
@@ -194,6 +212,7 @@ public class Sednica {
      * @return
      *     always non-null
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:34:38+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -42,6 +43,7 @@ import javax.xml.namespace.QName;
  *           &lt;/complexType>
  *         &lt;/element>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}obrazlozenje"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman}document_am_ref" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
  *       &lt;attribute name="akt_id" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -57,22 +59,33 @@ import javax.xml.namespace.QName;
 @XmlType(name = "", propOrder = {
     "zaglavljeAmandman",
     "izmene",
-    "obrazlozenje"
+    "obrazlozenje",
+    "documentAmRef"
 })
 @XmlRootElement(name = "amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Amandman {
 
     @XmlElement(name = "zaglavlje_amandman", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected ZaglavljeAmandman zaglavljeAmandman;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Amandman.Izmene izmene;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", required = true)
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Obrazlozenje obrazlozenje;
+    @XmlElement(name = "document_am_ref", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    protected DocumentAmRef documentAmRef;
     @XmlAttribute(name = "id", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String id;
     @XmlAttribute(name = "akt_id")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String aktId;
     @XmlAnyAttribute
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
@@ -83,6 +96,7 @@ public class Amandman {
      *     {@link ZaglavljeAmandman }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public ZaglavljeAmandman getZaglavljeAmandman() {
         return zaglavljeAmandman;
     }
@@ -95,6 +109,7 @@ public class Amandman {
      *     {@link ZaglavljeAmandman }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setZaglavljeAmandman(ZaglavljeAmandman value) {
         this.zaglavljeAmandman = value;
     }
@@ -107,6 +122,7 @@ public class Amandman {
      *     {@link Amandman.Izmene }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Amandman.Izmene getIzmene() {
         return izmene;
     }
@@ -119,6 +135,7 @@ public class Amandman {
      *     {@link Amandman.Izmene }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setIzmene(Amandman.Izmene value) {
         this.izmene = value;
     }
@@ -131,6 +148,7 @@ public class Amandman {
      *     {@link Obrazlozenje }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Obrazlozenje getObrazlozenje() {
         return obrazlozenje;
     }
@@ -143,8 +161,35 @@ public class Amandman {
      *     {@link Obrazlozenje }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setObrazlozenje(Obrazlozenje value) {
         this.obrazlozenje = value;
+    }
+
+    /**
+     * Gets the value of the documentAmRef property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DocumentAmRef }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public DocumentAmRef getDocumentAmRef() {
+        return documentAmRef;
+    }
+
+    /**
+     * Sets the value of the documentAmRef property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DocumentAmRef }
+     *     
+     */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    public void setDocumentAmRef(DocumentAmRef value) {
+        this.documentAmRef = value;
     }
 
     /**
@@ -155,6 +200,7 @@ public class Amandman {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getId() {
         return id;
     }
@@ -167,6 +213,7 @@ public class Amandman {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(String value) {
         this.id = value;
     }
@@ -179,6 +226,7 @@ public class Amandman {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getAktId() {
         return aktId;
     }
@@ -191,6 +239,7 @@ public class Amandman {
      *     {@link String }
      *     
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAktId(String value) {
         this.aktId = value;
     }
@@ -209,6 +258,7 @@ public class Amandman {
      * @return
      *     always non-null
      */
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
     }
@@ -240,12 +290,14 @@ public class Amandman {
     @XmlType(name = "", propOrder = {
         "izmenaOrMalaIzmena"
     })
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public static class Izmene {
 
         @XmlElements({
             @XmlElement(name = "izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = Izmena.class),
             @XmlElement(name = "mala_izmena", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", type = MalaIzmena.class)
         })
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         protected List<Object> izmenaOrMalaIzmena;
 
         /**
@@ -271,6 +323,7 @@ public class Amandman {
          * 
          * 
          */
+        @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
         public List<Object> getIzmenaOrMalaIzmena() {
             if (izmenaOrMalaIzmena == null) {
                 izmenaOrMalaIzmena = new ArrayList<Object>();

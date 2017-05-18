@@ -1,6 +1,12 @@
 package rs.ac.uns.ftn.services;
 
+import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
+import com.marklogic.client.io.DocumentMetadataHandle;
+import com.marklogic.client.io.JAXBHandle;
+import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.io.*;
 import com.marklogic.client.io.marker.SPARQLResultsReadHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
@@ -10,6 +16,7 @@ import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.semantics.SPARQLMimeTypes;
 import com.marklogic.client.semantics.SPARQLQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryManager;
+import com.marklogic.client.util.EditableNamespaceContext;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +28,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
@@ -329,8 +338,6 @@ public class AktMarkLogicService implements AktService {
         amandman.setDateModified(x.get("dateModified").path("value").asText());
         metadatas.add(amandman);
       });
-
-
     return metadatas;
   }
 
@@ -342,5 +349,36 @@ public class AktMarkLogicService implements AktService {
     handle = getMetadata(pageable, aktMetadataPredicate, handle);
 
     return handle.get();
+  }
+
+  @Override
+  public PutAktDTO putAkt(String id, PutAktDTO aktDTO) {
+    Akt akt = findById(id);
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("akt", AKT);
+    namespaces.put("document", DOCUMENT);
+    DocumentPatchBuilder builder = documentManager.newPatchBuilder();
+    builder.setNamespaces(namespaces);
+
+    DocumentPatchHandle xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:state", aktDTO.getState()).build();
+    documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+
+    xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:result", aktDTO.getResult()).build();
+    documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+
+    Akt aktDb = findById(akt.getId());
+
+    if(aktDTO.getForVote() != null) {
+      xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@for", aktDb.getDocumentAktRef().getDocument().getResults().getFor() + 1).build();
+      documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    }else if(aktDTO.getAgainst() != null){
+      xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@against", aktDb.getDocumentAktRef().getDocument().getResults().getAgainst() + 1).build();
+      documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+    }
+
+    xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@notVote", aktDTO.getNotVote()).build();
+    documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
+
+    return aktDTO;
   }
 }

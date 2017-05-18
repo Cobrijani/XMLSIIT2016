@@ -2,6 +2,9 @@ package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
@@ -37,6 +40,8 @@ public interface AktService {
   Page<AktMetadata> getMetadataPage(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
 
   List<AmandmanMetadata> findAktAmandmandsById(String id);
+
+  PutAktDTO putAkt(String id, PutAktDTO aktDTO);
 
   String getSparqlResult(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
 
