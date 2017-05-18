@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<am:amandman xmlns:akt="http://parlament.gov.rs/rs.ac.uns.ftn.model.akt"
+             xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+             xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
+             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:rdfa="http://www.w3.org/ns/rdfa#"
+             xmlns:am="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman file:/C:/Users/Micko/git/XMLSIIT2016/src/main/resources/schemas/amandman.xsd" meta:id="aaaa" akt_id="aaaa">
+  <am:zaglavlje_amandman>
+    <am:akt_ref/>
+    <meta:naziv>aaa</meta:naziv>
+  </am:zaglavlje_amandman>
+  <am:izmene>
+    <am:mala_izmena>
+      <akt:referenca meta:idRef="aaaa">aaa</akt:referenca>
+      <am:stara_vrednost>aaa</am:stara_vrednost>
+      <am:tip_izmene>BRISANJE</am:tip_izmene>
+      <am:nova_vrednost>aaa</am:nova_vrednost>
+    </am:mala_izmena>
+    <am:izmena>
+      <am:odredba>
+        <akt:referenca meta:idRef="aaaa">aaa</akt:referenca>
+      </am:odredba>
+      <am:tip_izmene>BRISANJE</am:tip_izmene>
+      <am:resenje>
+        <akt:clan meta:id="aaaa" meta:naziv="aaaa">
+          <akt:stav meta:id="aaaa">
+          </akt:stav>
+          <akt:stav meta:id="aaaa">
+          </akt:stav>
+        </akt:clan>
+      </am:resenje>
+    </am:izmena>
+  </am:izmene>
+  <am:obrazlozenje>
+    <am:razlog_podnosenja>aaa</am:razlog_podnosenja>
+    <am:objasnjenje_resenja>aaa</am:objasnjenje_resenja>
+    <am:cilj>aaa</am:cilj>
+    <am:procena_uticaja>aaa</am:procena_uticaja>
+  </am:obrazlozenje>
+  <am:document_am_ref>
+    <document:document>
+      <document:state>default</document:state>
+      <document:result>default</document:result>
+      <document:results for="0" against="0" notVote="0"/>
+    </document:document>
+  </am:document_am_ref>
+</am:amandman>
