@@ -312,7 +312,9 @@
           ],
           mustBeBefore: [amandmanResenja().name],
           validate: function (jsElement) {
-
+            if (jsElement.value === "") {
+              XonomyUtil.createWarning(jsElement, "Predmet izmene mora imati nepraznu vrednost");
+            }
           }
         }
       };

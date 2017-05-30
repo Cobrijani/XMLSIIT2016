@@ -78,6 +78,7 @@
       <td>{{akt.dateModified | date : 'dd-MM-yyyy hh:mm'}}</td>
       <td><a href ng-click="vm.getPdf(akt.id)" class="fa fa-file-pdf-o"></a></td>
       <td><a href ng-click="vm.getDetails(akt.id)" class="fa fa-file-code-o"></a></td>
+      <td><a ui-sref="create-amandman({aktId: akt.id})" class="btn-sm btn-warning">Napravi amandman</a></td>
     </tr>
     </tbody>
   </table>
