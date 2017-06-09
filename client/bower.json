@@ -2,7 +2,7 @@
   "name": "realestate-client",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "^1.5.0",
+    "angular": "^1.6.4",
     "angular-resource": "^1.4.0",
     "lodash": "~3.0",
     "restangular": "~1.5.1",
@@ -29,7 +29,7 @@
     "xonomy": "https://github.com/Cobrijani/xonomy.git"
   },
   "devDependencies": {
-    "angular-mocks": "^1.5.0"
+    "angular-mocks": "^1.6.0"
   },
   "overrides": {
     "bootstrap": {
@@ -48,6 +48,6 @@
   },
   "resolutions": {
     "jquery": "^3.1.0",
-    "angular": "^1.5.0"
+    "angular": "^1.6.4"
   }
 }

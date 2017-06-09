@@ -27,7 +27,8 @@
       aktTacka: aktTacka,
       aktPodtacka: aktPodtacka,
       aktAlineja: aktAlineja,
-      aktReferenca: aktReferenca
+      aktReferenca: aktReferenca,
+      documentAktRef: documentAktRef
     };
 
     /////////////
@@ -38,6 +39,15 @@
       }
     }
 
+    function documentAktRef() {
+      return {
+        name: "akt:document_akt_ref",
+        tag: "<akt:document_akt_ref xmlns:akt='" + namespaces.akt + "'></akt:document_akt_ref>",
+        definition: {
+          isInvisible: true
+        }
+      };
+    }
 
     function addNewElementWithGeneratedId(htmlId, params) {
       Xonomy.newElementChild(htmlId, params.tag);
@@ -50,7 +60,8 @@
 
       delovi.forEach(function (item) {
         Xonomy.newAttribute(item.htmlID, {
-          name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(item.name)
+          name: "meta:id",
+          value: AktIdsIncrementerService.incrementAndReturn(item.name)
         });
       });
     }
@@ -69,7 +80,8 @@
 
         stavovi.forEach(function (stav) {
           Xonomy.newAttribute(stav.htmlID, {
-            name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(stav.name)
+            name: "meta:id",
+            value: AktIdsIncrementerService.incrementAndReturn(stav.name)
           });
         });
 
@@ -83,42 +95,43 @@
           displayName: "Akt",
           hasText: false,
           menu: [{
-            caption: "Dodaj zaglavlje",
-            action: Xonomy.newElementChild,
-            actionParameter: aktZaglavlje().tag,
-            hideIf: function (elem) {
-              return elem.hasChildElement(aktZaglavlje().name);
+              caption: "Dodaj zaglavlje",
+              action: Xonomy.newElementChild,
+              actionParameter: aktZaglavlje().tag,
+              hideIf: function (elem) {
+                return elem.hasChildElement(aktZaglavlje().name);
+              }
+            }, {
+              caption: "Dodaj preambulu",
+              action: Xonomy.newElementChild,
+              actionParameter: aktPreambula().tag,
+              hideIf: function (jsElement) {
+                return jsElement.hasChildElement(aktPreambula().name);
+              }
+            },
+            {
+              caption: "Dodaj deo",
+              action: addNewElementWithGeneratedId,
+              actionParameter: aktDeo(),
+              hideIf: function (jsElement) {
+                return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava());
+              }
+            }, {
+              caption: "Dodaj član",
+              action: addClan,
+              actionParameter: aktClan(),
+              hideIf: function (jsElement) {
+                return jsElement.hasChildElement(aktDeo().name) || jsElement.hasChildElement(aktGlava().name);
+              }
+            }, {
+              caption: "Dodaj glavu",
+              action: addNewElementWithGeneratedId,
+              actionParameter: aktGlava(),
+              hideIf: function (jsElement) {
+                return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name);
+              }
             }
-          }, {
-            caption: "Dodaj preambulu",
-            action: Xonomy.newElementChild,
-            actionParameter: aktPreambula().tag,
-            hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktPreambula().name);
-            }
-          },
-          {
-            caption: "Dodaj deo",
-            action: addNewElementWithGeneratedId,
-            actionParameter: aktDeo(),
-            hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktGlava());
-            }
-          }, {
-            caption: "Dodaj član",
-            action: addClan,
-            actionParameter: aktClan(),
-            hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktDeo().name) || jsElement.hasChildElement(aktGlava().name);
-            }
-          }, {
-            caption: "Dodaj glavu",
-            action: addNewElementWithGeneratedId,
-            actionParameter: aktGlava(),
-            hideIf: function (jsElement) {
-              return jsElement.hasChildElement(aktClan().name) || jsElement.hasChildElement(aktDeo().name);
-            }
-          }],
+          ],
           validate: function (jsElement) {
             if (!jsElement.hasChildElement('akt:zaglavlje')) {
               Xonomy.warnings.push({
@@ -189,12 +202,10 @@
         tag: "<akt:preambula xmlns:akt='" + namespaces.akt + "'></akt:preambula>",
         definition: {
           displayName: "Preambula",
-          menu: [
-            {
-              caption: "Obriši preambulu",
-              action: Xonomy.deleteElement
-            }
-          ],
+          menu: [{
+            caption: "Obriši preambulu",
+            action: Xonomy.deleteElement
+          }],
           hasText: true,
           mustBeAfter: [aktZaglavlje().name]
         }
@@ -207,8 +218,7 @@
         tag: "<akt:deo xmlns:akt='" + namespaces.akt + "'></akt:deo>",
         definition: {
           displayName: "Deo",
-          menu: [
-            {
+          menu: [{
               caption: "Obriši deo",
               action: Xonomy.deleteElement
             },
@@ -239,8 +249,7 @@
         tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='" + namespaces.meta + "' meta:naziv='naziv'><akt:stav></akt:stav></akt:clan>",
         definition: {
           displayName: "Član",
-          menu: [
-            {
+          menu: [{
               caption: "Obriši član",
               action: Xonomy.deleteElement
             }, {
@@ -312,26 +321,24 @@
         tag: "<akt:odeljak xmlns:akt='" + namespaces.akt + "'></akt:odeljak>",
         definition: {
           displayName: "Odeljak",
-          menu: [
-            {
-              caption: "Obriši odeljak",
-              action: Xonomy.deleteElement
-            }, {
-              caption: "Dodaj pododeljak",
-              action: addNewElementWithGeneratedId,
-              actionParameter: aktPododeljak(),
-              hideIf: function (elem) {
-                return elem.hasChildElement(aktClan().name);
-              }
-            }, {
-              caption: "Dodaj član",
-              action: addClan,
-              actionParameter: aktClan(),
-              hideIf: function (elem) {
-                return elem.hasChildElement(aktPododeljak().name);
-              }
+          menu: [{
+            caption: "Obriši odeljak",
+            action: Xonomy.deleteElement
+          }, {
+            caption: "Dodaj pododeljak",
+            action: addNewElementWithGeneratedId,
+            actionParameter: aktPododeljak(),
+            hideIf: function (elem) {
+              return elem.hasChildElement(aktClan().name);
             }
-          ],
+          }, {
+            caption: "Dodaj član",
+            action: addClan,
+            actionParameter: aktClan(),
+            hideIf: function (elem) {
+              return elem.hasChildElement(aktPododeljak().name);
+            }
+          }],
           attributes: attr || {},
           validate: function (jsElement) {
 
@@ -411,8 +418,7 @@
         tag: "<akt:tacka xmlns:akt='" + namespaces.akt + "'></akt:tacka>",
         definition: {
           displayName: "Tačka",
-          menu: [
-            {
+          menu: [{
               caption: "Obriši tačku",
               action: Xonomy.deleteElement
             },
@@ -447,12 +453,10 @@
         tag: "<akt:podtacka xmlns:akt='" + namespaces.akt + "'></akt:podtacka>",
         definition: {
           displayName: "Podtačka",
-          menu: [
-            {
-              caption: "Obriši podtačku",
-              action: Xonomy.deleteElement
-            }
-          ],
+          menu: [{
+            caption: "Obriši podtačku",
+            action: Xonomy.deleteElement
+          }],
           hasText: true,
           attributes: attr || {},
           validate: function (jsElement) {
@@ -479,25 +483,21 @@
         tag: "<akt:alineja xmlns:akt='" + namespaces.akt + "'></akt:alineja>",
         definition: {
           displayName: "Alineja",
-          menu: [
-            {
-              caption: "Obriši alineju",
-              action: Xonomy.deleteElement
-            }
-          ],
+          menu: [{
+            caption: "Obriši alineju",
+            action: Xonomy.deleteElement
+          }],
           hasText: true,
           attributes: attr || {}
         },
-        parentActions: [
-          {
-            caption: "Dodaj alineju",
-            action: addNewElementWithGeneratedId,
-            actionParameter: {
-              tag: "<akt:alineja xmlns:akt='" + namespaces.akt + "'></akt:alineja>",
-              name: 'akt:alineja'
-            }
+        parentActions: [{
+          caption: "Dodaj alineju",
+          action: addNewElementWithGeneratedId,
+          actionParameter: {
+            tag: "<akt:alineja xmlns:akt='" + namespaces.akt + "'></akt:alineja>",
+            name: 'akt:alineja'
           }
-        ]
+        }]
       };
     }
 
@@ -507,13 +507,11 @@
         tag: "<akt:referenca xmlns:akt='" + namespaces.akt + "'></akt:referenca>",
         definition: {
           displayName: "Ref",
-          menu: [
-            {
-              caption: "Obriši referencu",
-              action: Xonomy.unwrap,
+          menu: [{
+            caption: "Obriši referencu",
+            action: Xonomy.unwrap,
 
-            }
-          ]
+          }]
         },
         parentActions: [],
         parentInlineActions: [{
@@ -529,5 +527,3 @@
 
   }
 })();
-
-
