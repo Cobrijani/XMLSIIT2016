@@ -39,11 +39,13 @@
 
         if (Xonomy.warnings.length === 0) {
           $rootScope.$broadcast('validation:akt', {
-            valid: true, message: "Dokument je validan"
+            valid: true,
+            message: "Dokument je validan"
           });
         } else {
           $rootScope.$broadcast('validation:akt', {
-            valid: false, message: "Dokument nije validan"
+            valid: false,
+            message: "Dokument nije validan"
           });
         }
 
@@ -156,11 +158,10 @@
     registerElement(aktSpec, podtacka);
     registerElement(aktSpec, alineja);
     registerElement(aktSpec, referenca);
+    registerElement(aktSpec, AktTagsFactory.documentAktRef());
 
-    return { akt: aktSpec };
+    return {
+      akt: aktSpec
+    };
   }
 })();
-
-
-
-

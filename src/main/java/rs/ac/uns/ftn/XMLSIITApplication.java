@@ -58,10 +58,10 @@ public class XMLSIITApplication {
   public CommandLineRunner recreateData(GraphManager graphManager, KorisnikService korisnikService, AktService aktService, SednicaService sednicaService, AmandmanService amandmanService, IdentifierGenerator identifierGenerator, PasswordEncoder passwordEncoder) {
     return (args -> {
       korisnikService.deleteAll();
-//      aktService.deleteAll();
-//      sednicaService.deleteAll();
-//      amandmanService.deleteAll();
-//      graphManager.deleteGraphs();
+      aktService.deleteAll();
+      sednicaService.deleteAll();
+      amandmanService.deleteAll();
+      graphManager.deleteGraphs();
 
       final Korisnik korisnik = new Korisnik();
       korisnik.setId(identifierGenerator.generateIdentity());

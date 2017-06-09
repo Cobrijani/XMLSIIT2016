@@ -35,9 +35,18 @@
         " xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'" +
         " xmlns:meta='http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata'" +
         " xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'" +
+        " xmlns:document='http://parlament.gov.rs/rs.ac.uns.ftn.model.document'" +
         " xmlns='http://www.w3.org/ns/rdfa#' > <akt:zaglavlje>" +
         "<meta:naziv datatype='xs:string' property='pred:imeDokumenta'></meta:naziv>" +
-        "</akt:zaglavlje><akt:preambula></akt:preambula></akt:akt>";
+        "</akt:zaglavlje><akt:preambula></akt:preambula>" +
+        "<akt:document_akt_ref>" +
+        "<document:document>" +
+        "<document:state>default</document:state>" +
+        "<document:result>default</document:result>" +
+        "<document:results for='0' against='0' notVote='0' />" +
+        "</document:document>" +
+        "</akt:document_akt_ref>" +
+        "</akt:akt>";
       $scope.$on('validation:akt', function (scope, data) {
         vm.validation = data;
       });
@@ -55,8 +64,7 @@
 
     function createAkt() {
       GenericResource.postEntity('akti', Xonomy.harvest(), {
-        'Content-Type': 'application/xml'
-      })
+          'Content-Type': 'application/xml'})
         .then(function () {
           AktIdsIncrementerService.resetAllCounters();
           $state.go('main');

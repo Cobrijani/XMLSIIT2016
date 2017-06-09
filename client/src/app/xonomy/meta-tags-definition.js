@@ -27,12 +27,10 @@
         tag: "<meta:naziv property='pred:imeDokumenta' datatype='xs:string' xmlns:meta='" + namespaces.meta + "'></meta:naziv>",
         definition: {
           displayName: displayName || "Naziv",
-          menu: [
-            {
-              caption: "Obriši naziv",
-              action: Xonomy.deleteElement
-            }
-          ],
+          menu: [{
+            caption: "Obriši naziv",
+            action: Xonomy.deleteElement
+          }],
           hasText: true,
           oneliner: true,
           attributes: attr || {},
@@ -51,15 +49,14 @@
       return {
         name: "meta:id",
         attr: {
-          name: "meta:id", value: "id"
+          name: "meta:id",
+          value: "id"
         },
         definition: {
-          menu: [
-            {
-              caption: "Obriši identifikator",
-              action: Xonomy.deleteAttribute
-            }
-          ],
+          menu: [{
+            caption: "Obriši identifikator",
+            action: Xonomy.deleteAttribute
+          }],
           asker: Xonomy.askString,
           displayName: "Identifikator",
           validate: function (jsElement) {
@@ -107,7 +104,8 @@
           caption: actionCaption || "Dodaj identifikator",
           action: Xonomy.newAttribute,
           actionParameter: {
-            name: "meta:id", value: "Unesi jedistven id"
+            name: "meta:id",
+            value: "Unesi jedistven id"
           },
           hideIf: function (elem) {
             return elem.hasAttribute("meta:id");
@@ -120,17 +118,16 @@
       return {
         name: "meta:naziv",
         attr: {
-          name: "meta:naziv", value: "naziv"
+          name: "meta:naziv",
+          value: "naziv"
         },
         definition: {
           displayName: displayName || "Naziv",
           asker: Xonomy.askString,
-          menu: [
-            {
-              caption: "Obriši naziv",
-              action: Xonomy.deleteAttribute
-            }
-          ],
+          menu: [{
+            caption: "Obriši naziv",
+            action: Xonomy.deleteAttribute
+          }],
           validate: function (jsElement) {
             if (jsElement.value.replace(/\s+/, "") === '') {
               XonomyUtil.createWarning(jsElement, "Naziv mora imati nepraznu vrednost");
@@ -141,7 +138,8 @@
           caption: actionCaption || "Dodaj ime",
           action: Xonomy.newAttribute,
           actionParameter: {
-            name: "meta:naziv", value: "naziv"
+            name: "meta:naziv",
+            value: "naziv"
           },
           hideIf: function (elem) {
             return elem.hasAttribute("meta:naziv");
@@ -173,7 +171,8 @@
       return {
         name: "meta:idRef",
         attr: {
-          name: "meta:idRef", value: "Unesi identifikator za element koji zelis da referencira"
+          name: "meta:idRef",
+          value: "Unesi identifikator za element koji zelis da referencira"
         },
         definition: {
           displayName: displayName || "Identifikator elementa",
@@ -217,4 +216,3 @@
     }
   }
 })();
-
