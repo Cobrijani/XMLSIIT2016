@@ -11,7 +11,7 @@
     .constant('namespaces', {
       akt: 'http://parlament.gov.rs/rs.ac.uns.ftn.model.akt',
       meta: 'http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata',
-      amadman: 'http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman',
+      amandman: 'http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman',
       korisnici: 'http://parlament.gov.rs/rs.ac.uns.ftn.model.korisnici',
       document: 'xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"'
     });

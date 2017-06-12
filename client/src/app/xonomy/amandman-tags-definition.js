@@ -75,7 +75,7 @@
 
         stavovi.forEach(function (stav) {
           Xonomy.newAttribute(stav.htmlID, {
-            name: "meta:id", value: AktIdsIncrementerService.incrementAndReturn(stav.name)
+            name: "meta:id", value: AmandmanIdsIncrementerService.incrementAndReturn(stav.name)
           });
         });
 
@@ -356,10 +356,10 @@
               action: Xonomy.deleteElement
             }, {
               caption: "Dodaj član",
-              action: addClan,
+              action: addNewElementWithGeneratedId,
               actionParameter: aktClan(),
               showIf: function (jsElement) {
-                return jsElement.getParent().hasChildElement(aktClan()) || jsElement.getParent().getParent().getChildElements().size() == 0;
+                //return jsElement.getParent().hasChildElement(aktClan()) || jsElement.getParent().getParent().getChildElements().size() == 0;
               }
             }, {
               caption: "Dodaj stav",
@@ -456,14 +456,9 @@
     function amandmanDocumentAmRef() {
       return {
         name: "am:document_am_ref",
-        tag: "<am:cilj></am:cilj>",
+        tag: "<am:document_am_ref xmlns:am='" + namespaces.amandman + "'></am:document_am_ref>",
         definition: {
-          displayName: "Document Amandman Reference",
-          hasText: true,
-          menu: [],
-          validate: function (jsElement) {
-
-          }
+          isInvisible: true
         }
       };
     }
@@ -488,21 +483,19 @@
     function aktClan(attr) {
       return {
         name: "akt:clan",
-        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='" + namespaces.meta + "' meta:naziv='naziv'><akt:stav></akt:stav></akt:clan>",
+        tag: "<akt:clan xmlns:akt='" + namespaces.akt + "' xmlns:meta='" + namespaces.meta + "' meta:naziv='naziv'></akt:clan>",
         definition: {
           displayName: "Član",
-          menu: [
-            {
-              caption: "Obriši član",
-              action: Xonomy.deleteElement
-            }, {
-              caption: "Dodaj stav",
-              action: addNewElementWithGeneratedId,
-              actionParameter: aktStav()
-            }
+          menu: [{
+            caption: "Obriši član",
+            action: Xonomy.deleteElement
+          }, {
+            caption: "Dodaj stav",
+            action: addNewElementWithGeneratedId,
+            actionParameter: aktStav()
+          }
 
           ],
-          //mustBeAfter: [aktPreambula().name],
           attributes: attr || {},
           validate: function (jsElement) {
             idCheck(jsElement, "Član mora imati identifikator");

@@ -82,7 +82,6 @@
         'Content-Type': 'application/xml'
       })
         .then(function () {
-          AmandmanIdsIncrementerService.resetAllCounters();
           $state.go('main');
         })
         .catch(function (error) {

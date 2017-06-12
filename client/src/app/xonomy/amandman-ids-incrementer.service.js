@@ -5,24 +5,24 @@
     .module('app')
     .factory('AmandmanIdsIncrementerService', AmandmanIdsIncrementerService);
 
-  AmandmanIdsIncrementerService.$inject = ['AmandmanIdCounter'];
-  function AmandmanIdsIncrementerService(AmandmanIdCounter) {
+  AmandmanIdsIncrementerService.$inject = [];
+  function AmandmanIdsIncrementerService() {
     return {
-      incrementAndReturn: incrementAndReturn,
-      resetAllCounters: resetAllCounters
+      incrementAndReturn: incrementAndReturn
     };
     ////////////////
 
+    function generateId() {
+      // Math.random should be unique because of its seeding algorithm.
+      // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+      // after the decimal.
+      return Math.random().toString(36).substr(2, 9);
+    };
+
     function incrementAndReturn(key) {
-      return key + '-' + (++AmandmanIdCounter[key]);
+      //return key + '-' + (++AmandmanIdCounter[key]);
+      return key + '-' + generateId()
     }
 
-    function resetAllCounters() {
-      for (var property in AmandmanIdCounter) {
-        if (AmandmanIdCounter.hasOwnProperty(property)) {
-          AmandmanIdCounter[property] = 0;
-        }
-      }
-    }
   }
 })();
