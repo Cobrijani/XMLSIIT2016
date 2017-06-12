@@ -1,6 +1,54 @@
 <div class="panel panel-info">
   <div class="panel-heading clearfix">
     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Amandmani</h4>
+    <div class="btn-group pull-right" ng-show="vm.canEdit">
+      <div class="btn btn-danger pull-right" ng-click="vm.reset()"><i class="fa fa-times"></i> Poništi pretragu</div>
+      <div class="btn btn-info pull-right" ng-click="vm.search()"><i class="fa fa-search"></i> Pretraga</div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <form class="form-inline">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="input-group">
+              <input placeholder="od datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateFrom"
+                     is-open="vm.dateFromPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas"
+                     clear-text="Poništi" close-text="Zatvori" />
+              <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.openDateFrom()"><i
+              class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <p class="input-group">
+            <input placeholder="do datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateTo"
+                   is-open="vm.dateToPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas" clear-text="Poništi"
+                   close-text="Zatvori" />
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.openDateTo()"><i
+              class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <input ng-model="vm.searchText" type="text" class="form-control" placeholder="Unesi sadrzaj">
+        </div>
+      </div>
+      <div class="row " style="margin-top:5px">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="checkbox" ng-show="vm.canEdit">
+              <label class="control-label"> <input type="checkbox" ng-model="vm.self"> Prikaži sopstvene dokumente samo</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+        </div>
+      </div>
+    </form>
   </div>
   <table class="table">
     <thead>
@@ -8,16 +56,20 @@
       <th>#</th>
       <th>Naziv amandmana</th>
       <th>Datum kreiranja</th>
+      <th>Datum poslednje promene</th>
       <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="amandman in vm.amandmani">
-      <td>{{$index+1}}</td>
-      <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.name}}</a></td>
-      <td>{{amandman.dateCreated | date : 'dd-MM-yyyy'}}</td>
-      <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
-    </tr>
+      <tr ng-repeat="amandman in vm.amandmani.content">
+        <td>{{$index+1}}</td>
+        <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.name}}</a></td>
+        <td>{{amandman.dateCreated | date : 'dd-MM-yyyy'}}</td>
+        <td>{{amandman.dateModified | date : 'dd-MM-yyyy hh:mm'}}</td>
+        <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
+      </tr>
     </tbody>
   </table>
+  <div ng-show="vm.amandmani" uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.amandmani.totalElements" ng-model="vm.pageOptions.page"
+       ng-change="vm.pageChanged()" next-text="Sledeća stranica" previous-text="Prošla stranica"></div>
 </div>

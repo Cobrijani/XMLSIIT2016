@@ -1,0 +1,7 @@
+select (count(?s) as ?count) from <skupstina/dokument/amandman>
+where {
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?imeDokumenta .
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?datumKreiranja .
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?datumAzuriranja
+}
