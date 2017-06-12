@@ -3,12 +3,14 @@ package rs.ac.uns.ftn.controllers.amandman;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
+import rs.ac.uns.ftn.model.AmandmanMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
@@ -40,8 +42,8 @@ public class AmandmanJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<List<AmandmanMetadata>> findAll(Pageable pageable) {
-    return ResponseEntity.ok(amandmanService.getMetadata(pageable));
+  public ResponseEntity<Page<AmandmanMetadata>> findAll(Pageable pageable, AmandmanMetadataPredicate predicate) {
+    return ResponseEntity.ok(amandmanService.getMetadataPage(pageable, predicate));
   }
 
   @GetMapping(value = "/{id}")

@@ -1,8 +1,11 @@
 package rs.ac.uns.ftn.services;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
+import rs.ac.uns.ftn.model.AmandmanMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Amandman;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 
 import java.util.List;
@@ -19,13 +22,19 @@ public interface AmandmanService {
 
   List<Amandman> findAll(Pageable pageable);
 
+  List<Amandman> findAllContaining(Pageable pageable, String term);
+
   void add(Amandman amandman);
 
-  void deleteAktById(String id);
+  void deleteAmandmanById(String id);
 
   void deleteAll();
 
   List<AmandmanMetadata> getMetadata(Pageable pageable);
+
+  List<AmandmanMetadata> getMetadata(Pageable pageable, AmandmanMetadataPredicate amandmanMetadataPredicate);
+
+  Page<AmandmanMetadata> getMetadataPage(Pageable pageable, AmandmanMetadataPredicate amandmanMetadataPredicate);
 
   AmandmanForSednicaDTO putAmandman(String id, AmandmanForSednicaDTO amDTO);
 }
