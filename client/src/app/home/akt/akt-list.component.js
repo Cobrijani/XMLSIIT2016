@@ -26,7 +26,7 @@
     vm.search = search;
     vm.reset = reset;
 
-    vm.canEdit = UserJwtResource.getUserPayload().auth !== roles.gradjanin;
+    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
 
     vm.pageOptions = {
       size: 5,

@@ -26,8 +26,6 @@ public interface AmandmanService {
 
   void add(Amandman amandman);
 
-  void deleteAmandmanById(String id);
-
   void deleteAll();
 
   List<AmandmanMetadata> getMetadata(Pageable pageable);

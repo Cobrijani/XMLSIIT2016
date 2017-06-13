@@ -18,6 +18,8 @@ public class AmandmanMetadata {
 
   private String name;
 
+  private String user;
+
   private String dateCreated;
 
   private String dateModified;
