@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AmandmanListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', 'UserJwtResource', 'roles'];
+  AmandmanListController.$inject = ['$scope', '_', 'GenericResource', 'exception', 'FileFactory', 'UserJwtResource', 'roles'];
 
-  function AmandmanListController($scope, GenericResource, exception, FileFactory, UserJwtResource, roles) {
+  function AmandmanListController($scope, _, GenericResource, exception, FileFactory, UserJwtResource, roles) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -25,8 +25,10 @@
     vm.openDateTo = openDateTo;
     vm.search = search;
     vm.reset = reset;
+    vm.delete = deleteAmandman;
 
-    vm.canEdit = UserJwtResource.getUserPayload().auth !== roles.gradjanin;
+    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
+    vm.username = UserJwtResource.getUserPayload().sub;
 
     vm.pageOptions = {
       size: 5,
@@ -99,6 +101,18 @@
           vm.pageOptions.page = vm.amandmani.number + 1; //counting starts from 1 on server from 0
           vm.pageOptions.size = vm.amandmani.size;
           vm.pageOptions.sort = vm.amandmani.sort;
+        })
+        .catch(function (error) {
+          exception.catcher(error);
+        });
+    }
+
+    function deleteAmandman(id){
+      GenericResource.deleteEntity('amandmani', id)
+        .then(function (success) {
+          _.remove(vm.amandmani, {
+            id: id
+          });
         })
         .catch(function (error) {
           exception.catcher(error);

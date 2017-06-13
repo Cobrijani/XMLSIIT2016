@@ -187,11 +187,6 @@ public class AmandmanMarkLogicService implements AmandmanService{
   }
 
   @Override
-  public void deleteAmandmanById(String id) {
-    throw new NotImplementedException();
-  }
-
-  @Override
   public void deleteAll() {
     StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
     StructuredQueryDefinition definition = sb.collection(AMANDMAN_REF);
@@ -290,8 +285,11 @@ public class AmandmanMarkLogicService implements AmandmanService{
       .ifPresent(x -> x.forEach(node -> {
         AmandmanMetadata amandman = new AmandmanMetadata();
         String[] idparts = node.get("documentId").path("value").asText().split("/");
+
         amandman.setId(idparts[idparts.length - 1]);
         amandman.setName(node.get("documentName").path("value").asText());
+        String userPath = node.get("user").path("value").asText();
+        amandman.setUser(userPath.substring(userPath.lastIndexOf('/')+1,userPath.length()));
         amandman.setDateCreated(node.get("dateCreated").path("value").asText());
         amandman.setDateModified(node.get("dateModified").path("value").asText());
         metadatas.add(amandman);
