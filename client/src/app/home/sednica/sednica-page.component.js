@@ -38,6 +38,7 @@
     vm.closeVoting = closeVoting;
     vm.acceptDeclineDocument = acceptDeclineDocument;
     vm.selectAktsAmandmands = selectAktsAmandmands;
+    vm.votedAkt = votedAkt;
 
     //content
 
@@ -235,6 +236,20 @@
       doc_restang.forVote = null;
       doc_restang.against = null;
       doc_restang.put();
+      if(document.result == 'rejected' && document.type == 'akt'){
+        for(var i = 0; i < vm.votingDocuments.length; i++){
+          var am = vm.votingDocuments[i];
+          am.state = 'voted';
+          am.result = 'rejected';
+          vm.votedDocuments.push(am)
+          var doc_restang = Restangular.copy(am);
+          doc_restang.route = 'amandmani';
+          doc_restang.forVote = null;
+          doc_restang.against = null;
+          doc_restang.put();
+        }
+        vm.votingDocuments = [];
+      }
     }
 
     function selectAktsAmandmands(doc, data) {
@@ -245,6 +260,27 @@
           data[i].selected = false;
         }
       }
+    }
+
+    function votedAkt(){
+      console.log(vm.votingDocuments);
+      for(var i = 0 ; i < vm.votingDocuments.length; i++){
+        if(vm.votingDocuments[i].type == 'akt'){
+          return false;
+        }
+      }
+      for(var i = 0 ; i < vm.votedDocuments.length; i++){
+        var doc = vm.votedDocuments[i];
+        if (doc.type == 'akt' && doc.result == 'accepted'){
+          for(var j = 0 ; i < vm.votingDocuments.length; i++){
+            var am = vm.votingDocuments[j];
+            if(am.aktId == doc.id){
+              return true;
+            }
+          }
+        }
+      }
+      return false;
     }
   }
 })();

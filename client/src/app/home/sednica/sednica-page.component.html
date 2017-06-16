@@ -1,5 +1,5 @@
 <div class="content">
-  <h2>Vodjenje sednice</h2>
+  <h2>Vođenje sednice</h2>
   <div class="row">
     <div class="col-sm-3">
       <table class="table" style="margin-top: 40px;">
@@ -37,7 +37,7 @@
           <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
           <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
           <td>
-            <button type="button" class="btn btn-info" ng-click="vm.putInVotingRow(akt, $index)" ng-disabled="vm.votingDocuments.length > 0">
+            <button type="button" class="btn btn-info" ng-click="vm.putInVotingRow(akt, $index)" ng-disabled="vm.votingDocuments.length > 0 || vm.votingDocument !== null">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
           </td>
@@ -85,7 +85,7 @@
           <td ng-if="dokument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', dokument.id)" class="fa fa-file-pdf-o"></a></td>
           <td>{{dokument.type}}</td>
           <td>
-            <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)"  ng-disabled="vm.votingDocuments.length > 1 && dokument.type === 'akt' || vm.votingDocument !== null">
+            <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)"  ng-disabled="vm.votedAkt() == false && dokument.type === 'am' || vm.votingDocument !== null">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
           </td>
@@ -135,8 +135,7 @@
             <th>Tip</th>
             <th>Za</th>
             <th>Protiv</th>
-            <th>Uzdrzano</th>
-            <th>Status</th>
+            <th width="15%;">Status</th>
           </tr>
           </thead>
           <tbody>
@@ -148,7 +147,6 @@
             <td>{{document.type}}</td>
             <td>{{document.forVote}}</td>
             <td>{{document.against}}</td>
-            <td>{{document.notVote}}</td>
             <td ng-if="document.result === 'default'">
               <button type="button" class="btn btn-success" ng-click="vm.acceptDeclineDocument(document, 'accepted')">
                 <span class="glyphicon glyphicon-ok"></span>
@@ -157,7 +155,8 @@
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
             </td>
-            <td ng-if="document.result !== 'default'">{{document.result}}</td>
+            <td ng-if="document.result == 'accepted'">prihvaćen</td>
+            <td ng-if="document.result == 'rejected'">odbijen</td>
           </tr>
           </tbody>
         </table>

@@ -27,7 +27,6 @@
 
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
-    // vm.createSednica = createSednica;
     vm.open = open;
     vm.createNewSednica = createNewSednica;
     vm.setSelectedAkt = setSelectedAkt;
@@ -41,21 +40,12 @@
       GenericResource.getEntities('akti')
         .then(function (success) {
           vm.akti = success.content;
+          console.log(vm.akti);
         })
         .catch(function (error) {
           exception.catcher(error);
         });
     }
-
-    // function createSednica() {
-    //   GenericResource.postEntity('sednice', vm.sednica, {'Content-Type': 'application/xml'})
-    //     .then(function (success) {
-    //       $state.go('main');
-    //     })
-    //     .catch(function (error) {
-    //       exception.catcher(error);
-    //     })
-    // }
 
     function open() {
       vm.opened = true;
