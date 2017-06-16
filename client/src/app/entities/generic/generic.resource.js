@@ -18,7 +18,8 @@
       getEntities: getEntities,
       getEntityByIdentifier: getEntityByIdentifier,
       postEntity: postEntity,
-      putEntity: putEntity
+      putEntity: putEntity,
+      deleteEntity: deleteEntity
     };
 
 
@@ -36,6 +37,10 @@
 
     function putEntity(entityName, requestBody, headers) {
       return Restangular.all(entityName).customPUT(requestBody, '', headers);
+    }
+
+    function deleteEntity(entityName, identifier, headers){
+      return Restangular.one(entityName, identifier).remove('', headers);
     }
   }
 })();

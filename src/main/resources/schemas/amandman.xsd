@@ -24,7 +24,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element minOccurs="1" ref="am:obrazlozenje"/>
+        <xs:element minOccurs="0" ref="am:obrazlozenje"/>
         <xs:element ref="am:document_am_ref" minOccurs="1"/>
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
@@ -46,7 +46,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="am:predmet_izmene"/>
-        <xs:element ref="am:tip_izmene"/>
         <xs:element name="resenja">
           <xs:complexType>
             <xs:sequence>
@@ -56,11 +55,6 @@
         </xs:element>
       </xs:sequence>
     </xs:complexType>
-  </xs:element>
-  <xs:element name="tip_izmene">
-    <xs:simpleType>
-      <xs:restriction base="am:TTipIzmene"> </xs:restriction>
-    </xs:simpleType>
   </xs:element>
   <xs:simpleType name="TTipIzmene">
     <xs:restriction base="xs:string">
@@ -120,10 +114,11 @@
         <referenca ref_clanovi="clan5,clan6"></referenca>
     -->
   <xs:attributeGroup name="AGReferenca">
-    <xs:attribute name="ceo_akt" type="xs:boolean" use="optional" default="false"/>
     <xs:attribute name="ref_clanovi" type="am:TNiz_referenci" use="optional"/>
     <xs:attribute name="ref_stavovi" type="am:TNiz_referenci" use="optional"/>
     <xs:attribute name="ref_tacke" type="am:TNiz_referenci" use="optional"/>
+    <xs:attribute name="ref_podtacke" type="am:TNiz_referenci"/>
+    <xs:attribute name="ref_alineje" type="am:TNiz_referenci"/>
   </xs:attributeGroup>
 
   <!-- Tip reference. Prakticno element koji je string sa atributima iz grupe referenca -->
@@ -134,5 +129,13 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:element name="predmet_izmene" type="am:TReferenca"/>
+  <xs:element name="predmet_izmene">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="am:TReferenca">
+          <xs:attribute name="tip_izmene" type="am:TTipIzmene"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

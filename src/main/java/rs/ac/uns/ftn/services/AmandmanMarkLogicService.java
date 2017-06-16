@@ -2,11 +2,9 @@ package rs.ac.uns.ftn.services;
 
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
-import com.marklogic.client.io.DocumentMetadataHandle;
-import com.marklogic.client.io.JAXBHandle;
-import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.*;
 import com.marklogic.client.io.marker.DocumentPatchHandle;
+import com.marklogic.client.io.marker.SPARQLResultsReadHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
@@ -17,13 +15,17 @@ import com.marklogic.client.util.EditableNamespaceContext;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.AmandmanMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.generated.DateCreated;
 import rs.ac.uns.ftn.model.generated.DateModified;
@@ -37,6 +39,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AMANDMAN_GRAPH_URI;
@@ -66,16 +70,21 @@ public class AmandmanMarkLogicService implements AmandmanService{
 
   private final SPARQLQueryManager sparqlQueryManager;
 
+  private final Registry<String, Resource> amandmanSparqlRegistry;
+
   @Value("classpath:sparql/amandman.rq")
   private Resource amandmanSparql;
 
   @Autowired
-  public AmandmanMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager) {
+  public AmandmanMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator,
+                                  RdfService rdfService, SPARQLQueryManager sparqlQueryManager,
+                                  @Qualifier("AmandmanSparqlQueryRegistry") Registry<String, Resource> amandmanSparqlRegistry) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
     this.sparqlQueryManager = sparqlQueryManager;
+    this.amandmanSparqlRegistry = amandmanSparqlRegistry;
   }
 
 
@@ -110,6 +119,24 @@ public class AmandmanMarkLogicService implements AmandmanService{
     SearchHandle searchHandle = new SearchHandle();
     queryManager.search(definition, searchHandle);
 
+
+    return convertSearchHandle(searchHandle, documentManager, Amandman.class);
+  }
+
+  @Override
+  public List<Amandman> findAllContaining(Pageable pageable, String term) {
+    final Optional<String> optTerm = Optional.ofNullable(term);
+
+    final StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
+//    StructuredQueryDefinition definition =
+//      sb.and(sb.collection(AMANDMAN_REF), sb.properties(sb.term(optTerm.orElse(""))));
+    final String terms[] = optTerm.map(x -> x.split(" "))
+      .orElse(new String[0]);
+    final StructuredQueryDefinition definition = sb.term(terms);
+    definition.setCollections(AMANDMAN_REF);
+
+    final SearchHandle searchHandle = new SearchHandle();
+    queryManager.search(definition, searchHandle);
 
     return convertSearchHandle(searchHandle, documentManager, Amandman.class);
   }
@@ -160,11 +187,6 @@ public class AmandmanMarkLogicService implements AmandmanService{
   }
 
   @Override
-  public void deleteAktById(String id) {
-    throw new NotImplementedException();
-  }
-
-  @Override
   public void deleteAll() {
     StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
     StructuredQueryDefinition definition = sb.collection(AMANDMAN_REF);
@@ -176,37 +198,128 @@ public class AmandmanMarkLogicService implements AmandmanService{
   }
 
   @Override
-  public List<AmandmanMetadata> getMetadata(Pageable pageable) {
+  public List<AmandmanMetadata> getMetadata(Pageable pageable)  {
+    return getMetadata(pageable, null);
+  }
 
-    byte[] data = Try.of(() ->
-      Files.readAllBytes(amandmanSparql.getFile().toPath())
-    ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
+  private <T extends SPARQLResultsReadHandle> T getMetadata(Pageable pageable, AmandmanMetadataPredicate amandmanMetadataPredicate, T handle) {
+    sparqlQueryManager.setPageLength(pageable.getPageSize());
+
+    List<String> amandmanIds =
+      Optional.ofNullable(amandmanMetadataPredicate)
+        .map(x -> findAllContaining(pageable, amandmanMetadataPredicate.getSearchQuery())
+          .stream().map(Amandman::getId).collect(Collectors.toList())).orElse(new ArrayList<>());
+
+    String query = "PREFIX xs: <http://www.w3.org/2001/XMLSchema#>\n" +
+      "\n" +
+      "SELECT * FROM <skupstina/dokument/amandman>\n" +
+      "WHERE {\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n";
+
+
+    final StringBuilder queryBuilder = new StringBuilder(query);
+
+    queryBuilder.append("FILTER( regex(?documentName, ?search )");
+    String s = amandmanIds.stream().map(x ->
+      String.format("|| ?documentId = <http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman/%s>", x)
+    ).collect(Collectors.joining());
+    queryBuilder.append(s);
+    queryBuilder.append(")\n");
+
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getDateCreatedFromTimestamp)
+      .map(XMLUtil::toXmlCalendar)
+      .ifPresent(x ->
+        queryBuilder.append("FILTER(xs:dateTime(?dateCreated) >= xs:dateTime(\"").append(x.toXMLFormat()).append("\"))\n "));
+
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getDateCreatedToTimestamp)
+      .map(XMLUtil::toXmlCalendar).ifPresent(x ->
+      queryBuilder.append("FILTER(xs:dateTime(?dateCreated) <= xs:dateTime(\"").append(x.toXMLFormat()).append("\")) \n"));
+
+    queryBuilder.append("}");
 
     SPARQLQueryDefinition sparqlQueryDefinition =
-      sparqlQueryManager.newQueryDefinition(new String(data))
-        .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
-
-    JacksonHandle jacksonHandle = new JacksonHandle();
-
-    sparqlQueryManager.executeSelect(sparqlQueryDefinition, jacksonHandle);
+      Try.of(() ->
+        sparqlQueryManager
+          .newQueryDefinition(new StringHandle(queryBuilder.toString()))
+      ).getOrElseThrow(x -> new InvalidServerConfigurationException());
 
 
-    List<AmandmanMetadata> metadatas = new ArrayList<>();
-
-    jacksonHandle.get().path("results").path("bindings")
-      .forEach(x -> {
-        AmandmanMetadata amandman = new AmandmanMetadata();
-        String[] idparts = x.get("documentId").path("value").asText().split("/");
-        amandman.setId(idparts[idparts.length - 1]);
-        amandman.setName(x.get("documentName").path("value").asText());
-        amandman.setDateCreated(x.get("dateCreated").path("value").asText());
-        amandman.setDateModified(x.get("dateModified").path("value").asText());
-        metadatas.add(amandman);
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::isOwned)
+      .ifPresent(self -> {
+        if (self) {
+          sparqlQueryDefinition
+            .withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+        }
       });
 
 
+    String search = Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getSearchQuery)
+      .orElse("");
+
+    sparqlQueryDefinition
+      .withBinding("search", search);
+
+
+    sparqlQueryManager.executeSelect(sparqlQueryDefinition, handle, pageable.getOffset() + 1);
+
+    return handle;
+  }
+
+  @Override
+  public List<AmandmanMetadata> getMetadata(Pageable pageable, AmandmanMetadataPredicate amandmanMetadataPredicate) {
+    JacksonHandle jacksonHandle = getMetadata(pageable, amandmanMetadataPredicate, new JacksonHandle());
+
+    List<AmandmanMetadata> metadatas = new ArrayList<>();
+
+    Optional.of(jacksonHandle)
+      .map(JacksonHandle::get)
+      .map(y -> y.path("results").path("bindings"))
+      .ifPresent(x -> x.forEach(node -> {
+        AmandmanMetadata amandman = new AmandmanMetadata();
+        String[] idparts = node.get("documentId").path("value").asText().split("/");
+
+        amandman.setId(idparts[idparts.length - 1]);
+        amandman.setName(node.get("documentName").path("value").asText());
+        String userPath = node.get("user").path("value").asText();
+        amandman.setUser(userPath.substring(userPath.lastIndexOf('/')+1,userPath.length()));
+        amandman.setDateCreated(node.get("dateCreated").path("value").asText());
+        amandman.setDateModified(node.get("dateModified").path("value").asText());
+        metadatas.add(amandman);
+      }));
+
     return metadatas;
+  }
+
+  @Override
+  public Page<AmandmanMetadata> getMetadataPage(Pageable pageable, AmandmanMetadataPredicate amandmanMetadataPredicate) {
+    List<AmandmanMetadata> content = getMetadata(pageable, amandmanMetadataPredicate);
+
+    SPARQLQueryDefinition countSparqlQueryDefinition =
+      Try.of(() ->
+        sparqlQueryManager
+          .newQueryDefinition(new FileHandle(amandmanSparqlRegistry.getItemFromRegistry("amandmanCount.rq").getFile()))
+      ).getOrElseThrow(x -> new InvalidServerConfigurationException());
+
+    countSparqlQueryDefinition.withBinding("user", KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    JacksonHandle jacksonHandle = new JacksonHandle();
+    sparqlQueryManager.executeSelect(countSparqlQueryDefinition, jacksonHandle);
+    int size = content.size();
+    size = Optional.of(jacksonHandle)
+      .map(JacksonHandle::get)
+      .map(y -> y.path("results").path("bindings"))
+      .map(x -> x.get(0).get("count").path("value").asInt())
+      .orElseThrow(InvalidServerConfigurationException::new);
+
+    return new PageImpl<AmandmanMetadata>(content, pageable, size);
   }
 
   @Override

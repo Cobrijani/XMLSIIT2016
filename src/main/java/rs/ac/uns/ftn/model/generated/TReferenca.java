@@ -4,6 +4,7 @@ package rs.ac.uns.ftn.model.generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
@@ -29,18 +30,23 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "TReferenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman", propOrder = {
     "value"
 })
+@XmlSeeAlso({
+    PredmetIzmene.class
+})
 public class TReferenca {
 
     @XmlValue
     protected String value;
-    @XmlAttribute(name = "ceo_akt")
-    protected Boolean ceoAkt;
     @XmlAttribute(name = "ref_clanovi")
     protected String refClanovi;
     @XmlAttribute(name = "ref_stavovi")
     protected String refStavovi;
     @XmlAttribute(name = "ref_tacke")
     protected String refTacke;
+    @XmlAttribute(name = "ref_podtacke")
+    protected String refPodtacke;
+    @XmlAttribute(name = "ref_alineje")
+    protected String refAlineje;
 
     /**
      * Gets the value of the value property.
@@ -64,34 +70,6 @@ public class TReferenca {
      */
     public void setValue(String value) {
         this.value = value;
-    }
-
-    /**
-     * Gets the value of the ceoAkt property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isCeoAkt() {
-        if (ceoAkt == null) {
-            return false;
-        } else {
-            return ceoAkt;
-        }
-    }
-
-    /**
-     * Sets the value of the ceoAkt property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setCeoAkt(Boolean value) {
-        this.ceoAkt = value;
     }
 
     /**
@@ -164,6 +142,54 @@ public class TReferenca {
      */
     public void setRefTacke(String value) {
         this.refTacke = value;
+    }
+
+    /**
+     * Gets the value of the refPodtacke property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRefPodtacke() {
+        return refPodtacke;
+    }
+
+    /**
+     * Sets the value of the refPodtacke property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRefPodtacke(String value) {
+        this.refPodtacke = value;
+    }
+
+    /**
+     * Gets the value of the refAlineje property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getRefAlineje() {
+        return refAlineje;
+    }
+
+    /**
+     * Sets the value of the refAlineje property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setRefAlineje(String value) {
+        this.refAlineje = value;
     }
 
 }

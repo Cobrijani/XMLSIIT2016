@@ -14,6 +14,8 @@
   /* @ngInject */
   function restangularConfig(RestangularProvider) {
     RestangularProvider.setBaseUrl("api/v1");
-    RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'})
+    RestangularProvider.setDefaultHeaders({
+      'Content-Type': 'application/json'
+    });
   }
 })();

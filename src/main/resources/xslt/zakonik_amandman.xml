@@ -18,8 +18,7 @@
   </am:zaglavlje_amandman>
   <am:izmene>
     <am:izmena>
-      <am:predmet_izmene ref_clanovi="clan2">Član 2. menja se i glasi:</am:predmet_izmene>
-      <am:tip_izmene>izmena</am:tip_izmene>
+      <am:predmet_izmene ref_clanovi="clan2" tip_izmene="izmena">Član 2. menja se i glasi:</am:predmet_izmene>
       <am:resenja>
         <am:resenje>
           <akt:clan  meta:naziv="Nema kazne bez krivice" meta:id="clan2">
@@ -31,13 +30,11 @@
       </am:resenja>
     </am:izmena>
     <am:izmena>
-      <am:predmet_izmene ref_clanovi="clan3">Briše se član 3.</am:predmet_izmene>
-      <am:tip_izmene>brisanje</am:tip_izmene>
+      <am:predmet_izmene ref_clanovi="clan3" tip_izmene="brisanje">Briše se član 3.</am:predmet_izmene>
       <am:resenja></am:resenja>
     </am:izmena>
     <am:izmena>
-      <am:predmet_izmene ref_clanovi="clan4">Nakon člana 4. dodaju se članovi koji glase:</am:predmet_izmene>
-      <am:tip_izmene>dopuna</am:tip_izmene>
+      <am:predmet_izmene ref_clanovi="clan4" tip_izmene="dopuna">Nakon člana 4. dodaju se članovi koji glase:</am:predmet_izmene>
       <am:resenja>
         <am:resenje>
           <akt:clan  meta:naziv="novi Clan4a" meta:id="clan4a">

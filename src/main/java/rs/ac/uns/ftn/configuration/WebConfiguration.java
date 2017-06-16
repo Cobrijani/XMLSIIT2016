@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import rs.ac.uns.ftn.configuration.argumentresolvers.AktMetadataHandlerMethodArgumentResolver;
+import rs.ac.uns.ftn.configuration.argumentresolvers.AmandmanMetadataHandlerMethodArgumentResolver;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
     argumentResolvers.add(new AktMetadataHandlerMethodArgumentResolver());
+    argumentResolvers.add(new AmandmanMetadataHandlerMethodArgumentResolver());
   }
 
 

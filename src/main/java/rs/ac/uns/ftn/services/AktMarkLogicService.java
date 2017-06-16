@@ -2,12 +2,8 @@ package rs.ac.uns.ftn.services;
 
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
-import com.marklogic.client.io.DocumentMetadataHandle;
-import com.marklogic.client.io.JAXBHandle;
-import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.SearchHandle;
-import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.io.*;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.io.marker.SPARQLResultsReadHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
@@ -28,7 +24,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
@@ -47,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
@@ -131,10 +127,22 @@ public class AktMarkLogicService implements AktService {
 
   @Override
   public List<Akt> findAll(Pageable pageable) {
-    StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
-    StructuredQueryDefinition definition = sb.collection(AKT_REF);
+    return findAllContaining(pageable, null);
+  }
 
-    SearchHandle searchHandle = new SearchHandle();
+  @Override
+  public List<Akt> findAllContaining(Pageable pageable, String term) {
+    final Optional<String> optTerm = Optional.ofNullable(term);
+
+    final StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
+//    StructuredQueryDefinition definition =
+//      sb.and(sb.collection(AKT_REF), sb.properties(sb.term(optTerm.orElse(""))));
+    final String terms[] = optTerm.map(x -> x.split(" "))
+      .orElse(new String[0]);
+    final StructuredQueryDefinition definition = sb.term(terms);
+    definition.setCollections(AKT_REF);
+
+    final SearchHandle searchHandle = new SearchHandle();
     queryManager.search(definition, searchHandle);
 
     return convertSearchHandle(searchHandle, documentManager, Akt.class);
@@ -202,6 +210,11 @@ public class AktMarkLogicService implements AktService {
   private <T extends SPARQLResultsReadHandle> T getMetadata(Pageable pageable, AktMetadataPredicate aktMetadataPredicate, T handle) {
     sparqlQueryManager.setPageLength(pageable.getPageSize());
 
+    List<String> aktIds =
+      Optional.ofNullable(aktMetadataPredicate)
+        .map(x -> findAllContaining(pageable, aktMetadataPredicate.getSearchQuery())
+          .stream().map(Akt::getId).collect(Collectors.toList())).orElse(new ArrayList<>());
+
 
     String query = "PREFIX xs: <http://www.w3.org/2001/XMLSchema#>\n" +
       "\n" +
@@ -210,20 +223,28 @@ public class AktMarkLogicService implements AktService {
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .\n" +
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .\n" +
       "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
-      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n" +
-      "  FILTER( regex(?documentName, ?search ))\n";
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n";
 
-    StringBuilder queryBuilder = new StringBuilder(query);
+
+    final StringBuilder queryBuilder = new StringBuilder(query);
+
+    queryBuilder.append("FILTER( regex(?documentName, ?search )");
+    String s = aktIds.stream().map(x ->
+      String.format("|| ?documentId = <http://parlament.gov.rs/rs.ac.uns.ftn.model.akt/%s>", x)
+    ).collect(Collectors.joining());
+    queryBuilder.append(s);
+    queryBuilder.append(")\n");
 
     Optional.ofNullable(aktMetadataPredicate)
       .map(AktMetadataPredicate::getDateCreatedFromTimestamp)
       .map(XMLUtil::toXmlCalendar)
-      .ifPresent(x -> queryBuilder.append("FILTER(?dateCreated >= \"").append(x.toXMLFormat()).append("\"^^xs:dateTime)\n "));
+      .ifPresent(x ->
+        queryBuilder.append("FILTER(xs:dateTime(?dateCreated) >= xs:dateTime(\"").append(x.toXMLFormat()).append("\"))\n "));
 
     Optional.ofNullable(aktMetadataPredicate)
       .map(AktMetadataPredicate::getDateCreatedToTimestamp)
       .map(XMLUtil::toXmlCalendar).ifPresent(x ->
-      queryBuilder.append("FILTER(?dateCreated <= \"").append(x.toXMLFormat()).append("\"^^xs:dateTime) \n"));
+      queryBuilder.append("FILTER(xs:dateTime(?dateCreated) <= xs:dateTime(\"").append(x.toXMLFormat()).append("\")) \n"));
 
     queryBuilder.append("}");
 
@@ -368,10 +389,10 @@ public class AktMarkLogicService implements AktService {
 
     Akt aktDb = findById(akt.getId());
 
-    if(aktDTO.getForVote() != null) {
+    if (aktDTO.getForVote() != null) {
       xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@for", aktDb.getDocumentAktRef().getDocument().getResults().getFor() + 1).build();
       documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
-    }else if(aktDTO.getAgainst() != null){
+    } else if (aktDTO.getAgainst() != null) {
       xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:results/@against", aktDb.getDocumentAktRef().getDocument().getResults().getAgainst() + 1).build();
       documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
     }
