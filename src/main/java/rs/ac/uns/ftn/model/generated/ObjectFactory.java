@@ -120,6 +120,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AktState }
+     * 
+     */
+    public AktState createAktState() {
+        return new AktState();
+    }
+
+    /**
+     * Create an instance of {@link AktVersion }
+     * 
+     */
+    public AktVersion createAktVersion() {
+        return new AktVersion();
+    }
+
+    /**
      * Create an instance of {@link Id }
      * 
      */

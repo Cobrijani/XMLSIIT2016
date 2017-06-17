@@ -34,4 +34,6 @@ public interface SednicaService {
     List<PutAktDTO> findSednicaAktsById(String id);
 
     List<AmandmanForSednicaDTO> findSednicaAmandmandsById(String id);
+
+  void putSednica(String id, SednicaDTO sednicaDTO);
 }

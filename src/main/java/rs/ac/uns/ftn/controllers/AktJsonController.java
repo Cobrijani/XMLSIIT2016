@@ -10,16 +10,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.GenerateAktDTO;
+import rs.ac.uns.ftn.dto.akt.MergeAktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
-import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
+import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
-import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktService;
+import rs.ac.uns.ftn.services.AmandmanService;
 
+import javax.xml.bind.JAXBException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,13 +38,16 @@ public class AktJsonController {
 
   private final AktService aktService;
 
+  private final AmandmanService amandmanService;
+
   private final XMLSIITProperties properties;
 
   private final ModelMapper modelMapper;
 
   @Autowired
-  public AktJsonController(AktService aktService, XMLSIITProperties properties, ModelMapper modelMapper) {
+  public AktJsonController(AktService aktService, AmandmanService amandmanService, XMLSIITProperties properties, ModelMapper modelMapper) {
     this.aktService = aktService;
+    this.amandmanService = amandmanService;
     this.properties = properties;
     this.modelMapper = modelMapper;
   }
@@ -73,5 +80,23 @@ public class AktJsonController {
   public ResponseEntity<PutAktDTO> putAkt(@RequestBody PutAktDTO aktDTO, @PathVariable String id){
     PutAktDTO akt = aktService.putAkt(id, aktDTO);
     return ResponseEntity.ok(akt);
+  }
+
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<AktDTO>> mergeAkt(@RequestBody GenerateAktDTO generateAktDTO) throws JAXBException {
+    ArrayList<AktDTO> akts = new ArrayList<>();
+    for(MergeAktDTO mergeAkt : generateAktDTO.getAkts()){
+      Akt akt = aktService.findById(mergeAkt.getAktId());
+      ArrayList<Amandman> amandmans = new ArrayList<Amandman>();
+      for(String amId : mergeAkt.getAmandmanIds()){
+        Amandman am = amandmanService.findById(amId);
+        amandmans.add(am);
+      }
+      AktDTO aktDTO = aktService.mergeAkt(akt, amandmans);
+      akts.add(aktDTO);
+    }
+
+
+    return new ResponseEntity<>(akts, HttpStatus.CREATED);
   }
 }

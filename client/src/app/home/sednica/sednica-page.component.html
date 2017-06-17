@@ -85,7 +85,7 @@
           <td ng-if="dokument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', dokument.id)" class="fa fa-file-pdf-o"></a></td>
           <td>{{dokument.type}}</td>
           <td>
-            <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)"  ng-disabled="vm.votedAkt() == false && dokument.type === 'am' || vm.votingDocument !== null">
+            <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)"  ng-disabled="vm.votedAkt(dokument.aktId) == false && dokument.type === 'am' || vm.votingDocument !== null">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
           </td>
@@ -157,6 +157,34 @@
             </td>
             <td ng-if="document.result == 'accepted'">prihvaćen</td>
             <td ng-if="document.result == 'rejected'">odbijen</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-info" ng-click="vm.generateNewDocuments()" ng-disabled="vm.disableGenerate()">
+        Prečisti
+      </button>
+    </div>
+  </div>
+  <div class="row" ng-if="vm.generatedDocuments.length > 0">
+    <div class="col-sm-7 col-sm-offset-2">
+      <div class="row">
+        <h2>Prečišćeni dokumenti</h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Naziv</th>
+            <th>&nbsp;</th>
+            <th>Tip</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="document in vm.generatedDocuments">
+            <td><a href ng-click="vm.getDetails('akti', document.id)">{{document.name}}</a></td>
+            <td><a href ng-click="vm.getPdf('akti', document.id)" class="fa fa-file-pdf-o"></a></td>
+            <td>akt</td>
           </tr>
           </tbody>
         </table>

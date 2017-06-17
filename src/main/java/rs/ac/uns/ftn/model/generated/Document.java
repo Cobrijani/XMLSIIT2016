@@ -1,7 +1,6 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}state"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}result"/>
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}results"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.document}graphState"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,20 +33,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "state",
     "result",
-    "results"
+    "results",
+    "graphState"
 })
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Document {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true, defaultValue = "default")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String state;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true, defaultValue = "default")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String result;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Results results;
+    @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document", required = true)
+    protected GraphState graphState;
 
     /**
      * Gets the value of the state property.
@@ -56,7 +55,6 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getState() {
         return state;
     }
@@ -69,7 +67,6 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setState(String value) {
         this.state = value;
     }
@@ -82,7 +79,6 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getResult() {
         return result;
     }
@@ -95,7 +91,6 @@ public class Document {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setResult(String value) {
         this.result = value;
     }
@@ -108,7 +103,6 @@ public class Document {
      *     {@link Results }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Results getResults() {
         return results;
     }
@@ -121,9 +115,32 @@ public class Document {
      *     {@link Results }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setResults(Results value) {
         this.results = value;
+    }
+
+    /**
+     * Gets the value of the graphState property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link GraphState }
+     *     
+     */
+    public GraphState getGraphState() {
+        return graphState;
+    }
+
+    /**
+     * Sets the value of the graphState property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link GraphState }
+     *     
+     */
+    public void setGraphState(GraphState value) {
+        this.graphState = value;
     }
 
 }

@@ -1,16 +1,19 @@
 package rs.ac.uns.ftn.services;
 
+import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.JAXBHandle;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
+import com.marklogic.client.io.marker.DocumentPatchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryManager;
+import com.marklogic.client.util.EditableNamespaceContext;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +139,8 @@ public class SednicaMarkLogicService implements SednicaService{
     sednica.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     sednica.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
     sednica.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    sednica.getInformacije().setZavrsena(false);
 
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
@@ -306,5 +311,17 @@ public class SednicaMarkLogicService implements SednicaService{
       });
 
     return amandmands;
+  }
+
+  @Override
+  public void putSednica(String id, SednicaDTO sednicaDTO) {
+    Sednica sednica = findById(id);
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("sednica", SEDNICA);
+    DocumentPatchBuilder builder = documentManager.newPatchBuilder();
+    builder.setNamespaces(namespaces);
+
+    DocumentPatchHandle xmlPatch = builder.replaceValue("//sednica:sednica/sednica:informacije/@zavrsena ", sednicaDTO.getZavrsena()).build();
+    documentManager.patch(getDocumentId(SEDNICA_FORMAT, sednica.getId()), xmlPatch);
   }
 }

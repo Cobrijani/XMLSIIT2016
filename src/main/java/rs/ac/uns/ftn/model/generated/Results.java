@@ -1,7 +1,6 @@
 
 package rs.ac.uns.ftn.model.generated;
 
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -31,17 +30,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "results", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Results {
 
     @XmlAttribute(name = "for")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Integer _for;
     @XmlAttribute(name = "against")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Integer against;
     @XmlAttribute(name = "notVote")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Integer notVote;
 
     /**
@@ -52,7 +47,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public int getFor() {
         if (_for == null) {
             return  0;
@@ -69,7 +63,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFor(Integer value) {
         this._for = value;
     }
@@ -82,7 +75,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public int getAgainst() {
         if (against == null) {
             return  0;
@@ -99,7 +91,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setAgainst(Integer value) {
         this.against = value;
     }
@@ -112,7 +103,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public int getNotVote() {
         if (notVote == null) {
             return  0;
@@ -129,7 +119,6 @@ public class Results {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2017-03-20T10:36:57+01:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setNotVote(Integer value) {
         this.notVote = value;
     }

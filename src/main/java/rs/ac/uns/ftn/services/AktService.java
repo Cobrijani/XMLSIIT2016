@@ -2,12 +2,17 @@ package rs.ac.uns.ftn.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.MergeAktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.generated.Amandman;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 
+import javax.xml.bind.JAXBException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +30,7 @@ public interface AktService {
 
   List<Akt> findAllContaining(Pageable pageable, String term);
 
-  void add(Akt akt);
+  Akt add(Akt akt);
 
   void deleteAktById(String id);
 
@@ -42,6 +47,8 @@ public interface AktService {
   List<AmandmanMetadata> findAktAmandmandsById(String id);
 
   PutAktDTO putAkt(String id, PutAktDTO aktDTO);
+
+  AktDTO mergeAkt(Akt akt, ArrayList<Amandman> amandmans) throws JAXBException;
 
   String getSparqlResult(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
 

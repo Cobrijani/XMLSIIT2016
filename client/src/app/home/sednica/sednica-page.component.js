@@ -27,6 +27,7 @@
     vm.defaultAkts = [];
     vm.defaultAmandmans = [];
     vm.userVote = false;
+    vm.generatedDocuments = [];
 
 
     vm.getDetails = getDetails;
@@ -39,6 +40,8 @@
     vm.acceptDeclineDocument = acceptDeclineDocument;
     vm.selectAktsAmandmands = selectAktsAmandmands;
     vm.votedAkt = votedAkt;
+    vm.disableGenerate = disableGenerate;
+    vm.generateNewDocuments = generateNewDocuments;
 
     //content
 
@@ -262,10 +265,10 @@
       }
     }
 
-    function votedAkt(){
-      console.log(vm.votingDocuments);
+    function votedAkt(aktId){
+      console.log(aktId);
       for(var i = 0 ; i < vm.votingDocuments.length; i++){
-        if(vm.votingDocuments[i].type == 'akt'){
+        if(vm.votingDocuments[i].type == 'akt' && vm.votingDocuments[i].aktId === aktId){
           return false;
         }
       }
@@ -281,6 +284,59 @@
         }
       }
       return false;
+    }
+
+    function disableGenerate() {
+      console.log(vm.votedDocuments);
+      if(vm.votingDocuments.length > 0 || vm.votingDocument != null || vm.defaultAkts.length > 0 || vm.sednica.zavrsena){
+        return true;
+      }
+      for(var i = 0; i < vm.votedDocuments.length; i++){
+        if(vm.votedDocuments[i].result == 'default'){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function generateNewDocuments() {
+      var documents = [];
+      for(var i = 0; i < vm.votedDocuments.length; i++){
+        var new_doc = vm.votedDocuments[i];
+        if(new_doc.result == 'declined'){
+          continue;
+        }
+        if(new_doc.type == 'akt'){
+          documents.push({'aktId' : new_doc.id, 'amandmanIds' : []});
+        }
+      }
+      console.log(documents);
+      for(var i = 0; i < vm.votedDocuments.length; i++){
+        var new_doc = vm.votedDocuments[i];
+        if(new_doc.type == 'am'){
+          for(var i = 0; i < documents.length; i++) {
+            var doc = documents[i];
+            if(doc.aktId == new_doc.aktId){
+              doc.amandmanIds.push(new_doc.id)
+            }
+          }
+        }
+      }
+
+      console.log(documents);
+        GenericResource.postEntity('akti', { 'akts' : documents }, {
+          'Content-Type': 'application/json'})
+        .then(function (success) {
+          for(var i = 0; i < success.length; i++){
+            vm.generatedDocuments.push(success[i]);
+          }
+          vm.sednica.zavrsena = true;
+          vm.sednica.put();
+          console.log(vm.sednica);
+        })
+        .catch(function (error) {
+          exception.catcher('Generate new document error')(error);
+        });
     }
   }
 })();

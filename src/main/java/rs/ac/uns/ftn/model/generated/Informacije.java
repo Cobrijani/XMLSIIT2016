@@ -21,6 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="datum" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
  *       &lt;attribute name="mesto" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="zavrsena" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,6 +39,8 @@ public class Informacije {
     protected XMLGregorianCalendar datum;
     @XmlAttribute(name = "mesto")
     protected String mesto;
+    @XmlAttribute(name = "zavrsena")
+    protected Boolean zavrsena;
 
     /**
      * Gets the value of the datum property.
@@ -85,6 +88,30 @@ public class Informacije {
      */
     public void setMesto(String value) {
         this.mesto = value;
+    }
+
+    /**
+     * Gets the value of the zavrsena property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isZavrsena() {
+        return zavrsena;
+    }
+
+    /**
+     * Sets the value of the zavrsena property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setZavrsena(Boolean value) {
+        this.zavrsena = value;
     }
 
 }

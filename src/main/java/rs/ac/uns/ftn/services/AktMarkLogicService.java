@@ -23,20 +23,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.*;
 import org.w3c.dom.Document;
+import org.w3c.dom.xpath.XPathExpression;
+import rs.ac.uns.ftn.dto.akt.AktDTO;
+import rs.ac.uns.ftn.dto.akt.MergeAktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
-import rs.ac.uns.ftn.model.generated.Akt;
-import rs.ac.uns.ftn.model.generated.DateCreated;
-import rs.ac.uns.ftn.model.generated.DateModified;
+import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.xpath.XPathConstants;
+import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,7 +162,7 @@ public class AktMarkLogicService implements AktService {
 
 
   @Override
-  public void add(Akt akt) {
+  public Akt add(Akt akt) {
     final String id = identifierGenerator.generateIdentity();
     akt.setId(id);
     akt.getOtherAttributes().put(new QName("about"), AKT + "/" + id);
@@ -158,6 +170,19 @@ public class AktMarkLogicService implements AktService {
     akt.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":korisnik");
     akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
     akt.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
+
+    final AktState gs = new AktState();
+    akt.getDocumentAktRef().getDocument().setGraphState(new GraphState());
+    gs.setValue("default");
+//    gs.getOtherAttributes().put(new QName("property"), PRED_PREF + ":stanje");
+//    gs.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    akt.getDocumentAktRef().getDocument().getGraphState().setAktState(gs);
+
+    final AktVersion gv = new AktVersion();
+    gv.setValue("last");
+//    gv.getOtherAttributes().put(new QName("property"), PRED_PREF + ":verzija");
+//    gv.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    akt.getDocumentAktRef().getDocument().getGraphState().setAktVersion(gv);
 
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
@@ -184,6 +209,7 @@ public class AktMarkLogicService implements AktService {
     handle.set(akt);
     documentManager.write(getDocumentId(AKT_FORMAT, akt.getId()), documentMetadataHandle, handle);
     rdfService.extractAndWriteData(findById(id, Document.class), AKT_GRAPH_URI);
+    return akt;
   }
 
   @Override
@@ -383,7 +409,6 @@ public class AktMarkLogicService implements AktService {
 
     DocumentPatchHandle xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:state", aktDTO.getState()).build();
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
-
     xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:result", aktDTO.getResult()).build();
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
 
@@ -401,5 +426,137 @@ public class AktMarkLogicService implements AktService {
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
 
     return aktDTO;
+  }
+
+  private Akt refreshDocValues(Akt akt){
+    akt.getDocumentAktRef().getDocument().setState("default");
+    akt.getDocumentAktRef().getDocument().setResult("default");
+    akt.getDocumentAktRef().getDocument().getResults().setAgainst(0);
+    akt.getDocumentAktRef().getDocument().getResults().setFor(0);
+    akt.getDocumentAktRef().getDocument().getResults().setNotVote(0);
+    return akt;
+  }
+  public AktDTO mergeAkt(Akt akt, ArrayList<Amandman> amandmans) throws JAXBException {
+    akt.getOtherAttributes().clear();
+    akt = refreshDocValues(akt);
+    akt = add(akt);
+    for(Amandman am : amandmans){
+      for(Izmena izm : am.getIzmene().getIzmena()){
+        if(izm.getPredmetIzmene().getTipIzmene().equals(TTipIzmene.IZMENA)){
+          for(Resenje res : izm.getResenja().getResenje()){
+            if(izm.getPredmetIzmene().getRefClanovi() != null){
+              patchAkt(akt.getId(), res.getClan(), izm.getPredmetIzmene().getRefClanovi(), Clan.class, "clan");
+            }else if(izm.getPredmetIzmene().getRefTacke() != null){
+              patchAkt(akt.getId(), res.getTacka(), izm.getPredmetIzmene().getRefTacke(), Tacka.class, "tacka");
+            }else if(izm.getPredmetIzmene().getRefAlineje() != null){
+              patchAkt(akt.getId(), res.getAlineja(), izm.getPredmetIzmene().getRefAlineje(), Alineja.class, "alineja");
+            }else if(izm.getPredmetIzmene().getRefPodtacke() != null){
+              patchAkt(akt.getId(), res.getPodtacka(), izm.getPredmetIzmene().getRefPodtacke(), Podtacka.class, "podtacka");
+            }else if(izm.getPredmetIzmene().getRefStavovi() != null){
+              patchAkt(akt.getId(), res.getStav(), izm.getPredmetIzmene().getRefStavovi(), Stav.class, "stavovi");
+            }
+          }
+        }else if(izm.getPredmetIzmene().getTipIzmene().equals(TTipIzmene.BRISANJE)){
+          //for(Resenje res : izm.getResenja().getResenje()){
+            if(izm.getPredmetIzmene().getRefClanovi() != null){
+              deleteElement(akt.getId(), izm.getPredmetIzmene().getRefClanovi(), "clan");
+            }else if(izm.getPredmetIzmene().getRefTacke() != null){
+              deleteElement(akt.getId(), izm.getPredmetIzmene().getRefTacke(), "tacka");
+            }else if(izm.getPredmetIzmene().getRefAlineje() != null){
+              deleteElement(akt.getId(), izm.getPredmetIzmene().getRefAlineje(), "alineja");
+            }else if(izm.getPredmetIzmene().getRefPodtacke() != null){
+              deleteElement(akt.getId(), izm.getPredmetIzmene().getRefPodtacke(), "podtacka");
+            }else if(izm.getPredmetIzmene().getRefStavovi() != null){
+              deleteElement(akt.getId(), izm.getPredmetIzmene().getRefStavovi(), "stav");
+            }
+          //}
+        }else if(izm.getPredmetIzmene().getTipIzmene().equals(TTipIzmene.DOPUNA)){
+//          for(Resenje res : izm.getResenja().getResenje()){
+            if(izm.getPredmetIzmene().getRefClanovi() != null){
+              addElementOnAkt(akt.getId(), izm.getResenja().getResenje(), izm.getPredmetIzmene().getRefClanovi(), Clan.class, "clan");
+            }else if(izm.getPredmetIzmene().getRefTacke() != null){
+              addElementOnAkt(akt.getId(), izm.getResenja().getResenje(), izm.getPredmetIzmene().getRefTacke(), Tacka.class, "tacka");
+            }else if(izm.getPredmetIzmene().getRefAlineje() != null){
+              addElementOnAkt(akt.getId(), izm.getResenja().getResenje(), izm.getPredmetIzmene().getRefAlineje(), Alineja.class, "alineja");
+            }else if(izm.getPredmetIzmene().getRefPodtacke() != null){
+              addElementOnAkt(akt.getId(), izm.getResenja().getResenje(), izm.getPredmetIzmene().getRefPodtacke(), Podtacka.class, "podtacka");
+            }else if(izm.getPredmetIzmene().getRefStavovi() != null){
+              addElementOnAkt(akt.getId(), izm.getResenja().getResenje(), izm.getPredmetIzmene().getRefStavovi(), Stav.class, "stav");
+            }
+//          }
+        }
+      }
+    }
+    akt = findById(akt.getId());
+    AktDTO aktDTO = new AktDTO();
+    aktDTO.setId(akt.getId());
+    aktDTO.setName(akt.getZaglavlje().getNaziv().getValue());
+    return aktDTO;
+  }
+
+  private void addElementOnAkt(String aktId, List<Resenje> resenja, String id, Class myClass, String path) throws JAXBException {
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("akt", AKT);
+    namespaces.put("meta", META);
+    namespaces.put("document", DOCUMENT);
+    DocumentPatchBuilder builder;// = documentManager.newPatchBuilder();
+    Object obj = null;
+    String new_id = null;
+    DocumentPatchHandle xmlPatch = null;
+    for(Resenje res : resenja){
+      builder = documentManager.newPatchBuilder();
+      builder.setNamespaces(namespaces);
+      if(myClass == Clan.class){
+        obj = res.getClan();
+        new_id = res.getClan().getId();
+      }else if(myClass == Tacka.class){
+        obj = res.getTacka();
+        new_id = res.getTacka().getId();
+      }else if(myClass == Alineja.class){
+        obj = res.getAlineja();
+        new_id = res.getAlineja().getId();
+      }else if(myClass == Podtacka.class){
+        obj = res.getPodtacka();
+        new_id = res.getPodtacka().getId();
+      }else if(myClass == Stav.class){
+        obj = res.getStav();
+        new_id = res.getStav().getId();
+      }
+      xmlPatch = builder.insertFragment("//akt:" + path + "[@meta:id=\""+id+"\"]", DocumentPatchBuilder.Position.AFTER ,toXmlString(obj, myClass)).build();
+      documentManager.patch(getDocumentId(AKT_FORMAT, aktId), xmlPatch);
+      id = new_id;
+    }
+  }
+
+  private void deleteElement(String aktId, String id, String path){
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("akt", AKT);
+    namespaces.put("meta", META);
+    namespaces.put("document", DOCUMENT);
+    DocumentPatchBuilder builder = documentManager.newPatchBuilder();
+    builder.setNamespaces(namespaces);
+    DocumentPatchHandle xmlPatch = builder.delete("//akt:" + path + "[@meta:id=\""+id+"\"]").build();
+    documentManager.patch(getDocumentId(AKT_FORMAT, aktId), xmlPatch);
+  }
+
+  private void patchAkt(String aktId, Object obj, String id, Class myClass, String path) throws JAXBException {
+    EditableNamespaceContext namespaces = new EditableNamespaceContext();
+    namespaces.put("akt", AKT);
+    namespaces.put("meta", META);
+    namespaces.put("document", DOCUMENT);
+    DocumentPatchBuilder builder = documentManager.newPatchBuilder();
+    builder.setNamespaces(namespaces);
+    DocumentPatchHandle xmlPatch = builder.replaceFragment("//akt:" + path + "[@meta:id=\""+id+"\"]", toXmlString(obj, myClass)).build();
+    documentManager.patch(getDocumentId(AKT_FORMAT, aktId), xmlPatch);
+  }
+
+  private String toXmlString(Object object, Class myClass) throws JAXBException {
+    JAXBContext context = JAXBContext.newInstance(myClass);
+    Marshaller marshaller = context.createMarshaller();
+    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+    StringWriter writer = new StringWriter();
+    marshaller.marshal(object, writer);
+
+    return writer.toString();
   }
 }

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
-    xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document">
-
+    xmlns:document="http://parlament.gov.rs/rs.ac.uns.ftn.model.document"
+    xmlns:meta="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfa="http://www.w3.org/ns/rdfa#">
+    <xs:import namespace="http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata"
+        schemaLocation="metadata.xsd"/>
     <xs:element name="document" nillable="true">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="document:state"/>
                 <xs:element ref="document:result"/>
                 <xs:element ref="document:results"/>
+                <xs:element ref="document:graphState"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -36,6 +40,14 @@
             <xs:attribute name="for" type="xs:int" default="0"/>
             <xs:attribute name="against" type="xs:int" default="0"/>
             <xs:attribute name="notVote" type="xs:int" default="0"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="graphState">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="meta:aktState"/>
+                <xs:element ref="meta:aktVersion"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
 </xs:schema>

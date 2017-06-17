@@ -35,6 +35,7 @@
     <xs:complexType>
       <xs:attribute name="datum" type="xs:dateTime"/>
       <xs:attribute name="mesto" type="xs:string"/>
+      <xs:attribute name="zavrsena" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="akti">

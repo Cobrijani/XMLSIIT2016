@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.xpath.operations.Bool;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -23,5 +24,7 @@ public class SednicaDTO {
   private XMLGregorianCalendar datum;
 
   private String mesto;
+
+  private Boolean zavrsena;
 
 }

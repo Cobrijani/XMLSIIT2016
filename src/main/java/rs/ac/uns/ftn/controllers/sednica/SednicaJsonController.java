@@ -71,7 +71,7 @@ public class SednicaJsonController {
 
   @PreAuthorize("isAuthenticated()")
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> postAkt(@RequestBody SednicaPostDTO sednicaDTO, UriComponentsBuilder builder) {
+  public ResponseEntity<Void> postSednica(@RequestBody SednicaPostDTO sednicaDTO, UriComponentsBuilder builder) {
     Sednica sednica = createSednicaFromDTO(sednicaDTO);
     sednicaService.add(sednica, sednicaDTO.getAkti(), sednicaDTO.getAmandmani());
 
@@ -81,6 +81,13 @@ public class SednicaJsonController {
         .buildAndExpand(sednicaDTO.getId()).toUri());
 
     return new ResponseEntity<>(headers, HttpStatus.CREATED);
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity<Void> putSednica(@RequestBody SednicaDTO sednicaDTO, @PathVariable String id) {
+    sednicaService.putSednica(id, sednicaDTO);
+
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @GetMapping(value = "/{id}/akti")
@@ -101,6 +108,7 @@ public class SednicaJsonController {
     sednicaDTO.setNaziv(sednica.getZaglavljeSednica().getNaziv().getValue());
     sednicaDTO.setMesto(sednica.getInformacije().getMesto());
     sednicaDTO.setDatum(sednica.getInformacije().getDatum());
+    sednicaDTO.setZavrsena(sednica.getInformacije().isZavrsena());
     return sednicaDTO;
   }
 
