@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
  * &lt;complexType>
  *   &lt;simpleContent>
  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *       &lt;anyAttribute/>
+ *       &lt;anyAttribute processContents='lax'/>
  *     &lt;/extension>
  *   &lt;/simpleContent>
  * &lt;/complexType>

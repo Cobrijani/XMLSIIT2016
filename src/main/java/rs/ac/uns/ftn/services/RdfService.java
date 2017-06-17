@@ -36,4 +36,5 @@ public interface RdfService {
 
   List<Triplets> handleResults(JacksonHandle jacksonHandle);
 
+  void updateTripleAkt(String aktId, String state, String version, String graphName);
 }

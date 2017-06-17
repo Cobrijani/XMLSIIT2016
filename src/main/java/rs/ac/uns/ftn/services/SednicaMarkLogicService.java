@@ -28,6 +28,7 @@ import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.AktStates;
 import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
@@ -40,6 +41,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
+import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.SEDNICA_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.convertSearchHandle;
 import static rs.ac.uns.ftn.util.XMLUtil.getDocumentId;
@@ -164,6 +166,7 @@ public class SednicaMarkLogicService implements SednicaService{
       ref.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":pripada");
       ref.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":akt");
       ref.getOtherAttributes().put(new QName("href"), AKT + "/" + aktId);
+      rdfService.updateTripleAkt(aktId, AktStates.RAZMATRAN, AktStates.STANJE, AKT_GRAPH_URI);
       sednica.getAkti().getAktRef().add(ref);
     }
 

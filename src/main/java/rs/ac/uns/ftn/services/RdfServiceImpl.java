@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.io.DOMHandle;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.JacksonHandle;
+import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.marker.TriplesWriteHandle;
 import com.marklogic.client.semantics.GraphManager;
 import com.marklogic.client.semantics.RDFMimeTypes;
+import com.marklogic.client.semantics.SPARQLQueryDefinition;
+import com.marklogic.client.semantics.SPARQLQueryManager;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,12 +41,15 @@ public class RdfServiceImpl implements RdfService {
 
   private final GraphManager graphManager;
 
+  private final SPARQLQueryManager sparqlQueryManager;
+
   @Value("classpath:schemas/grddl.xsl")
   private Resource grddlXslt;
 
-  public RdfServiceImpl(TransformerFactory transformerFactory, GraphManager graphManager) {
+  public RdfServiceImpl(TransformerFactory transformerFactory, GraphManager graphManager, SPARQLQueryManager sparqlQueryManager) {
     this.transformerFactory = transformerFactory;
     this.graphManager = graphManager;
+    this.sparqlQueryManager = sparqlQueryManager;
   }
 
 
@@ -108,8 +114,6 @@ public class RdfServiceImpl implements RdfService {
     final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     extractMetadata(source, new StreamResult(out));
-
-    System.out.println(out.toString());
 
     TriplesWriteHandle handle = new InputStreamHandle(new ByteArrayInputStream(out.toByteArray())).
       withMimetype(RDFMimeTypes.RDFXML);
@@ -185,6 +189,24 @@ public class RdfServiceImpl implements RdfService {
 
     return result;
 
+  }
+
+  @Override
+  public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
+
+    String resource = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt/";
+    predicate = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" + predicate;
+
+    String queryDefinition =
+      "PREFIX xs: <http://www.w3.org/2001/XMLSchema#> \n" +
+        " WITH <" + graphName + ">" +
+        " DELETE { <" + resource + id + "> <" + predicate + ">  ?o} " +
+        " INSERT { <" + resource + id + "> <" + predicate + "> '" + newValue + "'^^<string> }" +
+        " WHERE  { <" + resource + id + "> <" + predicate + ">  ?o}";
+    SPARQLQueryDefinition query = sparqlQueryManager
+      .newQueryDefinition(queryDefinition);
+
+    sparqlQueryManager.executeUpdate(query);
   }
 
 

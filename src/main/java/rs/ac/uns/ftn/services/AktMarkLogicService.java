@@ -9,6 +9,7 @@ import com.marklogic.client.query.MatchDocumentSummary;
 import com.marklogic.client.query.QueryManager;
 import com.marklogic.client.query.StructuredQueryBuilder;
 import com.marklogic.client.query.StructuredQueryDefinition;
+import com.marklogic.client.semantics.RDFMimeTypes;
 import com.marklogic.client.semantics.SPARQLMimeTypes;
 import com.marklogic.client.semantics.SPARQLQueryDefinition;
 import com.marklogic.client.semantics.SPARQLQueryManager;
@@ -31,6 +32,7 @@ import rs.ac.uns.ftn.dto.akt.MergeAktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
+import rs.ac.uns.ftn.model.AktStates;
 import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
@@ -173,15 +175,15 @@ public class AktMarkLogicService implements AktService {
 
     final AktState gs = new AktState();
     akt.getDocumentAktRef().getDocument().setGraphState(new GraphState());
-    gs.setValue("default");
-//    gs.getOtherAttributes().put(new QName("property"), PRED_PREF + ":stanje");
-//    gs.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    gs.setValue(AktStates.NOV);
+    gs.getOtherAttributes().put(new QName("property"), PRED_PREF + ":stanje");
+    gs.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
     akt.getDocumentAktRef().getDocument().getGraphState().setAktState(gs);
 
     final AktVersion gv = new AktVersion();
-    gv.setValue("last");
-//    gv.getOtherAttributes().put(new QName("property"), PRED_PREF + ":verzija");
-//    gv.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    gv.setValue(AktStates.NOV);
+    gv.getOtherAttributes().put(new QName("property"), PRED_PREF + ":verzija");
+    gv.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
     akt.getDocumentAktRef().getDocument().getGraphState().setAktVersion(gv);
 
     final DateCreated dateCreated = new DateCreated();
@@ -412,6 +414,12 @@ public class AktMarkLogicService implements AktService {
     xmlPatch = builder.replaceValue("//akt:akt/akt:document_akt_ref/document:document/document:result", aktDTO.getResult()).build();
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
 
+    if(aktDTO.getResult().equals("accepted")){
+      rdfService.updateTripleAkt(id, AktStates.IZGLASAN, AktStates.STANJE, AKT_GRAPH_URI);
+    }else if(aktDTO.getResult().equals("declined")){
+      rdfService.updateTripleAkt(id, AktStates.ODBIJEN, AktStates.STANJE, AKT_GRAPH_URI);
+    }
+
     Akt aktDb = findById(akt.getId());
 
     if (aktDTO.getForVote() != null) {
@@ -438,6 +446,7 @@ public class AktMarkLogicService implements AktService {
   }
   public AktDTO mergeAkt(Akt akt, ArrayList<Amandman> amandmans) throws JAXBException {
     akt.getOtherAttributes().clear();
+    String oldAktId = akt.getId();
     akt = refreshDocValues(akt);
     akt = add(akt);
     for(Amandman am : amandmans){
@@ -487,7 +496,12 @@ public class AktMarkLogicService implements AktService {
         }
       }
     }
+
+
     akt = findById(akt.getId());
+
+    rdfService.updateTripleAkt(oldAktId, AktStates.STARI, AktStates.VERZIJA, AKT_GRAPH_URI);
+
     AktDTO aktDTO = new AktDTO();
     aktDTO.setId(akt.getId());
     aktDTO.setName(akt.getZaglavlje().getNaziv().getValue());
