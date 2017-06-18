@@ -13,10 +13,10 @@ import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.akt.GenerateAktDTO;
 import rs.ac.uns.ftn.dto.akt.MergeAktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
-import rs.ac.uns.ftn.model.generated.Amandman;
-import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.generated.Akt;
+import rs.ac.uns.ftn.model.generated.Amandman;
+import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.properties.XMLSIITProperties;
 import rs.ac.uns.ftn.services.AktService;
@@ -65,9 +65,9 @@ public class AktJsonController {
 
 
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> deleteAkt(@PathVariable String id) {
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteAkt(@PathVariable String id) {
     aktService.removeById(id);
-    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping(value = "/{id}/amandmani")
@@ -77,7 +77,7 @@ public class AktJsonController {
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<PutAktDTO> putAkt(@RequestBody PutAktDTO aktDTO, @PathVariable String id){
+  public ResponseEntity<PutAktDTO> putAkt(@RequestBody PutAktDTO aktDTO, @PathVariable String id) {
     PutAktDTO akt = aktService.putAkt(id, aktDTO);
     return ResponseEntity.ok(akt);
   }
@@ -85,10 +85,10 @@ public class AktJsonController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<AktDTO>> mergeAkt(@RequestBody GenerateAktDTO generateAktDTO) throws JAXBException {
     ArrayList<AktDTO> akts = new ArrayList<>();
-    for(MergeAktDTO mergeAkt : generateAktDTO.getAkts()){
+    for (MergeAktDTO mergeAkt : generateAktDTO.getAkts()) {
       Akt akt = aktService.findById(mergeAkt.getAktId());
       ArrayList<Amandman> amandmans = new ArrayList<Amandman>();
-      for(String amId : mergeAkt.getAmandmanIds()){
+      for (String amId : mergeAkt.getAmandmanIds()) {
         Amandman am = amandmanService.findById(amId);
         amandmans.add(am);
       }
@@ -99,4 +99,5 @@ public class AktJsonController {
 
     return new ResponseEntity<>(akts, HttpStatus.CREATED);
   }
+
 }

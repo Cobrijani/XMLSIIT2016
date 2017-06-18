@@ -1,10 +1,10 @@
 package rs.ac.uns.ftn.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.io.DOMHandle;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.marker.TriplesWriteHandle;
 import com.marklogic.client.semantics.GraphManager;
 import com.marklogic.client.semantics.RDFMimeTypes;
@@ -27,6 +27,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 
 /**
  * Service for Rdf Manipulation such as reading and writing and extracting data from document
@@ -207,6 +209,30 @@ public class RdfServiceImpl implements RdfService {
       .newQueryDefinition(queryDefinition);
 
     sparqlQueryManager.executeUpdate(query);
+  }
+
+  private SPARQLQueryDefinition createDeleteQueryDefinition(String id, String predicate, String graphName) {
+    final StringBuilder sparqlStringBuilder = new StringBuilder();
+
+    final String aktId = "<" + AKT + "/" + id + ">";
+    final String aktPred = "<" + PRED + predicate + ">";
+
+    sparqlStringBuilder.append("PREFIX xs: <").append(XS).append("> \n")
+      .append("WITH <").append(graphName).append(">")
+      .append("DELETE { ").append(aktId).append(" ").append(aktPred).append(" ?o}")
+      .append("WHERE {").append(aktId).append(" ").append(aktPred).append(" ?o}");
+
+    return sparqlQueryManager.newQueryDefinition(sparqlStringBuilder.toString());
+  }
+
+  @Override
+  public void deleteTripleAkt(String id, String predicate, String graphName) {
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName));
+  }
+
+  @Override
+  public void deleteTripleAkt(String id, String predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName), transaction);
   }
 
 

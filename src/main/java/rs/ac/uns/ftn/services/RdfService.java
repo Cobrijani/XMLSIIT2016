@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.services;
 
+import com.marklogic.client.Transaction;
 import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.marker.TriplesWriteHandle;
 import org.w3c.dom.Document;
@@ -37,4 +38,8 @@ public interface RdfService {
   List<Triplets> handleResults(JacksonHandle jacksonHandle);
 
   void updateTripleAkt(String aktId, String state, String version, String graphName);
+
+  void deleteTripleAkt(String id, String predicate, String graphName);
+
+  void deleteTripleAkt(String id, String predicate, String graphName, Transaction transaction);
 }
