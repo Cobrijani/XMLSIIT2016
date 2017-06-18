@@ -12,5 +12,4 @@ public class AktStates {
 
   public static String STARI = "stari";
 
-
 }

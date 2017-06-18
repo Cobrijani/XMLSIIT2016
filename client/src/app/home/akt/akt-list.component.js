@@ -27,7 +27,9 @@
     vm.reset = reset;
     vm.deleteAkt = deleteAkt;
 
-    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
+    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik ||
+      UserJwtResource.getUserPayload().auth === roles.predsednik;
+    vm.login = UserJwtResource.getUserPayload().sub;
 
     vm.pageOptions = {
       size: 5,
@@ -47,12 +49,12 @@
       GenericResource.deleteEntity('akti', aktId)
         .then(function () {
           $state.reload();
-          toastr.success("Delete successful", "Akt with id: " + aktId + " has been successfully deleted");
+          toastr.success("Akt uspesno povucen");
           $log.info("Successfully deleted");
         })
         .catch(function (error) {
           $log.error("Error deleting akt with id", aktId, ". Error message: ", error.data.message);
-          toastr.error(error.data.message);
+          toastr.error("Greska pri povlacenju akta");
         });
     }
 

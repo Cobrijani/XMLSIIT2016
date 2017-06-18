@@ -196,9 +196,7 @@ public class RdfServiceImpl implements RdfService {
 
   }
 
-  @Override
-  public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
-
+  private SPARQLQueryDefinition createUpdateTripleAktQ(String id, String newValue, String predicate, String graphName) {
     String resource = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt/";
     predicate = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" + predicate;
 
@@ -208,10 +206,18 @@ public class RdfServiceImpl implements RdfService {
         " DELETE { <" + resource + id + "> <" + predicate + ">  ?o} " +
         " INSERT { <" + resource + id + "> <" + predicate + "> '" + newValue + "'^^<string> }" +
         " WHERE  { <" + resource + id + "> <" + predicate + ">  ?o}";
-    SPARQLQueryDefinition query = sparqlQueryManager
+    return sparqlQueryManager
       .newQueryDefinition(queryDefinition);
+  }
 
-    sparqlQueryManager.executeUpdate(query);
+  @Override
+  public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
+    sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(id, newValue, predicate, graphName));
+  }
+
+  @Override
+  public void updateTripleAkt(String aktId, String newValue, String predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(aktId, newValue, predicate, graphName), transaction);
   }
 
   private SPARQLQueryDefinition createDeleteQueryDefinition(String id, List<String> predicates, String graphName) {

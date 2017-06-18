@@ -21,4 +21,10 @@ public class AktMetadata {
   private String dateCreated;
 
   private String dateModified;
+
+  private String state;
+
+  private String version;
+
+  private String author;
 }

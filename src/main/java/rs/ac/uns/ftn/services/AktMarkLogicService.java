@@ -43,16 +43,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static rs.ac.uns.ftn.constants.AktPredicates.*;
+import static rs.ac.uns.ftn.constants.AktPredicates.STANJE;
+import static rs.ac.uns.ftn.constants.AktPredicates.VERZIJA;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.*;
@@ -210,24 +211,39 @@ public class AktMarkLogicService implements AktService {
     final Resource resource = aktSparqlRegistry.getItemFromRegistry("aktCount.rq");
     final JacksonHandle handle = new JacksonHandle();
 
-    try {
-      SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(new FileHandle(resource.getFile()));
-      q.withBinding("s", String.format("%s/%s", AKT, id));
-      q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
+    final FileHandle fileHandle =
+      Try.of(() -> new FileHandle(resource.getFile()))
+        .getOrElseThrow((Function<Throwable, InvalidServerConfigurationException>)
+          InvalidServerConfigurationException::new);
 
-      sparqlQueryManager.executeSelect(q, handle);
+    SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(fileHandle);
+    q.withBinding("s", String.format("%s/%s", AKT, id));
+    q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
 
-      long count = Optional.of(handle)
-        .map(JacksonHandle::get)
-        .map(x -> x.path("results").path("bindings"))
-        .map(y -> y.get(0).get("count").get("value").asLong())
-        .orElse(-1L);
+    sparqlQueryManager.executeSelect(q, handle);
 
-      return count == 1;
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return false;
+    return readCountRdfResult(handle) == 1;
+  }
+
+  /**
+   * Checks whether akt with given id can be deleted
+   *
+   * @param id Akt id
+   * @return boolean can be deleted or not
+   */
+  private boolean canBeDeleted(String id) {
+    final FileHandle fileHandle =
+      Try.of(() -> new FileHandle(aktSparqlRegistry.getItemFromRegistry("aktCanBeDeleted.rq").getFile()))
+        .getOrElseThrow(x -> new InvalidServerConfigurationException("Cannot read aktCanBeDeleted.rq"));
+
+    SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(fileHandle);
+    q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
+    q.withBinding("s", String.format("%s/%s", AKT, id));
+
+    final JacksonHandle handle = new JacksonHandle();
+    sparqlQueryManager.executeSelect(q, handle);
+
+    return readCountRdfResult(handle) == 1;
   }
 
   @Override
@@ -238,10 +254,15 @@ public class AktMarkLogicService implements AktService {
         String.format("User with login: %s cannot delete akt with id: %s", SecurityUtils.getCurrentUserLogin(), id));
     }
 
+    if (!canBeDeleted(id)) {
+      log.error("Akt with id: {} cannot be deleted. State change permission denied.", id);
+      throw new ForbiddenUserException(
+        String.format("Akt with id: %s cannot be deleted. State change permission denied", id));
+    }
 
     final Transaction transaction = databaseClient.openTransaction();
-
-    log.info("Opened transaction for deleting akt with id: {} and transaction id {}", id, transaction.getTransactionId());
+    log.info("Opened transaction for deleting akt with id: {} and transaction id {}",
+      id, transaction.getTransactionId());
 
     final XMLDocumentManager documentManager = databaseClient.newXMLDocumentManager();
 
@@ -253,9 +274,8 @@ public class AktMarkLogicService implements AktService {
     }
 
     log.info("Successfully deleted document with id: {}", id);
-
     try {
-      rdfService.deleteTripleAkt(id, ALL_AKT_PREDICATES, AKT_GRAPH_URI, transaction);
+      rdfService.updateTripleAkt(id, AktStates.POVUCEN, STANJE, AKT_GRAPH_URI, transaction);
       transaction.commit();
       log.info("Complete delete successful for document with id: {} commit success", id);
     } catch (Exception e) {
@@ -295,8 +315,10 @@ public class AktMarkLogicService implements AktService {
       "WHERE {\n" +
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .\n" +
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .\n" +
-      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
-      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n";
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/stanje> ?stanje. \n" +
+      "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/verzija> ?verzija.\n";
 
 
     final StringBuilder queryBuilder = new StringBuilder(query);
@@ -367,6 +389,10 @@ public class AktMarkLogicService implements AktService {
         akt.setName(node.get("documentName").path("value").asText());
         akt.setDateCreated(node.get("dateCreated").path("value").asText());
         akt.setDateModified(node.get("dateModified").path("value").asText());
+        akt.setState(node.get("stanje").path("value").asText());
+        akt.setVersion(node.get("verzija").path("value").asText());
+        String[] authorParts = node.get("user").path("value").asText().split("/");
+        akt.setAuthor(authorParts[authorParts.length - 1]);
         metadatas.add(akt);
       }));
 

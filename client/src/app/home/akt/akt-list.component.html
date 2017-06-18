@@ -58,9 +58,9 @@
         <th>Naziv akta</th>
         <th>Datum kreiranja</th>
         <th>Datum poslednje promene</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        <th>Status </th>
+        <th>Autor </th>
+        <th colspan="3" class="text-center">Akcije</th>
       </tr>
     </thead>
     <tbody>
@@ -69,10 +69,11 @@
         <td><a href ng-click="vm.getDetails(akt.id)">{{akt.name}}</a></td>
         <td>{{akt.dateCreated | date : 'dd-MM-yyyy hh:mm'}}</td>
         <td>{{akt.dateModified | date : 'dd-MM-yyyy hh:mm'}}</td>
+        <td> {{akt.state}} </td>
+        <td> {{akt.author}} </td>
         <td><a href ng-click="vm.getPdf(akt.id)" class="fa fa-file-pdf-o"></a></td>
-        <td><a href ng-click="vm.getDetails(akt.id)" class="fa fa-file-code-o"></a></td>
-        <td><a ui-sref="create-amandman({aktId: akt.id})" class="btn-sm btn-warning" ng-show="vm.isOdbornik">Predloži amandman</a></td>
-        <td><a href ng-click="vm.deleteAkt(akt.id)" class="fa fa-times btn-sm btn-danger"> </a></td>
+        <td><a ui-sref="create-amandman({aktId: akt.id})" class="btn-sm btn-warning" ng-show="vm.isOdbornik && akt.state !=='povucen'">Predloži amandman</a></td>
+        <td><a ng-show="akt.state == 'nov' && akt.author == vm.login" href ng-click="vm.deleteAkt(akt.id)" class="fa fa-times btn-sm btn-danger">Odustani </a></td>
       </tr>
     </tbody>
   </table>
