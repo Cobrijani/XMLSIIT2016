@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.rdf.Triplets;
+import rs.ac.uns.ftn.util.FunctionalUtils;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
@@ -27,6 +28,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 
@@ -211,27 +214,36 @@ public class RdfServiceImpl implements RdfService {
     sparqlQueryManager.executeUpdate(query);
   }
 
-  private SPARQLQueryDefinition createDeleteQueryDefinition(String id, String predicate, String graphName) {
+  private SPARQLQueryDefinition createDeleteQueryDefinition(String id, List<String> predicates, String graphName) {
     final StringBuilder sparqlStringBuilder = new StringBuilder();
 
     final String aktId = "<" + AKT + "/" + id + ">";
-    final String aktPred = "<" + PRED + predicate + ">";
+
+    List<Integer> vars = IntStream.range(0, predicates.size()).boxed().collect(Collectors.toList());
+    final List<String> aktPreds = predicates
+      .stream()
+      .map(x -> aktId + " <" + PRED + x + ">")
+      .collect(Collectors.toList());
+
+    final String args = FunctionalUtils.zip(vars, aktPreds)
+      .map(x -> x.getSecond() + " ?" + x.getFirst().toString() + ".\n")
+      .collect(Collectors.joining());
 
     sparqlStringBuilder.append("PREFIX xs: <").append(XS).append("> \n")
       .append("WITH <").append(graphName).append(">")
-      .append("DELETE { ").append(aktId).append(" ").append(aktPred).append(" ?o}")
-      .append("WHERE {").append(aktId).append(" ").append(aktPred).append(" ?o}");
+      .append("DELETE { ").append(args).append("}")
+      .append("WHERE {").append(args).append("}");
 
     return sparqlQueryManager.newQueryDefinition(sparqlStringBuilder.toString());
   }
 
   @Override
-  public void deleteTripleAkt(String id, String predicate, String graphName) {
+  public void deleteTripleAkt(String id, List<String> predicate, String graphName) {
     sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName));
   }
 
   @Override
-  public void deleteTripleAkt(String id, String predicate, String graphName, Transaction transaction) {
+  public void deleteTripleAkt(String id, List<String> predicate, String graphName, Transaction transaction) {
     sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName), transaction);
   }
 

@@ -24,8 +24,6 @@ public interface AktService {
 
   <T> T findById(String id, Class<T> readAs);
 
-  void removeById(String id);
-
   List<Akt> findAll(Pageable pageable);
 
   List<Akt> findAllContaining(Pageable pageable, String term);

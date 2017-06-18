@@ -60,6 +60,7 @@
         <th>Datum poslednje promene</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -71,6 +72,7 @@
         <td><a href ng-click="vm.getPdf(akt.id)" class="fa fa-file-pdf-o"></a></td>
         <td><a href ng-click="vm.getDetails(akt.id)" class="fa fa-file-code-o"></a></td>
         <td><a ui-sref="create-amandman({aktId: akt.id})" class="btn-sm btn-warning" ng-show="vm.isOdbornik">Predloži amandman</a></td>
+        <td><a href ng-click="vm.deleteAkt(akt.id)" class="fa fa-times btn-sm btn-danger"> </a></td>
       </tr>
     </tbody>
   </table>

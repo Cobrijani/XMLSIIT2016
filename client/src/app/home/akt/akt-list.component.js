@@ -25,6 +25,7 @@
     vm.openDateTo = openDateTo;
     vm.search = search;
     vm.reset = reset;
+    vm.deleteAkt = deleteAkt;
 
     vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
 
@@ -42,6 +43,15 @@
     vm.dateFormat = "dd-MM-yyyy";
     /////////////////////
 
+    function deleteAkt(aktId) {
+      GenericResource.deleteEntity('akti', aktId)
+        .then(function (success) {
+          $log.info("Successfully deleted", success);
+        })
+        .catch(function (error) {
+          $log.error("Error deleting akt with id", aktId, ". Error message: ", error);
+        });
+    }
 
     function search() {
       if (vm.dateFrom) {
@@ -72,11 +82,15 @@
 
 
     function openDateFrom() {
-      vm.dateFromPopup = {opened: true}
+      vm.dateFromPopup = {
+        opened: true
+      }
     }
 
     function openDateTo() {
-      vm.dateToPopup = {opened: true}
+      vm.dateToPopup = {
+        opened: true
+      }
     }
 
     function pageChanged() {
@@ -84,7 +98,11 @@
     }
 
     function activate() {
-      getEntities({size: vm.pageOptions.size, page: vm.pageOptions.page - 1, self: vm.self});
+      getEntities({
+        size: vm.pageOptions.size,
+        page: vm.pageOptions.page - 1,
+        self: vm.self
+      });
     }
 
     function getEntities(params) {

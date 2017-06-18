@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static rs.ac.uns.ftn.constants.AktPredicates.*;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.*;
@@ -126,12 +127,6 @@ public class AktMarkLogicService implements AktService {
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AKT_REF);
     return documentManager.readAs(getDocumentId(AKT_FORMAT, id), readAs);
-  }
-
-
-  @Override
-  public void removeById(String id) {
-    documentManager.delete(getDocumentId(AKT_FORMAT, id));
   }
 
   @Override
@@ -227,7 +222,7 @@ public class AktMarkLogicService implements AktService {
     log.info("Successfully deleted document with id: {}", id);
 
     try {
-      rdfService.deleteTripleAkt(id, "imeDokumenta", AKT_GRAPH_URI, transaction);
+      rdfService.deleteTripleAkt(id, ALL_AKT_PREDICATES, AKT_GRAPH_URI, transaction);
       transaction.commit();
       log.info("Complete delete successful for document with id: {} commit success", id);
     } catch (Exception e) {
@@ -432,9 +427,9 @@ public class AktMarkLogicService implements AktService {
     documentManager.patch(getDocumentId(AKT_FORMAT, akt.getId()), xmlPatch);
 
     if (aktDTO.getResult().equals("accepted")) {
-      rdfService.updateTripleAkt(id, AktStates.IZGLASAN, AktStates.STANJE, AKT_GRAPH_URI);
+      rdfService.updateTripleAkt(id, AktStates.IZGLASAN, STANJE, AKT_GRAPH_URI);
     } else if (aktDTO.getResult().equals("declined")) {
-      rdfService.updateTripleAkt(id, AktStates.ODBIJEN, AktStates.STANJE, AKT_GRAPH_URI);
+      rdfService.updateTripleAkt(id, AktStates.ODBIJEN, STANJE, AKT_GRAPH_URI);
     }
 
     Akt aktDb = findById(akt.getId());
@@ -518,7 +513,7 @@ public class AktMarkLogicService implements AktService {
 
     akt = findById(akt.getId());
 
-    rdfService.updateTripleAkt(oldAktId, AktStates.STARI, AktStates.VERZIJA, AKT_GRAPH_URI);
+    rdfService.updateTripleAkt(oldAktId, AktStates.STARI, VERZIJA, AKT_GRAPH_URI);
 
     AktDTO aktDTO = new AktDTO();
     aktDTO.setId(akt.getId());

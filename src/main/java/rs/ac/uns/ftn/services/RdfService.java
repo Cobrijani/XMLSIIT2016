@@ -39,7 +39,7 @@ public interface RdfService {
 
   void updateTripleAkt(String aktId, String state, String version, String graphName);
 
-  void deleteTripleAkt(String id, String predicate, String graphName);
+  void deleteTripleAkt(String id, List<String> predicates, String graphName);
 
-  void deleteTripleAkt(String id, String predicate, String graphName, Transaction transaction);
+  void deleteTripleAkt(String id, List<String> predicates, String graphName, Transaction transaction);
 }

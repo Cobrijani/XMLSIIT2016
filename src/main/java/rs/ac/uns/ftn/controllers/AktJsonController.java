@@ -67,7 +67,7 @@ public class AktJsonController {
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteAkt(@PathVariable String id) {
-    aktService.removeById(id);
+    aktService.deleteAktById(id);
   }
 
   @GetMapping(value = "/{id}/amandmani")
