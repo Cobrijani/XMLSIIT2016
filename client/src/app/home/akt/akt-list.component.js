@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
+  AktListController.$inject = ['$scope', 'toastr', '$state', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
+  function AktListController($scope, toastr, $state, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -45,29 +45,31 @@
 
     function deleteAkt(aktId) {
       GenericResource.deleteEntity('akti', aktId)
-        .then(function (success) {
-          $log.info("Successfully deleted", success);
+        .then(function () {
+          $state.reload();
+          toastr.success("Delete successful", "Akt with id: " + aktId + " has been successfully deleted");
+          $log.info("Successfully deleted");
         })
         .catch(function (error) {
-          $log.error("Error deleting akt with id", aktId, ". Error message: ", error);
+          $log.error("Error deleting akt with id", aktId, ". Error message: ", error.data.message);
+          toastr.error(error.data.message);
         });
     }
 
     function search() {
-      if (vm.dateFrom) {
-        var from = vm.dateFrom.getTime() / 1000;
-      }
-      if (vm.dateTo) {
-        var to = vm.dateTo.getTime() / 1000;
-      }
-      getEntities({
+      var q = {
         size: vm.pageOptions.size,
         page: vm.pageOptions.page - 1,
         q: vm.searchText,
-        from: from,
-        to: to,
         self: vm.self
-      });
+      };
+      if (vm.dateFrom) {
+        q.from = vm.dateFrom.getTime() / 1000;
+      }
+      if (vm.dateTo) {
+        q.to = vm.dateTo.getTime() / 1000;
+      }
+      getEntities(q);
     }
 
     function reset() {
@@ -80,17 +82,16 @@
 
     activate();
 
-
     function openDateFrom() {
       vm.dateFromPopup = {
         opened: true
-      }
+      };
     }
 
     function openDateTo() {
       vm.dateToPopup = {
         opened: true
-      }
+      };
     }
 
     function pageChanged() {
@@ -121,8 +122,7 @@
     function getDetails(id) {
       FileFactory.getDocumentAsArrayBuffer('akti', id, 'text/html')
         .then(function (success) {
-          FileFactory.openFileInNewWindow(success.data, 'text/html')
-
+          FileFactory.openFileInNewWindow(success.data, 'text/html');
         });
     }
 
@@ -130,9 +130,7 @@
       FileFactory.getDocumentAsArrayBuffer('akti', id, 'application/pdf')
         .then(function (success) {
           FileFactory.openFileInNewWindow(success.data, 'application/pdf');
-        })
+        });
     }
-
   }
-})
-();
+})();

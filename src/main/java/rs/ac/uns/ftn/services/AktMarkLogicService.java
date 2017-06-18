@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.exceptions.ForbiddenUserException;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.AktStates;
@@ -36,11 +37,13 @@ import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -202,8 +205,38 @@ public class AktMarkLogicService implements AktService {
     return akt;
   }
 
+  private boolean isOwner(String id) {
+
+    final Resource resource = aktSparqlRegistry.getItemFromRegistry("aktCount.rq");
+    final JacksonHandle handle = new JacksonHandle();
+
+    try {
+      SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(new FileHandle(resource.getFile()));
+      q.withBinding("s", String.format("%s/%s", AKT, id));
+      q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
+
+      sparqlQueryManager.executeSelect(q, handle);
+
+      long count = Optional.of(handle)
+        .map(JacksonHandle::get)
+        .map(x -> x.path("results").path("bindings"))
+        .map(y -> y.get(0).get("count").get("value").asLong())
+        .orElse(-1L);
+
+      return count == 1;
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   @Override
   public void deleteAktById(String id) {
+    if (!isOwner(id)) {
+      log.error("User with login: {} cannot delete akt with id: {}", SecurityUtils.getCurrentUserLogin(), id);
+      throw new ForbiddenUserException(
+        String.format("User with login: %s cannot delete akt with id: %s", SecurityUtils.getCurrentUserLogin(), id));
+    }
 
 
     final Transaction transaction = databaseClient.openTransaction();
@@ -368,6 +401,11 @@ public class AktMarkLogicService implements AktService {
       .orElseThrow(InvalidServerConfigurationException::new);
 
     return new PageImpl<AktMetadata>(content, pageable, size);
+  }
+
+  @Override
+  public AktMetadata getMetadata(String id) {
+    throw new NotImplementedException();
   }
 
   @Override
