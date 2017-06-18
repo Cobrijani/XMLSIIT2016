@@ -20,6 +20,9 @@ public class AktSparqlQueryRegistry implements Registry<String, Resource> {
   @Value("classpath:sparql/akt/aktCount.rq")
   private Resource aktCount;
 
+  @Value("classpath:sparql/akt/aktCanBeDeleted.rq")
+  private Resource aktCanBeDeleted;
+
   private final HashMap<String, Resource> registry;
 
   public AktSparqlQueryRegistry() {
@@ -30,6 +33,8 @@ public class AktSparqlQueryRegistry implements Registry<String, Resource> {
   public void init() {
     registry.put("akt.rq", aktSparql);
     registry.put("aktCount.rq", aktCount);
+    registry.put("aktCanBeDeleted.rq", aktCanBeDeleted);
+
   }
 
   @PreDestroy

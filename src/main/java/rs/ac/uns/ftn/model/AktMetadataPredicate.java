@@ -19,6 +19,8 @@ public class AktMetadataPredicate implements SearchPredicate {
 
   private Long dateCreatedToTimestamp;
 
+  private String aktState;
+
   private boolean owned = false;
 
   private AktMetadataPredicate() {
@@ -43,5 +45,8 @@ public class AktMetadataPredicate implements SearchPredicate {
     Optional.ofNullable(webRequest.getParameter("self"))
       .map(Boolean::parseBoolean)
       .ifPresent(this::setOwned);
+    Optional.ofNullable(webRequest.getParameter("state"))
+      .filter(x -> !x.trim().equals(""))
+      .ifPresent(this::setAktState);
   }
 }

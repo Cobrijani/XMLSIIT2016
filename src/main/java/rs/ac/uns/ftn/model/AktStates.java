@@ -12,6 +12,4 @@ public class AktStates {
 
   public static String STARI = "stari";
 
-  public static String STANJE = "stanje";
-  public static String VERZIJA = "verzija";
 }

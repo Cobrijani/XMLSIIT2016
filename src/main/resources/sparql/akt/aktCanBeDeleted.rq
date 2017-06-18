@@ -1,0 +1,8 @@
+prefix xs: <http://www.w3.org/2001/XMLSchema#>
+
+select (count(?s) as ?count) from <skupstina/dokument/akt>
+where {
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .
+  ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/stanje> ?stanje.
+  FILTER(regex("nov", ?stanje))
+}

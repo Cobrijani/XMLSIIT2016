@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.util;
 
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.JAXBHandle;
+import com.marklogic.client.io.JacksonHandle;
 import com.marklogic.client.io.SearchHandle;
 import com.marklogic.client.query.MatchDocumentSummary;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
@@ -11,7 +12,6 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -34,6 +34,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Helper methods for working with JAXB
@@ -42,7 +43,6 @@ import java.util.List;
 @Slf4j
 @UtilityClass
 public class XMLUtil {
-
 
 
   /**
@@ -165,6 +165,18 @@ public class XMLUtil {
   public static XMLGregorianCalendar toXmlCalendar(Long timeStamp) {
     LocalDateTime time = LocalDateTime.ofInstant(Instant.ofEpochSecond(timeStamp), ZoneId.systemDefault());
     return new XMLGregorianCalendarImpl(GregorianCalendar.from(ZonedDateTime.of(time, ZoneId.systemDefault())));
+  }
+
+  public static long readCountRdfResult(JacksonHandle handle) {
+    return readCountRdfResult(handle, "count");
+  }
+
+  public static long readCountRdfResult(JacksonHandle handle, String countField) {
+    return Optional.of(handle)
+      .map(JacksonHandle::get)
+      .map(x -> x.path("results").path("bindings"))
+      .map(y -> y.get(0).get(countField).get("value").asLong())
+      .orElse(-1L);
   }
 
 

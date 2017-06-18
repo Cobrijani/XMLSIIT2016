@@ -1,10 +1,10 @@
 package rs.ac.uns.ftn.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.io.DOMHandle;
 import com.marklogic.client.io.InputStreamHandle;
 import com.marklogic.client.io.JacksonHandle;
-import com.marklogic.client.io.StringHandle;
 import com.marklogic.client.io.marker.TriplesWriteHandle;
 import com.marklogic.client.semantics.GraphManager;
 import com.marklogic.client.semantics.RDFMimeTypes;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.rdf.Triplets;
+import rs.ac.uns.ftn.util.FunctionalUtils;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
@@ -27,6 +28,10 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 
 /**
  * Service for Rdf Manipulation such as reading and writing and extracting data from document
@@ -191,9 +196,7 @@ public class RdfServiceImpl implements RdfService {
 
   }
 
-  @Override
-  public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
-
+  private SPARQLQueryDefinition createUpdateTripleAktQ(String id, String newValue, String predicate, String graphName) {
     String resource = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt/";
     predicate = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" + predicate;
 
@@ -203,10 +206,51 @@ public class RdfServiceImpl implements RdfService {
         " DELETE { <" + resource + id + "> <" + predicate + ">  ?o} " +
         " INSERT { <" + resource + id + "> <" + predicate + "> '" + newValue + "'^^<string> }" +
         " WHERE  { <" + resource + id + "> <" + predicate + ">  ?o}";
-    SPARQLQueryDefinition query = sparqlQueryManager
+    return sparqlQueryManager
       .newQueryDefinition(queryDefinition);
+  }
 
-    sparqlQueryManager.executeUpdate(query);
+  @Override
+  public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
+    sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(id, newValue, predicate, graphName));
+  }
+
+  @Override
+  public void updateTripleAkt(String aktId, String newValue, String predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(aktId, newValue, predicate, graphName), transaction);
+  }
+
+  private SPARQLQueryDefinition createDeleteQueryDefinition(String id, List<String> predicates, String graphName) {
+    final StringBuilder sparqlStringBuilder = new StringBuilder();
+
+    final String aktId = "<" + AKT + "/" + id + ">";
+
+    List<Integer> vars = IntStream.range(0, predicates.size()).boxed().collect(Collectors.toList());
+    final List<String> aktPreds = predicates
+      .stream()
+      .map(x -> aktId + " <" + PRED + x + ">")
+      .collect(Collectors.toList());
+
+    final String args = FunctionalUtils.zip(vars, aktPreds)
+      .map(x -> x.getSecond() + " ?" + x.getFirst().toString() + ".\n")
+      .collect(Collectors.joining());
+
+    sparqlStringBuilder.append("PREFIX xs: <").append(XS).append("> \n")
+      .append("WITH <").append(graphName).append(">")
+      .append("DELETE { ").append(args).append("}")
+      .append("WHERE {").append(args).append("}");
+
+    return sparqlQueryManager.newQueryDefinition(sparqlStringBuilder.toString());
+  }
+
+  @Override
+  public void deleteTripleAkt(String id, List<String> predicate, String graphName) {
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName));
+  }
+
+  @Override
+  public void deleteTripleAkt(String id, List<String> predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName), transaction);
   }
 
 

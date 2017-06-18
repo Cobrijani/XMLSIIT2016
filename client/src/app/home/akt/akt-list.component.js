@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
+  AktListController.$inject = ['$scope', 'toastr', '$state', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
 
-  function AktListController($scope, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
+  function AktListController($scope, toastr, $state, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -25,8 +25,14 @@
     vm.openDateTo = openDateTo;
     vm.search = search;
     vm.reset = reset;
+    vm.deleteAkt = deleteAkt;
 
-    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
+    vm.aktStates = [];
+    vm.selectedState = "";
+
+    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik ||
+      UserJwtResource.getUserPayload().auth === roles.predsednik;
+    vm.login = UserJwtResource.getUserPayload().sub;
 
     vm.pageOptions = {
       size: 5,
@@ -42,22 +48,38 @@
     vm.dateFormat = "dd-MM-yyyy";
     /////////////////////
 
+    function deleteAkt(aktId) {
+      GenericResource.deleteEntity('akti', aktId)
+        .then(function () {
+          $state.reload();
+          toastr.success("Akt uspesno povucen");
+          $log.info("Successfully deleted");
+        })
+        .catch(function (error) {
+          $log.error("Error deleting akt with id", aktId, ". Error message: ", error.data.message);
+          toastr.error("Greska pri povlacenju akta");
+        });
+    }
 
     function search() {
-      if (vm.dateFrom) {
-        var from = vm.dateFrom.getTime() / 1000;
-      }
-      if (vm.dateTo) {
-        var to = vm.dateTo.getTime() / 1000;
-      }
-      getEntities({
+      var q = {
         size: vm.pageOptions.size,
         page: vm.pageOptions.page - 1,
         q: vm.searchText,
-        from: from,
-        to: to,
         self: vm.self
-      });
+      };
+      if (vm.dateFrom) {
+        q.from = vm.dateFrom.getTime() / 1000;
+      }
+      if (vm.dateTo) {
+        q.to = vm.dateTo.getTime() / 1000;
+      }
+
+      if (vm.selectedState) {
+        q.state = vm.selectedState;
+      }
+
+      getEntities(q);
     }
 
     function reset() {
@@ -70,13 +92,16 @@
 
     activate();
 
-
     function openDateFrom() {
-      vm.dateFromPopup = {opened: true}
+      vm.dateFromPopup = {
+        opened: true
+      };
     }
 
     function openDateTo() {
-      vm.dateToPopup = {opened: true}
+      vm.dateToPopup = {
+        opened: true
+      };
     }
 
     function pageChanged() {
@@ -84,7 +109,19 @@
     }
 
     function activate() {
-      getEntities({size: vm.pageOptions.size, page: vm.pageOptions.page - 1, self: vm.self});
+      getEntities({
+        size: vm.pageOptions.size,
+        page: vm.pageOptions.page - 1,
+        self: vm.self
+      });
+
+      GenericResource.getEntities('aktStates')
+        .then(function (success) {
+          vm.aktStates = [""].concat(success);
+        })
+        .catch(function (error) {
+          $log.error(error.data.message);
+        });
     }
 
     function getEntities(params) {
@@ -103,8 +140,7 @@
     function getDetails(id) {
       FileFactory.getDocumentAsArrayBuffer('akti', id, 'text/html')
         .then(function (success) {
-          FileFactory.openFileInNewWindow(success.data, 'text/html')
-
+          FileFactory.openFileInNewWindow(success.data, 'text/html');
         });
     }
 
@@ -112,9 +148,7 @@
       FileFactory.getDocumentAsArrayBuffer('akti', id, 'application/pdf')
         .then(function (success) {
           FileFactory.openFileInNewWindow(success.data, 'application/pdf');
-        })
+        });
     }
-
   }
-})
-();
+})();

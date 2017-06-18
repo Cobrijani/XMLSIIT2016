@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static rs.ac.uns.ftn.constants.AktPredicates.STANJE;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.SEDNICA_GRAPH_URI;
@@ -166,7 +167,7 @@ public class SednicaMarkLogicService implements SednicaService{
       ref.getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":pripada");
       ref.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":akt");
       ref.getOtherAttributes().put(new QName("href"), AKT + "/" + aktId);
-      rdfService.updateTripleAkt(aktId, AktStates.RAZMATRAN, AktStates.STANJE, AKT_GRAPH_URI);
+      rdfService.updateTripleAkt(aktId, AktStates.RAZMATRAN, STANJE, AKT_GRAPH_URI);
       sednica.getAkti().getAktRef().add(ref);
     }
 
