@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marklogic.client.DatabaseClient;
 import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPatchBuilder;
@@ -331,6 +332,11 @@ public class AktMarkLogicService implements AktService {
     queryBuilder.append(")\n");
 
     Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::getAktState)
+      .ifPresent(x ->
+        queryBuilder.append("FILTER(regex(?stanje, ?searchStanje)) \n"));
+
+    Optional.ofNullable(aktMetadataPredicate)
       .map(AktMetadataPredicate::getDateCreatedFromTimestamp)
       .map(XMLUtil::toXmlCalendar)
       .ifPresent(x ->
@@ -367,6 +373,10 @@ public class AktMarkLogicService implements AktService {
     sparqlQueryDefinition
       .withBinding("search", search);
 
+    Optional.ofNullable(aktMetadataPredicate)
+      .map(AktMetadataPredicate::getAktState)
+      .ifPresent(x -> sparqlQueryDefinition.withBinding("searchStanje", aktMetadataPredicate.getAktState()));
+
 
     sparqlQueryManager.executeSelect(sparqlQueryDefinition, handle, pageable.getOffset() + 1);
 
@@ -391,8 +401,15 @@ public class AktMarkLogicService implements AktService {
         akt.setDateModified(node.get("dateModified").path("value").asText());
         akt.setState(node.get("stanje").path("value").asText());
         akt.setVersion(node.get("verzija").path("value").asText());
-        String[] authorParts = node.get("user").path("value").asText().split("/");
-        akt.setAuthor(authorParts[authorParts.length - 1]);
+
+        //this is needed when client queries for only his documents, than marklogic does not return 'user' in result
+        String author = Optional.ofNullable(node.get("user"))
+          .map(p -> p.path("value"))
+          .map(JsonNode::asText)
+          .map(s -> s.split("/"))
+          .map(g -> g[g.length - 1])
+          .orElse(SecurityUtils.getCurrentUserLogin());
+        akt.setAuthor(author);
         metadatas.add(akt);
       }));
 

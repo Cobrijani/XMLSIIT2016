@@ -100,4 +100,5 @@ public class AktJsonController {
     return new ResponseEntity<>(akts, HttpStatus.CREATED);
   }
 
+
 }

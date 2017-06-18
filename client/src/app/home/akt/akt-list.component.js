@@ -27,6 +27,9 @@
     vm.reset = reset;
     vm.deleteAkt = deleteAkt;
 
+    vm.aktStates = [];
+    vm.selectedState = "";
+
     vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik ||
       UserJwtResource.getUserPayload().auth === roles.predsednik;
     vm.login = UserJwtResource.getUserPayload().sub;
@@ -71,6 +74,11 @@
       if (vm.dateTo) {
         q.to = vm.dateTo.getTime() / 1000;
       }
+
+      if (vm.selectedState) {
+        q.state = vm.selectedState;
+      }
+
       getEntities(q);
     }
 
@@ -106,6 +114,14 @@
         page: vm.pageOptions.page - 1,
         self: vm.self
       });
+
+      GenericResource.getEntities('aktStates')
+        .then(function (success) {
+          vm.aktStates = [""].concat(success);
+        })
+        .catch(function (error) {
+          $log.error(error.data.message);
+        });
     }
 
     function getEntities(params) {

@@ -10,7 +10,7 @@
   <div class="panel-body">
     <form class="form-inline">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="input-group">
               <input placeholder="od datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateFrom"
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <p class="input-group">
             <input placeholder="do datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateTo"
               is-open="vm.dateToPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas" clear-text="Poništi"
@@ -34,20 +34,25 @@
           </span>
           </p>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <input ng-model="vm.searchText" type="text" class="form-control" placeholder="Unesi sadrzaj">
+        </div>
+         <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label"> Status: </label>
+            <select class="form-control" ng-options="item as item for item in vm.aktStates track by item" ng-model="vm.selectedState"></select>
+          </div>
         </div>
       </div>
       <div class="row " style="margin-top:5px">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <div class="form-group">
             <div class="checkbox" ng-show="vm.isOdbornik">
               <label class="control-label"> <input type="checkbox" ng-model="vm.self"> Prikaži sopstvene dokumente samo</label>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-        </div>
+
       </div>
     </form>
   </div>
