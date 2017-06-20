@@ -33,8 +33,8 @@ import javax.xml.namespace.QName;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "aktState", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
-public class AktState {
+@XmlRootElement(name = "state", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata")
+public class State {
 
     @XmlValue
     protected String value;

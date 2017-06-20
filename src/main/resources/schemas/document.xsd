@@ -45,8 +45,8 @@
     <xs:element name="graphState">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="meta:aktState"/>
-                <xs:element ref="meta:aktVersion"/>
+                <xs:element ref="meta:state"/>
+                <xs:element ref="meta:version"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

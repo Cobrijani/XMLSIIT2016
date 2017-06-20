@@ -23,4 +23,8 @@ public class AmandmanMetadata {
   private String dateCreated;
 
   private String dateModified;
+
+  private String state;
+
+  private String version;
 }

@@ -166,18 +166,18 @@ public class AktMarkLogicService implements AktService {
     akt.getOtherAttributes().put(new QName("rel"), PRED_PREF + ":napravio");
     akt.getOtherAttributes().put(new QName("href"), KORISNIK + "/" + SecurityUtils.getCurrentUserLogin());
 
-    final AktState gs = new AktState();
+    final State gs = new State();
     akt.getDocumentAktRef().getDocument().setGraphState(new GraphState());
     gs.setValue(AktStates.NOV);
     gs.getOtherAttributes().put(new QName("property"), PRED_PREF + ":stanje");
     gs.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
-    akt.getDocumentAktRef().getDocument().getGraphState().setAktState(gs);
+    akt.getDocumentAktRef().getDocument().getGraphState().setState(gs);
 
-    final AktVersion gv = new AktVersion();
+    final Version gv = new Version();
     gv.setValue(AktStates.NOV);
     gv.getOtherAttributes().put(new QName("property"), PRED_PREF + ":verzija");
     gv.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
-    akt.getDocumentAktRef().getDocument().getGraphState().setAktVersion(gv);
+    akt.getDocumentAktRef().getDocument().getGraphState().setVersion(gv);
 
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());

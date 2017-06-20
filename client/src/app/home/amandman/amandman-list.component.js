@@ -14,9 +14,9 @@
       bindings: {}
     });
 
-  AmandmanListController.$inject = ['$scope', '_', 'GenericResource', 'exception', 'FileFactory', 'UserJwtResource', 'roles'];
+  AmandmanListController.$inject = ['$scope', '_', 'GenericResource', 'exception', 'FileFactory', 'UserJwtResource', 'roles', '$state', '$log'];
 
-  function AmandmanListController($scope, _, GenericResource, exception, FileFactory, UserJwtResource, roles) {
+  function AmandmanListController($scope, _, GenericResource, exception, FileFactory, UserJwtResource, roles, $state, $log) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -110,9 +110,9 @@
     function deleteAmandman(id){
       GenericResource.deleteEntity('amandmani', id)
         .then(function (success) {
-          _.remove(vm.amandmani, {
-            id: id
-          });
+          $state.reload();
+          toastr.success("Amandman uspesno povucen");
+          $log.info("Successfully deleted");
         })
         .catch(function (error) {
           exception.catcher(error);

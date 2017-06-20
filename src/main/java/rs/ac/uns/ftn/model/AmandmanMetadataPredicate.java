@@ -19,6 +19,8 @@ public class AmandmanMetadataPredicate implements SearchPredicate {
 
   private Long dateCreatedToTimestamp;
 
+  private String state;
+
   private boolean owned = false;
 
   private AmandmanMetadataPredicate() {
@@ -43,5 +45,8 @@ public class AmandmanMetadataPredicate implements SearchPredicate {
     Optional.ofNullable(webRequest.getParameter("self"))
       .map(Boolean::parseBoolean)
       .ifPresent(this::setOwned);
+    Optional.ofNullable(webRequest.getParameter("state"))
+      .filter(x -> !x.trim().equals(""))
+      .ifPresent(this::setState);
   }
 }

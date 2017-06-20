@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.services;
 
+import com.marklogic.client.DatabaseClient;
+import com.marklogic.client.Transaction;
 import com.marklogic.client.document.DocumentPatchBuilder;
 import com.marklogic.client.document.XMLDocumentManager;
 import com.marklogic.client.io.*;
@@ -24,11 +26,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
+import rs.ac.uns.ftn.exceptions.ForbiddenUserException;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
+import rs.ac.uns.ftn.model.AktStates;
 import rs.ac.uns.ftn.model.AmandmanMetadataPredicate;
-import rs.ac.uns.ftn.model.generated.Amandman;
-import rs.ac.uns.ftn.model.generated.DateCreated;
-import rs.ac.uns.ftn.model.generated.DateModified;
+import rs.ac.uns.ftn.model.AmandmanStates;
+import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
@@ -40,13 +43,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static rs.ac.uns.ftn.constants.AmandmanPredicates.STANJE;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
+import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AMANDMAN_GRAPH_URI;
-import static rs.ac.uns.ftn.util.XMLUtil.convertSearchHandle;
-import static rs.ac.uns.ftn.util.XMLUtil.getDocumentId;
-import static rs.ac.uns.ftn.util.XMLUtil.getJaxbHandle;
+import static rs.ac.uns.ftn.util.XMLUtil.*;
 
 /**
  * Service for handling XML documents for {@link rs.ac.uns.ftn.model.generated.Amandman}
@@ -72,19 +76,23 @@ public class AmandmanMarkLogicService implements AmandmanService{
 
   private final Registry<String, Resource> amandmanSparqlRegistry;
 
+  private final DatabaseClient databaseClient;
+
   @Value("classpath:sparql/amandman.rq")
   private Resource amandmanSparql;
 
   @Autowired
   public AmandmanMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator,
                                   RdfService rdfService, SPARQLQueryManager sparqlQueryManager,
-                                  @Qualifier("AmandmanSparqlQueryRegistry") Registry<String, Resource> amandmanSparqlRegistry) {
+                                  @Qualifier("AmandmanSparqlQueryRegistry") Registry<String, Resource> amandmanSparqlRegistry,
+                                  DatabaseClient databaseClient) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
     this.sparqlQueryManager = sparqlQueryManager;
     this.amandmanSparqlRegistry = amandmanSparqlRegistry;
+    this.databaseClient = databaseClient;
   }
 
 
@@ -106,9 +114,76 @@ public class AmandmanMarkLogicService implements AmandmanService{
     return documentManager.readAs(getDocumentId(AMANDMAN_FORMAT, id), readAs);
   }
 
+  private boolean isOwner(String id) {
+
+    final Resource resource = amandmanSparqlRegistry.getItemFromRegistry("amandmanCount.rq");
+    final JacksonHandle handle = new JacksonHandle();
+
+    final FileHandle fileHandle =
+      Try.of(() -> new FileHandle(resource.getFile()))
+        .getOrElseThrow((Function<Throwable, InvalidServerConfigurationException>)
+          InvalidServerConfigurationException::new);
+
+    SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(fileHandle);
+    q.withBinding("s", String.format("%s/%s", AMANDMAN, id));
+    q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
+
+    sparqlQueryManager.executeSelect(q, handle);
+
+    return readCountRdfResult(handle) == 1;
+  }
+
+  /**
+   * Checks whether amandman with given id can be deleted
+   *
+   * @param id Amandman id
+   * @return boolean can be deleted or not
+   */
+  private boolean canBeDeleted(String id) {
+    final FileHandle fileHandle =
+      Try.of(() -> new FileHandle(amandmanSparqlRegistry.getItemFromRegistry("amandmanCanBeDeleted.rq").getFile()))
+        .getOrElseThrow(x -> new InvalidServerConfigurationException("Cannot read amandmanCanBeDeleted.rq"));
+
+    SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(fileHandle);
+    q.withBinding("user", String.format("%s/%s", KORISNIK, SecurityUtils.getCurrentUserLogin()));
+    q.withBinding("s", String.format("%s/%s", AMANDMAN, id));
+
+    final JacksonHandle handle = new JacksonHandle();
+    sparqlQueryManager.executeSelect(q, handle);
+
+    return readCountRdfResult(handle) == 1;
+  }
+
   @Override
   public void removeById(String id) {
-    documentManager.delete(getDocumentId(AMANDMAN_FORMAT, id));
+    if (!isOwner(id)) {
+      log.error("User with login: {} cannot delete amandman with id: {}", SecurityUtils.getCurrentUserLogin(), id);
+      throw new ForbiddenUserException(
+        String.format("User with login: %s cannot delete amandman with id: %s", SecurityUtils.getCurrentUserLogin(), id));
+    }
+
+    if (!canBeDeleted(id)) {
+      log.error("Amandman with id: {} cannot be deleted. State change permission denied.", id);
+      throw new ForbiddenUserException(
+        String.format("Amandman with id: %s cannot be deleted. State change permission denied", id));
+    }
+
+    final Transaction transaction = databaseClient.openTransaction();
+    log.info("Opened transaction for deleting amandman with id: {} and transaction id {}",
+      id, transaction.getTransactionId());
+
+    final XMLDocumentManager documentManager = databaseClient.newXMLDocumentManager();
+
+
+    try {
+      //deleteTripleStores(id);
+      rdfService.updateTripleAmandman(id, AmandmanStates.POVUCEN, STANJE, AMANDMAN_GRAPH_URI, transaction);
+      transaction.commit();
+      log.info("Successfully deleted document with id: {}", id);
+    } catch (Exception e) {
+      log.error("Error deleting tripple store for document with id {}, rollbacking", id);
+      transaction.rollback();
+    }
   }
 
   @Override
@@ -157,6 +232,19 @@ public class AmandmanMarkLogicService implements AmandmanService{
     amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("typeof"), PRED_PREF + ":akt");
     amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("rel"), PRED_PREF + ":menja");
     amandman.getZaglavljeAmandman().getAktRef().getOtherAttributes().put(new QName("href"), AKT + "/" + amandman.getAktId());
+
+    final State state = new State();
+    amandman.getDocumentAmRef().getDocument().setGraphState(new GraphState());
+    state.setValue(AktStates.NOV);
+    state.getOtherAttributes().put(new QName("property"), PRED_PREF + ":stanje");
+    state.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    amandman.getDocumentAmRef().getDocument().getGraphState().setState(state);
+
+    final Version version = new Version();
+    version.setValue(AmandmanStates.NOV);
+    version.getOtherAttributes().put(new QName("property"), PRED_PREF + ":verzija");
+    version.getOtherAttributes().put(new QName("datatype"), XS_PREF + ":string");
+    amandman.getDocumentAmRef().getDocument().getGraphState().setVersion(version);
 
     final DateCreated dateCreated = new DateCreated();
     dateCreated.setValue(XMLUtil.getToday());
@@ -218,7 +306,9 @@ public class AmandmanMarkLogicService implements AmandmanService{
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/napravio> ?user .\n" +
       "\t?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/imeDokumenta> ?documentName .\n" +
       "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
-      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n";
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/stanje> ?state .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/verzija> ?version .\n";
 
 
     final StringBuilder queryBuilder = new StringBuilder(query);
@@ -229,6 +319,11 @@ public class AmandmanMarkLogicService implements AmandmanService{
     ).collect(Collectors.joining());
     queryBuilder.append(s);
     queryBuilder.append(")\n");
+
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getState)
+      .ifPresent(x ->
+        queryBuilder.append("FILTER(regex(?state, ?searchStanje)) \n"));
 
     Optional.ofNullable(amandmanMetadataPredicate)
       .map(AmandmanMetadataPredicate::getDateCreatedFromTimestamp)
@@ -267,6 +362,10 @@ public class AmandmanMarkLogicService implements AmandmanService{
     sparqlQueryDefinition
       .withBinding("search", search);
 
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getState)
+      .ifPresent(x -> sparqlQueryDefinition.withBinding("searchStanje", amandmanMetadataPredicate.getState()));
+
 
     sparqlQueryManager.executeSelect(sparqlQueryDefinition, handle, pageable.getOffset() + 1);
 
@@ -292,6 +391,8 @@ public class AmandmanMarkLogicService implements AmandmanService{
         amandman.setUser(userPath.substring(userPath.lastIndexOf('/')+1,userPath.length()));
         amandman.setDateCreated(node.get("dateCreated").path("value").asText());
         amandman.setDateModified(node.get("dateModified").path("value").asText());
+        amandman.setState(node.get("state").path("value").asText());
+        amandman.setVersion(node.get("version").path("value").asText());
         metadatas.add(amandman);
       }));
 

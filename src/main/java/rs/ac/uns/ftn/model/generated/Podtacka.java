@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlType;
 public class Podtacka {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "alineja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Alineja.class),
-        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class)
+        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class),
+        @XmlElementRef(name = "alineja", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Alineja.class)
     })
     @XmlMixed
     protected List<Object> content;
@@ -71,8 +71,8 @@ public class Podtacka {
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * {@link Alineja }
      * {@link Referenca }
+     * {@link Alineja }
      * 
      * 
      */

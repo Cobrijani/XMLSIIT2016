@@ -46,7 +46,7 @@
                </xs:simpleContent>
           </xs:complexType>
      </xs:element>
-     <xs:element name="aktState">
+     <xs:element name="state">
           <xs:complexType>
                <xs:simpleContent>
                     <xs:extension base="xs:string">
@@ -55,7 +55,7 @@
                </xs:simpleContent>
           </xs:complexType>
      </xs:element>
-     <xs:element name="aktVersion">
+     <xs:element name="version">
           <xs:complexType>
                <xs:simpleContent>
                     <xs:extension base="xs:string">

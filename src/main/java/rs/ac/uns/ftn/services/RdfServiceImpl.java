@@ -210,6 +210,20 @@ public class RdfServiceImpl implements RdfService {
       .newQueryDefinition(queryDefinition);
   }
 
+  private SPARQLQueryDefinition createUpdateTripleAmandmanQ(String id, String newValue, String predicate, String graphName) {
+    String resource = "http://parlament.gov.rs/rs.ac.uns.ftn.model.amandman/";
+    predicate = "http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/" + predicate;
+
+    String queryDefinition =
+      "PREFIX xs: <http://www.w3.org/2001/XMLSchema#> \n" +
+        " WITH <" + graphName + ">" +
+        " DELETE { <" + resource + id + "> <" + predicate + ">  ?o} " +
+        " INSERT { <" + resource + id + "> <" + predicate + "> '" + newValue + "'^^<string> }" +
+        " WHERE  { <" + resource + id + "> <" + predicate + ">  ?o}";
+    return sparqlQueryManager
+      .newQueryDefinition(queryDefinition);
+  }
+
   @Override
   public void updateTripleAkt(String id, String newValue, String predicate, String graphName) {
     sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(id, newValue, predicate, graphName));
@@ -220,7 +234,12 @@ public class RdfServiceImpl implements RdfService {
     sparqlQueryManager.executeUpdate(createUpdateTripleAktQ(aktId, newValue, predicate, graphName), transaction);
   }
 
-  private SPARQLQueryDefinition createDeleteQueryDefinition(String id, List<String> predicates, String graphName) {
+  @Override
+  public void updateTripleAmandman(String amandmanId, String newValue, String predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createUpdateTripleAmandmanQ(amandmanId, newValue, predicate, graphName), transaction);
+  }
+
+  private SPARQLQueryDefinition createDeleteQueryDefinitionAkt(String id, List<String> predicates, String graphName) {
     final StringBuilder sparqlStringBuilder = new StringBuilder();
 
     final String aktId = "<" + AKT + "/" + id + ">";
@@ -243,14 +262,42 @@ public class RdfServiceImpl implements RdfService {
     return sparqlQueryManager.newQueryDefinition(sparqlStringBuilder.toString());
   }
 
+  private SPARQLQueryDefinition createDeleteQueryDefinitionAmandman(String id, List<String> predicates, String graphName) {
+    final StringBuilder sparqlStringBuilder = new StringBuilder();
+
+    final String amandmanId = "<" + AMANDMAN + "/" + id + ">";
+
+    List<Integer> vars = IntStream.range(0, predicates.size()).boxed().collect(Collectors.toList());
+    final List<String> amandmanPreds = predicates
+      .stream()
+      .map(x -> amandmanId + " <" + PRED + x + ">")
+      .collect(Collectors.toList());
+
+    final String args = FunctionalUtils.zip(vars, amandmanPreds)
+      .map(x -> x.getSecond() + " ?" + x.getFirst().toString() + ".\n")
+      .collect(Collectors.joining());
+
+    sparqlStringBuilder.append("PREFIX xs: <").append(XS).append("> \n")
+      .append("WITH <").append(graphName).append(">")
+      .append("DELETE { ").append(args).append("}")
+      .append("WHERE {").append(args).append("}");
+
+    return sparqlQueryManager.newQueryDefinition(sparqlStringBuilder.toString());
+  }
+
   @Override
   public void deleteTripleAkt(String id, List<String> predicate, String graphName) {
-    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName));
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinitionAkt(id, predicate, graphName));
   }
 
   @Override
   public void deleteTripleAkt(String id, List<String> predicate, String graphName, Transaction transaction) {
-    sparqlQueryManager.executeUpdate(createDeleteQueryDefinition(id, predicate, graphName), transaction);
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinitionAkt(id, predicate, graphName), transaction);
+  }
+
+  @Override
+  public void deleteTripleAmandman(String id, List<String> predicate, String graphName, Transaction transaction) {
+    sparqlQueryManager.executeUpdate(createDeleteQueryDefinitionAmandman(id, predicate, graphName), transaction);
   }
 
 

@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}aktState"/>
- *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}aktVersion"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}state"/>
+ *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}version"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,63 +30,63 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "aktState",
-    "aktVersion"
+    "state",
+    "version"
 })
 @XmlRootElement(name = "graphState", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.document")
 public class GraphState {
 
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    protected AktState aktState;
+    protected State state;
     @XmlElement(namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata", required = true)
-    protected AktVersion aktVersion;
+    protected Version version;
 
     /**
-     * Gets the value of the aktState property.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
-     *     {@link AktState }
+     *     {@link State }
      *     
      */
-    public AktState getAktState() {
-        return aktState;
+    public State getState() {
+        return state;
     }
 
     /**
-     * Sets the value of the aktState property.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is
-     *     {@link AktState }
+     *     {@link State }
      *     
      */
-    public void setAktState(AktState value) {
-        this.aktState = value;
+    public void setState(State value) {
+        this.state = value;
     }
 
     /**
-     * Gets the value of the aktVersion property.
+     * Gets the value of the version property.
      * 
      * @return
      *     possible object is
-     *     {@link AktVersion }
+     *     {@link Version }
      *     
      */
-    public AktVersion getAktVersion() {
-        return aktVersion;
+    public Version getVersion() {
+        return version;
     }
 
     /**
-     * Sets the value of the aktVersion property.
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is
-     *     {@link AktVersion }
+     *     {@link Version }
      *     
      */
-    public void setAktVersion(AktVersion value) {
-        this.aktVersion = value;
+    public void setVersion(Version value) {
+        this.version = value;
     }
 
 }

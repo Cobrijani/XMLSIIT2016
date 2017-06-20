@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlType;
 public class Stav {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "tacka", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Tacka.class, required = false),
-        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class, required = false)
+        @XmlElementRef(name = "referenca", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Referenca.class, required = false),
+        @XmlElementRef(name = "tacka", namespace = "http://parlament.gov.rs/rs.ac.uns.ftn.model.akt", type = Tacka.class, required = false)
     })
     @XmlMixed
     protected List<Object> content;
@@ -68,8 +68,8 @@ public class Stav {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link String }
      * {@link Tacka }
+     * {@link String }
      * {@link Referenca }
      * 
      * 

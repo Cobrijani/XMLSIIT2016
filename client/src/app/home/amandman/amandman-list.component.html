@@ -57,7 +57,10 @@
       <th>Naziv amandmana</th>
       <th>Datum kreiranja</th>
       <th>Datum poslednje promene</th>
+      <th>Status</th>
+      <th>Autor</th>
       <th>&nbsp;</th>
+      <th>Akcije</th>
     </tr>
     </thead>
     <tbody>
@@ -66,8 +69,10 @@
         <td><a href ng-click="vm.getDetails(amandman.id)">{{amandman.name}}</a></td>
         <td>{{amandman.dateCreated | date : 'dd-MM-yyyy'}}</td>
         <td>{{amandman.dateModified | date : 'dd-MM-yyyy hh:mm'}}</td>
+        <td>{{amandman.state}}</td>
+        <td>{{amandman.user}}</td>
         <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
-        <td><button class="btn-sm btn-danger pull-right" ng-click="vm.delete(amandman.id)"><i class="fa fa-times"></i> Povuci predlog</button></td>
+        <td><button class="btn-sm btn-danger pull-right" ng-click="vm.delete(amandman.id)" ng-show="amandman.state == 'nov'"><i class="fa fa-times"></i> Odustani</button></td>
       </tr>
     </tbody>
   </table>
