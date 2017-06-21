@@ -179,5 +179,23 @@ public class XMLUtil {
       .orElse(-1L);
   }
 
+  public static List<String> getIds(JacksonHandle handle) {
+    return getIds(handle, "s");
+  }
+
+  public static List<String> getIds(JacksonHandle handle, String idField) {
+    return Optional.of(handle)
+      .map(JacksonHandle::get)
+      .map(x -> x.path("results").path("bindings"))
+      .map(y -> {
+        List<String> strings = new ArrayList<>();
+        y.forEach(node -> {
+          final String[] parts = node.get(idField).path("value").asText().split("/");
+          strings.add(parts[parts.length - 1]);
+        });
+        return strings;
+      }).orElse(new ArrayList<>());
+  }
+
 
 }

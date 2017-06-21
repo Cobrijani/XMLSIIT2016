@@ -1,0 +1,8 @@
+prefix xs: <http://www.w3.org/2001/XMLSchema#>
+
+# Retrieve all amandman ids for given akt id
+
+select ?s from <skupstina/dokument/amandman>
+where {
+    ?s <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/menja> ?aktId
+}

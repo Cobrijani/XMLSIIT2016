@@ -37,7 +37,7 @@
         <div class="col-sm-3">
           <input ng-model="vm.searchText" type="text" class="form-control" placeholder="Unesi sadrzaj">
         </div>
-         <div class="col-sm-3">
+        <div class="col-sm-3">
           <div class="form-group">
             <label class="control-label"> Status: </label>
             <select class="form-control" ng-options="item as item for item in vm.aktStates track by item" ng-model="vm.selectedState"></select>
@@ -78,7 +78,7 @@
         <td> {{akt.author}} </td>
         <td><a href ng-click="vm.getPdf(akt.id)" class="fa fa-file-pdf-o"></a></td>
         <td><a ui-sref="create-amandman({aktId: akt.id})" class="btn-sm btn-warning" ng-show="vm.isOdbornik && akt.state !=='povucen'">Predloži amandman</a></td>
-        <td><a ng-show="akt.state == 'nov' && akt.author == vm.login" href ng-click="vm.deleteAkt(akt.id)" class="fa fa-times btn-sm btn-danger">Odustani </a></td>
+        <td><a ng-show="akt.state == 'nov' && akt.author == vm.login" href data-toggle="modal"  ng-click="vm.openPrompt(akt.id)"class="fa fa-times btn-sm btn-danger">Odustani </a></td>
       </tr>
     </tbody>
   </table>
