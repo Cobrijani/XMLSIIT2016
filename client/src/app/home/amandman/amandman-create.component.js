@@ -165,7 +165,13 @@
       for (var i = 0; i < clanovi.length; i++){
         stavovi = stavovi.concat(clanovi[i].stav);
         for (var j = 0; j < clanovi[i].stav.length; j++){
-          akt_references.stavovi.push({value: clanovi[i].stav[j].id, caption: clanovi[i].stav[j].content[0].trim().substring(0,30)+"..."});
+          var content = clanovi[i].stav[j].content[0];
+          if(content===undefined){
+            content = "";
+          }else{
+            content = content.trim().substring(0,30)+"...";
+          }
+          akt_references.stavovi.push({value: clanovi[i].stav[j].id, caption: content});
         }
       }
 
@@ -201,7 +207,13 @@
           if((podtacke[i].content[j]).hasOwnProperty("content")){ //ako nema content onda je referenca
             var alineja = podtacke[i].content[j];
             alineje.push(alineja);
-            akt_references.alineje.push({value: alineja.id, caption: alineja.content[0].trim().substring(0,30)+"..."});
+            var content = alineja.content[0];
+            if(content===undefined){
+              content = "";
+            }else{
+              content = content.trim().substring(0,30)+"...";
+            }
+            akt_references.alineje.push({value: alineja.id, caption: content});
           }
         }
       }
