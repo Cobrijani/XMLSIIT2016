@@ -29,7 +29,7 @@
       </xs:sequence>
       <xs:attribute ref="meta:id"/>
       <xs:attribute name="akt_id" type="xs:string"/>
-      <xs:anyAttribute namespace="##any"/>
+      <xs:anyAttribute namespace="##any" processContents="skip"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="obrazlozenje">
@@ -83,7 +83,7 @@
       <xs:sequence>
         <xs:element name="akt_ref">
           <xs:complexType>
-            <xs:anyAttribute namespace="##any"/>
+            <xs:anyAttribute namespace="##any" processContents="skip"/>
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="1" ref="meta:naziv"/>

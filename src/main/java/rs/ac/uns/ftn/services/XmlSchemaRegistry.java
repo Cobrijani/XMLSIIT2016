@@ -20,6 +20,8 @@ public class XmlSchemaRegistry implements Registry<String, Resource> {
 
   @Value("classpath:schemas/akt.xsd")
   private Resource aktXsd;
+  @Value("classpath:schemas/amandman.xsd")
+  private Resource amandmanXsd;
   @Value("classpath:schemas/metadata.xsd")
   private Resource metaXsd;
   @Value("classpath:schemas/sednica.xsd")
@@ -35,6 +37,7 @@ public class XmlSchemaRegistry implements Registry<String, Resource> {
     schemaRegistry.put("akt", aktXsd);
     schemaRegistry.put("meta", metaXsd);
     schemaRegistry.put("sednica", sednicaXsd);
+    schemaRegistry.put("amandman", amandmanXsd);
   }
 
   @PreDestroy
