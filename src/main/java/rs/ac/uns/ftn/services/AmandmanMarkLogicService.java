@@ -35,10 +35,8 @@ import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
 import rs.ac.uns.ftn.security.SecurityUtils;
 import rs.ac.uns.ftn.util.XMLUtil;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.namespace.QName;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +46,6 @@ import java.util.stream.Collectors;
 
 import static rs.ac.uns.ftn.constants.AmandmanPredicates.STANJE;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
-import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AMANDMAN_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.*;
 
@@ -58,7 +55,7 @@ import static rs.ac.uns.ftn.util.XMLUtil.*;
  */
 @Slf4j
 @Service
-public class AmandmanMarkLogicService implements AmandmanService{
+public class AmandmanMarkLogicService implements AmandmanService {
 
   private static final String AMANDMAN_REF = "/amandman.xml";
 
@@ -172,11 +169,7 @@ public class AmandmanMarkLogicService implements AmandmanService{
     log.info("Opened transaction for deleting amandman with id: {} and transaction id {}",
       id, transaction.getTransactionId());
 
-    final XMLDocumentManager documentManager = databaseClient.newXMLDocumentManager();
-
-
     try {
-      //deleteTripleStores(id);
       rdfService.updateTripleAmandman(id, AmandmanStates.POVUCEN, STANJE, AMANDMAN_GRAPH_URI, transaction);
       transaction.commit();
       log.info("Successfully deleted document with id: {}", id);
@@ -203,8 +196,6 @@ public class AmandmanMarkLogicService implements AmandmanService{
     final Optional<String> optTerm = Optional.ofNullable(term);
 
     final StructuredQueryBuilder sb = queryManager.newStructuredQueryBuilder();
-//    StructuredQueryDefinition definition =
-//      sb.and(sb.collection(AMANDMAN_REF), sb.properties(sb.term(optTerm.orElse(""))));
     final String terms[] = optTerm.map(x -> x.split(" "))
       .orElse(new String[0]);
     final StructuredQueryDefinition definition = sb.term(terms);
@@ -286,7 +277,7 @@ public class AmandmanMarkLogicService implements AmandmanService{
   }
 
   @Override
-  public List<AmandmanMetadata> getMetadata(Pageable pageable)  {
+  public List<AmandmanMetadata> getMetadata(Pageable pageable) {
     return getMetadata(pageable, null);
   }
 
@@ -388,7 +379,7 @@ public class AmandmanMarkLogicService implements AmandmanService{
         amandman.setId(idparts[idparts.length - 1]);
         amandman.setName(node.get("documentName").path("value").asText());
         String userPath = node.get("user").path("value").asText();
-        amandman.setUser(userPath.substring(userPath.lastIndexOf('/')+1,userPath.length()));
+        amandman.setUser(userPath.substring(userPath.lastIndexOf('/') + 1, userPath.length()));
         amandman.setDateCreated(node.get("dateCreated").path("value").asText());
         amandman.setDateModified(node.get("dateModified").path("value").asText());
         amandman.setState(node.get("state").path("value").asText());
@@ -440,10 +431,10 @@ public class AmandmanMarkLogicService implements AmandmanService{
 
     Amandman amandman = findById(id);
 
-    if(amDTO.getForVote() != null) {
+    if (amDTO.getForVote() != null) {
       xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@for", amandman.getDocumentAmRef().getDocument().getResults().getFor() + 1).build();
       documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
-    }else if(amDTO.getAgainst() != null){
+    } else if (amDTO.getAgainst() != null) {
       xmlPatch = builder.replaceValue("//am:amandman/am:document_am_ref/document:document/document:results/@against", amandman.getDocumentAmRef().getDocument().getResults().getAgainst() + 1).build();
       documentManager.patch(getDocumentId(AMANDMAN_FORMAT, am.getId()), xmlPatch);
     }

@@ -43,4 +43,5 @@ public class ExceptionControllerAdvice {
   public ResponseEntity<ValidationResult> validationResultResponseEntity(ValidationException ex) {
     return ResponseEntity.badRequest().body(new ValidationResult(false, ex.getMessage()));
   }
+
 }

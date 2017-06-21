@@ -14,9 +14,12 @@
       bindings: {}
     });
 
-  AktListController.$inject = ['$scope', 'toastr', '$state', 'GenericResource', 'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles'];
+  AktListController.$inject = ['$scope', 'toastr', '$state', 'GenericResource',
+    'exception', 'FileFactory', '$sce', '$log', 'UserJwtResource', 'roles', '$uibModal'
+  ];
 
-  function AktListController($scope, toastr, $state, GenericResource, exception, FileFactory, $sce, $log, UserJwtResource, roles) {
+  function AktListController($scope, toastr, $state, GenericResource, exception,
+    FileFactory, $sce, $log, UserJwtResource, roles, $uibModal) {
     var vm = this;
     vm.getDetails = getDetails;
     vm.getPdf = getPdf;
@@ -26,6 +29,7 @@
     vm.search = search;
     vm.reset = reset;
     vm.deleteAkt = deleteAkt;
+    vm.openPrompt = openPrompt;
 
     vm.aktStates = [];
     vm.selectedState = "";
@@ -47,6 +51,27 @@
 
     vm.dateFormat = "dd-MM-yyyy";
     /////////////////////
+
+    function openPrompt(aktId) {
+      var modal = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'app/home/akt/delete-akt-modal.html',
+        controller: 'DeleteAktModalController',
+        controllerAs: 'vm',
+        resolve: {
+          akt: function () {
+            return aktId;
+          }
+        }
+      });
+      modal.result.then(function (id) {
+        deleteAkt(id);
+      }, function () {
+        $log.info('Modal dismissed');
+      });
+    }
 
     function deleteAkt(aktId) {
       GenericResource.deleteEntity('akti', aktId)

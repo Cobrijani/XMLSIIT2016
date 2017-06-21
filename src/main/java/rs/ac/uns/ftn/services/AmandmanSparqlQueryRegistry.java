@@ -23,6 +23,9 @@ public class AmandmanSparqlQueryRegistry implements Registry<String, Resource> {
   @Value("classpath:sparql/amandmanCanBeDeleted.rq")
   private Resource amandmanCanBeDeleted;
 
+  @Value("classpath:sparql/amandman/amandmanIdByAktId.rq")
+  private Resource amandmanIdByAktId;
+
   private final HashMap<String, Resource> registry;
 
   public AmandmanSparqlQueryRegistry() {
@@ -34,6 +37,7 @@ public class AmandmanSparqlQueryRegistry implements Registry<String, Resource> {
     registry.put("amandman.rq", amandmanSparql);
     registry.put("amandmanCount.rq", amandmanCount);
     registry.put("amandmanCanBeDeleted.rq", amandmanCanBeDeleted);
+    registry.put("amandmanIdByAktId.rq", amandmanIdByAktId);
   }
 
   @PreDestroy

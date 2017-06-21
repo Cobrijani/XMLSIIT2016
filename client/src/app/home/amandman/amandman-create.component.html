@@ -39,5 +39,8 @@
       <xonomy ng-show="vm.xonomyMode" mode="vm.docMode" start-content="vm.amandman" spec="vm.spec"></xonomy>
       <textarea ng-show="!vm.xonomyMode" name="content" class="form-control" rows="20" id="akt" ng-model="vm.amandman" required></textarea>
     </div>
+    <div class="col-sm-12" ng-if="!vm.enableXonomy">
+      <div class="jumbotron text-center" style="color:red"> Desila se greska pri ucitavanju akta </div>
+    </div>
   </div>
 </div>

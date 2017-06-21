@@ -27,12 +27,15 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
+import rs.ac.uns.ftn.constants.AmandmanPredicates;
 import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
+import rs.ac.uns.ftn.exceptions.AktOperationException;
 import rs.ac.uns.ftn.exceptions.ForbiddenUserException;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
 import rs.ac.uns.ftn.model.AktMetadataPredicate;
 import rs.ac.uns.ftn.model.AktStates;
+import rs.ac.uns.ftn.model.AmandmanStates;
 import rs.ac.uns.ftn.model.generated.*;
 import rs.ac.uns.ftn.model.metadata.AktMetadata;
 import rs.ac.uns.ftn.model.metadata.AmandmanMetadata;
@@ -57,6 +60,7 @@ import static rs.ac.uns.ftn.constants.AktPredicates.STANJE;
 import static rs.ac.uns.ftn.constants.AktPredicates.VERZIJA;
 import static rs.ac.uns.ftn.constants.XmlNamespaces.*;
 import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AKT_GRAPH_URI;
+import static rs.ac.uns.ftn.constants.XmlSiitGraphNames.AMANDMAN_GRAPH_URI;
 import static rs.ac.uns.ftn.util.XMLUtil.*;
 
 /**
@@ -87,6 +91,8 @@ public class AktMarkLogicService implements AktService {
 
   private final Registry<String, Resource> aktSparqlRegistry;
 
+  private final Registry<String, Resource> amandmanSparqlRegistry;
+
   private final DatabaseClient databaseClient;
 
 
@@ -102,6 +108,7 @@ public class AktMarkLogicService implements AktService {
                              ValidationService validationService,
                              @Qualifier("XmlSchemaRegistry") Registry<String, Resource> schemaRegistry,
                              @Qualifier("AktSparqlQueryRegistry") Registry<String, Resource> aktSparqlRegistry,
+                             @Qualifier("AmandmanSparqlQueryRegistry") Registry<String, Resource> amandmanSparqlRegistry,
                              DatabaseClient databaseClient) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
@@ -111,6 +118,7 @@ public class AktMarkLogicService implements AktService {
     this.validationService = validationService;
     this.schemaRegistry = schemaRegistry;
     this.aktSparqlRegistry = aktSparqlRegistry;
+    this.amandmanSparqlRegistry = amandmanSparqlRegistry;
     this.databaseClient = databaseClient;
   }
 
@@ -265,16 +273,36 @@ public class AktMarkLogicService implements AktService {
     log.info("Opened transaction for deleting akt with id: {} and transaction id {}",
       id, transaction.getTransactionId());
 
-    final XMLDocumentManager documentManager = databaseClient.newXMLDocumentManager();
+    final FileHandle fileHandle =
+      Try.of(() -> new FileHandle(amandmanSparqlRegistry.getItemFromRegistry("amandmanIdByAktId.rq").getFile()))
+        .getOrElseThrow(x -> new InvalidServerConfigurationException("Cannot read amandmanIdByAktId.rq"));
+
+    List<String> amandmanIds;
 
     try {
-      documentManager.delete(getDocumentId(AKT_FORMAT, id), transaction);
+      final SPARQLQueryDefinition q = sparqlQueryManager.newQueryDefinition(fileHandle);
+      q.withBinding("aktId", String.format("%s/%s", AKT, id));
+      final JacksonHandle handle = new JacksonHandle();
+      sparqlQueryManager.executeSelect(q, handle, transaction);
+      amandmanIds = getIds(handle);
+      log.info("Successfully fetched amadman ids");
     } catch (Exception e) {
-      log.error("Error deleting document akt with id: {}, rollback in progress", id);
+      log.error("Unable to fetch amandman ids from rdf store for akt with id: {}", id);
       transaction.rollback();
+      throw new AktOperationException(String.format("Unable to fetch amandman ids from rdf store for akt with id: %s", id));
     }
 
-    log.info("Successfully deleted document with id: {}", id);
+    try {
+      amandmanIds.forEach(x ->
+        rdfService
+          .updateTripleAmandman(x, AmandmanStates.POVUCEN, AmandmanPredicates.STANJE, AMANDMAN_GRAPH_URI, transaction));
+      log.info("Amandman states successfully changed");
+    } catch (Exception e) {
+      log.error("Unable to change amandman states, rollback in progress");
+      transaction.rollback();
+      throw new AktOperationException("Unable to change amandman states, rollback in progress");
+    }
+
     try {
       rdfService.updateTripleAkt(id, AktStates.POVUCEN, STANJE, AKT_GRAPH_URI, transaction);
       transaction.commit();
@@ -282,7 +310,10 @@ public class AktMarkLogicService implements AktService {
     } catch (Exception e) {
       log.error("Error deleting tripple store for document with id {}, rollbacking", id);
       transaction.rollback();
+      throw new AktOperationException(String.format("Error deleting tripple store for document with id %s, rollbacking", id));
     }
+
+
   }
 
   @Override
