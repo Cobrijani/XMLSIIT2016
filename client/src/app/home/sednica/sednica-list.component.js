@@ -13,12 +13,14 @@
       bindings: {}
     });
 
-  SednicaListController.$inject = ['$scope', 'GenericResource', 'exception', 'FileFactory', '$state'];
+  SednicaListController.$inject = ['GenericResource', 'exception', 'UserJwtResource', 'roles'];
 
-  function SednicaListController($scope, GenericResource, exception, FileFactory, $state) {
+  function SednicaListController(GenericResource, exception, UserJwtResource, roles) {
     var vm = this;
 
     activate();
+
+    vm.notPredsednik = UserJwtResource.getUserPayload().auth !== roles.predsednik;
 
 
     function activate() {

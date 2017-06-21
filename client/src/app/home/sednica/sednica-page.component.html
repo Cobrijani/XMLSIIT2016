@@ -29,7 +29,7 @@
               <th>#</th>
               <th>Naziv akta</th>
               <th>&nbsp;</th>
-              <th>Stavi u red</th>
+              <th ng-hide="vm.notPredsednik">Stavi u red</th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +38,7 @@
               <td><a href ng-click="vm.getDetails('akti', akt.id)">{{akt.name}}</a></td>
               <td><a href ng-click="vm.getPdf('akti', akt.id)" class="fa fa-file-pdf-o"></a></td>
               <td>
-                <button type="button" class="btn btn-info" ng-click="vm.putInVotingRow(akt, $index)" ng-disabled="vm.votingDocuments.length > 0 || vm.votingDocument !== null">
+                <button type="button" class="btn btn-info" ng-click="vm.putInVotingRow(akt, $index)" ng-disabled="vm.votingDocuments.length > 0 || vm.votingDocument !== null" ng-hide="vm.notPredsednik">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
               </td>
@@ -86,7 +86,7 @@
               <td ng-if="dokument.type === 'am'"><a href ng-click="vm.getPdf('amandmani', dokument.id)" class="fa fa-file-pdf-o"></a></td>
               <td>{{dokument.type}}</td>
               <td>
-                <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)" ng-disabled="vm.votedAkt(dokument.aktId) == false && dokument.type === 'am' || vm.votingDocument !== null">
+                <button type="button" class="btn btn-info" ng-click="vm.putToVote(dokument, $index)" ng-disabled="vm.votedAkt(dokument.aktId) == false && dokument.type === 'am' || vm.votingDocument !== null"  ng-hide="vm.notPredsednik">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
               </td>
@@ -116,7 +116,7 @@
           </table>
         </div>
         <div class="row" ng-if="vm.votingDocument !== null">
-          <button type="button" class="btn btn-primary" ng-click="vm.closeVoting()">Zavrsi glasanje</button>
+          <button type="button" class="btn btn-primary" ng-click="vm.closeVoting()" ng-hide="vm.notPredsednik">Završi glasanje</button>
         </div>
         <div class="row" ng-if="vm.votingDocument !== null && !vm.userVote">
           <button type="button" class="btn btn-success" ng-click="vm.vote(vm.votingDocument, true)">Glasaj za</button>
@@ -149,10 +149,10 @@
                 <td>{{document.forVote}}</td>
                 <td>{{document.against}}</td>
                 <td ng-if="document.result === 'default'">
-                  <button type="button" class="btn btn-success" ng-click="vm.acceptDeclineDocument(document, 'accepted')">
+                  <button type="button" class="btn btn-success" ng-hide="vm.notPredsednik" ng-click="vm.acceptDeclineDocument(document, 'accepted')">
                 <span class="glyphicon glyphicon-ok"></span>
               </button>
-                  <button type="button" class="btn btn-danger" ng-click="vm.acceptDeclineDocument(document, 'rejected')">
+                  <button type="button" class="btn btn-danger" ng-hide="vm.notPredsednik" ng-click="vm.acceptDeclineDocument(document, 'rejected')">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
                 </td>
@@ -164,7 +164,7 @@
         </div>
       </div>
       <div class="col-sm-1">
-        <button type="button" class="btn btn-info" ng-click="vm.generateNewDocuments()" ng-disabled="vm.disableGenerate()">
+        <button type="button" class="btn btn-info" ng-hide="vm.notPredsednik" ng-click="vm.generateNewDocuments()" ng-disabled="vm.disableGenerate()">
         Prečisti
       </button>
       </div>

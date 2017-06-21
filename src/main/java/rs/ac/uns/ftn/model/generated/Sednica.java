@@ -29,7 +29,7 @@ import javax.xml.namespace.QName;
  *         &lt;element ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.sednica}amandmani"/>
  *       &lt;/sequence>
  *       &lt;attribute ref="{http://parlament.gov.rs/rs.ac.uns.ftn.model.metadata}id"/>
- *       &lt;anyAttribute/>
+ *       &lt;anyAttribute processContents='lax'/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
