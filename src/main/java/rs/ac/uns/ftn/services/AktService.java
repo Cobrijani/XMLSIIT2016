@@ -50,5 +50,4 @@ public interface AktService {
   AktDTO mergeAkt(Akt akt, ArrayList<Amandman> amandmans) throws JAXBException;
 
   String getSparqlResult(Pageable pageable, AktMetadataPredicate aktMetadataPredicate);
-
 }

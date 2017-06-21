@@ -24,6 +24,8 @@ public class XmlSchemaRegistry implements Registry<String, Resource> {
   private Resource amandmanXsd;
   @Value("classpath:schemas/metadata.xsd")
   private Resource metaXsd;
+  @Value("classpath:schemas/sednica.xsd")
+  private Resource sednicaXsd;
 
   public XmlSchemaRegistry() {
     schemaRegistry = new HashMap<>();
@@ -34,6 +36,7 @@ public class XmlSchemaRegistry implements Registry<String, Resource> {
   public void postConstruct() {
     schemaRegistry.put("akt", aktXsd);
     schemaRegistry.put("meta", metaXsd);
+    schemaRegistry.put("sednica", sednicaXsd);
     schemaRegistry.put("amandman", amandmanXsd);
   }
 

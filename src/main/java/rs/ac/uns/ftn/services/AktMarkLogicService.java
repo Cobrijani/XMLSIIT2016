@@ -626,6 +626,7 @@ public class AktMarkLogicService implements AktService {
     akt = findById(akt.getId());
 
     rdfService.updateTripleAkt(oldAktId, AktStates.STARI, VERZIJA, AKT_GRAPH_URI);
+    rdfService.updateTripleAkt(akt.getId(), AktStates.IZGLASAN_PRECISCEN, STANJE, AKT_GRAPH_URI);
 
     AktDTO aktDTO = new AktDTO();
     aktDTO.setId(akt.getId());

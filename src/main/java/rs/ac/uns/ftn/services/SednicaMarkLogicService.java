@@ -17,14 +17,13 @@ import com.marklogic.client.util.EditableNamespaceContext;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import rs.ac.uns.ftn.dto.akt.AktDTO;
 import rs.ac.uns.ftn.dto.akt.PutAktDTO;
-import rs.ac.uns.ftn.dto.amandman.AmandmanDTO;
 import rs.ac.uns.ftn.dto.amandman.AmandmanForSednicaDTO;
 import rs.ac.uns.ftn.dto.sednica.SednicaDTO;
 import rs.ac.uns.ftn.exceptions.InvalidServerConfigurationException;
@@ -73,6 +72,10 @@ public class SednicaMarkLogicService implements SednicaService{
 
   private final AmandmanService amandmanService;
 
+  private final ValidationService validationService;
+
+  private final Registry<String, Resource> schemaRegistry;
+
   @Value("classpath:sparql/sednica.rq")
   private Resource sednicaSparql;
 
@@ -84,7 +87,7 @@ public class SednicaMarkLogicService implements SednicaService{
 
 
   @Autowired
-  public SednicaMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, AktService aktService, AmandmanService amandmanService) {
+  public SednicaMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator, RdfService rdfService, SPARQLQueryManager sparqlQueryManager, AktService aktService, AmandmanService amandmanService, ValidationService validationService, @Qualifier("XmlSchemaRegistry") Registry<String, Resource> schemaRegistry) {
     this.documentManager = documentManager;
     this.queryManager = queryManager;
     this.identifierGenerator = identifierGenerator;
@@ -92,6 +95,8 @@ public class SednicaMarkLogicService implements SednicaService{
     this.sparqlQueryManager = sparqlQueryManager;
     this.aktService = aktService;
     this.amandmanService = amandmanService;
+    this.validationService = validationService;
+    this.schemaRegistry = schemaRegistry;
   }
 
 
@@ -181,6 +186,12 @@ public class SednicaMarkLogicService implements SednicaService{
       sednica.getAmandmani().getAmandmanRef().add(ref);
     }
 
+    Document document = Try.of(() ->
+      XMLUtil.toDocument(sednica)
+    ).getOrElseThrow(ex -> new InvalidServerConfigurationException());
+
+    validationService.validate(document, new Resource[]{schemaRegistry.getItemFromRegistry("sednica")});
+
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(SEDNICA_REF);
@@ -189,9 +200,9 @@ public class SednicaMarkLogicService implements SednicaService{
     handle.set(sednica);
     documentManager.write(getDocumentId(SEDNICA_FORMAT, sednica.getId()), documentMetadataHandle, handle);
 
-    Document document = findById(id, Document.class);
+    Document doc = findById(id, Document.class);
 
-    rdfService.extractAndWriteData(document, SEDNICA_GRAPH_URI);
+    rdfService.extractAndWriteData(doc, SEDNICA_GRAPH_URI);
 
   }
 

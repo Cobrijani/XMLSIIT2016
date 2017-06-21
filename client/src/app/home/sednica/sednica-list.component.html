@@ -2,7 +2,7 @@
   <div class="panel-heading clearfix">
     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sednice</h4>
     <div class="btn-group pull-right">
-      <a ui-sref="create-sednica" class="btn btn-success">Nova sednica</a>
+      <a ui-sref="create-sednica" class="btn btn-success" ng-hide = "vm.notPredsednik">Nova sednica</a>
     </div>
   </div>
   <table class="table">
@@ -10,9 +10,9 @@
     <tr>
       <th>#</th>
       <th>Naziv sednice</th>
-      <th>Datum odrzavanja</th>
-      <th>Vreme odrzavanja</th>
-      <th>Mesto odrzavanja</th>
+      <th>Datum održavanja</th>
+      <th>Vreme održavanja</th>
+      <th>Mesto održavanja</th>
     </tr>
     </thead>
     <tbody>

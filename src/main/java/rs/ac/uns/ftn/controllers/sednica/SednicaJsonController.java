@@ -27,6 +27,7 @@ import rs.ac.uns.ftn.services.SednicaService;
 import rs.ac.uns.ftn.util.XMLUtil;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,11 @@ public class SednicaJsonController {
 
   @GetMapping
   public ResponseEntity<List<SednicaDTO>> findAll(Pageable pageable) {
-    return ResponseEntity.ok(sednicaService.getMetadata(pageable));
+    List<SednicaDTO> sednice = new ArrayList<SednicaDTO>();
+    for(Sednica s : sednicaService.findAll(pageable)){
+      sednice.add(createDTOFromSednica(s));
+    }
+    return ResponseEntity.ok(sednice);
   }
 
   @GetMapping(value = "/{id}")

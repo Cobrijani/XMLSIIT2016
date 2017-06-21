@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;anyAttribute/>
+ *                 &lt;anyAttribute processContents='lax'/>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -90,7 +90,7 @@ public class Akti {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;anyAttribute/>
+     *       &lt;anyAttribute processContents='lax'/>
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>

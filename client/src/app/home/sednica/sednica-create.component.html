@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <label for="place">Vreme:</label>
-            <div uib-timepicker ng-model="vm.sednica.time" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></div>
+            <div uib-timepicker ng-model="vm.sednica.time" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false" ng-required="true"></div>
           </div>
         </form>
       </div>
@@ -120,7 +120,7 @@
       </table>
     </div>
     <div class="col-sm-2 col-xs-offset-1">
-      <button class="btn btn-default" ng-click="newSednicaForm.$invalid || vm.createNewSednica(vm.sednica)" ng-disabled="loginForm.$invalid"
+      <button class="btn btn-default" ng-click="newSednicaForm.$invalid || vm.addedAkts.length < 1 || vm.createNewSednica(vm.sednica)" ng-disabled="newSednicaForm.$invalid || vm.addedAkts.length < 1"
         name='newSednica'>Potvrdi
     </button>
     </div>

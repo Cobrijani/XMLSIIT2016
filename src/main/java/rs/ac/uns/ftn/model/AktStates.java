@@ -9,6 +9,7 @@ public class AktStates {
   public static String IZGLASAN = "izglasan";
   public static String ODBIJEN = "odbijen";
   public static String POVUCEN = "povucen";
+  public static String IZGLASAN_PRECISCEN = "izglasan-preciscen";
 
   public static String STARI = "stari";
 

@@ -13,9 +13,9 @@
       bindings: {}
     });
 
-  SednicaPageController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory', '$stateParams', 'Restangular', 'toastr'];
+  SednicaPageController.$inject = ['$scope', 'GenericResource', 'exception', '$state', 'FileFactory', '$stateParams', 'Restangular', 'toastr', 'UserJwtResource', 'roles'];
 
-  function SednicaPageController($scope, GenericResource, exception, $state, FileFactory, $stateParams, Restangular, toastr) {
+  function SednicaPageController($scope, GenericResource, exception, $state, FileFactory, $stateParams, Restangular, toastr, UserJwtResource, roles) {
     var vm = this;
     vm.opened = false;
     vm.sednica = {akti : [], amandmani : []};
@@ -28,6 +28,7 @@
     vm.defaultAmandmans = [];
     vm.userVote = false;
     vm.generatedDocuments = [];
+    vm.notPredsednik = UserJwtResource.getUserPayload().auth !== roles.predsednik;
 
 
     vm.getDetails = getDetails;
@@ -275,7 +276,7 @@
       for(var i = 0 ; i < vm.votedDocuments.length; i++){
         var doc = vm.votedDocuments[i];
         if (doc.type == 'akt' && doc.result == 'accepted'){
-          for(var j = 0 ; i < vm.votingDocuments.length; i++){
+          for(var j = 0 ; j < vm.votingDocuments.length; j++){
             var am = vm.votingDocuments[j];
             if(am.aktId == doc.id){
               return true;
@@ -314,8 +315,8 @@
       for(var i = 0; i < vm.votedDocuments.length; i++){
         var new_doc = vm.votedDocuments[i];
         if(new_doc.type == 'am'){
-          for(var i = 0; i < documents.length; i++) {
-            var doc = documents[i];
+          for(var j = 0; j < documents.length; j++) {
+            var doc = documents[j];
             if(doc.aktId == new_doc.aktId){
               doc.amandmanIds.push(new_doc.id)
             }

@@ -95,10 +95,6 @@ public class AktJsonController {
       AktDTO aktDTO = aktService.mergeAkt(akt, amandmans);
       akts.add(aktDTO);
     }
-
-
     return new ResponseEntity<>(akts, HttpStatus.CREATED);
   }
-
-
 }

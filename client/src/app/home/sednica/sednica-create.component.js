@@ -37,10 +37,18 @@
     activate();
 
     function activate() {
-      GenericResource.getEntities('akti')
+      GenericResource.getEntities('akti', {'state' : 'nov'})
         .then(function (success) {
           vm.akti = success.content;
           console.log(vm.akti);
+          GenericResource.getEntities('akti', {'state' : 'izglasan-preciscen'})
+            .then(function (success) {
+              vm.akti = vm.akti.concat(success.content);
+              console.log(vm.akti);
+            })
+            .catch(function (error) {
+              exception.catcher(error);
+            });
         })
         .catch(function (error) {
           exception.catcher(error);
@@ -109,6 +117,8 @@
       vm.addedAmandmans.push(amandman);
       vm.sednica.amandmani.push(amandman.id);
     }
+
+
   }
 })();
 

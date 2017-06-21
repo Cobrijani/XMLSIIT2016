@@ -48,5 +48,8 @@ public class AktMetadataPredicate implements SearchPredicate {
     Optional.ofNullable(webRequest.getParameter("state"))
       .filter(x -> !x.trim().equals(""))
       .ifPresent(this::setAktState);
+    Optional.ofNullable(webRequest.getParameter("version"))
+      .filter(x -> !x.trim().equals(""))
+      .ifPresent(this::setAktState);
   }
 }
