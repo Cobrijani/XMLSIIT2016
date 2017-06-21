@@ -161,7 +161,7 @@
         });
       }
 
-      //izdvoj iz stavova id i deo contanta
+      //izdvoj iz stavova id i deo contenta
       for (var i = 0; i < clanovi.length; i++) {
         stavovi = stavovi.concat(clanovi[i].stav);
         for (var j = 0; j < clanovi[i].stav.length; j++){

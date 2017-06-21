@@ -299,7 +299,8 @@ public class AmandmanMarkLogicService implements AmandmanService {
       "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumKreiranja> ?dateCreated .\n" +
       "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/datumAzuriranja> ?dateModified .\n" +
       "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/stanje> ?state .\n" +
-      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/verzija> ?version .\n";
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/verzija> ?version .\n" +
+      "  ?documentId <http://parlament.gov.rs/rs.ac.uns.ftn.model.pred/menja> ?aktId .\n";
 
 
     final StringBuilder queryBuilder = new StringBuilder(query);
@@ -315,6 +316,11 @@ public class AmandmanMarkLogicService implements AmandmanService {
       .map(AmandmanMetadataPredicate::getState)
       .ifPresent(x ->
         queryBuilder.append("FILTER(regex(?state, ?searchStanje)) \n"));
+
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getAktId)
+      .ifPresent(x ->
+        queryBuilder.append("FILTER(regex(?aktId, ?searchAktId)) \n"));
 
     Optional.ofNullable(amandmanMetadataPredicate)
       .map(AmandmanMetadataPredicate::getDateCreatedFromTimestamp)
@@ -357,6 +363,10 @@ public class AmandmanMarkLogicService implements AmandmanService {
       .map(AmandmanMetadataPredicate::getState)
       .ifPresent(x -> sparqlQueryDefinition.withBinding("searchStanje", amandmanMetadataPredicate.getState()));
 
+    Optional.ofNullable(amandmanMetadataPredicate)
+      .map(AmandmanMetadataPredicate::getAktId)
+      .ifPresent(x -> sparqlQueryDefinition.withBinding("searchAktId", amandmanMetadataPredicate.getAktId()));
+
 
     sparqlQueryManager.executeSelect(sparqlQueryDefinition, handle, pageable.getOffset() + 1);
 
@@ -384,6 +394,8 @@ public class AmandmanMarkLogicService implements AmandmanService {
         amandman.setDateModified(node.get("dateModified").path("value").asText());
         amandman.setState(node.get("state").path("value").asText());
         amandman.setVersion(node.get("version").path("value").asText());
+        String aktIdPath = node.get("aktId").path("value").asText();
+        amandman.setAktId(aktIdPath.substring(aktIdPath.lastIndexOf('/')+1,aktIdPath.length()));
         metadatas.add(amandman);
       }));
 

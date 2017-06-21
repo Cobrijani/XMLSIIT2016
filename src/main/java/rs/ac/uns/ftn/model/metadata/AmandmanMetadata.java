@@ -27,4 +27,6 @@ public class AmandmanMetadata {
   private String state;
 
   private String version;
+
+  private String aktId;
 }

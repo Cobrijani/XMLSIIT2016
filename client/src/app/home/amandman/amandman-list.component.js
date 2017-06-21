@@ -26,8 +26,16 @@
     vm.search = search;
     vm.reset = reset;
     vm.delete = deleteAmandman;
+    vm.getAktName = getAktName;
+    vm.getAktDetails = getAktDetails;
 
-    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik;
+    vm.amandmanStates = [];
+    vm.selectedState = "";
+
+    vm.akti = [];
+    vm.selectedAktId = "";
+
+    vm.isOdbornik = UserJwtResource.getUserPayload().auth === roles.odbornik || UserJwtResource.getUserPayload().auth === roles.predsednik;
     vm.username = UserJwtResource.getUserPayload().sub;
 
     vm.pageOptions = {
@@ -53,21 +61,28 @@
     }
 
     function search() {
-      if (vm.dateFrom) {
-        var from = vm.dateFrom.getTime() / 1000;
-      }
-      if (vm.dateTo) {
-        var to = vm.dateTo.getTime() / 1000;
-      }
-
-      getEntities({
+      var q = {
         size: vm.pageOptions.size,
         page: vm.pageOptions.page - 1,
         q: vm.searchText,
-        from: from,
-        to: to,
         self: vm.self
-      });
+      };
+      if (vm.dateFrom) {
+        q.from = vm.dateFrom.getTime() / 1000;
+      }
+      if (vm.dateTo) {
+        q.to = vm.dateTo.getTime() / 1000;
+      }
+
+      if (vm.selectedState) {
+        q.state = vm.selectedState;
+      }
+
+      if (vm.selectedAktId) {
+        q.aktId = vm.selectedAktId;
+      }
+
+      getEntities(q);
     }
 
     function reset() {
@@ -75,6 +90,8 @@
       vm.dateTo = '';
       vm.searchText = '';
       vm.self = false;
+      vm.selectedState = "";
+      vm.selectedAktId = "";
       search();
     }
 
@@ -92,6 +109,14 @@
 
     function activate() {
       getEntities({size: vm.pageOptions.size, page: vm.pageOptions.page - 1, self: vm.self});
+
+      GenericResource.getEntities('amandmanStates')
+        .then(function (success) {
+          vm.amandmanStates = [""].concat(success);
+        })
+        .catch(function (error) {
+          $log.error(error.data.message);
+        });
     }
 
     function getEntities(params) {
@@ -101,6 +126,14 @@
           vm.pageOptions.page = vm.amandmani.number + 1; //counting starts from 1 on server from 0
           vm.pageOptions.size = vm.amandmani.size;
           vm.pageOptions.sort = vm.amandmani.sort;
+        })
+        .catch(function (error) {
+          exception.catcher(error);
+        });
+
+      GenericResource.getEntities('akti')
+        .then(function (success) {
+          vm.akti = success.content;
         })
         .catch(function (error) {
           exception.catcher(error);
@@ -119,12 +152,23 @@
         });
     }
 
+    function getAktName(aktId){
+      return _.result(_.find(vm.akti, { 'id': aktId }), 'name');
+    }
+
 
     function getDetails(id) {
       FileFactory.getDocumentAsArrayBuffer('amandmani', id, 'text/html')
         .then(function (success) {
           FileFactory.openFileInNewWindow(success.data, 'text/html')
 
+        });
+    }
+
+    function getAktDetails(id) {
+      FileFactory.getDocumentAsArrayBuffer('akti', id, 'text/html')
+        .then(function (success) {
+          FileFactory.openFileInNewWindow(success.data, 'text/html');
         });
     }
 
