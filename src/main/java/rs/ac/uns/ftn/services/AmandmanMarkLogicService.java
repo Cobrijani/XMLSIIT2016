@@ -75,12 +75,20 @@ public class AmandmanMarkLogicService implements AmandmanService {
 
   private final DatabaseClient databaseClient;
 
+  private final ValidationService validationService;
+
+  private final Registry<String, Resource> schemaRegistry;
+
   @Value("classpath:sparql/amandman.rq")
   private Resource amandmanSparql;
 
   @Autowired
-  public AmandmanMarkLogicService(XMLDocumentManager documentManager, QueryManager queryManager, IdentifierGenerator identifierGenerator,
+  public AmandmanMarkLogicService(XMLDocumentManager documentManager,
+                                  QueryManager queryManager,
+                                  IdentifierGenerator identifierGenerator,
                                   RdfService rdfService, SPARQLQueryManager sparqlQueryManager,
+                                  ValidationService validationService,
+                                  @Qualifier("XmlSchemaRegistry") Registry<String, Resource> schemaRegistry,
                                   @Qualifier("AmandmanSparqlQueryRegistry") Registry<String, Resource> amandmanSparqlRegistry,
                                   DatabaseClient databaseClient) {
     this.documentManager = documentManager;
@@ -88,6 +96,8 @@ public class AmandmanMarkLogicService implements AmandmanService {
     this.identifierGenerator = identifierGenerator;
     this.rdfService = rdfService;
     this.sparqlQueryManager = sparqlQueryManager;
+    this.validationService = validationService;
+    this.schemaRegistry = schemaRegistry;
     this.amandmanSparqlRegistry = amandmanSparqlRegistry;
     this.databaseClient = databaseClient;
   }
@@ -208,7 +218,7 @@ public class AmandmanMarkLogicService implements AmandmanService {
   }
 
   @Override
-  public void add(Amandman amandman) {
+  public Amandman add(Amandman amandman) {
     final String id = identifierGenerator.generateIdentity();
     amandman.setId(id);
 
@@ -252,6 +262,11 @@ public class AmandmanMarkLogicService implements AmandmanService {
     amandman.getZaglavljeAmandman().getNaziv().getOtherAttributes().put(new QName("property"), PRED_PREF + ":imeDokumenta");
     amandman.getZaglavljeAmandman().getNaziv().getOtherAttributes().put(new QName("datatype"), "xs:string");
 
+    Document document = Try.of(() ->
+      XMLUtil.toDocument(amandman)
+    ).getOrElseThrow(ex -> new InvalidServerConfigurationException());
+
+    validationService.validate(document, new Resource[]{schemaRegistry.getItemFromRegistry("amandman")});
 
     DocumentMetadataHandle documentMetadataHandle = new DocumentMetadataHandle();
     documentMetadataHandle.getCollections().add(AMANDMAN_REF);
@@ -259,10 +274,8 @@ public class AmandmanMarkLogicService implements AmandmanService {
     JAXBHandle<Amandman> handle = getJaxbHandle(Amandman.class);
     handle.set(amandman);
     documentManager.write(getDocumentId(AMANDMAN_FORMAT, amandman.getId()), documentMetadataHandle, handle);
-
-    Document document = findById(id, Document.class);
-
     rdfService.extractAndWriteData(document, AMANDMAN_GRAPH_URI);
+    return amandman;
   }
 
   @Override

@@ -24,7 +24,7 @@ public interface AmandmanService {
 
   List<Amandman> findAllContaining(Pageable pageable, String term);
 
-  void add(Amandman amandman);
+  Amandman add(Amandman amandman);
 
   void deleteAll();
 
