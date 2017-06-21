@@ -21,6 +21,8 @@ public class AmandmanMetadataPredicate implements SearchPredicate {
 
   private String state;
 
+  private String aktId;
+
   private boolean owned = false;
 
   private AmandmanMetadataPredicate() {
@@ -48,5 +50,8 @@ public class AmandmanMetadataPredicate implements SearchPredicate {
     Optional.ofNullable(webRequest.getParameter("state"))
       .filter(x -> !x.trim().equals(""))
       .ifPresent(this::setState);
+    Optional.ofNullable(webRequest.getParameter("aktId"))
+      .filter(x -> !x.trim().equals(""))
+      .ifPresent(this::setAktId);
   }
 }

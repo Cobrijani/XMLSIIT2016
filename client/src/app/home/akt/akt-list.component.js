@@ -116,13 +116,13 @@
       });
 
       GenericResource.getEntities('aktStates')
-        .then(function (success) {
-          vm.aktStates = [""].concat(success);
-        })
-        .catch(function (error) {
-          $log.error(error.data.message);
-        });
-    }
+      .then(function (success) {
+        vm.aktStates = [""].concat(success);
+      })
+      .catch(function (error) {
+        $log.error(error.data.message);
+      });
+  }
 
     function getEntities(params) {
       GenericResource.getEntities('akti', params)
