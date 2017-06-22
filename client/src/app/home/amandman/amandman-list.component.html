@@ -9,12 +9,12 @@
   <div class="panel-body">
     <form class="form-inline">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="input-group">
               <input placeholder="od datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateFrom"
-                     is-open="vm.dateFromPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas"
-                     clear-text="Poništi" close-text="Zatvori" />
+                is-open="vm.dateFromPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas"
+                clear-text="Poništi" close-text="Zatvori" />
               <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="vm.openDateFrom()"><i
               class="glyphicon glyphicon-calendar"></i></button>
@@ -22,60 +22,62 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <p class="input-group">
             <input placeholder="do datuma kreiranja" type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" ng-model="vm.dateTo"
-                   is-open="vm.dateToPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas" clear-text="Poništi"
-                   close-text="Zatvori" />
+              is-open="vm.dateToPopup.opened" datepicker-options="vm.dateOptions" ng-required="true" current-text="Danas" clear-text="Poništi"
+              close-text="Zatvori" />
             <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="vm.openDateTo()"><i
               class="glyphicon glyphicon-calendar"></i></button>
           </span>
           </p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <input ng-model="vm.searchText" type="text" class="form-control" placeholder="Unesi sadrzaj">
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <div class="form-group">
             <label class="control-label"> Status: </label>
             <select class="form-control" ng-options="item as item for item in vm.amandmanStates track by item" ng-model="vm.selectedState"></select>
           </div>
         </div>
-        <div class="col-sm-2">
-          <div class="form-group">
-            <label class="control-label"> Akt: </label>
-            <select class="form-control" ng-options="akt.id as akt.name for akt in vm.akti track by akt.id" ng-model="vm.selectedAktId"></select>
-          </div>
-        </div>
       </div>
       <div class="row">
-
-      </div>
-      <div class="row " style="margin-top:5px">
-        <div class="col-sm-4">
+        <div class="col-sm-4" style="margin-top:5px">
           <div class="form-group">
             <div class="checkbox" ng-show="vm.isOdbornik">
               <label class="control-label"> <input type="checkbox" ng-model="vm.self"> Prikaži sopstvene dokumente samo</label>
             </div>
           </div>
         </div>
+        <div class="col-sm-3 col-sm-offset-5">
+          <div class="form-group">
+            <label class="control-label"> Akt: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+            <select class="form-control" ng-options="akt.id as akt.name for akt in vm.akti track by akt.id" ng-model="vm.selectedAktId"></select>
+          </div>
+        </div>
+
+      </div>
+      <div class="row " style="margin-top:5px">
+
+
       </div>
     </form>
   </div>
   <table class="table">
     <thead>
-    <tr>
-      <th>#</th>
-      <th>Naziv amandmana</th>
-      <th>Datum kreiranja</th>
-      <th>Datum poslednje promene</th>
-      <th>Status</th>
-      <th>Autor</th>
-      <th>Akt</th>
-      <th>&nbsp;</th>
-      <th>Akcije</th>
-    </tr>
+      <tr>
+        <th>#</th>
+        <th>Naziv amandmana</th>
+        <th>Datum kreiranja</th>
+        <th>Datum poslednje promene</th>
+        <th>Status</th>
+        <th>Autor</th>
+        <th>Akt</th>
+        <th>&nbsp;</th>
+        <th>Akcije</th>
+      </tr>
     </thead>
     <tbody>
       <tr ng-repeat="amandman in vm.amandmani.content">
@@ -87,10 +89,11 @@
         <td>{{amandman.user}}</td>
         <td><a href ng-click="vm.getAktDetails(amandman.aktId)">{{vm.getAktName(amandman.aktId)}}</a></td>
         <td><a href ng-click="vm.getPdf(amandman.id)" class="fa fa-file-pdf-o"></a></td>
-        <td><button ng-show="amandman.state == 'nov' && amandman.user == vm.username" class="btn-sm btn-danger pull-right" ng-click="vm.delete(amandman.id)" ng-show="amandman.state == 'nov'"><i class="fa fa-times"></i> Odustani</button></td>
+        <td><button ng-show="amandman.state == 'nov' && amandman.user == vm.username" class="btn-sm btn-danger pull-right" ng-click="vm.delete(amandman.id)"
+            ng-show="amandman.state == 'nov'"><i class="fa fa-times"></i> Odustani</button></td>
       </tr>
     </tbody>
   </table>
-  <div ng-show="vm.amandmani" uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.amandmani.totalElements" ng-model="vm.pageOptions.page"
-       ng-change="vm.pageChanged()" next-text="Sledeća stranica" previous-text="Prošla stranica"></div>
+  <div ng-show="vm.amandmani" uib-pagination items-per-page="vm.pageOptions.size" total-items="vm.amandmani.totalElements"
+    ng-model="vm.pageOptions.page" ng-change="vm.pageChanged()" next-text="Sledeća stranica" previous-text="Prošla stranica"></div>
 </div>
